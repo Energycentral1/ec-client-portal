@@ -28,7 +28,6 @@ const SITE_TYPES = ["website_ad", "community_takeover", "sponsorship"];
 
 /** Benchmark keys for the worked-out rates (see the benchmarks table). */
 const RATE_KEY: Record<string, string> = { CTR: "ctr", Attendance: "attendance" };
-const pctOf = (v: number) => `${(v * 100).toFixed(v < 0.1 ? 2 : 1).replace(/\.?0+$/, "")}%`;
 /** How a number compares with the Energy Central average. Within 5% either way reads as "on par". */
 function Versus({ value, avg }: { value: number | undefined; avg: number | undefined }) {
   if (value == null || !avg) return null;
@@ -214,8 +213,6 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
         const rates = ch.rates.filter(([, n, d]) => cols.some(([k]) => k === n) && cols.some(([k]) => k === d));
         const lead = cols[0]?.[0];
         const max = lead ? Math.max(1, ...withNumbers.map((l) => l.values[lead] ?? 0)) : 1;
-        // One average row per deliverable type in this channel that has benchmarks (PowerSession and webinar differ).
-        const benchTypes = [...new Set(withNumbers.map((l) => l.type))].filter((t) => cols.some(([k]) => bench(t, k) != null) || rates.some(([label]) => bench(t, RATE_KEY[label]) != null));
         const showLeads = ch.id === "events" && ls.some((l) => leadsFor(l) > 0);
         return (
           <section key={ch.id} id={ch.id} className="mt-10 scroll-mt-16">
@@ -237,14 +234,6 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
                     {showLeads && <th className="px-4 py-3 text-right font-medium">Leads</th>}</tr>
                 </thead>
                 <tbody>
-                  {benchTypes.map((t) => (
-                    <tr key={`avg-${t}`} className="border-b border-line bg-mist/70 text-ink/70">
-                      <td className="px-4 py-2.5" colSpan={2}>Energy Central average{benchTypes.length > 1 || ch.types.length > 1 ? `, ${(TYPE_LABEL[t] ?? t).toLowerCase() === "powersession" ? "PowerSession" : (TYPE_LABEL[t] ?? t).toLowerCase()}` : ""}</td>
-                      {cols.map(([k]) => <td key={k} className="px-4 py-2.5 text-right tabular-nums">{bench(t, k) != null ? fmt(bench(t, k)) : ""}</td>)}
-                      {rates.map(([label]) => <td key={label} className="px-4 py-2.5 text-right tabular-nums">{bench(t, RATE_KEY[label]) != null ? pctOf(bench(t, RATE_KEY[label])!) : ""}</td>)}
-                      {showLeads && <td />}
-                    </tr>
-                  ))}
                   {ls.map((l) => (
                     <tr key={l.key} className="border-b border-line align-top last:border-0">
                       <td className="whitespace-nowrap px-4 py-3 tabular-nums">{fmtDate(l.date)}</td>
