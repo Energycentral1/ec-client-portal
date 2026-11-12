@@ -176,10 +176,12 @@ async function main() {
         if (!issue) { problems.push(`${label}: no ${pub === "weekly" ? "Weekly" : "Daily"} issue that day`); continue; }
         const from = d.start_date, to = addDays(d.start_date, 14);
         add(d, "impressions", num(issue.stats?.email?.opens), "beehiiv", from, to);
-        if (has(d, "clicks")) continue;
         const links = ((issue.stats?.clicks ?? []) as any[]).map((c) => { try { return new URL(c.url); } catch { return null; } })
           .filter((u): u is URL => !!u && u.host === SHORT_DOMAIN && squash(u.pathname).startsWith(token(client.name)));
         const paths = [...new Set(links.map((u) => u.pathname.slice(1)))];
+        // A placement that already has clicks (a legacy sheet or an earlier run) has used its links: mark them, so a later
+        // day sharing the same weekly link is never counted again on a second run.
+        if (has(d, "clicks")) { for (const path of paths) if (!usedLinks.has(path)) usedLinks.set(path, d.start_date); continue; }
         if (!paths.length) { problems.push(`${label}: no ${client.name} short link in the issue's clicks; clicks not pulled`); continue; }
         let human = 0, total = 0, top: { name: string; clicks: number } | null = null;
         const counted: string[] = [];
