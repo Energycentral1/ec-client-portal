@@ -64,7 +64,9 @@ async function shortClicks(path: string, from: string, to: string) {
   const id = link.idString ?? link.id;
   const s = await sio(`https://statistics.short.io/statistics/link/${id}?period=custom&startDate=${from}&endDate=${to}&tz=America/New_York`);
   const all = await sio(`https://statistics.short.io/statistics/link/${id}?period=total&tz=America/New_York`);
-  return { total: num(s.totalClicks), human: num(s.humanClicks), allTotal: num(all.totalClicks), allHuman: num(all.humanClicks), id };
+  const top = (rows: any[], key: string) => (rows ?? []).slice().sort((a, b) => b.score - a.score).slice(0, 3).map((r) => `${r[key] ?? r.city ?? r.country} ${r.score}`).join(", ");
+  return { total: num(s.totalClicks), human: num(s.humanClicks), allTotal: num(all.totalClicks), allHuman: num(all.humanClicks), id,
+    where: `cities: ${top(all.city, "cityName")}; countries: ${top(all.country, "countryName")}; keys: ${Object.keys(all).join(",")}` };
 }
 
 const fmt = (v: number | null | undefined) => (v == null ? "—" : Math.round(v).toLocaleString("en-US"));
@@ -122,7 +124,7 @@ async function main() {
           const bhTotal = num(l.email?.clicks ?? l.total_clicks), bhUnique = num(l.email?.unique_clicks ?? l.total_unique_clicks);
           try {
             const s = await shortClicks(path, d.start_date!, addDays(d.start_date!, 14));
-            parts.push(`${path}: short.io 14 days human ${fmt(s.human)} / total ${fmt(s.total)}, all time human ${fmt(s.allHuman)} / total ${fmt(s.allTotal)}; beehiiv total ${fmt(bhTotal)} / unique ${fmt(bhUnique)}`);
+            parts.push(`${path}: short.io 14 days human ${fmt(s.human)} / total ${fmt(s.total)}, all time human ${fmt(s.allHuman)} / total ${fmt(s.allTotal)} [${s.where}]; beehiiv total ${fmt(bhTotal)} / unique ${fmt(bhUnique)}`);
           } catch (err) { parts.push(`${path}: short.io error ${(err as Error).message.slice(0, 80)}; beehiiv total ${fmt(bhTotal)} / unique ${fmt(bhUnique)}`); }
         }
         clickCell = parts.join(" | ");
