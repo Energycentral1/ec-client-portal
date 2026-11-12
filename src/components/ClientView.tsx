@@ -120,7 +120,9 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   // Proof files live in a private bucket; these links work for an hour.
   const { data: signed } = paths.length ? await supabase.storage.from("proofs").createSignedUrls(paths, 3600) : { data: [] };
   const fileUrl = (p: Proof) => (signed ?? []).find((x) => x.path === p.file_path)?.signedUrl ?? null;
-  const rows = (dels ?? []) as Deliverable[];
+  // Marketing emails are the sends that promote a client's own event. They are not something the client bought,
+  // so they never appear on the client page or in its counts; only paid emails ("Email Blast") do. The back-end view keeps them.
+  const rows = ((dels ?? []) as Deliverable[]).filter((d) => admin || d.deliverable_type !== "marketing_email");
   const today = new Date().toISOString().slice(0, 10);
   const nlDates = [...new Set(rows.filter((d) => d.deliverable_type === "newsletter_ad" && d.start_date).map((d) => d.start_date!))];
   const { data: issues } = nlDates.length
