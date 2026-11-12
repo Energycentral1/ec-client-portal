@@ -89,11 +89,16 @@ async function shortClicks(path: string, from: string, to: string) {
 const token = (name: string) => name.toLowerCase().split(/\s+/)[0].replace(/[^a-z0-9]/g, "").slice(0, 5);
 const squash = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
 const isMarketing = (p: Post) => tagsOf(p).some((t) => t.includes("marketing email"));
-const isPaid = (p: Post) => !isMarketing(p) && (tagsOf(p).some((t) => t === "paid email" || t === "type: paid partner email blast")
-  || (!tagsOf(p).length && /\bpaid\b/i.test(p.title)));
+const paidTag = (p: Post) => tagsOf(p).some((t) => t === "paid email" || t === "type: paid partner email blast");
+/** Paid sends only. A post tagged both paid and marketing counts as paid when its title says "paid". */
+const isPaid = (p: Post) => (paidTag(p) && (!isMarketing(p) || /\bpaid\b/i.test(p.title))) || (!tagsOf(p).length && /\bpaid\b/i.test(p.title));
+/** beehiiv brand tags that use a short name: tag text -> client name. */
+const BRAND_ALIASES: Record<string, string> = { ltm: "ltimindtree" };
 const brandMatches = (p: Post, client: string) => {
   const brand = tagsOf(p).filter((t) => t.startsWith("brand:"));
-  return brand.length ? brand.some((t) => squash(t).includes(token(client))) : squash(p.title).includes(token(client));
+  const alias = Object.entries(BRAND_ALIASES).filter(([, real]) => squash(client).startsWith(real)).map(([as]) => as);
+  const hit = (text: string) => squash(text).includes(token(client)) || alias.some((a) => new RegExp(`\\b${a}\\b`, "i").test(text.replace(/^brand:\s*/i, "")));
+  return brand.length ? brand.some(hit) : hit(p.title);
 };
 const isDailyIssue = (p: Post) => tagsOf(p).includes("daily newsletter")
   || (!tagsOf(p).length && new Date(p.publish_date * 1000).getUTCHours() >= 10 && new Date(p.publish_date * 1000).getUTCHours() <= 13 && !/promo|paid|webinar|powersession|trivia/i.test(p.title));
