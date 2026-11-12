@@ -148,7 +148,10 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   const thisYear = today.slice(0, 4);
   const defaultYear = years.includes(thisYear) ? thisYear : years[0] ?? thisYear;
   const year = period === "all" ? null : period && years.includes(period) ? period : defaultYear;
-  const rows = year ? visible.filter((d) => d.start_date ? yearOf(d.start_date) === year : year === defaultYear) : visible;
+  // The headline, strip, leads and "who you reached" cover everything the client has done with us; the year only filters the
+  // placement tables lower down (Chloe, Nov 12 2026: a year picker at the top was "too much control").
+  const rows = visible;
+  const inYear = (l: { date: string | null }) => !year || (l.date ? yearOf(l.date) === year : year === defaultYear);
   const nlDates = [...new Set(rows.filter((d) => d.deliverable_type === "newsletter_ad" && d.start_date).map((d) => d.start_date!))];
   const { data: issues } = nlDates.length
     ? await supabase.from("newsletter_issues").select("publication, issue_date, title, web_url").in("issue_date", nlDates)
@@ -276,9 +279,10 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   const boughtRows = [...bought.values()].sort((a, b) => CHANNELS.findIndex((c) => c.types.includes(a.type)) - CHANNELS.findIndex((c) => c.types.includes(b.type)) || a.label.localeCompare(b.label));
   // The overview: the period in one sentence, then one row per channel with the numbers a client quotes.
   const totals = boughtRows.reduce((t, g) => ({ ran: t.ran + g.ran, total: t.total + g.total }), { ran: 0, total: 0 });
-  const periodMeta = year ? (year === thisYear ? `January to December ${year}` : year) : dated.length ? `Since ${MONTH_YEAR.format(new Date(ms(dated[0])))}` : null;
+  const firstYear = dated[0]?.slice(0, 4);
+  const periodMeta = dated.length ? `Since ${MONTH_YEAR.format(new Date(ms(dated[0])))}` : null;
   const placementsMeta = totals.total > 0 ? `${totals.ran} of ${totals.total} placements have run` : ran > 0 ? `${ran} ${ran === 1 ? "placement" : "placements"} delivered` : null;
-  const heroLead = !year ? `Since ${dated[0]?.slice(0, 4) ?? "the start"}, you've reached` : year === thisYear ? "This year you reached" : `In ${year} you reached`;
+  const heroLead = !firstYear || firstYear === thisYear ? "This year you reached" : `Since ${firstYear}, you've reached`;
   const reachWords = reach >= 1e6 ? `${(reach / 1e6).toFixed(2).replace(/\.?0+$/, "")} million` : fmt(reach);
   const clicks = sum(delivered, "clicks");
   const heroSub = [clicks > 0 ? `They clicked through ${fmt(clicks)} times` : null,
@@ -295,7 +299,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   const seniority = [...SENIORITY.map(([s]) => s), "Engineers, analysts and specialists", "Not given"].map((s) => [s, bySeniority.get(s) ?? 0] as [string, number]).filter(([, n]) => n > 0);
   const maxSeniority = Math.max(1, ...seniority.map(([, n]) => n));
 
-  const sections = [...(proofGroups.length || admin ? [{ id: "approvals", title: awaiting ? `Creative approvals (${awaiting})` : "Creative approvals" }] : []), ...CHANNELS.filter((ch) => delivered.some((l) => ch.types.includes(l.type))).map((ch) => ({ id: ch.id, title: ch.title })),
+  const sections = [...(proofGroups.length || admin ? [{ id: "approvals", title: awaiting ? `Creative approvals (${awaiting})` : "Creative approvals" }] : []), ...CHANNELS.filter((ch) => delivered.some((l) => ch.types.includes(l.type) && inYear(l))).map((ch) => ({ id: ch.id, title: ch.title })),
     ...(leads.length ? [{ id: "leads", title: "Leads" }] : [])];
 
   return (
@@ -308,15 +312,6 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
         </a>
       )}
 
-      {years.length > 1 && (
-        <nav aria-label="Period" className="flex flex-wrap gap-2 text-sm">
-          {[...years, "all"].map((y) => {
-            const on = y === "all" ? !year : year === y;
-            return <a key={y} href={`${basePath}period=${y}`} aria-current={on ? "page" : undefined}
-              className={`rounded-full border px-4 py-2 ${on ? "border-ink bg-ink text-cream" : "border-ink/80 text-ink hover:bg-white"}`}>{y === "all" ? "All time" : y}</a>;
-          })}
-        </nav>
-      )}
 
       <section className="mt-8 max-w-4xl">
         <p className="text-sm text-ink/70">{[clientName, periodMeta, placementsMeta].filter(Boolean).join(" · ")}</p>
@@ -429,8 +424,23 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
         </section>
       )}
 
+      {delivered.length > 0 && (
+        <div id="placements" className="mt-12 flex scroll-mt-16 flex-wrap items-end justify-between gap-4 border-b border-ink pb-4">
+          <h2 className="font-display text-3xl tracking-tight">Your placements</h2>
+          {years.length > 1 && (
+            <nav aria-label="Placements by year" className="flex flex-wrap gap-1.5 text-sm">
+              {[...years, "all"].map((y) => {
+                const on = y === "all" ? !year : year === y;
+                return <a key={y} href={`${basePath}period=${y}#placements`} aria-current={on ? "page" : undefined}
+                  className={`rounded-full border px-3 py-1.5 ${on ? "border-ink bg-ink text-cream" : "border-line text-ink/80 hover:border-ink"}`}>{y === "all" ? "All years" : y}</a>;
+              })}
+            </nav>
+          )}
+        </div>
+      )}
+
       {CHANNELS.map((ch) => {
-        const ls = delivered.filter((l) => ch.types.includes(l.type));
+        const ls = delivered.filter((l) => ch.types.includes(l.type) && inYear(l));
         if (ls.length === 0) return null;
         const withNumbers = ls.filter(has);
         const cols = ch.cols.filter(([k]) => admin || withNumbers.some((l) => l.values[k] != null) || withNumbers.length === 0);
