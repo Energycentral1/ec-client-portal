@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { ClientTabs } from "@/components/ClientTabs";
 import { ClientView } from "@/components/ClientView";
 
-export default async function AdminClient({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ view?: string; period?: string }> }) {
+export default async function AdminClient({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ view?: string; period?: string; approved?: string }> }) {
   const { slug } = await params;
   const sp = await searchParams;
   const preview = sp.view === "client";
@@ -17,8 +17,8 @@ export default async function AdminClient({ params, searchParams }: { params: Pr
         meta={<>{client.is_active ? "Live" : "Past"} · {logins.length ? `${logins.length} client login${logins.length === 1 ? "" : "s"}` : "No client logins yet"}
           {client.customer_report_sheet_url && <> · <a className="text-navy hover:underline" href={client.customer_report_sheet_url} target="_blank" rel="noreferrer">Old report</a></>}</>} />
       <div className="mt-6">
-        <ClientView clientId={client.id} clientName={client.name} showAll preview={preview} period={sp.period ?? null}
-          basePath={`/admin/clients/${slug}?${preview ? "view=client&" : ""}`} />
+        <ClientView clientId={client.id} clientName={client.name} showAll preview={preview} approvedOnly={sp.approved === "1"} period={sp.period ?? null}
+          basePath={`/admin/clients/${slug}?${preview ? "view=client&" : ""}${preview && sp.approved === "1" ? "approved=1&" : ""}`} />
       </div>
     </>
   );

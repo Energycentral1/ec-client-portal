@@ -95,14 +95,17 @@ function Timeline({ lanes, today }: { lanes: { title: string; color: string; lin
 
 /** Campaign results for one client. Used by the client portal and by admins previewing a client.
  *  showAll=true (admin) includes numbers that aren't approved yet; clients never receive those rows from the database. */
-export async function ClientView({ clientId, clientName, showAll, preview = false, period = null, basePath }: {
-  clientId: string; clientName: string; showAll: boolean; preview?: boolean;
+export async function ClientView({ clientId, clientName, showAll, preview = false, approvedOnly = false, period = null, basePath }: {
+  clientId: string; clientName: string; showAll: boolean; preview?: boolean; approvedOnly?: boolean;
   /** A year ("2026"), "all", or null for the year in progress. */
   period?: string | null;
   /** Where the period picker links to, ending in "?" or "&" so "period=..." can be appended. */
   basePath: string }) {
-  // preview (admin only, "Client view"): exactly what the client sees, approved numbers only (Chloe, Nov 12 2026).
+  // preview (admin only, "Client view"): the page laid out exactly as the client gets it.
   const admin = showAll && !preview;
+  // Which numbers are filled in. The team sees everything; Client view too, so the page looks the way it will once numbers are
+  // approved (nothing was approved yet on Nov 12 2026, and approved-only left the page empty), unless "approved only" is picked.
+  const fill = showAll && !(preview && approvedOnly);
   const supabase = await createClient();
   const { data: dels } = await supabase.from("deliverables")
     .select("id, campaign_id, notion_page_id, inventory_tag, deliverable_type, deliverable_label, title, display_title, ec_brand, live_url, placement, start_date, reporting_due_date, status, metrics(metric, value, status, source, window_start, window_end)")
@@ -170,7 +173,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
       values: {}, waiting: false, tags: [], flight: false, placements: [] };
     line.ids.push(d.id);
     for (const m of d.metrics) {
-      if (!admin && m.status !== "approved") continue;
+      if (!fill && m.status !== "approved") continue;
       line.values[m.metric] ??= Number(m.value);
       if (m.window_start && m.window_end && m.window_end > m.window_start) line.flight = true;
       if (m.status !== "approved") line.waiting = true;
@@ -282,7 +285,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
       g.total++;
       if (!d.start_date) g.unscheduled++; else if (d.start_date <= today) g.ran++;
     }
-    for (const m of d.metrics) if (admin || m.status === "approved") g.values[m.metric] = (g.values[m.metric] ?? 0) + Number(m.value);
+    for (const m of d.metrics) if (fill || m.status === "approved") g.values[m.metric] = (g.values[m.metric] ?? 0) + Number(m.value);
     bought.set(label, g);
   }
   const boughtRows = [...bought.values()].sort((a, b) => CHANNELS.findIndex((c) => c.types.includes(a.type)) - CHANNELS.findIndex((c) => c.types.includes(b.type)) || a.label.localeCompare(b.label));
@@ -339,9 +342,16 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
           ))}
         </dl>
       )}
-      {showAll && <p className="mt-3 text-xs text-ink/60">{preview
-        ? <>This is exactly what the client sees: approved numbers only.{waitingCount > 0 && <> {waitingCount.toLocaleString("en-US")} more {waitingCount === 1 ? "number is" : "numbers are"} waiting in <a href="/admin/approvals" className="text-navy underline">Approvals</a>.</>}</>
-        : "This team view includes numbers still waiting for approval. Clients see approved numbers only."}</p>}
+      {showAll && preview && (
+        <p className="mt-3 rounded-lg border border-line bg-white px-3 py-2 text-sm text-ink/80">
+          {approvedOnly ? <>Showing approved numbers only: this is what the client sees today.</>
+            : waitingCount > 0 ? <>This is how the page will look once everything is approved. <strong>{waitingCount.toLocaleString("en-US")} {waitingCount === 1 ? "number is" : "numbers are"} still waiting</strong>, and the client can&rsquo;t see those yet.</>
+            : <>Everything here is approved: this is what the client sees.</>}
+          {" "}{waitingCount > 0 && <a href={approvedOnly ? basePath.replace(/approved=1&?/, "") : `${basePath}approved=1`} className="text-navy underline">{approvedOnly ? "Show with waiting numbers" : "Show approved only"}</a>}
+          {waitingCount > 0 && <> · <a href="/admin/approvals" className="text-navy underline">Go to Approvals</a></>}
+        </p>
+      )}
+      {showAll && !preview && <p className="mt-3 text-xs text-ink/60">This team view includes numbers still waiting for approval. Clients see approved numbers only.</p>}
 
 
       {upcoming.length > 0 && (
