@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "sync:notion": "tsx scripts/sync-notion.ts"
+    "sync:notion": "tsx scripts/sync-notion.ts",
+    "import:legacy": "tsx scripts/import-legacy.ts"
   },
   "dependencies": {
     "@notionhq/client": "^5.31.1",

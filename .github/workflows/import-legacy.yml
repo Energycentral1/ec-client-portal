@@ -1,0 +1,26 @@
+name: Import legacy reports
+
+# Loads data/legacy/*.json (numbers from the old Customer Report sheets) into Supabase as pending.
+on:
+  workflow_dispatch:
+    inputs:
+      client:
+        description: Client slug to import (leave empty for all)
+        required: false
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run import:legacy -- "$CLIENT"
+        env:
+          CLIENT: ${{ inputs.client }}
+          NEXT_PUBLIC_SUPABASE_URL: https://kzaiplniicuuxhprrxxc.supabase.co
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
