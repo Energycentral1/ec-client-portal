@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any -- beehiiv and short.io responses are untyped JSON */
 /**
  * beehiiv + short.io pull for newsletter ads and paid email blasts.
  * Run: npm run pull:beehiiv -- [client-slug ...]      (DRY RUN: reads only, prints a comparison table, writes nothing)
@@ -62,7 +63,8 @@ async function shortClicks(path: string, from: string, to: string) {
   const link = await sio(`https://api.short.io/links/expand?domain=${SHORT_DOMAIN}&path=${encodeURIComponent(path)}`);
   const id = link.idString ?? link.id;
   const s = await sio(`https://statistics.short.io/statistics/link/${id}?period=custom&startDate=${from}&endDate=${to}&tz=America/New_York`);
-  return { total: num(s.totalClicks), human: num(s.humanClicks), id };
+  const all = await sio(`https://statistics.short.io/statistics/link/${id}?period=total&tz=America/New_York`);
+  return { total: num(s.totalClicks), human: num(s.humanClicks), allTotal: num(all.totalClicks), allHuman: num(all.humanClicks), id };
 }
 
 const fmt = (v: number | null | undefined) => (v == null ? "—" : Math.round(v).toLocaleString("en-US"));
@@ -89,6 +91,9 @@ async function main() {
   const marketing = pubs.find((p) => /marketing/i.test(p.name));
   console.log(`beehiiv publications: ${pubs.map((p) => `${p.name} (${p.id})`).join("; ")}`);
   const daily = await postsSince(DAILY_PUB, since);
+  // The Daily publication also sends promo emails; the newsletter_issues table holds the actual Daily issue for each date.
+  const { data: issueRows } = await db.from("newsletter_issues").select("issue_date, beehiiv_post_id").eq("publication", "daily").gte("issue_date", since);
+  const issueId = new Map((issueRows ?? []).map((r) => [r.issue_date as string, r.beehiiv_post_id as string]));
   const mkt = marketing ? await postsSince(marketing.id, since) : [];
   console.log(`Daily issues since ${since}: ${daily.length}. Marketing posts: ${mkt.length}.`);
   if (daily[0]) console.log(`Shape check, stats fields on one Daily issue: ${JSON.stringify(Object.keys(daily[0].stats ?? {}))}, email: ${JSON.stringify(daily[0].stats?.email ?? {})}`);
@@ -101,7 +106,8 @@ async function main() {
     const tag = d.inventory_tag ?? "no EC tag";
     if (d.deliverable_type === "newsletter_ad") {
       if ((d.ec_brand ?? []).some((b: string) => /weekly/i.test(b))) { problems.push(`${client.name} ${d.start_date} ${tag}: runs in the Weekly; not handled yet`); continue; }
-      const issue = daily.find((p) => etDate(p.publish_date) === d.start_date);
+      const issue = daily.find((p) => p.id === issueId.get(d.start_date!))
+        ?? daily.find((p) => etDate(p.publish_date) === d.start_date && !/^(email|.*\b(ps|email) ?[-#])/i.test(p.title));
       if (!issue) { problems.push(`${client.name} ${d.start_date} ${tag}: no Daily issue sent that day`); continue; }
       const opens = num(issue.stats?.email?.opens);
       // The ad's short link, from the issue's own click list.
@@ -116,7 +122,7 @@ async function main() {
           const bhTotal = num(l.email?.clicks ?? l.total_clicks), bhUnique = num(l.email?.unique_clicks ?? l.total_unique_clicks);
           try {
             const s = await shortClicks(path, d.start_date!, addDays(d.start_date!, 14));
-            parts.push(`${path}: short.io human ${fmt(s.human)} / total ${fmt(s.total)}; beehiiv total ${fmt(bhTotal)} / unique ${fmt(bhUnique)}`);
+            parts.push(`${path}: short.io 14 days human ${fmt(s.human)} / total ${fmt(s.total)}, all time human ${fmt(s.allHuman)} / total ${fmt(s.allTotal)}; beehiiv total ${fmt(bhTotal)} / unique ${fmt(bhUnique)}`);
           } catch (err) { parts.push(`${path}: short.io error ${(err as Error).message.slice(0, 80)}; beehiiv total ${fmt(bhTotal)} / unique ${fmt(bhUnique)}`); }
         }
         clickCell = parts.join(" | ");
