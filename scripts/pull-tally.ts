@@ -84,27 +84,39 @@ async function main() {
       .filter((f: any) => !/template|energy central'?s|reader survey|workforce survey/i.test(f.name) && f.numberOfSubmissions > 0);
     console.log(`Tally forms with sign-ups: ${forms.length}.`);
 
+    // Which client a form belongs to, and the placement whose name matches the form's title (if any).
+    const clientOf = (name: string) => {
+      const sq = squash(name.split(/presents|paper|report|ebook|e-book|survey|\||:/i)[0]);
+      return { sq, client: (clients ?? []).find((c) => { const cn = squash(c.name), first = squash(c.name.split(/\s+/)[0]);
+        return (sq && (sq === cn || sq.startsWith(cn) || cn.startsWith(sq) || (first.length >= 3 && sq.startsWith(first)))) || Object.entries(PRESENTS_AS).some(([as, real]) => sq.startsWith(as) && cn.includes(real)); }) };
+    };
+    const byTitle = (name: string, clientId: string) => {
+      const title = name.replace(/^[^:|]*[:|]/, "");
+      const scored = placements.filter((x) => x.client_id === clientId).map((x) => ({ x, s: overlap(title, `${x.display_title ?? ""} ${x.title ?? ""}`) })).filter((y) => y.s >= 0.6).sort((a, b) => b.s - a.s);
+      return scored.length && (scored.length === 1 || scored[0].s > scored[1].s) ? scored[0].x : undefined;
+    };
+    // Sessions that some form matches by title: a date-only match must not land on one of these.
+    const titled = new Set<string>();
+    for (const f of forms) { const name = String(f.name).replace(/\s+/g, " ").trim(); const { client } = clientOf(name); const d = client && byTitle(name, client.id); if (d) titled.add(d.id); }
+
     const leads: any[] = [];
     const link = new Map<string, string>(); // deliverable id -> form id
     for (const f of forms) {
       const name = String(f.name).replace(/\s+/g, " ").trim();
       let d = placements.find((x) => x.tally_form_id === f.id);
       if (!d) {
-        const sq = squash(name.split(/presents|paper|report|ebook|e-book|survey|\||:/i)[0]);
-        const client = (clients ?? []).find((c) => { const cn = squash(c.name), first = squash(c.name.split(/\s+/)[0]);
-          return (sq && (sq === cn || sq.startsWith(cn) || cn.startsWith(sq) || (first.length >= 3 && sq.startsWith(first)))) || Object.entries(PRESENTS_AS).some(([as, real]) => sq.startsWith(as) && cn.includes(real)); });
+        const { sq, client } = clientOf(name);
         if (!client) { problems.push(`"${name}": no client named ${sq || "(none)"}`); continue; }
         const mine = placements.filter((x) => x.client_id === client.id);
-        const title = name.replace(/^[^:|]*[:|]/, "");
-        const scored = mine.map((x) => ({ x, s: overlap(title, `${x.display_title ?? ""} ${x.title ?? ""}`) })).filter((y) => y.s >= 0.6).sort((a, b) => b.s - a.s);
-        if (scored.length && (scored.length === 1 || scored[0].s > scored[1].s)) d = scored[0].x;
+        d = byTitle(name, client.id);
+        if (d) { /* matched on title */ }
         else {
           const isWebinar = /presents/i.test(name) && !/paper|report|ebook|survey|assessment|guide/i.test(name);
           // Forms are built around the event: a few days before it, or up to a month after for the on-demand replay.
           const near = mine.filter((x) => x.start_date && (isWebinar ? WEBINAR.includes(x.deliverable_type) && Date.parse(f.createdAt) - Date.parse(x.start_date) <= 30 * 864e5 && Date.parse(x.start_date) - Date.parse(f.createdAt) <= 5 * 864e5
             : GATED.includes(x.deliverable_type) && days(x.start_date, f.createdAt) <= 45));
           // A date-only match never doubles up on a session that already has its own form.
-          if (near.length === 1 && isWebinar && (near[0].tally_form_id || link.has(near[0].id))) { problems.push(`"${name}" (${client.name}): the only session near the form date (${near[0].start_date} ${near[0].inventory_tag ?? ""}) already has a form`); continue; }
+          if (near.length === 1 && isWebinar && (near[0].tally_form_id || link.has(near[0].id) || titled.has(near[0].id))) { problems.push(`"${name}" (${client.name}): the only session near the form date (${near[0].start_date} ${near[0].inventory_tag ?? ""}) already has a form`); continue; }
           if (near.length === 1) d = near[0];
           else { problems.push(`"${name}" (${client.name}, form made ${String(f.createdAt).slice(0, 10)}): ${near.length} possible placements${near.length ? `: ${near.map((x) => `${x.start_date} ${x.inventory_tag ?? ""}`).join(", ")}` : `; client has ${mine.map((x) => `${x.deliverable_type} ${x.start_date}`).slice(0, 6).join(", ") || "no webinar or content placements on a campaign"}`}`); continue; }
         }
