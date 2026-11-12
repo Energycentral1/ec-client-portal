@@ -7,9 +7,9 @@ export default function ChoosePassword() {
   const [state, action, pending] = useActionState(setPassword, null);
   const field = "mt-1 w-full rounded-lg border border-line px-3 py-2.5 outline-none focus:border-sky focus:ring-2 focus:ring-sky/30";
   return (
-    <LoginFrame heading="Choose a password">
+    <LoginFrame heading="Change password">
       <form action={action}>
-        <p className="mt-2 text-sm text-ink/70">At least 10 characters. You&rsquo;ll sign in with your email and this password from now on.</p>
+        <p className="mt-2 text-sm text-ink/70">At least 10 characters. You&rsquo;ll sign in with this password from now on.</p>
         <label htmlFor="password" className="mt-6 block text-sm font-medium">Password</label>
         <input id="password" name="password" type="password" required minLength={10} autoComplete="new-password" className={field} />
         <label htmlFor="again" className="mt-4 block text-sm font-medium">Password again</label>

@@ -21,6 +21,7 @@ export function Shell({ title, nav, email, children }: {
           </nav>
           <form action={signOut} className="ml-auto flex items-center gap-3 text-sm">
             <span className="text-white/70">{email}</span>
+            <Link href="/login/password" className="text-white/85 underline decoration-white/30 underline-offset-2 hover:text-sun">Change password</Link>
             <button type="submit" className="rounded-lg border border-white/40 px-3 py-2 hover:bg-white/10">Sign out</button>
           </form>
         </div>

@@ -1,10 +1,11 @@
 "use server";
+import { randomInt } from "node:crypto";
 import { headers } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { createClient, getProfile } from "@/lib/supabase/server";
 import { authAdmin } from "@/lib/supabase/admin";
 
-export type LoginState = { error?: string; link?: string; email?: string; message?: string };
+export type LoginState = { error?: string; email?: string; password?: string; site?: string; message?: string };
 const NO_KEY = "Logins can't be changed yet: SUPABASE_SERVICE_ROLE_KEY is not set in Vercel.";
 
 async function siteUrl() {
@@ -12,9 +13,14 @@ async function siteUrl() {
   const host = h.get("x-forwarded-host") ?? h.get("host") ?? "ec-client-portal.vercel.app";
   return `${h.get("x-forwarded-proto") ?? "https"}://${host}`;
 }
-const linkFor = async (hash: string, type: string) => `${await siteUrl()}/login/start?token_hash=${encodeURIComponent(hash)}&type=${type}`;
+/** A password made here, never typed by anyone on the team: 3 groups of 4 from letters and digits that can't be misread. */
+function makePassword() {
+  const abc = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789";
+  return [0, 1, 2].map(() => Array.from({ length: 4 }, () => abc[randomInt(abc.length)]).join("")).join("-");
+}
 
-/** Add a team or client login. Nothing is emailed: the result is a one-time link the admin sends to the person themselves. */
+/** Add a team or client login (Chloe, Nov 12 2026: "we need to give them logins", no expiring links). Nothing is emailed:
+ *  the login is made with a password that is shown once, for the admin to pass on. It does not expire. */
 export async function addLogin(_prev: LoginState, fd: FormData): Promise<LoginState> {
   const me = await getProfile();
   if (me?.role !== "admin") return { error: "Admins only." };
@@ -28,41 +34,42 @@ export async function addLogin(_prev: LoginState, fd: FormData): Promise<LoginSt
   if (kind !== "team" && kind !== "client") return { error: "Pick team or client." };
   if (kind === "client" && !clientId) return { error: "Pick the client this login belongs to." };
   const supabase = await createClient();
-  const { data: existing } = await supabase.from("profiles").select("id, role, client_id, removed_at").eq("email", email).maybeSingle();
-  if (existing && !existing.removed_at) return { error: `${email} already has a login. Use "New link" on their row if they can't get in.` };
+  const { data: existing } = await supabase.from("profiles").select("id, removed_at").eq("email", email).maybeSingle();
+  if (existing && !existing.removed_at) return { error: `${email} already has a login. Use "New password" on their row if they can't get in.` };
 
-  let userId = existing?.id as string | undefined, hash: string | undefined, type = "invite";
-  if (userId) {
-    const { error: e1 } = await admin.updateUserById(userId, { ban_duration: "none" });
-    if (e1) return { error: e1.message };
-    const { data, error } = await admin.generateLink({ type: "recovery", email });
+  const password = makePassword();
+  let userId = existing?.id as string | undefined;
+  if (userId) {     // removed earlier: bring the same login back with a fresh password
+    const { error } = await admin.updateUserById(userId, { ban_duration: "none", password });
     if (error) return { error: error.message };
-    hash = data.properties?.hashed_token; type = "recovery";
   } else {
-    const { data, error } = await admin.generateLink({ type: "invite", email, options: { data: name ? { full_name: name } : undefined } });
-    if (error) return { error: /registered|exists/i.test(error.message) ? `${email} already has an account. Ask Chloe to check it in Supabase.` : error.message };
-    userId = data.user?.id; hash = data.properties?.hashed_token;
+    const { data, error } = await admin.createUser({ email, password, email_confirm: true, user_metadata: name ? { full_name: name } : undefined });
+    if (error) return { error: /registered|exists/i.test(error.message) ? `${email} already has an account that isn't on this list. Ask Chloe to check it in Supabase.` : error.message };
+    userId = data.user?.id;
   }
-  if (!userId || !hash) return { error: "Supabase did not return a sign-in link. Try again." };
+  if (!userId) return { error: "Supabase did not create the login. Try again." };
   const { error: e2 } = await supabase.from("profiles")
     .update({ role: kind === "team" ? "admin" : "client", client_id: kind === "client" ? clientId : null, full_name: name, removed_at: null }).eq("id", userId);
   if (e2) return { error: e2.message };
   revalidatePath("/admin/logins");
-  return { email, link: await linkFor(hash, type) };
+  return { email, password, site: `${await siteUrl()}/login` };
 }
 
-/** A fresh one-time link for someone who lost theirs or forgot their password. */
-export async function newLink(_prev: LoginState, fd: FormData): Promise<LoginState> {
+/** A new password for someone who lost theirs. The old one stops working. */
+export async function newPassword(_prev: LoginState, fd: FormData): Promise<LoginState> {
   const me = await getProfile();
   if (me?.role !== "admin") return { error: "Admins only." };
   const admin = authAdmin();
   if (!admin) return { error: NO_KEY };
+  const id = String(fd.get("id") ?? "");
+  if (id === me.id) return { error: "Change your own password from \"Change password\" at the top of the page." };
   const supabase = await createClient();
-  const { data: p } = await supabase.from("profiles").select("email, removed_at").eq("id", String(fd.get("id") ?? "")).maybeSingle();
+  const { data: p } = await supabase.from("profiles").select("email, removed_at").eq("id", id).maybeSingle();
   if (!p || p.removed_at) return { error: "That login no longer exists." };
-  const { data, error } = await admin.generateLink({ type: "recovery", email: p.email });
-  if (error || !data.properties?.hashed_token) return { error: error?.message ?? "No link came back. Try again." };
-  return { email: p.email, link: await linkFor(data.properties.hashed_token, "recovery") };
+  const password = makePassword();
+  const { error } = await admin.updateUserById(id, { password });
+  if (error) return { error: error.message };
+  return { email: p.email, password, site: `${await siteUrl()}/login` };
 }
 
 /** Remove a login: it can no longer sign in and sees nothing. The row is kept (hidden) because past approvals point at it. */

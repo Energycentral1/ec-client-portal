@@ -1,21 +1,22 @@
 "use client";
 import { useActionState, useState } from "react";
-import { addLogin, newLink, removeLogin, type LoginState } from "@/app/admin/logins/actions";
+import { addLogin, newPassword, removeLogin, type LoginState } from "@/app/admin/logins/actions";
 
 const input = "w-full rounded-lg border border-line bg-white px-3 py-2 text-sm outline-none focus:border-sky focus:ring-2 focus:ring-sky/30";
 
-/** The one-time link, shown once with a copy button. Nothing is emailed by the portal. */
-function LinkBox({ state }: { state: LoginState }) {
+/** The new login's details, shown once with a copy button. Nothing is emailed by the portal. */
+function DetailsBox({ state }: { state: LoginState }) {
   const [copied, setCopied] = useState(false);
-  if (!state.link) return null;
+  if (!state.password) return null;
+  const text = `Energy Central Client Portal\n${state.site}\nEmail: ${state.email}\nPassword: ${state.password}`;
   return (
     <div className="mt-3 rounded-lg border border-line bg-cream p-3 text-sm" role="status">
-      <p className="font-medium">Send this link to {state.email}. The portal has not emailed them.</p>
-      <p className="mt-1 text-ink/70">It opens a page where they choose their own password. It works once and expires within a day; make a new one any time with &ldquo;New link&rdquo;.</p>
-      <div className="mt-2 flex gap-2">
-        <input readOnly value={state.link} aria-label="One-time sign-in link" className={`${input} font-mono text-xs`} onFocus={(e) => e.currentTarget.select()} />
-        <button type="button" onClick={async () => { await navigator.clipboard.writeText(state.link!); setCopied(true); }}
-          className="shrink-0 rounded-lg bg-navy px-3 py-2 text-sm font-semibold text-white hover:bg-navy-dark">{copied ? "Copied" : "Copy link"}</button>
+      <p className="font-medium">Login ready for {state.email}. Copy it now: the password is shown only this once, and the portal has not emailed them.</p>
+      <pre className="mt-2 overflow-x-auto rounded-lg border border-line bg-white p-3 font-mono text-xs leading-relaxed">{text}</pre>
+      <div className="mt-2 flex flex-wrap items-center gap-3">
+        <button type="button" onClick={async () => { await navigator.clipboard.writeText(text); setCopied(true); }}
+          className="rounded-lg bg-navy px-3 py-2 text-sm font-semibold text-white hover:bg-navy-dark">{copied ? "Copied" : "Copy login details"}</button>
+        <span className="text-ink/70">It doesn&rsquo;t expire. They can change the password after signing in.</span>
       </div>
     </div>
   );
@@ -42,13 +43,13 @@ export function AddLogin({ kind, clients, defaultClient }: { kind: "team" | "cli
           {pending ? "Adding…" : kind === "team" ? "Add team login" : "Add client login"}</button>
       </div>
       {state.error && <p role="alert" className="mt-3 text-sm text-red-700">{state.error}</p>}
-      <LinkBox state={state} />
+      <DetailsBox state={state} />
     </form>
   );
 }
 
 export function LoginRow({ id, email, name, detail, self }: { id: string; email: string; name: string | null; detail?: string; self: boolean }) {
-  const [linkState, linkAction, linking] = useActionState(newLink, {});
+  const [linkState, linkAction, linking] = useActionState(newPassword, {});
   const [rmState, rmAction, removing] = useActionState(removeLogin, {});
   const [confirm, setConfirm] = useState(false);
   return (
@@ -58,8 +59,8 @@ export function LoginRow({ id, email, name, detail, self }: { id: string; email:
           <p className="truncate font-medium">{name || email}{self && <span className="ml-2 text-xs font-normal text-ink/50">you</span>}</p>
           <p className="truncate text-sm text-ink/60">{name ? email : ""}{name && detail ? " · " : ""}{detail}</p>
         </div>
-        <form action={linkAction}><input type="hidden" name="id" value={id} />
-          <button type="submit" disabled={linking} className="rounded-lg border border-line px-3 py-1.5 text-sm hover:bg-mist disabled:opacity-60">{linking ? "Making…" : "New link"}</button></form>
+        {!self && <form action={linkAction}><input type="hidden" name="id" value={id} />
+          <button type="submit" disabled={linking} className="rounded-lg border border-line px-3 py-1.5 text-sm hover:bg-mist disabled:opacity-60">{linking ? "Making…" : "New password"}</button></form>}
         {!self && (confirm ? (
           <form action={rmAction} className="flex items-center gap-2"><input type="hidden" name="id" value={id} />
             <button type="submit" disabled={removing} className="rounded-lg bg-red-700 px-3 py-1.5 text-sm font-semibold text-white disabled:opacity-60">{removing ? "Removing…" : "Remove login"}</button>
@@ -69,7 +70,7 @@ export function LoginRow({ id, email, name, detail, self }: { id: string; email:
         ))}
       </div>
       {(linkState.error || rmState.error) && <p role="alert" className="mt-2 text-sm text-red-700">{linkState.error || rmState.error}</p>}
-      <LinkBox state={linkState} />
+      <DetailsBox state={linkState} />
     </li>
   );
 }

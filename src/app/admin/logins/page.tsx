@@ -25,7 +25,7 @@ export default async function Logins({ searchParams }: { searchParams: Promise<{
   return (
     <>
       <h1 className="text-3xl font-semibold">Logins</h1>
-      <p className="mt-2 max-w-2xl text-ink/70">Add or remove who can sign in. Adding someone never emails them: you get a one-time link to send yourself, and they choose their own password.</p>
+      <p className="mt-2 max-w-2xl text-ink/70">Add or remove who can sign in. Adding someone never emails them: you get their email and password to pass on yourself. Logins don&rsquo;t expire.</p>
       {!ready && <p role="alert" className="mt-4 rounded-lg border border-ember/40 bg-white p-3 text-sm">Adding and removing is off until <code>SUPABASE_SERVICE_ROLE_KEY</code> is added in Vercel. The lists below are current.</p>}
 
       {!current && (

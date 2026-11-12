@@ -21,7 +21,7 @@ export default function LoginPage() {
           {pending ? "Signing in…" : "Sign in"}
         </button>
       </form>
-      <p className="mt-5 text-sm text-ink/60">First time here, or forgot your password? Ask your Energy Central contact for a sign-in link.</p>
+      <p className="mt-5 text-sm text-ink/60">Forgot your password? Ask your Energy Central contact for a new one.</p>
     </LoginFrame>
   );
 }
