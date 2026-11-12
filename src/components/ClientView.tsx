@@ -3,6 +3,7 @@ import { Empty, fmt, TYPE_LABEL } from "@/components/Shell";
 import { LeadsTable, type LeadRow } from "@/components/LeadsTable";
 import { ProofCard, PROOF_STATUS, type Proof } from "@/components/Proofs";
 import { ProofForm } from "@/components/ProofForm";
+import { companyTypeOf, seniorityOf } from "@/lib/leadProfile";
 
 type Metric = { metric: string; value: number; status: string; source: string; window_start: string | null; window_end: string | null };
 type Deliverable = { id: string; campaign_id: string | null; notion_page_id: string | null; inventory_tag: string | null; deliverable_type: string; deliverable_label: string | null; title: string | null; display_title: string | null;
@@ -55,13 +56,6 @@ type Lead = { id: string; deliverable_id: string | null; source: string; attende
 const howLabel = (l: Lead) => l.source === "webinar_live" ? (l.attended ? "Attended live" : "Registered")
   : l.source === "webinar_on_demand" ? "Watched on demand" : l.source === "gated_content" ? "Downloaded content" : l.source === "survey" ? "Answered survey" : "Other";
 
-/** Rough seniority from a job title, for the "who you reached" breakdown. Order matters: "Director of Engineering" is a director. */
-const SENIORITY: [string, RegExp][] = [
-  ["C-suite and owners", /\b(chief|ceo|cfo|coo|cto|cio|ciso|president|owner|founder|principal|partner|gm|general manager)\b/i],
-  ["VPs and directors", /\b(vice president|vp|svp|evp|avp|director|head of)\b/i],
-  ["Managers", /\b(manager|supervisor|superintendent|lead)\b/i],
-];
-const seniorityOf = (t: string | null) => !t?.trim() || /^(n\/?a|-)$/i.test(t.trim()) ? "Not given" : SENIORITY.find(([, r]) => r.test(t))?.[0] ?? "Engineers, analysts and specialists";
 
 /** The year at a glance: one lane per channel, one mark per placement, positioned by date. Upcoming placements are hollow. */
 function Timeline({ lanes, today }: { lanes: { title: string; color: string; lines: Line[] }[]; today: string }) {
@@ -215,7 +209,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   const leads: LeadRow[] = periodLeads.map((l) => {
     const line = l.deliverable_id ? lineOf.get(l.deliverable_id) : undefined;
     return { id: l.id, first_name: l.first_name, last_name: l.last_name, email: l.email, phone: l.phone, job_title: l.job_title, company: l.company,
-      company_size: l.company_size, city: l.city, state: l.state, country: l.country, how: howLabel(l),
+      company_size: l.company_size, city: l.city, state: l.state, country: l.country, how: howLabel(l), companyType: companyTypeOf(l.company), seniority: seniorityOf(l.job_title),
       event: line ? line.label.replace(new RegExp(`^${clientName} Presents:\\s*`, "i"), "") : "Energy Central", eventDate: line?.date ?? null,
       date: l.submitted_at ? l.submitted_at.slice(0, 10) : null, consent: l.consent };
   });
@@ -288,16 +282,6 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   const heroSub = [clicks > 0 ? `They clicked through ${fmt(clicks)} times` : null,
     sum(ev, "attendees") > 0 ? `${fmt(sum(ev, "attendees"))} people sat through one of your ${sessionWord.toLowerCase()}s live` : null].filter(Boolean).join(", and ");
 
-  // Who you reached: the people behind the leads, by company and by seniority. One person counts once, however they came in.
-  const people = new Map<string, Lead>();
-  for (const l of periodLeads) people.set(l.email.toLowerCase(), l);
-  const byCompany = new Map<string, number>();
-  for (const l of people.values()) { const c = l.company?.trim(); if (c && !/^(n\/?a|none|-|self|freelance)$/i.test(c) && !c.toLowerCase().includes(clientName.toLowerCase())) byCompany.set(c, (byCompany.get(c) ?? 0) + 1); }
-  const topCompanies = [...byCompany].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 10);
-  const bySeniority = new Map<string, number>();
-  for (const l of people.values()) { const s = seniorityOf(l.job_title); bySeniority.set(s, (bySeniority.get(s) ?? 0) + 1); }
-  const seniority = [...SENIORITY.map(([s]) => s), "Engineers, analysts and specialists", "Not given"].map((s) => [s, bySeniority.get(s) ?? 0] as [string, number]).filter(([, n]) => Math.round((n / Math.max(1, people.size)) * 100) > 0);
-  const maxSeniority = Math.max(1, ...seniority.map(([, n]) => n));
 
   const sections = [...(proofGroups.length || admin ? [{ id: "approvals", title: awaiting ? `Creative approvals (${awaiting})` : "Creative approvals" }] : []), ...CHANNELS.filter((ch) => delivered.some((l) => ch.types.includes(l.type) && inYear(l))).map((ch) => ({ id: ch.id, title: ch.title })),
     ...(leads.length ? [{ id: "leads", title: "Leads" }] : [])];
@@ -337,44 +321,6 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
       {showAll && <p className="mt-3 text-xs text-ink/60">{preview ? "Preview of the client page, with numbers that are still waiting for approval filled in." : "This back-end view includes numbers still waiting for approval. Clients see approved numbers only."}</p>}
 
 
-      {people.size > 0 && (
-        <section id="reached" className="mt-12 scroll-mt-16">
-          <h2 className="font-display text-3xl tracking-tight">Who you reached</h2>
-          <p className="mt-2 max-w-3xl font-display text-2xl leading-snug">
-            <em>{fmt(people.size)}</em> people from <em>{fmt(byCompany.size)}</em> organizations signed up for or attended your sessions.
-          </p>
-          <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
-            {topCompanies.length > 0 && (
-              <div className="rounded-3xl border border-ink/80 bg-white p-6 sm:p-8">
-                <h3 className="text-sm font-medium text-ink/70">Organizations with the most people</h3>
-                <ol className="mt-4 space-y-3">
-                  {topCompanies.map(([c, n], i) => (
-                    <li key={c} className="grid grid-cols-[1.75rem_minmax(0,1fr)_auto] items-baseline gap-x-3">
-                      <span className="text-sm tabular-nums text-ink/50">{i + 1}</span>
-                      <span>
-                        <span className="block truncate font-medium">{c}</span>
-                        <span className="mt-1 block h-1.5 rounded-full bg-mist"><span className="block h-1.5 rounded-full bg-navy" style={{ width: `${(n / topCompanies[0][1]) * 100}%` }} /></span>
-                      </span>
-                      <span className="tabular-nums text-ink/70">{n}</span>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            )}
-            <div className="rounded-3xl bg-sun p-6 sm:p-8">
-              <h3 className="text-sm font-medium text-ink/80">By seniority <span className="font-normal">(from job titles)</span></h3>
-              <ul className="mt-4 space-y-4">
-                {seniority.map(([label, n]) => (
-                  <li key={label}>
-                    <span className="flex items-baseline justify-between gap-4"><span>{label}</span><span className="font-display text-2xl tabular-nums">{Math.round((n / people.size) * 100)}%</span></span>
-                    <span className="mt-1 block h-2 rounded-full bg-ink/10"><span className="block h-2 rounded-full bg-ink" style={{ width: `${(n / maxSeniority) * 100}%` }} /></span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </section>
-      )}
       {upcoming.length > 0 && (
         <section id="upcoming" className="mt-12 scroll-mt-16">
           <h2 className="font-display text-3xl tracking-tight">Coming up</h2>
