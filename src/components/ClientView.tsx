@@ -221,16 +221,19 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   const lanes = CHANNELS.map((ch, i) => ({ title: ch.title, color: LANE_COLORS[i], lines: [...delivered, ...upcoming].filter((l) => l.date && ch.types.includes(l.type)) })).filter((l) => l.lines.length > 0);
   const dated = ranLines.map((l) => l.date!).sort();
   // The summary strip: the handful of numbers a client quotes to their boss, each with a line of context.
-  const nl = delivered.filter((l) => l.type === "newsletter_ad" && has(l));
   const ev = delivered.filter((l) => ["webinar", "powersession"].includes(l.type) && has(l));
   const reach = sum(delivered, "impressions") + sum(delivered, "sent") + sum(delivered, "views");
-  const nlCtr = sum(nl, "impressions") > 0 ? sum(nl, "clicks") / sum(nl, "impressions") : null;
-  const summary: { label: string; value: string; sub: React.ReactNode }[] = [];
-  if (reach > 0) summary.push({ label: "Total reach", value: fmt(reach), sub: "Impressions, emails delivered and views" });
-  if (sum(delivered, "clicks") > 0) summary.push({ label: "Clicks", value: fmt(sum(delivered, "clicks")), sub: `Across ${delivered.filter(has).length} placements` });
-  if (nlCtr != null) summary.push({ label: "Newsletter CTR", value: pct(sum(nl, "clicks"), sum(nl, "impressions")), sub: <Versus value={nlCtr} avg={bench("newsletter_ad", "ctr")} /> });
-  if (sum(ev, "attendees") > 0) summary.push({ label: ev.length === 1 ? "Session" : `${ev.length} sessions`, value: `${fmt(sum(ev, "attendees"))} attended`,
-    sub: `${fmt(sum(ev, "registrants"))} registered, ${pct(sum(ev, "attendees"), sum(ev, "registrants"))} attendance` });
+  // The strip under the headline, as in the chosen mockup (Chloe, Nov 12 2026): the number, then what it is.
+  const sessionWord = ev.every((l) => l.type === "webinar") ? "Webinar" : "Session";
+  const summary: { label: string; value: string; sub?: React.ReactNode }[] = [];
+  if (reach > 0) summary.push({ label: "Impressions, sends and views", value: fmt(reach) });
+  if (sum(delivered, "clicks") > 0) summary.push({ label: "Clicks to your site", value: fmt(sum(delivered, "clicks")) });
+  if (sum(ev, "registrants") > 0) summary.push({ label: `${sessionWord} registrants`, value: fmt(sum(ev, "registrants")) });
+  if (sum(ev, "attendees") > 0 && sum(ev, "registrants") > 0) {
+    const live = ev.filter((l) => l.values.attendees != null && l.values.registrants);
+    summary.push({ label: "Attended live", value: `${Math.round((sum(live, "attendees") / sum(live, "registrants")) * 100)}%`,
+      sub: live.every((l) => !l.flight) && new Set(live.map((l) => l.type)).size === 1 ? <Versus value={sum(live, "attendees") / sum(live, "registrants")} avg={bench(live[0].type, "attendance")} /> : null });
+  }
   if (leads.length > 0) summary.push({ label: "Leads", value: fmt(leads.length), sub: <a href="#leads" className="text-navy underline decoration-navy/30 underline-offset-2">View and download</a> });
   // Proofs: the newest version for each placement is the live one; earlier versions fold away underneath it.
   const soldLabel = (d: Deliverable) => d.deliverable_label || TYPE_LABEL[d.deliverable_type] || d.deliverable_type;
@@ -275,11 +278,11 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   const totals = boughtRows.reduce((t, g) => ({ ran: t.ran + g.ran, total: t.total + g.total }), { ran: 0, total: 0 });
   const periodMeta = year ? (year === thisYear ? `January to December ${year}` : year) : dated.length ? `Since ${MONTH_YEAR.format(new Date(ms(dated[0])))}` : null;
   const placementsMeta = totals.total > 0 ? `${totals.ran} of ${totals.total} placements have run` : ran > 0 ? `${ran} ${ran === 1 ? "placement" : "placements"} delivered` : null;
-  const heroLead = !year ? `Since ${dated[0]?.slice(0, 4) ?? "the start"}, your brand has been` : year === thisYear ? "This year your brand has been" : `In ${year} your brand was`;
+  const heroLead = !year ? `Since ${dated[0]?.slice(0, 4) ?? "the start"}, you've reached` : year === thisYear ? "This year you reached" : `In ${year} you reached`;
   const reachWords = reach >= 1e6 ? `${(reach / 1e6).toFixed(2).replace(/\.?0+$/, "")} million` : fmt(reach);
   const clicks = sum(delivered, "clicks");
-  const heroSub = [clicks > 0 ? `${fmt(clicks)} clicks went through to your site` : null,
-    sum(ev, "attendees") > 0 ? `${fmt(sum(ev, "attendees"))} people attended your ${ev.length === 1 ? "session" : "sessions"}` : null].filter(Boolean).join(", and ");
+  const heroSub = [clicks > 0 ? `They clicked through ${fmt(clicks)} times` : null,
+    sum(ev, "attendees") > 0 ? `${fmt(sum(ev, "attendees"))} people sat through one of your ${sessionWord.toLowerCase()}s live` : null].filter(Boolean).join(", and ");
   const channelRows = CHANNELS.map((ch) => {
     const ls = delivered.filter((l) => ch.types.includes(l.type));
     const items = boughtRows.filter((g) => ch.types.includes(g.type));
@@ -344,7 +347,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
         <p className="text-sm text-ink/70">{[clientName, periodMeta, placementsMeta].filter(Boolean).join(" · ")}</p>
         {reach > 0 ? (
           <h1 className="mt-3 font-display text-4xl leading-[1.05] tracking-tight sm:text-6xl">
-            {heroLead} in front of energy professionals <em>{reachWords}</em> times.
+            {heroLead} <em>{reachWords}</em> energy professionals.
           </h1>
         ) : <h1 className="mt-3 font-display text-4xl leading-tight sm:text-6xl">{clientName}</h1>}
         {heroSub && <p className="mt-4 max-w-2xl text-lg">{heroSub}.</p>}
@@ -354,9 +357,9 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
         <dl className="mt-8 grid grid-cols-2 border-y border-ink sm:grid-cols-3 lg:flex">
           {summary.map((f) => (
             <div key={f.label} className="flex-1 border-b border-line py-5 pr-5 last:border-b-0 sm:border-b-0 lg:border-r lg:pl-5 lg:first:pl-0 lg:last:border-r-0">
-              <dt className="text-sm text-ink/70">{f.label}</dt>
-              <dd className="mt-1 font-display text-3xl leading-tight tabular-nums sm:text-4xl">{f.value}</dd>
-              <dd className="mt-1 text-sm text-ink/70">{f.sub}</dd>
+              <dt className="sr-only">{f.label}</dt>
+              <dd className="font-display text-3xl leading-tight tabular-nums sm:text-4xl">{f.value}</dd>
+              <dd className="mt-1 text-sm">{f.label}{f.sub && <span className="block text-ink/70">{f.sub}</span>}</dd>
             </div>
           ))}
         </dl>
