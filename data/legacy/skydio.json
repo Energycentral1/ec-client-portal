@@ -1,0 +1,533 @@
+{
+ "client_slug": "skydio",
+ "source_url": "https://docs.google.com/spreadsheets/d/1Aqh7A2TOMGDfM9nsPNvENSG6DQ6aG9V0rxM0Ln6jP_U/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. email 3, events 2, newsletter 12, podcast 4, sponsorship 12, website 24. Left out, no clean number or date (1): Podcasts & Interviews / 2024-04-16 00:00:00. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "website",
+   "date": "2025-03-16",
+   "metrics": {
+    "impressions": 9376,
+    "clicks": 2
+   },
+   "end_date": "2025-03-22"
+  },
+  {
+   "tab": "website",
+   "date": "2025-03-16",
+   "metrics": {
+    "impressions": 6583,
+    "clicks": 5
+   },
+   "end_date": "2025-03-22"
+  },
+  {
+   "tab": "website",
+   "date": "2025-02-16",
+   "metrics": {
+    "impressions": 6505,
+    "clicks": 8
+   },
+   "end_date": "2025-02-22"
+  },
+  {
+   "tab": "website",
+   "date": "2025-02-16",
+   "metrics": {
+    "impressions": 4711,
+    "clicks": 1
+   },
+   "end_date": "2025-02-22"
+  },
+  {
+   "tab": "website",
+   "date": "2025-01-19",
+   "metrics": {
+    "impressions": 9678,
+    "clicks": 11
+   },
+   "end_date": "2025-01-25"
+  },
+  {
+   "tab": "website",
+   "date": "2025-01-19",
+   "metrics": {
+    "impressions": 7785,
+    "clicks": 5
+   },
+   "end_date": "2025-01-25"
+  },
+  {
+   "tab": "website",
+   "date": "2024-12-01",
+   "metrics": {
+    "impressions": 10007,
+    "clicks": 4
+   },
+   "end_date": "2024-12-07"
+  },
+  {
+   "tab": "website",
+   "date": "2024-12-01",
+   "metrics": {
+    "impressions": 8265,
+    "clicks": 6
+   },
+   "end_date": "2024-12-07"
+  },
+  {
+   "tab": "website",
+   "date": "2024-11-17",
+   "metrics": {
+    "impressions": 9754,
+    "clicks": 9
+   },
+   "end_date": "2024-11-23"
+  },
+  {
+   "tab": "website",
+   "date": "2024-11-17",
+   "metrics": {
+    "impressions": 6150,
+    "clicks": 3
+   },
+   "end_date": "2024-11-23"
+  },
+  {
+   "tab": "website",
+   "date": "2024-10-20",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 11
+   },
+   "end_date": "2024-10-26"
+  },
+  {
+   "tab": "website",
+   "date": "2024-10-20",
+   "metrics": {
+    "impressions": 7597,
+    "clicks": 6
+   },
+   "end_date": "2024-10-26"
+  },
+  {
+   "tab": "website",
+   "date": "2024-09-22",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 10
+   },
+   "end_date": "2024-09-28"
+  },
+  {
+   "tab": "website",
+   "date": "2024-09-22",
+   "metrics": {
+    "impressions": 9337,
+    "clicks": 6
+   },
+   "end_date": "2024-09-28"
+  },
+  {
+   "tab": "website",
+   "date": "2024-08-18",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 22
+   },
+   "end_date": "2024-08-24"
+  },
+  {
+   "tab": "website",
+   "date": "2024-08-18",
+   "metrics": {
+    "impressions": 34067,
+    "clicks": 14
+   },
+   "end_date": "2024-08-24"
+  },
+  {
+   "tab": "website",
+   "date": "2024-07-21",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 10
+   },
+   "end_date": "2024-07-27"
+  },
+  {
+   "tab": "website",
+   "date": "2024-07-21",
+   "metrics": {
+    "impressions": 7130,
+    "clicks": 8
+   },
+   "end_date": "2024-07-27"
+  },
+  {
+   "tab": "website",
+   "date": "2024-06-16",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 6
+   },
+   "end_date": "2024-06-22"
+  },
+  {
+   "tab": "website",
+   "date": "2024-06-16",
+   "metrics": {
+    "impressions": 14732,
+    "clicks": 4
+   },
+   "end_date": "2024-06-22"
+  },
+  {
+   "tab": "website",
+   "date": "2024-05-26",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 6
+   },
+   "end_date": "2024-06-01"
+  },
+  {
+   "tab": "website",
+   "date": "2024-05-26",
+   "metrics": {
+    "impressions": 8243,
+    "clicks": 7
+   },
+   "end_date": "2024-06-01"
+  },
+  {
+   "tab": "website",
+   "date": "2024-04-28",
+   "metrics": {
+    "impressions": 10009,
+    "clicks": 6
+   },
+   "end_date": "2024-05-04"
+  },
+  {
+   "tab": "website",
+   "date": "2024-04-28",
+   "metrics": {
+    "impressions": 1103,
+    "clicks": 1
+   },
+   "end_date": "2024-05-04"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-03-01",
+   "metrics": {
+    "impressions": 18317,
+    "clicks": 4
+   },
+   "end_date": "2025-03-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-02-01",
+   "metrics": {
+    "impressions": 16656,
+    "clicks": 1
+   },
+   "end_date": "2025-02-28"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-01-01",
+   "metrics": {
+    "impressions": 18917,
+    "clicks": 2
+   },
+   "end_date": "2025-01-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-12-01",
+   "metrics": {
+    "impressions": 15224,
+    "clicks": 3
+   },
+   "end_date": "2024-12-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-11-01",
+   "metrics": {
+    "impressions": 16087,
+    "clicks": 2
+   },
+   "end_date": "2024-11-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-10-01",
+   "metrics": {
+    "impressions": 19661,
+    "clicks": 2
+   },
+   "end_date": "2024-10-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-09-01",
+   "metrics": {
+    "impressions": 15468,
+    "clicks": 2
+   },
+   "end_date": "2024-09-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-08-01",
+   "metrics": {
+    "impressions": 13356,
+    "clicks": 4
+   },
+   "end_date": "2024-08-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-07-01",
+   "metrics": {
+    "impressions": 18930,
+    "clicks": 7
+   },
+   "end_date": "2024-07-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-06-01",
+   "metrics": {
+    "impressions": 14096,
+    "clicks": 1
+   },
+   "end_date": "2024-06-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-05-01",
+   "metrics": {
+    "impressions": 21245,
+    "clicks": 2
+   },
+   "end_date": "2024-05-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-04-01",
+   "metrics": {
+    "impressions": 17469,
+    "clicks": 3
+   },
+   "end_date": "2024-04-30"
+  },
+  {
+   "tab": "podcast",
+   "date": "2026-08-26",
+   "metrics": {
+    "plays": 563,
+    "short_form_views": 343,
+    "impressions": 37067,
+    "clicks": 5
+   },
+   "title": "Utilities Have More Data Than Ever. Now What?",
+   "live_url": "https://www.energycentral.com/podcasts/post/utilities-have-more-data-than-ever-now-what-uheJTLMxtbBy1PU"
+  },
+  {
+   "tab": "podcast",
+   "date": "2026-06-23",
+   "metrics": {
+    "plays": 554,
+    "short_form_views": 399,
+    "impressions": 35843,
+    "clicks": 14
+   },
+   "title": "This is why smaller utilities are winning on asset management",
+   "live_url": "https://www.energycentral.com/podcasts/post/this-is-why-smaller-utilities-are-winning-on-asset-management-Z87PGr1FTQ0JaTp"
+  },
+  {
+   "tab": "podcast",
+   "date": "2026-04-06",
+   "metrics": {
+    "plays": 813,
+    "short_form_views": 345,
+    "impressions": 31675,
+    "clicks": 12
+   },
+   "title": "How drones are becoming critical infrastructure for utilities",
+   "live_url": "https://www.energycentral.com/podcasts/post/how-drones-are-becoming-critical-infrastructure-for-utilities-5krwx5BMO1Tk2wf"
+  },
+  {
+   "tab": "podcast",
+   "date": "2025-06-03",
+   "metrics": {
+    "plays": 658,
+    "short_form_views": 5057,
+    "impressions": 35309,
+    "clicks": 9
+   },
+   "title": "Why every utility will have a drone fleet sooner than you think",
+   "live_url": "https://www.energycentral.com/podcasts/post/why-every-utility-will-have-a-drone-fleet-sooner-than-you-think-OwiMdjzaSz1cLgt"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-03-16",
+   "metrics": {
+    "impressions": 32636,
+    "clicks": 55
+   },
+   "end_date": "2025-03-22"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-02-16",
+   "metrics": {
+    "impressions": 39582,
+    "clicks": 2849
+   },
+   "end_date": "2025-02-22"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-01-19",
+   "metrics": {
+    "impressions": 35146,
+    "clicks": 50
+   },
+   "end_date": "2025-01-25"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-12-01",
+   "metrics": {
+    "impressions": 40447,
+    "clicks": 109
+   },
+   "end_date": "2024-12-07"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-11-17",
+   "metrics": {
+    "impressions": 45388,
+    "clicks": 161
+   },
+   "end_date": "2024-11-23"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-10-20",
+   "metrics": {
+    "impressions": 36798,
+    "clicks": 107
+   },
+   "end_date": "2024-10-26"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-09-22",
+   "metrics": {
+    "impressions": 46098,
+    "clicks": 200
+   },
+   "end_date": "2024-09-28"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-08-18",
+   "metrics": {
+    "impressions": 34661,
+    "clicks": 22
+   },
+   "end_date": "2024-08-24"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-07-21",
+   "metrics": {
+    "impressions": 25990,
+    "clicks": 74
+   },
+   "end_date": "2024-07-27"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-06-16",
+   "metrics": {
+    "impressions": 34101,
+    "clicks": 104
+   },
+   "end_date": "2024-06-22"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-05-26",
+   "metrics": {
+    "impressions": 35367,
+    "clicks": 107
+   },
+   "end_date": "2024-06-01"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-04-28",
+   "metrics": {
+    "impressions": 33255,
+    "clicks": 165
+   },
+   "end_date": "2024-05-04"
+  },
+  {
+   "tab": "events",
+   "date": "2026-10-13",
+   "title": "Extending Field Team Reach Through Remote Operations",
+   "metrics": {
+    "registrants": 134,
+    "attendees": 42
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2025-06-18",
+   "title": "Remote Drone Inspection, From an Office Chair 2,000 Miles Away",
+   "metrics": {
+    "registrants": 187,
+    "attendees": 70
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-09-22",
+   "metrics": {
+    "sent": 108392,
+    "opens": 23416,
+    "clicks": 3918
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2023-09-18",
+   "metrics": {
+    "sent": 17315,
+    "opens": 929,
+    "clicks": 11
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2023-09-06",
+   "metrics": {
+    "sent": 21449,
+    "opens": 4371,
+    "clicks": 67
+   }
+  }
+ ]
+}

@@ -1,0 +1,27 @@
+{
+ "client_slug": "ghd",
+ "source_url": "https://docs.google.com/spreadsheets/d/1V98PKQvTsksOoIpRxFkoFWtQf9TrUvt_OxaXWn0SyjE/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 1, email 1. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "email",
+   "date": "2026-07-21",
+   "metrics": {
+    "sent": 110341,
+    "opens": 25018,
+    "clicks": 3787
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2026-07-07",
+   "metrics": {
+    "views": 553,
+    "likes": 4
+   },
+   "title": "Coal to clarity: Why early planning is the smartest move coal asset owners can make",
+   "live_url": "https://www.energycentral.com/fossil-thermal/post/coal-to-clarity-why-early-planning-is-the-smartest-move-coal-asset-GGLRcaNtM4QGLIk"
+  }
+ ]
+}

@@ -1,0 +1,86 @@
+{
+ "client_slug": "trenwa",
+ "source_url": "https://drive.google.com/file/d/1VCLjZBH3hOl0FCPR4H8E3gu4KZ8oyDOy/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. newsletter 3, sponsorship 3, website 3. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "website",
+   "date": "2025-09-07",
+   "metrics": {
+    "impressions": 71110,
+    "clicks": 32
+   },
+   "end_date": "2025-09-13"
+  },
+  {
+   "tab": "website",
+   "date": "2025-08-10",
+   "metrics": {
+    "impressions": 58270,
+    "clicks": 70
+   },
+   "end_date": "2025-08-16"
+  },
+  {
+   "tab": "website",
+   "date": "2025-07-20",
+   "metrics": {
+    "impressions": 105520,
+    "clicks": 141
+   },
+   "end_date": "2025-07-26"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-09-15",
+   "metrics": {
+    "impressions": 12281
+   },
+   "end_date": "2025-10-15"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-08-15",
+   "metrics": {
+    "impressions": 8555
+   },
+   "end_date": "2025-09-15"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-07-15",
+   "metrics": {
+    "impressions": 8598
+   },
+   "end_date": "2025-08-15"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-07",
+   "metrics": {
+    "impressions": 2366,
+    "clicks": 26
+   },
+   "end_date": "2025-09-13"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-08-10",
+   "metrics": {
+    "impressions": 2114,
+    "clicks": 13
+   },
+   "end_date": "2025-08-16"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-07-20",
+   "metrics": {
+    "impressions": 1978,
+    "clicks": 29
+   },
+   "end_date": "2025-07-26"
+  }
+ ]
+}

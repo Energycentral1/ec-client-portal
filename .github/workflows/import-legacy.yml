@@ -7,11 +7,15 @@ on:
       client:
         description: Client slug to import (leave empty for all)
         required: false
+      dry_run:
+        description: Dry run (print what would be written, write nothing)
+        type: boolean
+        default: false
 
 jobs:
   import:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -19,7 +23,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run import:legacy -- "$CLIENT"
+      - run: npm run import:legacy -- ${{ inputs.dry_run && '--dry' || '' }} "$CLIENT"
         env:
           CLIENT: ${{ inputs.client }}
           NEXT_PUBLIC_SUPABASE_URL: https://kzaiplniicuuxhprrxxc.supabase.co

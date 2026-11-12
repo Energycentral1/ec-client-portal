@@ -1,0 +1,133 @@
+{
+ "client_slug": "fulcrum",
+ "source_url": "https://docs.google.com/spreadsheets/d/1gmzaSMXjhJqSjx5moE1Opbysr40OhyQKI2Can-87xhs/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 1, email 4, events 8, newsletter 1. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "newsletter",
+   "date": "2026-03-11",
+   "metrics": {
+    "impressions": 32319,
+    "clicks": 50
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2026-10-21",
+   "title": "Follow vegetation risk to get better grid resilience",
+   "metrics": {
+    "registrants": 88,
+    "attendees": 42
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2026-07-13",
+   "title": "Energy Central & Fulcrum Present: Point Zero",
+   "metrics": {
+    "registrants": 158,
+    "attendees": 69
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2026-04-22",
+   "title": "No, Really: AI Is Already in the Field. Here's What It Looks Like.",
+   "metrics": {
+    "registrants": 232,
+    "attendees": 93
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2023-09-26",
+   "title": "Getting higher-quality data from the field",
+   "metrics": {
+    "registrants": 262,
+    "attendees": 61
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2022-09-29",
+   "title": "After digitization: Taking advantage of data to improve safety, productivity, reliability, and decision-making",
+   "metrics": {
+    "registrants": 260,
+    "attendees": 91
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2022-03-29",
+   "title": "Trust, but verify \u2013 preventing utility inspection fraud",
+   "metrics": {
+    "registrants": 155,
+    "attendees": 39
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2021-10-07",
+   "title": "Data Driven Approach to Vegetation Management",
+   "metrics": {
+    "registrants": 163,
+    "attendees": 70
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2021-06-22",
+   "title": "Mobile apps that bridge smart grids with smarter people",
+   "metrics": {
+    "registrants": 153,
+    "attendees": 57
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-04-15",
+   "metrics": {
+    "sent": 46433,
+    "opens": 3283,
+    "clicks": 105
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-04-10",
+   "metrics": {
+    "sent": 48648,
+    "opens": 3878,
+    "clicks": 224
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-03-07",
+   "metrics": {
+    "sent": 19673,
+    "opens": 2933,
+    "clicks": 32
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-01-25",
+   "metrics": {
+    "sent": 26103,
+    "opens": 4163,
+    "clicks": 84
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2024-02-22",
+   "metrics": {
+    "views": 581
+   },
+   "title": "[GUIDE] How to operationalize standards into digital inspections",
+   "live_url": "https://www.energycentral.com/home/post/guide-how-operationalize-standards-digital-inspections-Dv29Jku2ZJHyZuE"
+  }
+ ]
+}

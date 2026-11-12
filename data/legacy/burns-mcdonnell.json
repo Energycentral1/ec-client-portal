@@ -1,0 +1,47 @@
+{
+ "client_slug": "burns-mcdonnell",
+ "source_url": "https://docs.google.com/spreadsheets/d/13OcudNaEnbNV9fcatNwnaxXlM5DmwSqK5pj8CQkxbTU/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. events 1, newsletter 2, podcast 1. Left out, no clean number or date (4): Podcast / 2025-04-21 00:00:00; Podcast / 2025-01-21 00:00:00; Podcast / 2024-06-20 00:00:00; Podcast / 2024-03-19 00:00:00. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "podcast",
+   "date": "2026-07-24",
+   "metrics": {
+    "plays": 716,
+    "short_form_views": 328,
+    "impressions": 32736,
+    "clicks": 12
+   },
+   "title": "The Engineering Debate Shaping the Future Power Grid",
+   "live_url": "https://www.energycentral.com/podcasts/post/the-engineering-debate-shaping-the-future-power-grid-CBEMv89Sxt0K2F9"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-02-18",
+   "metrics": {
+    "impressions": 36716,
+    "clicks": 114
+   },
+   "end_date": "2024-02-24"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-02-11",
+   "metrics": {
+    "impressions": 38357,
+    "clicks": 153
+   },
+   "end_date": "2024-02-17"
+  },
+  {
+   "tab": "events",
+   "date": "2026-08-12",
+   "title": "The Third Grid: Why Telecommunications Infrastructure Has Become a Capital",
+   "metrics": {
+    "registrants": 178,
+    "attendees": 80
+   }
+  }
+ ]
+}

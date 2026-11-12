@@ -1,0 +1,109 @@
+{
+ "client_slug": "champion-fiberglass",
+ "source_url": "https://docs.google.com/spreadsheets/d/1L4bM2QgBVdqz7W4QMZn328zstxa3gAy2DOpxqA4Botw/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 2, email 6, website 3. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "website",
+   "date": "2025-10-12",
+   "metrics": {
+    "impressions": 110430,
+    "clicks": 34
+   },
+   "end_date": "2025-10-18"
+  },
+  {
+   "tab": "website",
+   "date": "2025-09-14",
+   "metrics": {
+    "impressions": 70460,
+    "clicks": 43
+   },
+   "end_date": "2025-09-20"
+  },
+  {
+   "tab": "website",
+   "date": "2025-08-10",
+   "metrics": {
+    "impressions": 58270,
+    "clicks": 94
+   },
+   "end_date": "2025-08-16"
+  },
+  {
+   "tab": "email",
+   "date": "2026-10-22",
+   "metrics": {
+    "sent": 104401,
+    "opens": 20755,
+    "clicks": 3078
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-10-08",
+   "metrics": {
+    "sent": 104740,
+    "opens": 23104,
+    "clicks": 3852
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-09-30",
+   "metrics": {
+    "sent": 108980,
+    "opens": 21786,
+    "clicks": 3880
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-06-17",
+   "metrics": {
+    "sent": 111759,
+    "opens": 41933,
+    "clicks": 4272
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-01-14",
+   "metrics": {
+    "sent": 115641,
+    "opens": 44136,
+    "clicks": 10405
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2025-09-09",
+   "metrics": {
+    "sent": 118942,
+    "opens": 47373,
+    "clicks": 4135
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2026-09-22",
+   "metrics": {
+    "views": 120,
+    "likes": 2
+   },
+   "title": "eBook: Engineered for Underground Reliability",
+   "live_url": "https://www.energycentral.com/energy-management/post/ebook-engineered-for-underground-reliability-oOmzDP1Y61r4vbM"
+  },
+  {
+   "tab": "content",
+   "date": "2025-08-29",
+   "metrics": {
+    "views": 385,
+    "likes": 5
+   },
+   "title": "Paper: A Major Southeast Texas Utility Fights Cable Theft",
+   "live_url": "https://www.energycentral.com/energy-management/post/paper-a-major-southeast-texas-utility-fights-cable-theft-iXV6R7K50KUSy7l"
+  }
+ ]
+}

@@ -144,12 +144,13 @@ async function main() {
     const dels: any[] = [];
     for (let i = 0; i < ids.length; i += 50) {
       const { data, error: e2 } = await db.from("deliverables")
-        .select("id, client_id, campaign_id, notion_page_id, deliverable_type, deliverable_label, inventory_tag, start_date, ec_brand, short_link, display_title, live_url, beehiiv_post_id, metrics(metric, value, source, status)")
+        .select("id, client_id, campaign_id, notion_page_id, deliverable_type, deliverable_label, inventory_tag, start_date, ec_brand, short_link, display_title, live_url, beehiiv_post_id, reported_with, metrics(metric, value, source, status)")
         .in("client_id", ids.slice(i, i + 50)).in("deliverable_type", ["newsletter_ad", "email_blast"]).gte("start_date", since).order("start_date");
       if (e2) throw e2;
       dels.push(...(data ?? []));
     }
-    const visible = dels.filter((d) => d.campaign_id || !d.notion_page_id);
+    // Placements whose numbers are carried by another row of an old report (reported_with) are left alone.
+    const visible = dels.filter((d) => (d.campaign_id || !d.notion_page_id) && !d.reported_with);
     const due = visible.filter((d) => d.start_date <= addDays(today, d.deliverable_type === "newsletter_ad" ? -14 : -7));
     console.log(`Placements due: ${due.length} (${due.filter((d) => d.deliverable_type === "newsletter_ad").length} newsletter ads, ${due.filter((d) => d.deliverable_type === "email_blast").length} paid emails).`);
 
@@ -240,12 +241,12 @@ async function main() {
     const webDels: any[] = [];
     for (let i = 0; i < ids.length; i += 50) {
       const { data, error: e2 } = await db.from("deliverables")
-        .select("id, client_id, campaign_id, notion_page_id, deliverable_type, deliverable_label, inventory_tag, start_date, end_date, short_link, metrics(metric, value, source, status)")
+        .select("id, client_id, campaign_id, notion_page_id, deliverable_type, deliverable_label, inventory_tag, start_date, end_date, short_link, reported_with, metrics(metric, value, source, status)")
         .in("client_id", ids.slice(i, i + 50)).eq("deliverable_type", "website_ad").gte("start_date", since).order("start_date");
       if (e2) throw e2;
       webDels.push(...(data ?? []));
     }
-    const webDue = webDels.filter((d) => (d.campaign_id || !d.notion_page_id) && (d.end_date ?? d.start_date) <= addDays(today, -14) && !has(d, "clicks"));
+    const webDue = webDels.filter((d) => (d.campaign_id || !d.notion_page_id) && !d.reported_with && (d.end_date ?? d.start_date) <= addDays(today, -14) && !has(d, "clicks"));
     console.log(`Website ads due for clicks: ${webDue.length}.`);
     if (webDue.length) {
       const domains = (await sio("https://api.short.io/api/domains")) as any[];
@@ -296,7 +297,7 @@ async function main() {
     // look like a bot farm: report the clicks minus that city, flagged. Any other value more than 3x above or below the client's
     // median for that metric and placement type is flagged for a second look (CLAUDE.md task 6). Medians need 3+ other values.
     const known = (clientId: string, type: string, metric: string, self: Row) => [
-      ...dels.filter((d) => d.client_id === clientId && d.deliverable_type === type).flatMap((d) => (d.metrics as any[]).filter((m) => m.metric === metric).map((m) => Number(m.value))),
+      ...dels.filter((d) => d.client_id === clientId && d.deliverable_type === type).flatMap((d) => (d.metrics as any[]).filter((m) => m.metric === metric && m.status !== "rejected").map((m) => Number(m.value))),
       ...rows.filter((r) => r !== self && r.client_id === clientId && r.type === type && r.metric === metric).map((r) => r.value),
     ].filter((v) => v > 0).sort((a, b) => a - b);
     for (const r of rows) {

@@ -1,0 +1,1337 @@
+{
+ "client_slug": "ifs",
+ "source_url": "https://drive.google.com/file/d/1f65OaRmbg85df5yygG03iJyZDHKWFMFQ/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 4, email 9, events 12, newsletter 37, podcast 1, sponsorship 34, website 54. Left out, no clean number or date (8): Content / 2026-03-04 00:00:00; Sponsorship Recognition / 2025-12-01 00:00:00; Sponsorship Recognition / 2025-04-01 00:00:00; Events / Using Criticality and Value to Reach Opt; Events / ISO 55000 Planning: A Guide to Getting S; Events / Thank you for choosing Energy Central!; Podcasts & Interviews / 2025-02-04 00:00:00; Podcasts & Interviews / 2023-11-14 00:00:00. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "website",
+   "date": "2025-12-14",
+   "metrics": {
+    "impressions": 52540,
+    "clicks": 9
+   },
+   "end_date": "2025-12-20"
+  },
+  {
+   "tab": "website",
+   "date": "2025-11-16",
+   "metrics": {
+    "impressions": 115940,
+    "clicks": 27
+   },
+   "end_date": "2025-11-22"
+  },
+  {
+   "tab": "website",
+   "date": "2025-10-19",
+   "metrics": {
+    "impressions": 72660,
+    "clicks": 42
+   },
+   "end_date": "2025-10-25"
+  },
+  {
+   "tab": "website",
+   "date": "2025-09-21",
+   "metrics": {
+    "impressions": 73300,
+    "clicks": 20
+   },
+   "end_date": "2025-09-27"
+  },
+  {
+   "tab": "website",
+   "date": "2025-08-17",
+   "metrics": {
+    "impressions": 60220,
+    "clicks": 40
+   },
+   "end_date": "2025-08-23"
+  },
+  {
+   "tab": "website",
+   "date": "2025-07-20",
+   "metrics": {
+    "impressions": 105520,
+    "clicks": 146
+   },
+   "end_date": "2025-07-26"
+  },
+  {
+   "tab": "website",
+   "date": "2025-06-15",
+   "metrics": {
+    "impressions": 89730,
+    "clicks": 10
+   },
+   "end_date": "2025-06-21"
+  },
+  {
+   "tab": "website",
+   "date": "2025-05-18",
+   "metrics": {
+    "impressions": 5438,
+    "clicks": 4
+   },
+   "end_date": "2025-05-24"
+  },
+  {
+   "tab": "website",
+   "date": "2025-05-18",
+   "metrics": {
+    "impressions": 3763,
+    "clicks": 4
+   },
+   "end_date": "2025-05-24"
+  },
+  {
+   "tab": "website",
+   "date": "2025-04-20",
+   "metrics": {
+    "impressions": 7463,
+    "clicks": 7
+   },
+   "end_date": "2025-04-26"
+  },
+  {
+   "tab": "website",
+   "date": "2025-04-20",
+   "metrics": {
+    "impressions": 4242,
+    "clicks": 2
+   },
+   "end_date": "2025-04-26"
+  },
+  {
+   "tab": "website",
+   "date": "2025-03-23",
+   "metrics": {
+    "impressions": 9424,
+    "clicks": 4
+   },
+   "end_date": "2025-03-29"
+  },
+  {
+   "tab": "website",
+   "date": "2025-03-23",
+   "metrics": {
+    "impressions": 3750,
+    "clicks": 1
+   },
+   "end_date": "2025-03-29"
+  },
+  {
+   "tab": "website",
+   "date": "2025-02-23",
+   "metrics": {
+    "impressions": 9431,
+    "clicks": 1
+   },
+   "end_date": "2025-03-01"
+  },
+  {
+   "tab": "website",
+   "date": "2025-02-23",
+   "metrics": {
+    "impressions": 6051,
+    "clicks": 1
+   },
+   "end_date": "2025-03-01"
+  },
+  {
+   "tab": "website",
+   "date": "2025-01-26",
+   "metrics": {
+    "impressions": 8873,
+    "clicks": 10
+   },
+   "end_date": "2025-02-01"
+  },
+  {
+   "tab": "website",
+   "date": "2025-01-26",
+   "metrics": {
+    "impressions": 6986,
+    "clicks": 5
+   },
+   "end_date": "2025-02-01"
+  },
+  {
+   "tab": "website",
+   "date": "2025-01-05",
+   "metrics": {
+    "impressions": 18830,
+    "clicks": 23
+   },
+   "end_date": "2025-01-11"
+  },
+  {
+   "tab": "website",
+   "date": "2025-01-05",
+   "metrics": {
+    "impressions": 9999,
+    "clicks": 8
+   },
+   "end_date": "2025-01-11"
+  },
+  {
+   "tab": "website",
+   "date": "2024-12-15",
+   "metrics": {
+    "impressions": 4318,
+    "clicks": 2
+   },
+   "end_date": "2024-12-21"
+  },
+  {
+   "tab": "website",
+   "date": "2024-12-15",
+   "metrics": {
+    "impressions": 6469,
+    "clicks": 6
+   },
+   "end_date": "2024-12-21"
+  },
+  {
+   "tab": "website",
+   "date": "2024-11-10",
+   "metrics": {
+    "impressions": 8044,
+    "clicks": 3
+   },
+   "end_date": "2024-11-16"
+  },
+  {
+   "tab": "website",
+   "date": "2024-11-10",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 12
+   },
+   "end_date": "2024-11-16"
+  },
+  {
+   "tab": "website",
+   "date": "2024-10-13",
+   "metrics": {
+    "impressions": 45
+   },
+   "end_date": "2024-10-19"
+  },
+  {
+   "tab": "website",
+   "date": "2024-10-13",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 14
+   },
+   "end_date": "2024-10-19"
+  },
+  {
+   "tab": "website",
+   "date": "2024-09-15",
+   "metrics": {
+    "impressions": 8243,
+    "clicks": 4
+   },
+   "end_date": "2024-09-21"
+  },
+  {
+   "tab": "website",
+   "date": "2024-09-15",
+   "metrics": {
+    "impressions": 9935,
+    "clicks": 9
+   },
+   "end_date": "2024-09-21"
+  },
+  {
+   "tab": "website",
+   "date": "2024-08-11",
+   "metrics": {
+    "impressions": 6460,
+    "clicks": 6
+   },
+   "end_date": "2024-08-17"
+  },
+  {
+   "tab": "website",
+   "date": "2024-08-11",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 12
+   },
+   "end_date": "2024-08-17"
+  },
+  {
+   "tab": "website",
+   "date": "2024-07-14",
+   "metrics": {
+    "impressions": 11316,
+    "clicks": 4
+   },
+   "end_date": "2024-07-20"
+  },
+  {
+   "tab": "website",
+   "date": "2024-07-14",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 8
+   },
+   "end_date": "2024-07-20"
+  },
+  {
+   "tab": "website",
+   "date": "2024-06-23",
+   "metrics": {
+    "impressions": 11039,
+    "clicks": 3
+   },
+   "end_date": "2024-06-29"
+  },
+  {
+   "tab": "website",
+   "date": "2024-06-23",
+   "metrics": {
+    "impressions": 9990,
+    "clicks": 5
+   },
+   "end_date": "2024-06-29"
+  },
+  {
+   "tab": "website",
+   "date": "2024-06-02",
+   "metrics": {
+    "impressions": 17885,
+    "clicks": 5
+   },
+   "end_date": "2024-06-08"
+  },
+  {
+   "tab": "website",
+   "date": "2024-06-02",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 3
+   },
+   "end_date": "2024-06-08"
+  },
+  {
+   "tab": "website",
+   "date": "2024-04-28",
+   "metrics": {
+    "impressions": 5201,
+    "clicks": 3
+   },
+   "end_date": "2024-05-04"
+  },
+  {
+   "tab": "website",
+   "date": "2024-04-28",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 6
+   },
+   "end_date": "2024-05-04"
+  },
+  {
+   "tab": "website",
+   "date": "2024-03-31",
+   "metrics": {
+    "impressions": 7395,
+    "clicks": 3
+   },
+   "end_date": "2024-04-06"
+  },
+  {
+   "tab": "website",
+   "date": "2024-03-31",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 1
+   },
+   "end_date": "2024-04-06"
+  },
+  {
+   "tab": "website",
+   "date": "2024-02-04",
+   "metrics": {
+    "impressions": 5120,
+    "clicks": 4
+   },
+   "end_date": "2024-02-10"
+  },
+  {
+   "tab": "website",
+   "date": "2024-02-04",
+   "metrics": {
+    "impressions": 9486,
+    "clicks": 6
+   },
+   "end_date": "2024-02-10"
+  },
+  {
+   "tab": "website",
+   "date": "2023-12-03",
+   "metrics": {
+    "impressions": 5972,
+    "clicks": 1
+   },
+   "end_date": "2023-12-09"
+  },
+  {
+   "tab": "website",
+   "date": "2023-12-03",
+   "metrics": {
+    "impressions": 9746,
+    "clicks": 4
+   },
+   "end_date": "2023-12-09"
+  },
+  {
+   "tab": "website",
+   "date": "2023-11-05",
+   "metrics": {
+    "impressions": 9962,
+    "clicks": 5
+   },
+   "end_date": "2023-11-11"
+  },
+  {
+   "tab": "website",
+   "date": "2023-10-08",
+   "metrics": {
+    "impressions": 10008,
+    "clicks": 4
+   },
+   "end_date": "2023-10-14"
+  },
+  {
+   "tab": "website",
+   "date": "2023-09-10",
+   "metrics": {
+    "impressions": 10008,
+    "clicks": 8
+   },
+   "end_date": "2023-09-16"
+  },
+  {
+   "tab": "website",
+   "date": "2023-08-06",
+   "metrics": {
+    "impressions": 8623,
+    "clicks": 6
+   },
+   "end_date": "2023-08-12"
+  },
+  {
+   "tab": "website",
+   "date": "2023-07-09",
+   "metrics": {
+    "impressions": 10006,
+    "clicks": 8
+   },
+   "end_date": "2023-07-15"
+  },
+  {
+   "tab": "website",
+   "date": "2023-06-04",
+   "metrics": {
+    "impressions": 10007,
+    "clicks": 6
+   },
+   "end_date": "2023-06-10"
+  },
+  {
+   "tab": "website",
+   "date": "2023-05-07",
+   "metrics": {
+    "impressions": 9469,
+    "clicks": 11
+   },
+   "end_date": "2023-05-13"
+  },
+  {
+   "tab": "website",
+   "date": "2023-04-09",
+   "metrics": {
+    "impressions": 10002,
+    "clicks": 7
+   },
+   "end_date": "2023-04-15"
+  },
+  {
+   "tab": "website",
+   "date": "2023-03-12",
+   "metrics": {
+    "impressions": 10007,
+    "clicks": 4
+   },
+   "end_date": "2023-03-18"
+  },
+  {
+   "tab": "website",
+   "date": "2023-02-12",
+   "metrics": {
+    "impressions": 10009,
+    "clicks": 1
+   },
+   "end_date": "2023-02-18"
+  },
+  {
+   "tab": "website",
+   "date": "2023-01-22",
+   "metrics": {
+    "impressions": 10007,
+    "clicks": 1
+   },
+   "end_date": "2023-01-28"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-11-01",
+   "metrics": {
+    "impressions": 10836
+   },
+   "end_date": "2025-11-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-10-01",
+   "metrics": {
+    "impressions": 17022
+   },
+   "end_date": "2025-10-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-09-01",
+   "metrics": {
+    "impressions": 24535
+   },
+   "end_date": "2025-09-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-08-01",
+   "metrics": {
+    "impressions": 26142
+   },
+   "end_date": "2025-08-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-07-01",
+   "metrics": {
+    "impressions": 23525
+   },
+   "end_date": "2025-07-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-06-01",
+   "metrics": {
+    "impressions": 61068
+   },
+   "end_date": "2025-06-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-05-01",
+   "metrics": {
+    "impressions": 28988
+   },
+   "end_date": "2025-05-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-03-01",
+   "metrics": {
+    "impressions": 28877
+   },
+   "end_date": "2025-03-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-02-01",
+   "metrics": {
+    "impressions": 17272
+   },
+   "end_date": "2025-02-28"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-01-01",
+   "metrics": {
+    "impressions": 23485
+   },
+   "end_date": "2025-01-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-12-01",
+   "metrics": {
+    "impressions": 18898
+   },
+   "end_date": "2025-01-09"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-11-01",
+   "metrics": {
+    "impressions": 21006
+   },
+   "end_date": "2024-11-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-10-01",
+   "metrics": {
+    "impressions": 27420
+   },
+   "end_date": "2024-10-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-09-01",
+   "metrics": {
+    "impressions": 19974
+   },
+   "end_date": "2024-09-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-08-01",
+   "metrics": {
+    "impressions": 19669
+   },
+   "end_date": "2024-08-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-07-01",
+   "metrics": {
+    "impressions": 25362
+   },
+   "end_date": "2024-07-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-06-01",
+   "metrics": {
+    "impressions": 17503
+   },
+   "end_date": "2024-06-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-05-01",
+   "metrics": {
+    "impressions": 18533
+   },
+   "end_date": "2024-05-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-04-01",
+   "metrics": {
+    "impressions": 19923
+   },
+   "end_date": "2024-04-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-03-01",
+   "metrics": {
+    "impressions": 18105
+   },
+   "end_date": "2024-03-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-02-01",
+   "metrics": {
+    "impressions": 21939
+   },
+   "end_date": "2024-02-29"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-01-09",
+   "metrics": {
+    "impressions": 21621
+   },
+   "end_date": "2024-01-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-12-01",
+   "metrics": {
+    "impressions": 19183
+   },
+   "end_date": "2024-01-08"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-11-01",
+   "metrics": {
+    "impressions": 20037
+   },
+   "end_date": "2023-11-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-10-01",
+   "metrics": {
+    "impressions": 21583
+   },
+   "end_date": "2023-10-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-09-01",
+   "metrics": {
+    "impressions": 20599
+   },
+   "end_date": "2023-09-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-08-01",
+   "metrics": {
+    "impressions": 27535
+   },
+   "end_date": "2023-08-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-07-01",
+   "metrics": {
+    "impressions": 21548
+   },
+   "end_date": "2023-07-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-06-01",
+   "metrics": {
+    "impressions": 21628
+   },
+   "end_date": "2023-06-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-05-01",
+   "metrics": {
+    "impressions": 24056
+   },
+   "end_date": "2023-05-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-04-01",
+   "metrics": {
+    "impressions": 19612
+   },
+   "end_date": "2023-04-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-03-01",
+   "metrics": {
+    "impressions": 25096
+   },
+   "end_date": "2023-03-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-02-01",
+   "metrics": {
+    "impressions": 24120
+   },
+   "end_date": "2023-02-28"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-01-09",
+   "metrics": {
+    "impressions": 23893
+   },
+   "end_date": "2023-01-31"
+  },
+  {
+   "tab": "podcast",
+   "date": "2025-10-31",
+   "metrics": {
+    "plays": 767,
+    "short_form_views": 177,
+    "impressions": 10657,
+    "clicks": 2
+   },
+   "title": "The planning revolution utilities can\u2019t ignore",
+   "live_url": "https://www.energycentral.com/podcasts/post/the-planning-revolution-utilities-can-t-ignore-dLVXA5acnMzuzpy"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-12-16",
+   "metrics": {
+    "impressions": 34023,
+    "clicks": 65
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-11-16",
+   "metrics": {
+    "impressions": 2309,
+    "clicks": 7
+   },
+   "end_date": "2025-11-22"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-10-19",
+   "metrics": {
+    "impressions": 2347,
+    "clicks": 12
+   },
+   "end_date": "2025-10-25"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-21",
+   "metrics": {
+    "impressions": 2327,
+    "clicks": 26
+   },
+   "end_date": "2025-09-27"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-08-17",
+   "metrics": {
+    "impressions": 6304,
+    "clicks": 3
+   },
+   "end_date": "2025-08-23"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-07-20",
+   "metrics": {
+    "impressions": 6396,
+    "clicks": 35
+   },
+   "end_date": "2025-07-26"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-06-15",
+   "metrics": {
+    "impressions": 261063,
+    "clicks": 6201
+   },
+   "end_date": "2025-06-21"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-05-18",
+   "metrics": {
+    "impressions": 60371,
+    "clicks": 4420
+   },
+   "end_date": "2025-05-24"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-04-20",
+   "metrics": {
+    "impressions": 55719,
+    "clicks": 2943
+   },
+   "end_date": "2025-04-26"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-03-23",
+   "metrics": {
+    "impressions": 44813,
+    "clicks": 240
+   },
+   "end_date": "2025-03-29"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-02-23",
+   "metrics": {
+    "impressions": 49904,
+    "clicks": 601
+   },
+   "end_date": "2025-03-01"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-01-26",
+   "metrics": {
+    "impressions": 49337,
+    "clicks": 67
+   },
+   "end_date": "2025-02-01"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-01-05",
+   "metrics": {
+    "impressions": 67479,
+    "clicks": 417
+   },
+   "end_date": "2025-01-11"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-12-15",
+   "metrics": {
+    "impressions": 59455,
+    "clicks": 113
+   },
+   "end_date": "2024-12-21"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-11-10",
+   "metrics": {
+    "impressions": 60125,
+    "clicks": 235
+   },
+   "end_date": "2024-11-16"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-10-13",
+   "metrics": {
+    "impressions": 57517,
+    "clicks": 230
+   },
+   "end_date": "2024-10-19"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-09-15",
+   "metrics": {
+    "impressions": 57731,
+    "clicks": 379
+   },
+   "end_date": "2024-09-21"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-08-11",
+   "metrics": {
+    "impressions": 53681,
+    "clicks": 428
+   },
+   "end_date": "2024-08-17"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-07-14",
+   "metrics": {
+    "impressions": 56031,
+    "clicks": 170
+   },
+   "end_date": "2024-07-20"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-06-23",
+   "metrics": {
+    "impressions": 50531,
+    "clicks": 313
+   },
+   "end_date": "2024-06-29"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-06-02",
+   "metrics": {
+    "impressions": 47423,
+    "clicks": 157
+   },
+   "end_date": "2024-06-08"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-04-28",
+   "metrics": {
+    "impressions": 45720,
+    "clicks": 177
+   },
+   "end_date": "2024-05-04"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-03-31",
+   "metrics": {
+    "impressions": 44764,
+    "clicks": 137
+   },
+   "end_date": "2024-04-06"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-02-18",
+   "metrics": {
+    "impressions": 48638,
+    "clicks": 136
+   },
+   "end_date": "2024-02-24"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-02-04",
+   "metrics": {
+    "impressions": 55667,
+    "clicks": 136
+   },
+   "end_date": "2024-02-10"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-12-03",
+   "metrics": {
+    "impressions": 44979
+   },
+   "end_date": "2023-12-09"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-11-05",
+   "metrics": {
+    "impressions": 46759,
+    "clicks": 124
+   },
+   "end_date": "2023-11-11"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-10-08",
+   "metrics": {
+    "impressions": 48168,
+    "clicks": 73
+   },
+   "end_date": "2023-10-14"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-09-10",
+   "metrics": {
+    "impressions": 42533,
+    "clicks": 100
+   },
+   "end_date": "2023-09-16"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-08-06",
+   "metrics": {
+    "impressions": 38292,
+    "clicks": 84
+   },
+   "end_date": "2023-08-12"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-07-09",
+   "metrics": {
+    "impressions": 40095,
+    "clicks": 96
+   },
+   "end_date": "2023-07-15"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-06-04",
+   "metrics": {
+    "impressions": 35291,
+    "clicks": 68
+   },
+   "end_date": "2023-06-10"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-05-07",
+   "metrics": {
+    "impressions": 38923,
+    "clicks": 109
+   },
+   "end_date": "2023-05-13"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-04-09",
+   "metrics": {
+    "impressions": 41917,
+    "clicks": 122
+   },
+   "end_date": "2023-04-15"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-03-12",
+   "metrics": {
+    "impressions": 40504,
+    "clicks": 68
+   },
+   "end_date": "2023-03-18"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-02-12",
+   "metrics": {
+    "impressions": 52825,
+    "clicks": 80
+   },
+   "end_date": "2023-02-18"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-01-22",
+   "metrics": {
+    "impressions": 50884,
+    "clicks": 62
+   },
+   "end_date": "2023-01-28"
+  },
+  {
+   "tab": "events",
+   "date": "2026-06-03",
+   "title": "From Capital Planning to Capital Defensibility: How Utilities Can Prepare for a More Dynamic Regulatory Future",
+   "metrics": {
+    "registrants": 196,
+    "attendees": 77
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2026-05-06",
+   "title": "IFS Copperleaf Presents: Path to Approval Enhancing Regulatory Confidence with Value-Based Decision",
+   "metrics": {
+    "registrants": 251,
+    "attendees": 108
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2026-04-02",
+   "title": "Risk Informed Asset Management: The Columbia River System",
+   "metrics": {
+    "registrants": 216,
+    "attendees": 117
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2025-06-11",
+   "title": "Integrated Grid Planning: A Strategic Approach to Building Resilient and Sustainable Utility Systems",
+   "metrics": {
+    "registrants": 494,
+    "attendees": 223
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2024-11-06",
+   "title": "Powering Success: Change Management and Governance Strategies to Enable Lasting Success at Alabama Power",
+   "metrics": {
+    "registrants": 328,
+    "attendees": 94
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2024-08-08",
+   "title": "Case Study: Optimal Substation Asset Planning at Baltimore Gas & Electric",
+   "metrics": {
+    "registrants": 429,
+    "attendees": 159
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2023-09-28",
+   "title": "SoCalGas Case Study: Integrating Environmental and Social Justice into Asset Investment Decisions",
+   "metrics": {
+    "registrants": 333,
+    "attendees": 134
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2023-06-07",
+   "title": "The Utility Perspective: Navigating the Evolving Regulatory Landscape",
+   "metrics": {
+    "registrants": 524,
+    "attendees": 213
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2022-10-26",
+   "title": "Case Study: How National Grid Transformed Capital Work Planning",
+   "metrics": {
+    "registrants": 517,
+    "attendees": 196
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2022-02-23",
+   "title": "Developing a Sustainable Approach to Grid Modernization Investment Planning",
+   "metrics": {
+    "registrants": 390,
+    "attendees": 160
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2021-05-19",
+   "title": "Leveraging A.I. Optimization to Reduce and Schedule Outages",
+   "metrics": {
+    "registrants": 249,
+    "attendees": 95
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2019-06-20",
+   "title": "Introduction to Asset Management: What to Know Before Diving In",
+   "metrics": {
+    "registrants": 356,
+    "attendees": 148
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-03-04",
+   "metrics": {
+    "sent": 114623,
+    "opens": 28185,
+    "clicks": 2235
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-02-18",
+   "metrics": {
+    "sent": 114933,
+    "opens": 35718,
+    "clicks": 5080
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-02-04",
+   "metrics": {
+    "sent": 115254,
+    "opens": 38946,
+    "clicks": 8063
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-01-21",
+   "metrics": {
+    "sent": 115590,
+    "opens": 37785,
+    "clicks": 5522
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-01-08",
+   "metrics": {
+    "sent": 116784,
+    "opens": 38911,
+    "clicks": 5626
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2025-03-12",
+   "metrics": {
+    "sent": 2055,
+    "opens": 953,
+    "clicks": 902
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2025-02-26",
+   "metrics": {
+    "sent": 1994,
+    "opens": 984,
+    "clicks": 957
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-06-04",
+   "metrics": {
+    "sent": 45333,
+    "opens": 4619,
+    "clicks": 110
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2023-06-08",
+   "metrics": {
+    "sent": 50060,
+    "opens": 7485,
+    "clicks": 110
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2026-05-12",
+   "metrics": {
+    "views": 410,
+    "likes": 1
+   },
+   "title": "White Paper: The New Standard for Defending Capital Plans",
+   "live_url": "https://www.energycentral.com/energy-management/post/the-new-standard-for-defending-capital-plans-why-utilities-are-losing-y7nLwTSWGxI5icW"
+  },
+  {
+   "tab": "content",
+   "date": "2026-01-28",
+   "metrics": {
+    "views": 382,
+    "likes": 1
+   },
+   "title": "From Plan to Proof: Building Defensible Investment Plans",
+   "live_url": "https://www.energycentral.com/energy-biz/post/from-plan-to-proof-building-defensible-investment-plans-AuMbUvVkm2IbpHp"
+  },
+  {
+   "tab": "content",
+   "date": "2025-12-04",
+   "metrics": {
+    "views": 447,
+    "likes": 1
+   },
+   "title": "Integrated Planning: The New Imperative for Electrical Utilities",
+   "live_url": "https://www.energycentral.com/energy-biz/post/integrated-planning-the-new-imperative-for-electrical-utilities-mUBTBk1mWqA7yUC"
+  },
+  {
+   "tab": "content",
+   "date": "2025-11-10",
+   "metrics": {
+    "views": 405,
+    "likes": 1
+   },
+   "title": "Quantifying the ROI of Intelligent Capital Decisions",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/quantifying-the-roi-of-intelligent-capital-decisions-isOE9Kl3ydFV7d8"
+  }
+ ]
+}

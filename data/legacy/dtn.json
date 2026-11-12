@@ -1,0 +1,85 @@
+{
+ "client_slug": "dtn",
+ "source_url": "https://docs.google.com/spreadsheets/d/1CxGkKjih26irp9S38eHmTWl2evzIjDKlzhjIfdG2ewM/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. events 1, newsletter 4, website 4. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "website",
+   "date": "2026-03-15",
+   "metrics": {
+    "impressions": 56840,
+    "clicks": 29
+   },
+   "end_date": "2026-03-21"
+  },
+  {
+   "tab": "website",
+   "date": "2026-03-08",
+   "metrics": {
+    "impressions": 63390,
+    "clicks": 23
+   },
+   "end_date": "2026-03-14"
+  },
+  {
+   "tab": "website",
+   "date": "2026-03-01",
+   "metrics": {
+    "impressions": 57740,
+    "clicks": 24
+   },
+   "end_date": "2026-03-07"
+  },
+  {
+   "tab": "website",
+   "date": "2026-02-22",
+   "metrics": {
+    "impressions": 55020,
+    "clicks": 26
+   },
+   "end_date": "2026-02-28"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-04-01",
+   "metrics": {
+    "impressions": 113850,
+    "clicks": 31478
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-03-25",
+   "metrics": {
+    "impressions": 112843,
+    "clicks": 27655
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-03-20",
+   "metrics": {
+    "impressions": 114254,
+    "clicks": 29681
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-02-25",
+   "metrics": {
+    "impressions": 114864,
+    "clicks": 29255
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2026-04-15",
+   "title": "From Reactive to Predictive: The Case for a Weather-Intelligent Grid",
+   "metrics": {
+    "registrants": 339,
+    "attendees": 127
+   }
+  }
+ ]
+}

@@ -1,0 +1,62 @@
+{
+ "client_slug": "powersecure",
+ "source_url": "https://docs.google.com/spreadsheets/d/105NBIH5uGuuyl6oBSjac9w6VG0jkyq_uKCfQBUvspZc/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 1, newsletter 4, podcast 1. Left out, no clean number or date (2): Events / Thank you for choosing Energy Central!; Podcasts & Interviews / 2026-08-12 00:00:00. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "podcast",
+   "date": "2026-05-29",
+   "metrics": {
+    "plays": 869,
+    "short_form_views": 2957,
+    "impressions": 33628,
+    "clicks": 6
+   },
+   "title": "Can this tech fix the data center interconnection dilemma?",
+   "live_url": "https://www.energycentral.com/podcasts/post/can-this-tech-fix-the-data-center-interconnection-dilemma-yKY8slMAE9ONzTP"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-09-15",
+   "metrics": {
+    "impressions": 26972,
+    "clicks": 848
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-06-02",
+   "metrics": {
+    "impressions": 29400,
+    "clicks": 294
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-05-05",
+   "metrics": {
+    "impressions": 26858,
+    "clicks": 140
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-04-08",
+   "metrics": {
+    "impressions": 29642,
+    "clicks": 110
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2026-02-17",
+   "metrics": {
+    "views": 406,
+    "likes": 8
+   },
+   "title": "DERs: Different Benefits for Different Companies in Different Places",
+   "live_url": "https://www.energycentral.com/energy-management/post/ders-different-benefits-for-different-companies-in-different-places-EM1rkgk3X44faoU"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "client_slug": "engineered-intelligence",
+ "source_url": "https://docs.google.com/spreadsheets/d/1dJB5j9QUAq5fevkX77R8yyrM3qhHNRWIh8cXNEC7gaI/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 2. Left out, no clean number or date (1): Content Report / 2026-11-12 00:00:00. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "content",
+   "date": "2026-07-09",
+   "metrics": {
+    "views": 709,
+    "likes": 1
+   },
+   "title": "Asset Management\u2019s Need for Grid Modeling",
+   "live_url": "https://www.energycentral.com/energy-management/post/asset-management-s-need-for-grid-modeling-1nQonpIA2Nx1vqP"
+  },
+  {
+   "tab": "content",
+   "date": "2026-05-20",
+   "metrics": {
+    "views": 912,
+    "likes": 1
+   },
+   "title": "An answer to your grid questions",
+   "live_url": "https://www.energycentral.com/energy-management/post/an-answer-to-your-grid-questions-esTznqLikrFyxAt"
+  }
+ ]
+}

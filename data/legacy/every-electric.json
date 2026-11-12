@@ -1,0 +1,7 @@
+{
+ "client_slug": "every-electric",
+ "source_url": "https://docs.google.com/spreadsheets/d/1XdHw5SktGBAAeP6fA4ocibKtpi7vjzKir8kqpvArVBc/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. . The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": []
+}

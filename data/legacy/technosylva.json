@@ -1,0 +1,29 @@
+{
+ "client_slug": "technosylva",
+ "source_url": "https://docs.google.com/spreadsheets/d/16g0Owq_f-VTH_sbag2VymB-7Q_cfSg-HNEOb-K7zsKg/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. podcast 2. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "podcast",
+   "date": "2026-10-26",
+   "metrics": {
+    "impressions": 131
+   },
+   "title": "Extreme Weather, Extreme Stakes: How Technosylva Is Rewriting the Playbook for Storm Mobilization",
+   "live_url": "https://www.energycentral.com/home/post/extreme-weather-extreme-stakes-how-technosylva-is-rewriting-the-zmOqrLdQ4F3T8dH"
+  },
+  {
+   "tab": "podcast",
+   "date": "2026-07-17",
+   "metrics": {
+    "plays": 560,
+    "short_form_views": 793,
+    "impressions": 34683,
+    "clicks": 8
+   },
+   "title": "Why This Utility Shut Off Power Before Disaster Hit",
+   "live_url": "https://www.energycentral.com/podcasts/post/why-this-utility-shut-off-power-before-disaster-hit-pnd3HH2jfLPM2G2"
+  }
+ ]
+}

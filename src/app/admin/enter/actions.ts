@@ -12,9 +12,9 @@ export async function saveNumbers(_prev: EnterState, fd: FormData): Promise<Ente
   if (profile?.role !== "admin") return { error: "Admins only." };
   const supabase = await createClient();
   const id = String(fd.get("deliverable_id") ?? "");
-  const { data: d } = await supabase.from("deliverables").select("id, client_id, start_date, live_url, display_title, metrics(id, metric, value)").eq("id", id).single();
+  const { data: d } = await supabase.from("deliverables").select("id, client_id, start_date, live_url, display_title, metrics(id, metric, value, status)").eq("id", id).single();
   if (!d) return { error: "That placement no longer exists." };
-  const existing = (d.metrics ?? []) as { id: string; metric: string; value: number }[];
+  const existing = ((d.metrics ?? []) as { id: string; metric: string; value: number; status: string }[]).filter((m) => m.status !== "rejected");
   const today = new Date().toISOString().slice(0, 10);
   let changed = 0;
   for (const metric of METRICS) {

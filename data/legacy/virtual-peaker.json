@@ -1,0 +1,63 @@
+{
+ "client_slug": "virtual-peaker",
+ "source_url": "https://docs.google.com/spreadsheets/d/1Y4fKTr5WIrLvwd9ZGx0lOMAPJYyDkoZFnYubQB-jgRM/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 1, email 3, events 2. Left out, no clean number or date (1): Email / 2026-09-29 00:00:00. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "events",
+   "date": "2026-07-14",
+   "title": "The VPP Payoff: Strategies for Scaling and Maximizing Returns",
+   "metrics": {
+    "registrants": 367,
+    "attendees": 169
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2025-08-21",
+   "title": "Harnessing VPPs Full Potential: Operational Challenges & Best Practices [an Energy Central PowerSession\u2122]",
+   "metrics": {
+    "registrants": 261,
+    "attendees": 102
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-08-19",
+   "metrics": {
+    "sent": 110209,
+    "opens": 29759,
+    "clicks": 8288
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2025-07-28",
+   "metrics": {
+    "sent": 21714,
+    "opens": 8908,
+    "clicks": 960
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2025-07-24",
+   "metrics": {
+    "sent": 21858,
+    "opens": 7631,
+    "clicks": 391
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2025-07-10",
+   "metrics": {
+    "views": 404,
+    "likes": 3
+   },
+   "title": "Direct Comparison Guide: Launching a VPP versus Building a New Power Plant",
+   "live_url": "https://www.energycentral.com/energy-management/post/direct-comparison-guide-launching-a-vpp-versus-building-a-new-power-plant-dNmFZJNDXRJNhtv"
+  }
+ ]
+}

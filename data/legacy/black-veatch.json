@@ -1,0 +1,128 @@
+{
+ "client_slug": "black-veatch",
+ "source_url": "https://drive.google.com/file/d/1UlYr37p7Z_bQv1licXB-zb03AQeMIX5t/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 2, email 7, events 1, newsletter 4. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "newsletter",
+   "date": "2026-06-04",
+   "metrics": {
+    "impressions": 28255,
+    "clicks": 164
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-06-03",
+   "metrics": {
+    "impressions": 30187,
+    "clicks": 163
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-06-01",
+   "metrics": {
+    "impressions": 29411,
+    "clicks": 237
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-05-29",
+   "metrics": {
+    "impressions": 26959,
+    "clicks": 172
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2026-07-21",
+   "title": "Atoms Reimagined: Scaling Next-Gen Nuclear",
+   "metrics": {
+    "registrants": 260,
+    "attendees": 130
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-07-25",
+   "metrics": {
+    "sent": 54053,
+    "opens": 4262,
+    "clicks": 211
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-07-17",
+   "metrics": {
+    "sent": 53986,
+    "opens": 5164,
+    "clicks": 236
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-05-07",
+   "metrics": {
+    "sent": 50865,
+    "opens": 4596,
+    "clicks": 120
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-05-01",
+   "metrics": {
+    "sent": 52334,
+    "opens": 5056,
+    "clicks": 166
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2022-05-26",
+   "metrics": {
+    "sent": 16215,
+    "opens": 1160,
+    "clicks": 62
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2022-05-18",
+   "metrics": {
+    "sent": 39370,
+    "opens": 8224,
+    "clicks": 232
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2022-02-22",
+   "metrics": {
+    "sent": 22056,
+    "opens": 3935,
+    "clicks": 74
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2024-05-14",
+   "metrics": {
+    "views": 552
+   },
+   "title": "Substation project boosts flood resiliency in New Orleans"
+  },
+  {
+   "tab": "content",
+   "date": "2024-04-09",
+   "metrics": {
+    "views": 1260
+   },
+   "title": "Transforming a century-old site from a settling basin to a substation."
+  }
+ ]
+}

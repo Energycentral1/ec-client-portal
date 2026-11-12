@@ -1,0 +1,2386 @@
+{
+ "client_slug": "esri",
+ "source_url": "https://docs.google.com/spreadsheets/d/1zT1aHIiTyiQKj9cACj465I7OACRikVvdvUsT4YNjIpg/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 102, email 8, events 6, newsletter 48, sponsorship 75, website 23. Left out, no clean number or date (25): Content Report / 2025-09-18 00:00:00; Content Report / 2025-10-08 00:00:00; Content Report / 2025-10-08 00:00:00; Content Report / 2025-10-28 00:00:00; Content Report / 2025-10-28 00:00:00; Content Report / 2025-12-05 00:00:00; Content Report / 2026-11-10 00:00:00; Newsletter Advertising / 2020-12-01 00:00:00; Newsletter Advertising / 2020-11-01 00:00:00; Events / Connect with Esri; Podcasts & Interviews / 2025-06-26 00:00:00; Podcasts & Interviews / 2025-06-22 00:00:00; Podcasts & Interviews / 2025-04-22 00:00:00; Podcasts & Interviews / 2024-10-17 00:00:00; Podcasts & Interviews / 2024-10-16 00:00:00; Podcasts & Interviews / 2024-09-17 00:00:00; Podcasts & Interviews / 2024-03-22 00:00:00; Podcasts & Interviews / 2023-08-03 00:00:00; Podcasts & Interviews / 2023-08-03 00:00:00; Podcasts & Interviews / 2023-08-03 00:00:00; Podcasts & Interviews / 2022-09-06 00:00:00; Podcasts & Interviews / 2022-05-10 00:00:00; Podcasts & Interviews / 2021-07-20 00:00:00; Podcasts & Interviews / 2020-05-12 00:00:00; Podcasts & Interviews / 2020-04-14 00:00:00. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "website",
+   "date": "2025-01-12",
+   "metrics": {
+    "impressions": 6993,
+    "clicks": 7
+   },
+   "end_date": "2025-01-18"
+  },
+  {
+   "tab": "website",
+   "date": "2025-01-12",
+   "metrics": {
+    "impressions": 9618,
+    "clicks": 3
+   },
+   "end_date": "2025-01-18"
+  },
+  {
+   "tab": "website",
+   "date": "2024-12-01",
+   "metrics": {
+    "impressions": 8261,
+    "clicks": 8
+   },
+   "end_date": "2024-12-07"
+  },
+  {
+   "tab": "website",
+   "date": "2024-12-01",
+   "metrics": {
+    "impressions": 10009,
+    "clicks": 5
+   },
+   "end_date": "2024-12-07"
+  },
+  {
+   "tab": "website",
+   "date": "2024-11-10",
+   "metrics": {
+    "impressions": 8110,
+    "clicks": 9
+   },
+   "end_date": "2024-11-16"
+  },
+  {
+   "tab": "website",
+   "date": "2024-11-10",
+   "metrics": {
+    "impressions": 10003,
+    "clicks": 8
+   },
+   "end_date": "2024-11-16"
+  },
+  {
+   "tab": "website",
+   "date": "2024-10-13",
+   "metrics": {
+    "impressions": 41
+   },
+   "end_date": "2024-10-19"
+  },
+  {
+   "tab": "website",
+   "date": "2024-10-13",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 9
+   },
+   "end_date": "2024-10-19"
+  },
+  {
+   "tab": "website",
+   "date": "2024-09-08",
+   "metrics": {
+    "impressions": 8351,
+    "clicks": 1
+   },
+   "end_date": "2024-09-14"
+  },
+  {
+   "tab": "website",
+   "date": "2024-09-08",
+   "metrics": {
+    "impressions": 10006,
+    "clicks": 1
+   },
+   "end_date": "2024-09-14"
+  },
+  {
+   "tab": "website",
+   "date": "2024-08-25",
+   "metrics": {
+    "impressions": 10009,
+    "clicks": 4
+   },
+   "end_date": "2024-08-31"
+  },
+  {
+   "tab": "website",
+   "date": "2024-08-25",
+   "metrics": {
+    "impressions": 9371,
+    "clicks": 1
+   },
+   "end_date": "2024-08-31"
+  },
+  {
+   "tab": "website",
+   "date": "2024-06-30",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 6
+   },
+   "end_date": "2024-07-06"
+  },
+  {
+   "tab": "website",
+   "date": "2024-06-30",
+   "metrics": {
+    "impressions": 7382,
+    "clicks": 1
+   },
+   "end_date": "2024-07-06"
+  },
+  {
+   "tab": "website",
+   "date": "2024-06-02",
+   "metrics": {
+    "impressions": 17905,
+    "clicks": 7
+   },
+   "end_date": "2024-06-08"
+  },
+  {
+   "tab": "website",
+   "date": "2024-06-02",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 5
+   },
+   "end_date": "2024-06-08"
+  },
+  {
+   "tab": "website",
+   "date": "2024-05-05",
+   "metrics": {
+    "impressions": 7444,
+    "clicks": 3
+   },
+   "end_date": "2024-05-11"
+  },
+  {
+   "tab": "website",
+   "date": "2024-05-05",
+   "metrics": {
+    "impressions": 9829,
+    "clicks": 3
+   },
+   "end_date": "2024-05-11"
+  },
+  {
+   "tab": "website",
+   "date": "2024-04-14",
+   "metrics": {
+    "impressions": 10011,
+    "clicks": 2
+   },
+   "end_date": "2024-04-20"
+  },
+  {
+   "tab": "website",
+   "date": "2024-03-10",
+   "metrics": {
+    "impressions": 10009,
+    "clicks": 6
+   },
+   "end_date": "2024-03-16"
+  },
+  {
+   "tab": "website",
+   "date": "2024-03-10",
+   "metrics": {
+    "impressions": 5200,
+    "clicks": 6
+   },
+   "end_date": "2024-03-16"
+  },
+  {
+   "tab": "website",
+   "date": "2024-02-25",
+   "metrics": {
+    "impressions": 7450,
+    "clicks": 12
+   },
+   "end_date": "2024-03-02"
+  },
+  {
+   "tab": "website",
+   "date": "2024-01-21",
+   "metrics": {
+    "impressions": 6072,
+    "clicks": 2
+   },
+   "end_date": "2024-01-27"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2026-02-01",
+   "metrics": {
+    "impressions": 745917
+   },
+   "end_date": "2026-02-28"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2026-01-01",
+   "metrics": {
+    "impressions": 746588
+   },
+   "end_date": "2026-01-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-12-01",
+   "metrics": {
+    "impressions": 662827
+   },
+   "end_date": "2025-12-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-11-01",
+   "metrics": {
+    "impressions": 412372
+   },
+   "end_date": "2025-11-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-10-01",
+   "metrics": {
+    "impressions": 675185
+   },
+   "end_date": "2025-10-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-09-01",
+   "metrics": {
+    "impressions": 919050
+   },
+   "end_date": "2025-09-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-08-01",
+   "metrics": {
+    "impressions": 1074919
+   },
+   "end_date": "2025-08-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-07-01",
+   "metrics": {
+    "impressions": 955549
+   },
+   "end_date": "2025-07-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-06-01",
+   "metrics": {
+    "impressions": 1038607
+   },
+   "end_date": "2025-06-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-05-01",
+   "metrics": {
+    "impressions": 344531
+   },
+   "end_date": "2025-05-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-04-01",
+   "metrics": {
+    "impressions": 326434
+   },
+   "end_date": "2025-04-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-03-01",
+   "metrics": {
+    "impressions": 279083
+   },
+   "end_date": "2025-03-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-01-01",
+   "metrics": {
+    "impressions": 296813
+   },
+   "end_date": "2025-01-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-12-01",
+   "metrics": {
+    "impressions": 258535
+   },
+   "end_date": "2024-12-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-11-01",
+   "metrics": {
+    "impressions": 261648
+   },
+   "end_date": "2024-11-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-10-01",
+   "metrics": {
+    "impressions": 281407
+   },
+   "end_date": "2024-10-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-09-01",
+   "metrics": {
+    "impressions": 272046
+   },
+   "end_date": "2024-09-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-08-01",
+   "metrics": {
+    "impressions": 249738
+   },
+   "end_date": "2024-08-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-07-01",
+   "metrics": {
+    "impressions": 264409
+   },
+   "end_date": "2024-07-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-06-01",
+   "metrics": {
+    "impressions": 235578
+   },
+   "end_date": "2024-06-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-05-01",
+   "metrics": {
+    "impressions": 276343
+   },
+   "end_date": "2024-05-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-04-01",
+   "metrics": {
+    "impressions": 259724
+   },
+   "end_date": "2024-04-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-03-01",
+   "metrics": {
+    "impressions": 284853
+   },
+   "end_date": "2024-03-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-02-01",
+   "metrics": {
+    "impressions": 374633
+   },
+   "end_date": "2024-02-29"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-01-01",
+   "metrics": {
+    "impressions": 289236
+   },
+   "end_date": "2024-01-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-12-01",
+   "metrics": {
+    "impressions": 323769
+   },
+   "end_date": "2023-12-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-11-01",
+   "metrics": {
+    "impressions": 269212
+   },
+   "end_date": "2023-11-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-10-01",
+   "metrics": {
+    "impressions": 273995
+   },
+   "end_date": "2023-10-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-09-01",
+   "metrics": {
+    "impressions": 270778
+   },
+   "end_date": "2023-09-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-08-01",
+   "metrics": {
+    "impressions": 300562
+   },
+   "end_date": "2023-08-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-07-01",
+   "metrics": {
+    "impressions": 273595
+   },
+   "end_date": "2023-07-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-06-01",
+   "metrics": {
+    "impressions": 295514
+   },
+   "end_date": "2023-06-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-05-01",
+   "metrics": {
+    "impressions": 291925
+   },
+   "end_date": "2023-05-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-04-01",
+   "metrics": {
+    "impressions": 267100
+   },
+   "end_date": "2023-04-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-03-01",
+   "metrics": {
+    "impressions": 322606
+   },
+   "end_date": "2023-03-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-02-01",
+   "metrics": {
+    "impressions": 324923
+   },
+   "end_date": "2023-02-28"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-01-01",
+   "metrics": {
+    "impressions": 377542
+   },
+   "end_date": "2023-01-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-12-01",
+   "metrics": {
+    "impressions": 343387
+   },
+   "end_date": "2022-12-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-11-01",
+   "metrics": {
+    "impressions": 236616
+   },
+   "end_date": "2022-11-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-10-01",
+   "metrics": {
+    "impressions": 239013
+   },
+   "end_date": "2022-10-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-09-01",
+   "metrics": {
+    "impressions": 273844
+   },
+   "end_date": "2022-09-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-08-01",
+   "metrics": {
+    "impressions": 246997
+   },
+   "end_date": "2022-08-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-07-01",
+   "metrics": {
+    "impressions": 217253
+   },
+   "end_date": "2022-07-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-06-01",
+   "metrics": {
+    "impressions": 239605
+   },
+   "end_date": "2022-06-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-05-01",
+   "metrics": {
+    "impressions": 235139
+   },
+   "end_date": "2022-05-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-04-01",
+   "metrics": {
+    "impressions": 244549
+   },
+   "end_date": "2022-04-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-03-01",
+   "metrics": {
+    "impressions": 179595
+   },
+   "end_date": "2022-03-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-02-01",
+   "metrics": {
+    "impressions": 168322
+   },
+   "end_date": "2022-02-28"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-01-01",
+   "metrics": {
+    "impressions": 201909
+   },
+   "end_date": "2022-01-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-12-01",
+   "metrics": {
+    "impressions": 197056
+   },
+   "end_date": "2021-12-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-11-01",
+   "metrics": {
+    "impressions": 149905
+   },
+   "end_date": "2021-11-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-10-01",
+   "metrics": {
+    "impressions": 153742
+   },
+   "end_date": "2021-10-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-09-01",
+   "metrics": {
+    "impressions": 151446
+   },
+   "end_date": "2021-09-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-08-01",
+   "metrics": {
+    "impressions": 153172
+   },
+   "end_date": "2021-08-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-07-01",
+   "metrics": {
+    "impressions": 150723
+   },
+   "end_date": "2021-07-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-06-01",
+   "metrics": {
+    "impressions": 150723
+   },
+   "end_date": "2021-06-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-05-01",
+   "metrics": {
+    "impressions": 153724
+   },
+   "end_date": "2021-05-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-04-01",
+   "metrics": {
+    "impressions": 155071
+   },
+   "end_date": "2021-04-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-03-01",
+   "metrics": {
+    "impressions": 152745
+   },
+   "end_date": "2021-03-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-02-01",
+   "metrics": {
+    "impressions": 153355
+   }
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-01-01",
+   "metrics": {
+    "impressions": 159112
+   },
+   "end_date": "2021-01-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2020-12-01",
+   "metrics": {
+    "impressions": 156998
+   },
+   "end_date": "2020-12-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2020-11-01",
+   "metrics": {
+    "impressions": 143956
+   },
+   "end_date": "2020-11-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2020-10-01",
+   "metrics": {
+    "impressions": 58954
+   },
+   "end_date": "2020-10-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2020-09-01",
+   "metrics": {
+    "impressions": 57705
+   },
+   "end_date": "2020-09-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2020-08-01",
+   "metrics": {
+    "impressions": 60513
+   },
+   "end_date": "2020-08-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2020-07-01",
+   "metrics": {
+    "impressions": 58694
+   },
+   "end_date": "2020-07-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2020-06-01",
+   "metrics": {
+    "impressions": 66125
+   },
+   "end_date": "2020-06-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2020-05-01",
+   "metrics": {
+    "impressions": 65692
+   },
+   "end_date": "2020-05-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2020-04-01",
+   "metrics": {
+    "impressions": 75518
+   },
+   "end_date": "2020-04-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2020-03-01",
+   "metrics": {
+    "impressions": 64919
+   },
+   "end_date": "2020-03-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2020-02-01",
+   "metrics": {
+    "impressions": 61880
+   },
+   "end_date": "2020-02-29"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2020-01-01",
+   "metrics": {
+    "impressions": 70030
+   },
+   "end_date": "2020-01-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2019-12-01",
+   "metrics": {
+    "impressions": 72308
+   },
+   "end_date": "2019-12-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2019-11-01",
+   "metrics": {
+    "impressions": 60746
+   },
+   "end_date": "2019-11-30"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-01-12",
+   "metrics": {
+    "impressions": 66993,
+    "clicks": 319
+   },
+   "end_date": "2025-01-18"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-12-01",
+   "metrics": {
+    "impressions": 54098,
+    "clicks": 260
+   },
+   "end_date": "2024-12-07"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-11-10",
+   "metrics": {
+    "impressions": 59096,
+    "clicks": 222
+   },
+   "end_date": "2024-11-16"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-10-13",
+   "metrics": {
+    "impressions": 55428,
+    "clicks": 190
+   },
+   "end_date": "2024-10-19"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-09-08",
+   "metrics": {
+    "impressions": 49955,
+    "clicks": 189
+   },
+   "end_date": "2024-09-14"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-08-25",
+   "metrics": {
+    "impressions": 55518,
+    "clicks": 125
+   },
+   "end_date": "2024-08-31"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-06-30",
+   "metrics": {
+    "impressions": 42803,
+    "clicks": 359
+   },
+   "end_date": "2024-07-06"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-06-02",
+   "metrics": {
+    "impressions": 37249,
+    "clicks": 96
+   },
+   "end_date": "2024-06-08"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-05-05",
+   "metrics": {
+    "impressions": 49179,
+    "clicks": 102
+   },
+   "end_date": "2024-05-11"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-04-14",
+   "metrics": {
+    "impressions": 37395,
+    "clicks": 103
+   },
+   "end_date": "2024-04-20"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-03-10",
+   "metrics": {
+    "impressions": 47861,
+    "clicks": 131
+   },
+   "end_date": "2024-03-16"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-02-25",
+   "metrics": {
+    "impressions": 53668,
+    "clicks": 101
+   },
+   "end_date": "2024-03-02"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-01-21",
+   "metrics": {
+    "impressions": 49819,
+    "clicks": 221
+   },
+   "end_date": "2024-01-27"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-11-26",
+   "metrics": {
+    "impressions": 41004
+   },
+   "end_date": "2023-12-02"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-10-22",
+   "metrics": {
+    "impressions": 39947,
+    "clicks": 99
+   },
+   "end_date": "2023-10-28"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-10-01",
+   "metrics": {
+    "impressions": 40874,
+    "clicks": 82
+   },
+   "end_date": "2023-10-07"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-08-27",
+   "metrics": {
+    "impressions": 42192,
+    "clicks": 92
+   },
+   "end_date": "2023-09-02"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-07-30",
+   "metrics": {
+    "impressions": 41316,
+    "clicks": 108
+   },
+   "end_date": "2023-08-05"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-07-02",
+   "metrics": {
+    "impressions": 32327,
+    "clicks": 86
+   },
+   "end_date": "2023-07-08"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-06-18",
+   "metrics": {
+    "impressions": 37248,
+    "clicks": 121
+   },
+   "end_date": "2023-06-24"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-05-21",
+   "metrics": {
+    "impressions": 44081,
+    "clicks": 79
+   },
+   "end_date": "2023-05-27"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-04-30",
+   "metrics": {
+    "impressions": 42030,
+    "clicks": 226
+   },
+   "end_date": "2023-05-06"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-04-02",
+   "metrics": {
+    "impressions": 41228,
+    "clicks": 115
+   },
+   "end_date": "2023-04-08"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-03-05",
+   "metrics": {
+    "impressions": 42789,
+    "clicks": 85
+   },
+   "end_date": "2023-03-11"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-01-22",
+   "metrics": {
+    "impressions": 55209,
+    "clicks": 39
+   },
+   "end_date": "2023-01-28"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-12-18",
+   "metrics": {
+    "impressions": 48094,
+    "clicks": 74
+   },
+   "end_date": "2022-12-24"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-11-27",
+   "metrics": {
+    "impressions": 37711,
+    "clicks": 49
+   },
+   "end_date": "2022-12-03"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-10-23",
+   "metrics": {
+    "impressions": 36063,
+    "clicks": 42
+   },
+   "end_date": "2022-10-29"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-09-18",
+   "metrics": {
+    "impressions": 34119,
+    "clicks": 93
+   },
+   "end_date": "2022-09-24"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-08-21",
+   "metrics": {
+    "impressions": 37442,
+    "clicks": 82
+   },
+   "end_date": "2022-08-27"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-07-17",
+   "metrics": {
+    "impressions": 33578,
+    "clicks": 108
+   },
+   "end_date": "2022-07-23"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-06-19",
+   "metrics": {
+    "impressions": 35968,
+    "clicks": 104
+   },
+   "end_date": "2022-06-25"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-05-22",
+   "metrics": {
+    "impressions": 35067,
+    "clicks": 130
+   },
+   "end_date": "2022-05-28"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-04-24",
+   "metrics": {
+    "impressions": 35552,
+    "clicks": 154
+   },
+   "end_date": "2022-04-30"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-03-27",
+   "metrics": {
+    "impressions": 35595,
+    "clicks": 178
+   },
+   "end_date": "2022-04-02"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-03-13",
+   "metrics": {
+    "impressions": 36251,
+    "clicks": 170
+   },
+   "end_date": "2022-03-19"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2021-12-12",
+   "metrics": {
+    "impressions": 36827,
+    "clicks": 56
+   },
+   "end_date": "2021-12-18"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2021-11-14",
+   "metrics": {
+    "impressions": 27451,
+    "clicks": 146
+   },
+   "end_date": "2021-11-20"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2021-10-17",
+   "metrics": {
+    "impressions": 24394,
+    "clicks": 132
+   },
+   "end_date": "2021-10-23"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2021-09-05",
+   "metrics": {
+    "impressions": 28131,
+    "clicks": 129
+   },
+   "end_date": "2021-09-11"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2021-08-15",
+   "metrics": {
+    "impressions": 48417,
+    "clicks": 91
+   },
+   "end_date": "2021-08-28"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2021-07-18",
+   "metrics": {
+    "impressions": 24120,
+    "clicks": 19
+   },
+   "end_date": "2021-07-02"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2021-06-13",
+   "metrics": {
+    "impressions": 24209,
+    "clicks": 18
+   },
+   "end_date": "2021-06-19"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2021-05-16",
+   "metrics": {
+    "impressions": 25285,
+    "clicks": 17
+   },
+   "end_date": "2021-05-22"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2021-04-18",
+   "metrics": {
+    "impressions": 22868,
+    "clicks": 40
+   },
+   "end_date": "2021-04-24"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2021-03-14",
+   "metrics": {
+    "impressions": 24473,
+    "clicks": 182
+   },
+   "end_date": "2021-03-20"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2021-02-14",
+   "metrics": {
+    "impressions": 28514,
+    "clicks": 31
+   },
+   "end_date": "2021-02-20"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2021-01-31",
+   "metrics": {
+    "impressions": 27161,
+    "clicks": 259
+   },
+   "end_date": "2021-02-06"
+  },
+  {
+   "tab": "events",
+   "date": "2023-08-29",
+   "title": "GIS, EV and the Grid Dialogue Stream",
+   "metrics": {
+    "registrants": 422,
+    "attendees": 160
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2022-12-15",
+   "title": "Maturing of GIS \u2013 Baby Steps to Quantum Leaps",
+   "metrics": {
+    "registrants": 265,
+    "attendees": 109
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2022-06-29",
+   "title": "What Does the Technology Stack Look Like for a Live Utility Network Implementation?",
+   "metrics": {
+    "registrants": 198,
+    "attendees": 71
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2021-10-19",
+   "title": "Drive Better Utility Business Decisions with Location Technology",
+   "metrics": {
+    "registrants": 131,
+    "attendees": 55
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2021-10-14",
+   "title": "How Advances in Mobile and Cloud Computing Provide Efficiencies for Utility Companies",
+   "metrics": {
+    "registrants": 118,
+    "attendees": 35
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2020-08-19",
+   "title": "Enhancing Operations Management With Location Technology",
+   "metrics": {
+    "registrants": 591,
+    "attendees": 222
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2025-06-19",
+   "metrics": {
+    "sent": 43130,
+    "opens": 9661,
+    "clicks": 233
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-08-27",
+   "metrics": {
+    "sent": 26985,
+    "opens": 4715,
+    "clicks": 266
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-07-10",
+   "metrics": {
+    "sent": 17328,
+    "opens": 2967,
+    "clicks": 83
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2022-11-17",
+   "metrics": {
+    "sent": 20034,
+    "opens": 4312,
+    "clicks": 30
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2021-05-19",
+   "metrics": {
+    "sent": 22011,
+    "opens": 2506,
+    "clicks": 71
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2020-10-01",
+   "metrics": {
+    "sent": 37762,
+    "opens": 3339,
+    "clicks": 159
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2020-07-14",
+   "metrics": {
+    "sent": 38245,
+    "opens": 3448,
+    "clicks": 80
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2020-04-29",
+   "metrics": {
+    "sent": 38594,
+    "opens": 3391,
+    "clicks": 103
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2026-11-03",
+   "metrics": {
+    "views": 41,
+    "likes": 1
+   },
+   "title": "Inspecting with Ease: GVEC\u2019s Journey to Efficient Pole Inspections",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/inspecting-with-ease-gvec-s-journey-to-efficient-pole-inspections-n39prWJCfzKkHyH"
+  },
+  {
+   "tab": "content",
+   "date": "2026-10-27",
+   "metrics": {
+    "views": 60
+   },
+   "title": "Real-Time Visibility: How One Utility Used GIS to Transform Transmission Line Construction",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/real-time-visibility-how-one-utility-used-gis-to-transform-transmission-bHq01qoiYJv0daC"
+  },
+  {
+   "tab": "content",
+   "date": "2026-10-22",
+   "metrics": {
+    "views": 77,
+    "likes": 1
+   },
+   "title": "Esri Report: Closing the Utility Field-to-Office Gap",
+   "live_url": "https://www.energycentral.com/energy-biz/post/esri-report-closing-the-utility-field-to-office-gap-X6PmBf6p423Ecuu"
+  },
+  {
+   "tab": "content",
+   "date": "2026-10-20",
+   "metrics": {
+    "views": 108,
+    "likes": 1
+   },
+   "title": "Real-Time GIS Dashboard Enhances Critical Outage Response",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/real-time-gis-dashboard-enhances-critical-outage-response-3UpvKlzWPUb51ef"
+  },
+  {
+   "tab": "content",
+   "date": "2026-10-13",
+   "metrics": {
+    "views": 45,
+    "likes": 1
+   },
+   "title": "GIS-Powered Precision at Great River Energy: Fault Location Transformed",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/gis-powered-precision-at-great-river-energy-fault-location-transformed-68VOJ8SIzOkpy6H"
+  },
+  {
+   "tab": "content",
+   "date": "2026-10-06",
+   "metrics": {
+    "views": 74,
+    "likes": 1
+   },
+   "title": "How Connexus Energy Is Using ArcGIS Utility Network to Drive Digital Transformation",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/how-connexus-energy-is-using-arcgis-utility-network-to-drive-digital-Kksi3BMdjknveSC"
+  },
+  {
+   "tab": "content",
+   "date": "2026-09-22",
+   "metrics": {
+    "views": 67,
+    "likes": 1
+   },
+   "title": "High West Energy Automates Substation Inspection with GIS",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/high-west-energy-automates-substation-inspection-with-gis-3Fb7ZHnVtTdZNEv"
+  },
+  {
+   "tab": "content",
+   "date": "2026-09-15",
+   "metrics": {
+    "views": 219,
+    "likes": 3
+   },
+   "title": "From GIS to the Field: Closing the Operational Gap",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/from-gis-to-the-field-closing-the-operational-gap-A3wkgwvRgkYZVqF"
+  },
+  {
+   "tab": "content",
+   "date": "2026-09-09",
+   "metrics": {
+    "views": 85,
+    "likes": 2
+   },
+   "title": "High West Energy Automates Substation Inspection with GIS",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/high-west-energy-automates-substation-inspection-with-gis-1hEN2ZDZUuPMeyE"
+  },
+  {
+   "tab": "content",
+   "date": "2026-09-01",
+   "metrics": {
+    "views": 85,
+    "likes": 1
+   },
+   "title": "Faster Fixes, Smarter Apps: NES Transforms Storm Damage Workflow",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/faster-fixes-smarter-apps-nes-transforms-storm-damage-workflow-x0bbIOLJJNskxcy"
+  },
+  {
+   "tab": "content",
+   "date": "2026-08-25",
+   "metrics": {
+    "views": 519,
+    "likes": 1
+   },
+   "title": "HK Electric Looks to GIS for Grid Modernization",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/hk-electric-looks-to-gis-for-grid-modernization-Tf6jmEL7bYboiuR"
+  },
+  {
+   "tab": "content",
+   "date": "2026-08-18",
+   "metrics": {
+    "views": 129,
+    "likes": 2
+   },
+   "title": "Smarter Land Planning with GIS at TNB: The GeoLVI Story",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/smarter-land-planning-with-gis-at-tnb-the-geolvi-story-Hng0X8PcJBZzLZH"
+  },
+  {
+   "tab": "content",
+   "date": "2026-08-11",
+   "metrics": {
+    "views": 197,
+    "likes": 4
+   },
+   "title": "Enhancing Inspection Workflows for an Electric Cooperative",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/enhancing-inspection-workflows-for-an-electric-cooperative-VomWT272cvkCuO7"
+  },
+  {
+   "tab": "content",
+   "date": "2026-08-04",
+   "metrics": {
+    "views": 161,
+    "likes": 2
+   },
+   "title": "Guadalupe Valley Electric Cooperative Streamlines Easement Tracking",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/guadalupe-valley-electric-cooperative-streamlines-easement-tracking-eRnri6P1vppVzB5"
+  },
+  {
+   "tab": "content",
+   "date": "2026-07-28",
+   "metrics": {
+    "views": 270,
+    "likes": 1
+   },
+   "title": "PLN Perfects Power Inspections with AR and GIS",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/pln-perfects-power-inspections-with-ar-and-gis-Ha9tL5iXd2qSp7W"
+  },
+  {
+   "tab": "content",
+   "date": "2026-07-21",
+   "metrics": {
+    "views": 132,
+    "likes": 3
+   },
+   "title": "Real-Time Rainfall Monitoring Alerts Gas Company Staff of Severe Weather-Impacted Areas",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/real-time-rainfall-monitoring-alerts-gas-company-staff-of-severe-weather-g6NEOZT1M165hNn"
+  },
+  {
+   "tab": "content",
+   "date": "2026-07-14",
+   "metrics": {
+    "views": 344,
+    "likes": 10
+   },
+   "title": "How FirstEnergy Modernized Grid Operations with ArcGIS Utility Network",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/how-firstenergy-modernized-grid-operations-with-arcgis-utility-network-upl1xxxOh906Rhj"
+  },
+  {
+   "tab": "content",
+   "date": "2026-07-07",
+   "metrics": {
+    "views": 182
+   },
+   "title": "NEDC Strengthens Asset Security With GIS",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/nedc-strengthens-asset-security-with-gis-GsxhsWrETPhUsQ0"
+  },
+  {
+   "tab": "content",
+   "date": "2026-06-30",
+   "metrics": {
+    "views": 213,
+    "likes": 1
+   },
+   "title": "Rapid Mobile GIS Deployment for Gas Leaks and Inspections",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/rapid-mobile-gis-deployment-for-gas-leaks-and-inspections-wkTT30j7CPsfYdE"
+  },
+  {
+   "tab": "content",
+   "date": "2026-06-23",
+   "metrics": {
+    "views": 239
+   },
+   "title": "How ESO Migrated Data from ArcGIS Utility Network for Successful CIM Interoperability",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/how-eso-migrated-data-from-arcgis-utility-network-for-successful-cim-dmggtTpYv2ICf3J"
+  },
+  {
+   "tab": "content",
+   "date": "2026-06-18",
+   "metrics": {
+    "views": 262,
+    "likes": 5
+   },
+   "title": "Beyond Interconnection: How GIS Can Help Utilities Understand Grid Influence",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/beyond-interconnection-how-gis-can-help-utilities-understand-grid-FGFecWwWjByLvui"
+  },
+  {
+   "tab": "content",
+   "date": "2026-06-16",
+   "metrics": {
+    "views": 194,
+    "likes": 4
+   },
+   "title": "Veitur Utilities Builds a Connected, Data-Driven Enterprise with ArcGIS",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/veitur-utilities-builds-a-connected-data-driven-enterprise-with-arcgis-IfFTkHWs1rFZiwc"
+  },
+  {
+   "tab": "content",
+   "date": "2026-06-09",
+   "metrics": {
+    "views": 373,
+    "likes": 5
+   },
+   "title": "CIPCO Connects the Dots: Smarter Grids with GIS Insight",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/cipco-connects-the-dots-smarter-grids-with-gis-insight-nIoxCtVlM1GL9no"
+  },
+  {
+   "tab": "content",
+   "date": "2026-06-02",
+   "metrics": {
+    "views": 184,
+    "likes": 1
+   },
+   "title": "For Big Projects, Turn to Esri Partners",
+   "live_url": "https://www.energycentral.com/energy-biz/post/for-big-projects-turn-to-esri-partners-J8QONacp0vefp9M"
+  },
+  {
+   "tab": "content",
+   "date": "2026-05-26",
+   "metrics": {
+    "views": 392,
+    "likes": 3
+   },
+   "title": "GIS + Smart Design = Best-in-Class Customer Service",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/gis-smart-design-best-in-class-customer-service-KTJdMnopJkpj2QO"
+  },
+  {
+   "tab": "content",
+   "date": "2026-05-19",
+   "metrics": {
+    "views": 180,
+    "likes": 5
+   },
+   "title": "Santee Cooper Elevates Its Emergency Response with GIS",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/santee-cooper-elevates-its-emergency-response-with-gis-6oR9FSSZrFLkWww"
+  },
+  {
+   "tab": "content",
+   "date": "2026-05-12",
+   "metrics": {
+    "views": 231,
+    "likes": 3
+   },
+   "title": "Conway Corp Powers Up with ArcGIS Utility Network",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/conway-corp-powers-up-with-arcgis-utility-network-czxyXzfY7Q7c5YD"
+  },
+  {
+   "tab": "content",
+   "date": "2026-05-05",
+   "metrics": {
+    "views": 122,
+    "likes": 1
+   },
+   "title": "GIS Transforms Ameren\u2019s Network Model Manager for Electric Transmission",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/gis-transforms-ameren-s-network-model-manager-for-electric-transmission-NlP1YzIU4g4d3QM"
+  },
+  {
+   "tab": "content",
+   "date": "2026-04-21",
+   "metrics": {
+    "views": 218,
+    "likes": 6
+   },
+   "title": "Advanced Planning and Construction with CIM Integration",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/advanced-planning-and-construction-with-cim-integration-97AP223jTxPdjHd"
+  },
+  {
+   "tab": "content",
+   "date": "2026-04-14",
+   "metrics": {
+    "views": 339,
+    "likes": 2
+   },
+   "title": "Spatial Analysis Safeguards Utility Stakeholders from Wildfire",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/spatial-analysis-safeguards-utility-stakeholders-from-wildfire-1y7vUaelmecjO7a"
+  },
+  {
+   "tab": "content",
+   "date": "2026-04-07",
+   "metrics": {
+    "views": 179,
+    "likes": 4
+   },
+   "title": "City of Seguin Migrates to ArcGIS Utility Network with GPS Accuracy",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/city-of-seguin-migrates-to-arcgis-utility-network-with-gps-accuracy-WUJGrpjeDprpkNc"
+  },
+  {
+   "tab": "content",
+   "date": "2026-03-31",
+   "metrics": {
+    "views": 254,
+    "likes": 2
+   },
+   "title": "Wired for Success: TREDA\u015e Transforms Field Operations with ArcGIS",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/wired-for-success-tredas-transforms-field-operations-with-arcgis-0OK5WVV56mbLcKd"
+  },
+  {
+   "tab": "content",
+   "date": "2026-03-24",
+   "metrics": {
+    "views": 201,
+    "likes": 3
+   },
+   "title": "GIS-Powered Precision at Great River Energy: Fault Location Transformed",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/gis-powered-precision-at-great-river-energy-fault-location-transformed-M1cFp7Nd5Kq0BJL"
+  },
+  {
+   "tab": "content",
+   "date": "2026-03-17",
+   "metrics": {
+    "views": 285,
+    "likes": 8
+   },
+   "title": "Faster Fixes, Smarter Apps: NES Transforms Storm Damage Workflow",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/faster-fixes-smarter-apps-nes-transforms-storm-damage-workflow-aTmT9l6LvhlcoO4"
+  },
+  {
+   "tab": "content",
+   "date": "2026-03-10",
+   "metrics": {
+    "views": 237
+   },
+   "title": "Conway Corp Powers Up with ArcGIS Utility Network",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/conway-corp-powers-up-with-arcgis-utility-network-jjKZmVm9wirY1Dv"
+  },
+  {
+   "tab": "content",
+   "date": "2026-03-03",
+   "metrics": {
+    "views": 442,
+    "likes": 2
+   },
+   "title": "Puget Sound Energy Speeds Up and Improves GIS Gas Asset Data Collection",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/puget-sound-energy-speeds-up-and-improves-gis-gas-asset-data-collection-nK8PthF5DIYkQzh"
+  },
+  {
+   "tab": "content",
+   "date": "2026-02-24",
+   "metrics": {
+    "views": 288,
+    "likes": 3
+   },
+   "title": "Mountaineer Gas Company Improves Leak Management with ArcGIS",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/mountaineer-gas-company-improves-leak-management-with-arcgis-aw0eFSZuPgHBzrG"
+  },
+  {
+   "tab": "content",
+   "date": "2026-02-17",
+   "metrics": {
+    "views": 225,
+    "likes": 4
+   },
+   "title": "NEDC Strengthens Asset Security with GIS",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/nedc-strengthens-asset-security-with-gis-1xifKLtOgMq121o"
+  },
+  {
+   "tab": "content",
+   "date": "2026-02-10",
+   "metrics": {
+    "views": 291,
+    "likes": 1
+   },
+   "title": "HK Electric Looks to GIS for Grid Modernization",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/hk-electric-looks-to-gis-for-grid-modernization-9iQ6SIec6cPGAlb"
+  },
+  {
+   "tab": "content",
+   "date": "2026-02-03",
+   "metrics": {
+    "views": 1001,
+    "likes": 4
+   },
+   "title": "How Connexus Energy Is Using ArcGIS Utility Network to Drive Digital Transformation",
+   "live_url": "https://www.energycentral.com/energy-biz/post/how-connexus-energy-is-using-arcgis-utility-network-to-drive-digital-wnwrqLYIwivj54p"
+  },
+  {
+   "tab": "content",
+   "date": "2026-01-27",
+   "metrics": {
+    "views": 305,
+    "likes": 12
+   },
+   "title": "City of Seguin Migrates to ArcGIS Utility Network with GPS Accuracy",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/city-of-seguin-migrates-to-arcgis-utility-network-with-gps-accuracy-wEapQ8kcXfkjkpt"
+  },
+  {
+   "tab": "content",
+   "date": "2026-01-20",
+   "metrics": {
+    "views": 321,
+    "likes": 3
+   },
+   "title": "GIS Transforms Ameren\u2019s Network Model Manager for Electric Transmission",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/gis-transforms-ameren-s-network-model-manager-for-electric-transmission-G3teBgRyS8Bgsis"
+  },
+  {
+   "tab": "content",
+   "date": "2026-01-13",
+   "metrics": {
+    "views": 803,
+    "likes": 8
+   },
+   "title": "The New Wildfire Playbook: Detection, Collaboration, Prevention",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/the-new-wildfire-playbook-detection-collaboration-prevention-LedfJqzQgLcveXw"
+  },
+  {
+   "tab": "content",
+   "date": "2026-01-07",
+   "metrics": {
+    "views": 466,
+    "likes": 8
+   },
+   "title": "Electrification is Here. Are You Still Guessing Where?",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/electrification-is-here-are-you-still-guessing-where-eEcI6Pacx31UtxA"
+  },
+  {
+   "tab": "content",
+   "date": "2025-12-31",
+   "metrics": {
+    "views": 266,
+    "likes": 2
+   },
+   "title": "Advanced Planning and Construction with CIM Integration",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/advanced-planning-and-construction-with-cim-integration-dUI26L88INLQR3M"
+  },
+  {
+   "tab": "content",
+   "date": "2025-12-23",
+   "metrics": {
+    "views": 265,
+    "likes": 1
+   },
+   "title": "Dominion Energy Selects EpochField to Improve Inspections",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/dominion-energy-selects-epochfield-to-improve-inspections-063iV3CSAvUAm5p"
+  },
+  {
+   "tab": "content",
+   "date": "2025-12-16",
+   "metrics": {
+    "views": 299,
+    "likes": 2
+   },
+   "title": "For Big Projects, Turn to Esri Partners",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/for-big-projects-turn-to-esri-partners-ZulKZcJ7dyNohCN"
+  },
+  {
+   "tab": "content",
+   "date": "2025-12-09",
+   "metrics": {
+    "views": 318,
+    "likes": 6
+   },
+   "title": "States Are in Charge",
+   "live_url": "https://www.energycentral.com/energy-biz/post/states-are-in-charge-w5JaCf8Epf6ehW1"
+  },
+  {
+   "tab": "content",
+   "date": "2025-12-02",
+   "metrics": {
+    "views": 431,
+    "likes": 6
+   },
+   "title": "Why Balancing Authorities Need GIS More Than They Think",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/why-balancing-authorities-need-gis-more-than-they-think-XTHExfLZJoiA4LC"
+  },
+  {
+   "tab": "content",
+   "date": "2025-11-24",
+   "metrics": {
+    "views": 305,
+    "likes": 4
+   },
+   "title": "GIS: Changing the Game for FAC-003 Compliance",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/gis-changing-the-game-for-fac-003-compliance-JG1FPyrC3bWtd1t"
+  },
+  {
+   "tab": "content",
+   "date": "2025-11-18",
+   "metrics": {
+    "views": 398,
+    "likes": 4
+   },
+   "title": "HK Electric Looks to GIS for Grid Modernization",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/hk-electric-looks-to-gis-for-grid-modernization-aM6l2VJAFu2F4hL"
+  },
+  {
+   "tab": "content",
+   "date": "2025-11-04",
+   "metrics": {
+    "views": 337,
+    "likes": 1
+   },
+   "title": "NEDC Strengthens Asset Security with GIS",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/nedc-strengthens-asset-security-with-gis-hjhQ2x9ueg1vP4v"
+  },
+  {
+   "tab": "content",
+   "date": "2025-10-28",
+   "metrics": {
+    "views": 561,
+    "likes": 5
+   },
+   "title": "Puget Sound Energy Speeds Up and Improves GIS Gas Asset Data Collection",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/puget-sound-energy-speeds-up-and-improves-gis-gas-asset-data-collection-Z1hVAQrxkfFfGS3"
+  },
+  {
+   "tab": "content",
+   "date": "2025-10-21",
+   "metrics": {
+    "views": 496,
+    "likes": 4
+   },
+   "title": "Wildfire-Resilient Transmission Planning with GIS",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/wildfire-resilient-transmission-planning-with-gis-XYdVjbJNEi5jlK5"
+  },
+  {
+   "tab": "content",
+   "date": "2025-10-14",
+   "metrics": {
+    "views": 858,
+    "likes": 7
+   },
+   "title": "Turning Compliance into Confidence:",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/turning-compliance-into-confidence-HBBoDTMNrUu95PZ"
+  },
+  {
+   "tab": "content",
+   "date": "2025-10-07",
+   "metrics": {
+    "views": 389,
+    "likes": 3
+   },
+   "title": "Checking In with Energy Central Expert: Bill Meehan, Director of Utility Solutions at Esri",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/checking-in-with-energy-central-expert-bill-meehan-director-of-utility-H4Xssv1nan17pFY"
+  },
+  {
+   "tab": "content",
+   "date": "2025-09-30",
+   "metrics": {
+    "views": 3534,
+    "likes": 3
+   },
+   "title": "From Rating Risk to Reliability Ready: Why GIS is the antidote to NERC FAC-008 headaches",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/from-rating-risk-to-reliability-ready-why-gis-is-the-antidote-to-nerc-AG2Vqwm2PhuAhIs"
+  },
+  {
+   "tab": "content",
+   "date": "2025-09-23",
+   "metrics": {
+    "views": 724,
+    "likes": 19
+   },
+   "title": "Rewiring the Grid with GIS and the Internet of Where",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/rewiring-the-grid-with-gis-and-the-internet-of-where-YiZr19n0itBT3tR"
+  },
+  {
+   "tab": "content",
+   "date": "2025-09-16",
+   "metrics": {
+    "views": 433,
+    "likes": 5
+   },
+   "title": "Faster Fixes, Smarter Apps: NES Transforms Storm Damage Workflow",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/faster-fixes-smarter-apps-nes-transforms-storm-damage-workflow-3pQICpw2G13SeDc"
+  },
+  {
+   "tab": "content",
+   "date": "2025-09-09",
+   "metrics": {
+    "views": 819,
+    "likes": 11
+   },
+   "title": "GIS Guides the Grid: Galvanizing Innovations",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/gis-guides-the-grid-galvanizing-innovations-gV4i5WBeIIN1Hcz"
+  },
+  {
+   "tab": "content",
+   "date": "2025-09-02",
+   "metrics": {
+    "views": 561,
+    "likes": 8
+   },
+   "title": "Wired for Success: TREDA\u015e Transforms Field Operations with ArcGIS",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/wired-for-success-tredas-transforms-field-operations-with-arcgis-YPAIiF1wCtKjoxU"
+  },
+  {
+   "tab": "content",
+   "date": "2025-08-26",
+   "metrics": {
+    "views": 406,
+    "likes": 5
+   },
+   "title": "GIS-Powered Precision at Great River Energy: Fault Location Transformed",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/gis-powered-precision-at-great-river-energy-fault-location-transformed-vV0Y0H1HUm2MQXP"
+  },
+  {
+   "tab": "content",
+   "date": "2025-08-19",
+   "metrics": {
+    "views": 425,
+    "likes": 3
+   },
+   "title": "Smart Inspections Grounded in GIS",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/smart-inspections-grounded-in-gis-1XIRjp6JxeiEDL3"
+  },
+  {
+   "tab": "content",
+   "date": "2025-08-13",
+   "metrics": {
+    "views": 353,
+    "likes": 2
+   },
+   "title": "Checking In with Energy Central Expert: Tom Coolidge, Director of Gas and Pipeline Industry Solutions at Esri",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/checking-in-with-energy-central-expert-tom-coolidge-director-of-gas-and-fxqSjMlbUNf42cY"
+  },
+  {
+   "tab": "content",
+   "date": "2025-08-12",
+   "metrics": {
+    "views": 609,
+    "likes": 3
+   },
+   "title": "Real-Time Visibility: How One Utility Used GIS to Transform Transmission Line Construction",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/real-time-visibility-how-one-utility-used-gis-to-transform-transmission-z5wsDq3G86vzCFs"
+  },
+  {
+   "tab": "content",
+   "date": "2025-07-29",
+   "metrics": {
+    "views": 447,
+    "likes": 3
+   },
+   "title": "The Bucket Truck, the Squirrel, and the End of Paper Maps",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/the-bucket-truck-the-squirrel-and-the-end-of-paper-maps-jLtmz2zxOIQXqKy"
+  },
+  {
+   "tab": "content",
+   "date": "2025-07-23",
+   "metrics": {
+    "views": 406,
+    "likes": 3
+   },
+   "title": "A Tough, Smart Transmission Grid",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/a-tough-smart-transmission-grid-wehexKTsHAWeqen"
+  },
+  {
+   "tab": "content",
+   "date": "2025-07-15",
+   "metrics": {
+    "views": 652,
+    "likes": 4
+   },
+   "title": "Location Intelligence Optimizes Joint Use Pole Attachments",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/case-study-location-intelligence-optimizes-joint-use-pole-attachments-OVn9LSTASBtGnY8"
+  },
+  {
+   "tab": "content",
+   "date": "2025-07-10",
+   "metrics": {
+    "views": 369,
+    "likes": 3
+   },
+   "title": "GIS for collaboration: Do more...faster",
+   "live_url": "https://www.energycentral.com/podcasts/post/gis-for-collaboration-do-more-faster-vXKvMT4g1XyUvbV"
+  },
+  {
+   "tab": "content",
+   "date": "2025-07-08",
+   "metrics": {
+    "views": 397,
+    "likes": 7
+   },
+   "title": "Case Study: Location Intelligence Improves Hurricane Response and Power Restoration",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/case-study-location-intelligence-improves-hurricane-response-and-power-lTRSYhp5vDbBlcc"
+  },
+  {
+   "tab": "content",
+   "date": "2025-07-01",
+   "metrics": {
+    "views": 412,
+    "likes": 2
+   },
+   "title": "Case Study: Streamlined Meter Installation Workflow Improves Efficiency and Supports Outage Management",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/streamlined-meter-installation-workflow-improves-efficiency-and-supports-GPHVG2OVFphI7CE"
+  },
+  {
+   "tab": "content",
+   "date": "2025-06-26",
+   "metrics": {
+    "views": 816,
+    "likes": 3
+   },
+   "title": "How utility leaders predict the future with GIS",
+   "live_url": "https://www.energycentral.com/podcasts/post/how-utility-leaders-predict-the-future-with-gis-bSxwIblpDP8DyB3"
+  },
+  {
+   "tab": "content",
+   "date": "2025-06-24",
+   "metrics": {
+    "views": 419,
+    "likes": 4
+   },
+   "title": "GIS Takes the Chaos Out of Emergency Management",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/gis-takes-the-chaos-out-of-emergency-management-LBWD59t4mZacfxP"
+  },
+  {
+   "tab": "content",
+   "date": "2025-06-17",
+   "metrics": {
+    "views": 404,
+    "likes": 5
+   },
+   "title": "Design & Engineering for Modern Utility Networks",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/design-engineering-for-modern-utility-networks-TehFkivwZhgqMhk"
+  },
+  {
+   "tab": "content",
+   "date": "2025-06-16",
+   "metrics": {
+    "views": 507,
+    "likes": 4
+   },
+   "title": "Utilities have a data problem. Is GIS the solution?",
+   "live_url": "https://www.energycentral.com/podcasts/post/utilities-have-a-data-problem-is-gis-the-solution-we51112rRhyqHJT"
+  },
+  {
+   "tab": "content",
+   "date": "2025-06-12",
+   "metrics": {
+    "views": 519,
+    "likes": 1
+   },
+   "title": "EBOOK: Successful Digital Utilities Enabled by Modern Network Information Management",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/ebook-successful-digital-utilities-enabled-by-modern-network-information-Exh25DapA3pyPbq"
+  },
+  {
+   "tab": "content",
+   "date": "2025-06-10",
+   "metrics": {
+    "views": 902,
+    "likes": 4
+   },
+   "title": "The Grid\u2019s Sixth Sense: GIS for Dynamic Line Ratings",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/the-grid-s-sixth-sense-gis-for-dynamic-line-ratings-TpjVDrDnXMQ2YtN"
+  },
+  {
+   "tab": "content",
+   "date": "2025-06-10",
+   "metrics": {
+    "views": 391,
+    "likes": 1
+   },
+   "title": "Exploring Network Management Solutions: Learning Options and Tools for Esri\u2019s Utility Network and ArcGIS Pro",
+   "live_url": "https://www.energycentral.com/events/post/exploring-network-management-solutions-learning-options-and-tools-for-tWFdQRAUZo645Em"
+  },
+  {
+   "tab": "content",
+   "date": "2025-06-03",
+   "metrics": {
+    "views": 726,
+    "likes": 7
+   },
+   "title": "Case Study: ArcGIS Utility Network Prepares for Grid Modernization",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/case-study-arcgis-utility-network-prepares-for-grid-modernization-2r7YATMIiFxzGHB"
+  },
+  {
+   "tab": "content",
+   "date": "2025-05-27",
+   "metrics": {
+    "views": 282,
+    "likes": 1
+   },
+   "title": "Strengthening the Customer Relationship",
+   "live_url": "https://www.energycentral.com/home/post/strengthening-customer-relationship-VXkI1CpsMBvPAPs"
+  },
+  {
+   "tab": "content",
+   "date": "2025-05-20",
+   "metrics": {
+    "views": 512,
+    "likes": 1
+   },
+   "title": "Case Study: Advanced Planning and Construction with CIM Integration",
+   "live_url": "https://www.energycentral.com/home/post/advanced-planning-and-construction-cim-integration-1qJZetkcqhCuGPv"
+  },
+  {
+   "tab": "content",
+   "date": "2025-05-13",
+   "metrics": {
+    "views": 497,
+    "likes": 6
+   },
+   "title": "Learning about Grid Reliability from the 1954 Nash",
+   "live_url": "https://www.energycentral.com/home/post/learning-about-grid-reliability-1954-nash-HYiB6XREzi4FTNb"
+  },
+  {
+   "tab": "content",
+   "date": "2025-05-06",
+   "metrics": {
+    "views": 629,
+    "likes": 1
+   },
+   "title": "Case Study: Dominion Energy Selects EpochField to Improve Inspections",
+   "live_url": "https://www.energycentral.com/home/post/case-study-dominion-energy-selects-epochfield-improve-inspections-zBXMiQKzsaqkpeY"
+  },
+  {
+   "tab": "content",
+   "date": "2025-04-29",
+   "metrics": {
+    "views": 561,
+    "likes": 1
+   },
+   "title": "Beyond the Map: How Esri is Leaning into the AI Era to Enhance GIS Expertise - an Energy Central Conversation at DistribuTECH 2025",
+   "live_url": "https://www.energycentral.com/home/post/beyond-map-how-esri-leaning-ai-era-enhance-gis-expertise-energy-central-racJRtdxGbZ4Nbq"
+  },
+  {
+   "tab": "content",
+   "date": "2025-04-29",
+   "metrics": {
+    "views": 610,
+    "likes": 1
+   },
+   "title": "Smart Maps, Lower Electric Transmission Tariffs",
+   "live_url": "https://www.energycentral.com/home/post/smart-maps-lower-electric-transmission-tariffs-YsswEN3ikW0StNJ"
+  },
+  {
+   "tab": "content",
+   "date": "2025-04-21",
+   "metrics": {
+    "views": 716,
+    "likes": 0
+   },
+   "title": "Case Study: Telling the Compelling Story of a Historic City with Modern Promise",
+   "live_url": "https://www.energycentral.com/home/post/case-study-telling-compelling-story-historic-city-modern-promise-DV6mzEFvB2SB78g"
+  },
+  {
+   "tab": "content",
+   "date": "2025-04-18",
+   "metrics": {
+    "views": 893,
+    "likes": 1
+   },
+   "title": "Helping Utilities Stay Out of Trouble with GIS",
+   "live_url": "https://www.energycentral.com/home/post/helping-utilities-stay-out-trouble-gis-85fTQvYpTsBSYhF"
+  },
+  {
+   "tab": "content",
+   "date": "2025-03-24",
+   "metrics": {
+    "views": 1540,
+    "likes": 2
+   },
+   "title": "Case Study: Rapid Mobile GIS Deployment for Gas Leaks and Inspections",
+   "live_url": "https://www.energycentral.com/home/post/case-study-rapid-mobile-gis-deployment-gas-leaks-and-inspections-PgYt1voCspTeaPw"
+  },
+  {
+   "tab": "content",
+   "date": "2025-03-18",
+   "metrics": {
+    "views": 1708,
+    "likes": 2
+   },
+   "title": "Case Study | Enbridge Gas Unifies Transmission and Distribution Models with ArcGIS Utility Network",
+   "live_url": "https://www.energycentral.com/home/post/case-study-enbridge-gas-unifies-transmission-and-distribution-models-arcgis-k5LngUeo9zHsSc3"
+  },
+  {
+   "tab": "content",
+   "date": "2025-03-11",
+   "metrics": {
+    "views": 1334,
+    "likes": 1
+   },
+   "title": "Case Study: Santee Cooper Elevates Its Emergency Response with GIS",
+   "live_url": "https://www.energycentral.com/energy-biz/post/case-study-santee-cooper-elevates-its-emergency-response-gis-wKXUtrCsPy5HnBv"
+  },
+  {
+   "tab": "content",
+   "date": "2025-02-28",
+   "metrics": {
+    "views": 1133,
+    "likes": 1
+   },
+   "title": "Turn Your Transmission Team into a Playoff Contender (FERC 1920)",
+   "live_url": "https://www.energycentral.com/home/post/turn-your-transmission-team-playoff-contender-ferc-1920-LV9ZPexvEAXIPvr"
+  },
+  {
+   "tab": "content",
+   "date": "2025-02-25",
+   "metrics": {
+    "views": 1246,
+    "likes": 1
+   },
+   "title": "Case Study: Real-Time Rainfall Monitoring Alerts Gas Company Staff of Severe Weather-Impacted Areas",
+   "live_url": "https://www.energycentral.com/home/post/case-study-real-time-rainfall-monitoring-alerts-gas-company-staff-severe-A6p7tijl9fVUCcO"
+  },
+  {
+   "tab": "content",
+   "date": "2025-02-20",
+   "metrics": {
+    "views": 1520,
+    "likes": 1
+   },
+   "title": "Blame the Tree of Heaven: The Culprit Behind the 2003 Blackout and the Birth of NERC FAC-003?",
+   "live_url": "https://www.energycentral.com/home/post/blame-tree-heaven-culprit-behind-2003-blackout-and-birth-nerc-fa-003-U8EFUws2fQd813l"
+  },
+  {
+   "tab": "content",
+   "date": "2025-02-18",
+   "metrics": {
+    "views": 1096,
+    "likes": 1
+   },
+   "title": "Case Study: Tri-State G&T Digitally Transforms Easement Research with GIS",
+   "live_url": "https://www.energycentral.com/home/post/case-study-tri-state-gt-digitally-transforms-easement-research-gis-quhDvuw6kPwj8vr"
+  },
+  {
+   "tab": "content",
+   "date": "2025-02-17",
+   "metrics": {
+    "views": 1176,
+    "likes": 1
+   },
+   "title": "Get Your Assets in Gear: GIS for Transmission",
+   "live_url": "https://www.energycentral.com/home/post/get-your-assets-gear-gis-transmission-5G9XmzlK0ytvQ15"
+  },
+  {
+   "tab": "content",
+   "date": "2025-02-11",
+   "metrics": {
+    "views": 1123,
+    "likes": 1
+   },
+   "title": "Case Study: Guadalupe Valley Electric Cooperative Streamlines the Pole Joint Use Process",
+   "live_url": "https://www.energycentral.com/home/post/case-study-guadalupe-valley-electric-cooperative-streamlines-pole-joint-use-5LgDfDneR7JBwL8"
+  },
+  {
+   "tab": "content",
+   "date": "2025-02-04",
+   "metrics": {
+    "views": 1515,
+    "likes": 1
+   },
+   "title": "Case Study: PLN Innovates Network Vulnerability Assessment with GIS",
+   "live_url": "https://www.energycentral.com/home/post/case-study-pln-innovates-network-vulnerability-assessment-gis-34YoB2WbWuzWZWd"
+  },
+  {
+   "tab": "content",
+   "date": "2025-01-28",
+   "metrics": {
+    "views": 13180,
+    "likes": 1
+   },
+   "title": "Case Study: Imagery, Lidar, and GIS Transform Transpower's Vegetation Management",
+   "live_url": "https://www.energycentral.com/home/post/case-study-imagery-lidar-and-gis-transform-transpowers-vegetation-JWj9xj5r7m3bUSS"
+  },
+  {
+   "tab": "content",
+   "date": "2025-01-21",
+   "metrics": {
+    "views": 1057,
+    "likes": 1
+   },
+   "title": "Case Study: GIS Improves and Speeds 811 Ticket Fulfillment Process",
+   "live_url": "https://www.energycentral.com/home/post/case-study-gis-improves-and-speeds-811-ticket-fulfillment-process-SJYTRZg1QKjyoyl"
+  },
+  {
+   "tab": "content",
+   "date": "2025-01-14",
+   "metrics": {
+    "views": 2139,
+    "likes": 1
+   },
+   "title": "Case Study: How ESO Migrated Data from ArcGIS Utility Network for Successful CIM Interoperability",
+   "live_url": "https://www.energycentral.com/home/post/case-study-how-eso-migrated-data-arcgis-utility-network-successful-cim-LsNC2y8n4AUVWFX"
+  },
+  {
+   "tab": "content",
+   "date": "2025-01-08",
+   "metrics": {
+    "views": 1087,
+    "likes": 0
+   },
+   "title": "Esri User Conference",
+   "live_url": "https://www.energycentral.com/energy-biz/post/esri-user-conference-aZBe8Rg7KTE9xlP"
+  },
+  {
+   "tab": "content",
+   "date": "2025-01-07",
+   "metrics": {
+    "views": 1142,
+    "likes": 3
+   },
+   "title": "Case Study: Brookings Municipal Utilities \u201cDoes Things Right\u201d with GIS",
+   "live_url": "https://www.energycentral.com/home/post/case-study-brookings-municipal-utilities--does-things-right--gis-TOW3VYPQgFuHwsk"
+  }
+ ]
+}

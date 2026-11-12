@@ -111,7 +111,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
     .select("id, campaign_id, notion_page_id, inventory_tag, deliverable_type, deliverable_label, title, display_title, ec_brand, live_url, placement, start_date, reporting_due_date, status, metrics(metric, value, status, source, window_start, window_end)")
     .eq("client_id", clientId).order("start_date", { ascending: false, nullsFirst: false });
   const waitingCount = ((dels ?? []) as { campaign_id: string | null; notion_page_id: string | null; metrics: { status: string }[] }[])
-    .filter((d) => d.campaign_id || !d.notion_page_id).reduce((n, d) => n + d.metrics.filter((m) => m.status !== "approved").length, 0);
+    .filter((d) => d.campaign_id || !d.notion_page_id).reduce((n, d) => n + d.metrics.filter((m) => m.status === "pending" || m.status === "flagged").length, 0);
   // Leads come back 1,000 at a time; keep reading until a short page so the table and the CSV are always complete.
   const leadRows: Lead[] = [];
   for (let from = 0; ; from += 1000) {
@@ -173,7 +173,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
       values: {}, waiting: false, tags: [], flight: false, placements: [] };
     line.ids.push(d.id);
     for (const m of d.metrics) {
-      if (!fill && m.status !== "approved") continue;
+      if (m.status === "rejected" || (!fill && m.status !== "approved")) continue;
       line.values[m.metric] ??= Number(m.value);
       if (m.window_start && m.window_end && m.window_end > m.window_start) line.flight = true;
       if (m.status !== "approved") line.waiting = true;
@@ -285,7 +285,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
       g.total++;
       if (!d.start_date) g.unscheduled++; else if (d.start_date <= today) g.ran++;
     }
-    for (const m of d.metrics) if (fill || m.status === "approved") g.values[m.metric] = (g.values[m.metric] ?? 0) + Number(m.value);
+    for (const m of d.metrics) if (m.status !== "rejected" && (fill || m.status === "approved")) g.values[m.metric] = (g.values[m.metric] ?? 0) + Number(m.value);
     bought.set(label, g);
   }
   const boughtRows = [...bought.values()].sort((a, b) => CHANNELS.findIndex((c) => c.types.includes(a.type)) - CHANNELS.findIndex((c) => c.types.includes(b.type)) || a.label.localeCompare(b.label));

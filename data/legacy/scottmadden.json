@@ -1,0 +1,456 @@
+{
+ "client_slug": "scottmadden",
+ "source_url": "https://docs.google.com/spreadsheets/d/1uj_ODaQabIo_SIHJjSLOEDboU3ICArngetL0aLPCbYM/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 13, email 2, events 14, newsletter 10, podcast 3, sponsorship 4, website 3. Left out, no clean number or date (14): Content Report / 2026-11-12 00:00:00; Newsletter Advertising / 2026-11-05 00:00:00; Events / ScottMadden's Energy Industry Update - D; Events / ScottMadden's Energy Industry Update - R; Events / ScottMadden's Energy Industry Update \u2013 G; Events / ScottMadden's Energy Industry Update - I; Events / ScottMadden's Energy Industry Update - A; Events / ScottMadden's Energy Industry Update - N; Events / ScottMadden's Fall 2015 Energy Industry ; Events / State of the Energy Industry: A Mid-Year; Events / Thank you for choosing Energy Central!; Podcasts & Interviews / 2026-10-23 00:00:00; Podcasts & Interviews / 2023-10-10 00:00:00; Podcasts & Interviews / 2022-03-08 00:00:00. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "website",
+   "date": "2022-12-04",
+   "metrics": {
+    "impressions": 10007,
+    "clicks": 3
+   },
+   "end_date": "2022-12-10"
+  },
+  {
+   "tab": "website",
+   "date": "2022-11-06",
+   "metrics": {
+    "impressions": 9392,
+    "clicks": 6
+   },
+   "end_date": "2022-11-12"
+  },
+  {
+   "tab": "website",
+   "date": "2022-10-02",
+   "metrics": {
+    "impressions": 10135,
+    "clicks": 5
+   },
+   "end_date": "2022-10-08"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2026-10-06",
+   "metrics": {
+    "impressions": 82000
+   },
+   "end_date": "2026-11-06"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-11-01",
+   "metrics": {
+    "impressions": 35833
+   },
+   "end_date": "2022-11-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-09-30",
+   "metrics": {
+    "impressions": 44202
+   },
+   "end_date": "2022-12-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-09-30",
+   "metrics": {
+    "impressions": 29211
+   },
+   "end_date": "2022-10-31"
+  },
+  {
+   "tab": "podcast",
+   "date": "2025-06-23",
+   "metrics": {
+    "impressions": 64864,
+    "clicks": 46
+   },
+   "title": "Welcome Your New Expert Interview Series: Guy Harris",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/welcome-your-new-expert-interview-series-guy-harris-ytRKMPnVknPSfZu"
+  },
+  {
+   "tab": "podcast",
+   "date": "2025-02-18",
+   "metrics": {
+    "short_form_views": 83
+   },
+   "title": "The future of federal energy funding",
+   "live_url": "https://energycentral.com/o/energy-central/future-federal-energy-funding"
+  },
+  {
+   "tab": "podcast",
+   "date": "2025-01-09",
+   "metrics": {
+    "plays": 521,
+    "short_form_views": 246,
+    "impressions": 45247,
+    "clicks": 17
+   },
+   "title": "AI and the stress test for utilities",
+   "live_url": "https://www.energycentral.com/podcasts/post/ai-and-the-stress-test-for-utilities-j1X5TVdWCALhYsR"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-10-09",
+   "metrics": {
+    "impressions": 25648,
+    "clicks": 339
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-09-11",
+   "metrics": {
+    "impressions": 27962,
+    "clicks": 1014
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-08-13",
+   "metrics": {
+    "impressions": 29023,
+    "clicks": 161
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-07-09",
+   "metrics": {
+    "impressions": 30404,
+    "clicks": 171
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-06-09",
+   "metrics": {
+    "impressions": 30008,
+    "clicks": 155
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-05-19",
+   "metrics": {
+    "impressions": 28137,
+    "clicks": 218
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-05-26",
+   "metrics": {
+    "impressions": 53286,
+    "clicks": 98
+   },
+   "end_date": "2024-06-01"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-12-04",
+   "metrics": {
+    "impressions": 51964,
+    "clicks": 70
+   },
+   "end_date": "2022-12-10"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-11-06",
+   "metrics": {
+    "impressions": 34955,
+    "clicks": 69
+   },
+   "end_date": "2022-11-12"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-10-02",
+   "metrics": {
+    "impressions": 37174,
+    "clicks": 50
+   },
+   "end_date": "2022-10-08"
+  },
+  {
+   "tab": "events",
+   "date": "2026-08-18",
+   "title": "ScottMadden\u2019s Energy Industry Update Webcast: Taking Care of Business",
+   "metrics": {
+    "registrants": 249,
+    "attendees": 119
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2025-12-16",
+   "title": "Modernize, Digitize, and Expand: The ION Roadmap for the Next Generation of Nuclear",
+   "metrics": {
+    "registrants": 210,
+    "attendees": 67
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2025-09-17",
+   "title": "ScottMadden's Summer 2025 Energy Industry Update - Complicated",
+   "metrics": {
+    "registrants": 318,
+    "attendees": 108
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2024-12-04",
+   "title": "ScottMadden's Fall 2024 Energy Industry Update: The Distance",
+   "metrics": {
+    "registrants": 403,
+    "attendees": 193
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2024-06-12",
+   "title": "ScottMadden's Energy Industry Update Webcast - \u201cKing for a Day\u201d",
+   "metrics": {
+    "registrants": 315,
+    "attendees": 123
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2023-11-15",
+   "title": "ScottMadden's Energy Industry Update Webcast - \u201cThe Waiting (Is the Hardest Part)\u201d",
+   "metrics": {
+    "registrants": 417,
+    "attendees": 168
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2023-06-15",
+   "title": "ScottMadden's Energy Industry Update Webcast \u2013 \u201cJust Can't Get Enough\u201d",
+   "metrics": {
+    "registrants": 414,
+    "attendees": 161
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2022-11-09",
+   "title": "ScottMadden's Energy Industry Update Webcast - \u201cMoney, Money, Money\u201d",
+   "metrics": {
+    "registrants": 383,
+    "attendees": 163
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2022-06-07",
+   "title": "ScottMadden's Energy Industry Update Webcast - \u201cUnder Pressure\u201d",
+   "metrics": {
+    "registrants": 426,
+    "attendees": 195
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2021-11-11",
+   "title": "ScottMadden's Energy Industry Update Webcast - \u201cStill Haven\u2019t Found What I\u2019m Looking For\u201d",
+   "metrics": {
+    "registrants": 305,
+    "attendees": 132
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2021-06-10",
+   "title": "ScottMadden's Energy Industry Update \u2013 \u201cSaved by Zero?\u201d",
+   "metrics": {
+    "registrants": 493,
+    "attendees": 187
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2020-11-19",
+   "title": "ScottMadden's Energy Industry Update \u2013 \u201cRunning Up That Hill\u201d",
+   "metrics": {
+    "registrants": 557,
+    "attendees": 277
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2020-06-18",
+   "title": "ScottMadden's Energy Industry Update \u2013 \u201cTake It to the Limit\u201d",
+   "metrics": {
+    "registrants": 631,
+    "attendees": 266
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2019-11-15",
+   "title": "ScottMadden's Energy Industry Update \u2013 Everything Counts \u2026 In Large Amounts",
+   "metrics": {
+    "registrants": 638,
+    "attendees": 221
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-10-15",
+   "metrics": {
+    "sent": 107622,
+    "opens": 22892,
+    "clicks": 2718
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-06-18",
+   "metrics": {
+    "sent": 111742,
+    "opens": 66987,
+    "clicks": 43750
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2026-10-19",
+   "metrics": {
+    "views": 210,
+    "likes": 2
+   },
+   "title": "AI in Nuclear Operations: The Shift from Adoption to Operating Value",
+   "live_url": "https://www.energycentral.com/nuclear/post/ai-in-nuclear-operations-the-shift-from-adoption-to-operating-value-9DiuQVIfvdKgXo0"
+  },
+  {
+   "tab": "content",
+   "date": "2026-09-01",
+   "metrics": {
+    "views": 354,
+    "likes": 2
+   },
+   "title": "How Utilities Can Turn Battery Storage Deployment into Enterprise Value",
+   "live_url": "https://www.energycentral.com/home/post/how-utilities-can-turn-battery-storage-deployment-into-enterprise-value-m0shxbp64pWYGki"
+  },
+  {
+   "tab": "content",
+   "date": "2026-05-13",
+   "metrics": {
+    "views": 480,
+    "likes": 9
+   },
+   "title": "The Largest Utilities Are Spending $1.2 Trillion \u2014 Can They Execute?",
+   "live_url": "https://www.energycentral.com/energy-biz/post/the-largest-utilities-are-spending-1-2-trillion----can-they-execute-Doh6P1iNSn402p8"
+  },
+  {
+   "tab": "content",
+   "date": "2025-12-15",
+   "metrics": {
+    "views": 1241,
+    "likes": 8
+   },
+   "title": "Integrated Operating Model for Nuclear",
+   "live_url": "https://www.energycentral.com/energy-biz/post/integrated-operating-model-for-nuclear-vCowekus5fJn1WY"
+  },
+  {
+   "tab": "content",
+   "date": "2025-10-07",
+   "metrics": {
+    "views": 1386,
+    "likes": 15
+   },
+   "title": "From Reactive to Predictive: How AI Can Reshape Field Safety in Utilities",
+   "live_url": "https://www.energycentral.com/workforce/post/from-reactive-to-predictive-how-ai-can-reshape-field-safety-in-utilities-jpiPveBLDXh7tWU"
+  },
+  {
+   "tab": "content",
+   "date": "2025-07-25",
+   "metrics": {
+    "views": 1468,
+    "likes": 27
+   },
+   "title": "Why Utility Leaders Must Prioritize Energy Storage Safety\u2014Before It\u2019s Too Late",
+   "live_url": "https://www.energycentral.com/energy-management/post/why-utility-leaders-must-prioritize-energy-storage-safety--before-it-s-too-gnOUUZWrCnmK9ow"
+  },
+  {
+   "tab": "content",
+   "date": "2025-07-16",
+   "metrics": {
+    "views": 592,
+    "likes": 3
+   },
+   "title": "ScottMadden and Clean Power Research\u00ae Announce Strategic Partnership to Transform Utility Interconnection Processes",
+   "live_url": "https://www.energycentral.com/energy-biz/post/scottmadden-and-clean-power-research-r-announce-strategic-partnership-to-79IVCwuaKye80N2"
+  },
+  {
+   "tab": "content",
+   "date": "2025-06-30",
+   "metrics": {
+    "views": 524,
+    "likes": 4
+   },
+   "title": "Welcome Your New Expert Interview Series: Guy Harris",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/welcome-your-new-expert-interview-series-guy-harris-m797qQN1eLLTPif"
+  },
+  {
+   "tab": "content",
+   "date": "2025-06-23",
+   "metrics": {
+    "views": 378,
+    "likes": 3
+   },
+   "title": "Preparing for the Storm(s): A Resilience Primer",
+   "live_url": "https://www.energycentral.com/energy-management/post/preparing-for-the-storm-s-a-resilience-primer-o9EeWWWRolDHAJk"
+  },
+  {
+   "tab": "content",
+   "date": "2025-06-04",
+   "metrics": {
+    "views": 338,
+    "likes": 2
+   },
+   "title": "Why Utility Leaders Must Prioritize Energy Storage Safety\u2014Before It\u2019s Too Late",
+   "live_url": "https://www.energycentral.com/energy-biz/post/why-utility-leaders-must-prioritize-energy-storage-safety--before-it-s-too-5E5u0b61sflITRu"
+  },
+  {
+   "tab": "content",
+   "date": "2025-05-13",
+   "metrics": {
+    "views": 376,
+    "likes": 1
+   },
+   "title": "Preparing for the Storm(s): A Resilience Primer for Utilities",
+   "live_url": "https://www.energycentral.com/energy-biz/post/preparing-for-the-storm-s-a-resilience-primer-for-utilities-utjiRv6pXNz6c5J"
+  },
+  {
+   "tab": "content",
+   "date": "2025-03-19",
+   "metrics": {
+    "views": 1765,
+    "likes": 1
+   },
+   "title": "Distributed Energy Resources Management Systems: Introducing the Value Proposition",
+   "live_url": "https://www.energycentral.com/home/post/distributed-energy-resources-management-systems-introducing-value-9C2l0prabNQriLZ"
+  },
+  {
+   "tab": "content",
+   "date": "2025-02-26",
+   "metrics": {
+    "views": 1419,
+    "likes": 3
+   },
+   "title": "The future of federal energy funding | Energy Central",
+   "live_url": "https://www.energycentral.com/home/post/future-federal-energy-funding-energy-central-PaRaqiHAtc2pGf5"
+  }
+ ]
+}

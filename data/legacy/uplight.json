@@ -1,0 +1,213 @@
+{
+ "client_slug": "uplight",
+ "source_url": "https://drive.google.com/file/d/1tIf39E0ZddqOGZML_w1yvn-PK9cZjXnV/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 5, newsletter 4, sponsorship 7, website 7. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "website",
+   "date": "2025-08-17",
+   "metrics": {
+    "impressions": 60220,
+    "clicks": 27
+   },
+   "end_date": "2025-08-23"
+  },
+  {
+   "tab": "website",
+   "date": "2025-07-20",
+   "metrics": {
+    "impressions": 105550,
+    "clicks": 162
+   },
+   "end_date": "2025-07-26"
+  },
+  {
+   "tab": "website",
+   "date": "2025-07-13",
+   "metrics": {
+    "impressions": 114890,
+    "clicks": 137
+   },
+   "end_date": "2025-07-19"
+  },
+  {
+   "tab": "website",
+   "date": "2025-06-22",
+   "metrics": {
+    "impressions": 81680,
+    "clicks": 4
+   },
+   "end_date": "2025-06-28"
+  },
+  {
+   "tab": "website",
+   "date": "2025-06-15",
+   "metrics": {
+    "impressions": 89730,
+    "clicks": 114
+   },
+   "end_date": "2025-06-21"
+  },
+  {
+   "tab": "website",
+   "date": "2025-05-11",
+   "metrics": {
+    "impressions": 9033,
+    "clicks": 233
+   },
+   "end_date": "2025-05-17"
+  },
+  {
+   "tab": "website",
+   "date": "2025-05-11",
+   "metrics": {
+    "impressions": 6768,
+    "clicks": 6
+   },
+   "end_date": "2025-05-17"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-11-01",
+   "metrics": {
+    "impressions": 16546
+   },
+   "end_date": "2025-11-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-10-01",
+   "metrics": {
+    "impressions": 26981
+   },
+   "end_date": "2025-10-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-09-01",
+   "metrics": {
+    "impressions": 41189
+   },
+   "end_date": "2025-09-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-08-01",
+   "metrics": {
+    "impressions": 35320
+   },
+   "end_date": "2025-08-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-07-01",
+   "metrics": {
+    "impressions": 36320
+   },
+   "end_date": "2025-07-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-06-01",
+   "metrics": {
+    "impressions": 90586
+   },
+   "end_date": "2025-06-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-05-01",
+   "metrics": {
+    "impressions": 27331
+   },
+   "end_date": "2025-05-31"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-08-17",
+   "metrics": {
+    "impressions": 181468,
+    "clicks": 634
+   },
+   "end_date": "2025-08-23"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-07-13",
+   "metrics": {
+    "impressions": 209158,
+    "clicks": 1081
+   },
+   "end_date": "2025-07-19"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-06-15",
+   "metrics": {
+    "impressions": 267459,
+    "clicks": 1586
+   },
+   "end_date": "2025-06-21"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-05-11",
+   "metrics": {
+    "impressions": 66295,
+    "clicks": 282
+   },
+   "end_date": "2025-05-17"
+  },
+  {
+   "tab": "content",
+   "date": "2025-10-06",
+   "metrics": {
+    "views": 449,
+    "likes": 4
+   },
+   "title": "How Much Personalization is Too Much? Striking the Balance with EV Drivers",
+   "live_url": "https://www.energycentral.com/energy-biz/post/how-much-personalization-is-too-much-striking-the-balance-with-ev-drivers-748LRtBtl8tmS7W"
+  },
+  {
+   "tab": "content",
+   "date": "2025-08-27",
+   "metrics": {
+    "views": 542,
+    "likes": 3
+   },
+   "title": "Five Things To Know About An Integrated DERMS",
+   "live_url": "https://www.energycentral.com/energy-management/post/five-things-to-know-about-an-integrated-derms-6IBzlUMk8qvvZla"
+  },
+  {
+   "tab": "content",
+   "date": "2025-07-25",
+   "metrics": {
+    "views": 762,
+    "likes": 3
+   },
+   "title": "Got Batteries? 5 Tips for Integrating Batteries in Demand Response Programs",
+   "live_url": "https://www.energycentral.com/energy-management/post/got-batteries-5-tips-for-integrating-batteries-in-demand-response-programs-YpXXrvGHFUT7KhG"
+  },
+  {
+   "tab": "content",
+   "date": "2025-06-12",
+   "metrics": {
+    "views": 522,
+    "likes": 3
+   },
+   "title": "Energy Affordability In Crisis: How Utilities Can Help Customers Lower Their Bills",
+   "live_url": "https://www.energycentral.com/energy-biz/post/energy-affordability-in-crisis-how-utilities-can-help-customers-lower-pbHYMMNJXLEvYLT"
+  },
+  {
+   "tab": "content",
+   "date": "2025-05-11",
+   "metrics": {
+    "views": 7237,
+    "likes": 2
+   },
+   "title": "A New Approach for Adapting to Load Growth: The Demand Stack",
+   "live_url": "https://www.energycentral.com/home/post/new-approach-adapting-load-growth-demand-stack-2-Uak0aEu3dgDGujX"
+  }
+ ]
+}

@@ -1,0 +1,344 @@
+{
+ "client_slug": "schneider-electric",
+ "source_url": "https://docs.google.com/spreadsheets/d/1XwvXCPtHZ3PPYIa3OMzMvS3jjNz3mbuIDC027rnuNSw/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 1, email 12, events 4, newsletter 8, sponsorship 6, website 7. Left out, no clean number or date (5): Email / 2026-08-25 00:00:00; Events / The Benefit of Live Meteorology Consulta; Events / Taking Control of your Data: Advantages ; Podcasts & Interviews / 2025-05-22 00:00:00; Podcasts & Interviews / 2025-08-12 00:00:00. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "website",
+   "date": "2025-09-07",
+   "metrics": {
+    "impressions": 71110,
+    "clicks": 36
+   },
+   "end_date": "2025-09-13"
+  },
+  {
+   "tab": "website",
+   "date": "2025-08-10",
+   "metrics": {
+    "impressions": 58270,
+    "clicks": 99
+   },
+   "end_date": "2025-08-16"
+  },
+  {
+   "tab": "website",
+   "date": "2025-07-13",
+   "metrics": {
+    "impressions": 114890,
+    "clicks": 139
+   },
+   "end_date": "2025-07-19"
+  },
+  {
+   "tab": "website",
+   "date": "2025-06-08",
+   "metrics": {
+    "impressions": 146000,
+    "clicks": 10
+   },
+   "end_date": "2025-06-14"
+  },
+  {
+   "tab": "website",
+   "date": "2025-05-18",
+   "metrics": {
+    "impressions": 3734,
+    "clicks": 3
+   },
+   "end_date": "2025-05-24"
+  },
+  {
+   "tab": "website",
+   "date": "2025-05-18",
+   "metrics": {
+    "impressions": 9288,
+    "clicks": 2
+   },
+   "end_date": "2025-05-24"
+  },
+  {
+   "tab": "website",
+   "date": "2025-02-02",
+   "metrics": {
+    "impressions": 13845,
+    "clicks": 19
+   },
+   "end_date": "2025-02-08"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-10-01",
+   "metrics": {
+    "impressions": 653330
+   },
+   "end_date": "2025-10-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-09-01",
+   "metrics": {
+    "impressions": 899348
+   },
+   "end_date": "2025-09-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-08-01",
+   "metrics": {
+    "impressions": 1045000
+   },
+   "end_date": "2025-08-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-07-01",
+   "metrics": {
+    "impressions": 947553
+   },
+   "end_date": "2025-07-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-06-01",
+   "metrics": {
+    "impressions": 1120509
+   },
+   "end_date": "2025-06-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-05-01",
+   "metrics": {
+    "impressions": 246492
+   },
+   "end_date": "2025-05-31"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-10-05",
+   "metrics": {
+    "impressions": 133192,
+    "clicks": 976
+   },
+   "end_date": "2025-10-11"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-07",
+   "metrics": {
+    "impressions": 2349,
+    "clicks": 24
+   },
+   "end_date": "2025-09-13"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-08-10",
+   "metrics": {
+    "impressions": 191524,
+    "clicks": 635
+   },
+   "end_date": "2025-08-16"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-07-13",
+   "metrics": {
+    "impressions": 2189,
+    "clicks": 17
+   },
+   "end_date": "2025-07-19"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-06-08",
+   "metrics": {
+    "impressions": 267534,
+    "clicks": 648
+   },
+   "end_date": "2025-06-14"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-05-18",
+   "metrics": {
+    "impressions": 76899,
+    "clicks": 411
+   },
+   "end_date": "2025-05-24"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-02-02",
+   "metrics": {
+    "impressions": 46861,
+    "clicks": 181
+   },
+   "end_date": "2025-02-08"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-05-19",
+   "metrics": {
+    "impressions": 30344,
+    "clicks": 209
+   },
+   "end_date": "2024-05-25"
+  },
+  {
+   "tab": "events",
+   "date": "2026-05-19",
+   "title": "The Unified Grid: AI-Enabled Intelligent Operations for Major Event Management and a More Resilient Grid",
+   "metrics": {
+    "registrants": 239,
+    "attendees": 84
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2025-04-22",
+   "title": "Schneider Electric\u2019s One Digital Grid Platform: Transforming Complexity into Clarity",
+   "metrics": {
+    "registrants": 266,
+    "attendees": 123
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2024-02-08",
+   "title": "A Stepwise Journey Toward Digitalization and Grid Modernization [an Energy Central PowerSession\u2122]",
+   "metrics": {
+    "registrants": 424,
+    "attendees": 140
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2019-09-10",
+   "title": "Advanced Intelligent Metering in a Smart Meter World",
+   "metrics": {
+    "registrants": 341,
+    "attendees": 129
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-07-09",
+   "metrics": {
+    "sent": 110524,
+    "opens": 42464,
+    "clicks": 8812
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2025-02-05",
+   "metrics": {
+    "sent": 53155,
+    "opens": 1422,
+    "clicks": 500
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2025-01-28",
+   "metrics": {
+    "sent": 55071,
+    "opens": 1916,
+    "clicks": 1021
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-11-01",
+   "metrics": {
+    "sent": 18178,
+    "opens": 4051,
+    "clicks": 1497
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-10-30",
+   "metrics": {
+    "sent": 17592,
+    "opens": 4823,
+    "clicks": 1695
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-10-08",
+   "metrics": {
+    "sent": 17646,
+    "opens": 4530,
+    "clicks": 107
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-10-03",
+   "metrics": {
+    "sent": 21314,
+    "opens": 4146,
+    "clicks": 91
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-09-26",
+   "metrics": {
+    "sent": 18020,
+    "opens": 2045,
+    "clicks": 93
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-09-23",
+   "metrics": {
+    "sent": 16759,
+    "opens": 3443,
+    "clicks": 451
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-06-17",
+   "metrics": {
+    "sent": 15824,
+    "opens": 2808,
+    "clicks": 157
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-05-28",
+   "metrics": {
+    "sent": 15912,
+    "opens": 2853,
+    "clicks": 187
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-05-20",
+   "metrics": {
+    "sent": 15927,
+    "opens": 2619,
+    "clicks": 79
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2025-10-22",
+   "metrics": {
+    "views": 194
+   },
+   "title": "Managing Severe Weather: How utilities can move from reactive outages to proactive event management",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/managing-severe-weather-how-utilities-can-move-from-reactive-outages-to-69hRMn81TopSeOx"
+  }
+ ]
+}

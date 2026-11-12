@@ -9,7 +9,7 @@ import { InventoryRow } from "@/components/EnterNumbersRow";
  *  client page (one table per channel, same columns) with Notion's row details (EC number linked to the Notion row, status),
  *  so it reads the same as the two places the team already knows. Start: a list of clients with what still needs numbers. */
 type Row = { id: string; client_id: string; campaign_id: string | null; notion_page_id: string | null; deliverable_type: string; deliverable_label: string | null; title: string | null;
-  display_title: string | null; live_url: string | null; status: string | null; inventory_tag: string | null; start_date: string | null;
+  display_title: string | null; live_url: string | null; status: string | null; inventory_tag: string | null; start_date: string | null; reported_with?: string | null;
   metrics: { metric: string; value: number; source: string; status: string }[] };
 
 const SOURCE: Record<string, string> = { beehiiv: "beehiiv", shortio: "short.io", zoom: "Zoom", tally: "Tally", manual: "typed in", legacy_sheet: "old report", bettermode: "Bettermode", youtube: "YouTube", flightcast: "Flightcast", linkedin: "LinkedIn" };
@@ -26,17 +26,18 @@ export default async function ManualEntry({ searchParams }: { searchParams: Prom
   const all: Row[] = [];
   for (let from = 0; from < 8000; from += 1000) {
     let query = supabase.from("deliverables")
-      .select("id, client_id, campaign_id, notion_page_id, deliverable_type, deliverable_label, title, display_title, live_url, status, inventory_tag, start_date, metrics(metric, value, source, status)")
+      .select("id, client_id, campaign_id, notion_page_id, deliverable_type, deliverable_label, title, display_title, live_url, status, inventory_tag, start_date, reported_with, metrics(metric, value, source, status)")
       .order("start_date", { ascending: false }).range(from, from + 999);
     if (current) query = query.eq("client_id", current.id);
     const { data } = await query;
-    all.push(...((data ?? []) as unknown as Row[]));
+    // Numbers retired in favour of an old report are not shown or counted.
+    all.push(...((data ?? []) as unknown as Row[]).map((d) => ({ ...d, metrics: d.metrics.filter((m) => m.status !== "rejected") })));
     if (!data || data.length < 1000) break;
   }
   const colsOf = (t: string) => CHANNELS.find((c) => c.types.includes(t))?.cols ?? [];
   const onCampaign = all.filter((d) => (d.campaign_id || !d.notion_page_id) && colsOf(d.deliverable_type).length);
   const ran = (d: Row) => !!d.start_date && d.start_date <= today;
-  const missing = (d: Row) => ran(d) && d.deliverable_type !== "marketing_email" && colsOf(d.deliverable_type).some(([m]) => !d.metrics.some((x) => x.metric === m));
+  const missing = (d: Row) => !d.reported_with && ran(d) && d.deliverable_type !== "marketing_email" && colsOf(d.deliverable_type).some(([m]) => !d.metrics.some((x) => x.metric === m));
   const nameOf = new Map(clients.map((c) => [c.id, c.name]));
   const field = "rounded-lg border border-line bg-white px-3 py-2 text-sm";
   const intro = (

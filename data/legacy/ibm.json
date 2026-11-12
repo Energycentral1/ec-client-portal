@@ -1,0 +1,38 @@
+{
+ "client_slug": "ibm",
+ "source_url": "https://docs.google.com/spreadsheets/d/19ZkVQc0gtkzZu8iaQUSeEKguqe-f_gs88FvXz9THxQc/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 1, events 1, podcast 1. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "podcast",
+   "date": "2026-08-27",
+   "metrics": {
+    "plays": 883,
+    "short_form_views": 560,
+    "impressions": 36398,
+    "clicks": 29
+   },
+   "title": "How Utilities Are Putting Agentic AI to Work | IBM",
+   "live_url": "https://www.energycentral.com/podcasts/post/how-utilities-are-putting-agentic-ai-to-work-ibm-ckPfkpDKh7uG8Vh"
+  },
+  {
+   "tab": "events",
+   "date": "2026-10-19",
+   "title": "Fortifying the Grid: Strategic Resilience Grounded in Modernization, Security, and Readiness",
+   "metrics": {
+    "registrants": 266,
+    "attendees": 126
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2026-11-04",
+   "metrics": {
+    "views": 109
+   },
+   "title": "The cheapest grid resilience is the data utilities already collect",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/the-cheapest-grid-resilience-is-the-data-utilities-already-collect-2pUjuJcGKoKTEr6"
+  }
+ ]
+}
