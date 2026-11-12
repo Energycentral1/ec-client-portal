@@ -1,0 +1,29 @@
+name: Pull beehiiv and short.io
+
+# Newsletter ad and paid email numbers. This version is a dry run: it reads beehiiv, short.io and Supabase,
+# prints a comparison table in the log, and writes nothing.
+on:
+  workflow_dispatch:
+    inputs:
+      clients:
+        description: Client slugs, space separated (empty = Semtech and SSP Innovations)
+        required: false
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run pull:beehiiv -- $CLIENTS
+        env:
+          CLIENTS: ${{ inputs.clients }}
+          NEXT_PUBLIC_SUPABASE_URL: https://kzaiplniicuuxhprrxxc.supabase.co
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          BEEHIIV_API_KEY: ${{ secrets.BEEHIIV_API_KEY }}
+          SHORTIO_API_KEY: ${{ secrets.SHORTIO_API_KEY }}

@@ -1,0 +1,138 @@
+/**
+ * beehiiv + short.io pull for newsletter ads and paid email blasts.
+ * Run: npm run pull:beehiiv -- [client-slug ...]      (DRY RUN: reads only, prints a comparison table, writes nothing)
+ *
+ * Newsletter ad (Notion "Newsletter Ad", 14+ days after the run date)
+ *   impressions = total opens of that day's Daily issue (Isuri's SOP); the issue headline and web link come along.
+ *   clicks      = short.io human clicks on the ad's short link, counted from the run date to run date + 14 days.
+ *                 The short link is found in the issue's own click list (energycentral.short.gy/<client>...), so nobody
+ *                 has to type it in. beehiiv's own click counts for that link are printed alongside for comparison.
+ * Paid email (Notion "Email Blast", 7+ days after the send)
+ *   sent = delivered, opens = total opens, clicks = total raw clicks (matches the old sheets; CLAUDE.md).
+ *   Matched in the "Energy Central Marketing" publication by client name in the title or subject line and a send date
+ *   within 2 days of Notion's. Anything without exactly one match is listed, never guessed.
+ *
+ * This first version is read-only on every system: beehiiv, short.io and Supabase. Writing comes after the dry run is checked.
+ */
+import { config } from "dotenv";
+config({ path: ".env.local" });
+import { createClient } from "@supabase/supabase-js";
+
+for (const k of ["NEXT_PUBLIC_SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY", "BEEHIIV_API_KEY", "SHORTIO_API_KEY"]) {
+  if (!process.env[k]) { console.error(`Missing ${k} (GitHub Actions secret, or .env.local)`); process.exit(1); }
+}
+const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, { auth: { persistSession: false } });
+const BEEHIIV = "https://api.beehiiv.com/v2";
+const DAILY_PUB = "pub_9613cbe2-a104-42f5-8312-f1adf98462f8";
+const SHORT_DOMAIN = "energycentral.short.gy";
+
+async function getJson(url: string, headers: Record<string, string>, tries = 4): Promise<any> {
+  for (let i = 0; ; i++) {
+    const r = await fetch(url, { headers });
+    if (r.ok) return r.json();
+    if ((r.status === 429 || r.status >= 500) && i < tries) { await new Promise((s) => setTimeout(s, 1500 * (i + 1))); continue; }
+    throw new Error(`${r.status} ${r.statusText} for ${url.replace(/\?.*/, "")}: ${(await r.text()).slice(0, 200)}`);
+  }
+}
+const bh = (path: string) => getJson(`${BEEHIIV}${path}`, { Authorization: `Bearer ${process.env.BEEHIIV_API_KEY}` });
+const sio = (url: string) => getJson(url, { Authorization: process.env.SHORTIO_API_KEY!, Accept: "application/json" });
+
+const ET = new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit" });
+const etDate = (unix: number) => ET.format(new Date(unix * 1000));
+const addDays = (d: string, n: number) => new Date(Date.parse(d + "T00:00:00Z") + n * 864e5).toISOString().slice(0, 10);
+const today = new Date().toISOString().slice(0, 10);
+const num = (v: unknown) => (typeof v === "number" ? v : v == null ? null : Number(v));
+
+type Post = { id: string; title: string; subject_line?: string; publish_date: number; platform?: string; web_url?: string; stats?: any };
+
+/** All confirmed posts of a publication sent on or after `since`, newest first, with stats. */
+async function postsSince(pub: string, since: string): Promise<Post[]> {
+  const out: Post[] = [];
+  for (let page = 1; page < 60; page++) {
+    const r = await bh(`/publications/${pub}/posts?status=confirmed&limit=100&page=${page}&order_by=publish_date&direction=desc&expand[]=stats`);
+    const batch = (r.data ?? []) as Post[];
+    out.push(...batch);
+    if (batch.length < 100 || (batch.length && etDate(batch[batch.length - 1].publish_date) < since)) break;
+  }
+  return out.filter((p) => p.publish_date && etDate(p.publish_date) >= since);
+}
+
+/** Short.io: total and human (bot-filtered) clicks for one short path inside a date window. */
+async function shortClicks(path: string, from: string, to: string) {
+  const link = await sio(`https://api.short.io/links/expand?domain=${SHORT_DOMAIN}&path=${encodeURIComponent(path)}`);
+  const id = link.idString ?? link.id;
+  const s = await sio(`https://statistics.short.io/statistics/link/${id}?period=custom&startDate=${from}&endDate=${to}&tz=America/New_York`);
+  return { total: num(s.totalClicks), human: num(s.humanClicks), id };
+}
+
+const fmt = (v: number | null | undefined) => (v == null ? "—" : Math.round(v).toLocaleString("en-US"));
+const token = (name: string) => name.toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 5);
+
+async function main() {
+  const slugs = process.argv.slice(2).filter(Boolean);
+  const wanted = slugs.length ? slugs : ["semtech", "ssp-innovations"];
+  const { data: clients, error } = await db.from("clients").select("id, name, slug").in("slug", wanted);
+  if (error) throw error;
+
+  // What's due: newsletter ads 14+ days old and email blasts 7+ days old, over the last 12 months.
+  const since = addDays(today, -365);
+  const { data: dels, error: e2 } = await db.from("deliverables")
+    .select("id, client_id, deliverable_type, deliverable_label, inventory_tag, start_date, ec_brand, metrics(metric, value, source, status)")
+    .in("client_id", (clients ?? []).map((c) => c.id)).in("deliverable_type", ["newsletter_ad", "email_blast"])
+    .gte("start_date", since).order("start_date");
+  if (e2) throw e2;
+  const due = (dels ?? []).filter((d) => d.start_date! <= addDays(today, d.deliverable_type === "newsletter_ad" ? -14 : -7));
+  console.log(`Clients: ${(clients ?? []).map((c) => c.name).join(", ")}. Placements due: ${due.length}.\n`);
+
+  // beehiiv: the Daily, and the Marketing publication for paid emails.
+  const pubs = (await bh(`/publications?limit=100`)).data as { id: string; name: string }[];
+  const marketing = pubs.find((p) => /marketing/i.test(p.name));
+  console.log(`beehiiv publications: ${pubs.map((p) => `${p.name} (${p.id})`).join("; ")}`);
+  const daily = await postsSince(DAILY_PUB, since);
+  const mkt = marketing ? await postsSince(marketing.id, since) : [];
+  console.log(`Daily issues since ${since}: ${daily.length}. Marketing posts: ${mkt.length}.`);
+  if (daily[0]) console.log(`Shape check, stats fields on one Daily issue: ${JSON.stringify(Object.keys(daily[0].stats ?? {}))}, email: ${JSON.stringify(daily[0].stats?.email ?? {})}`);
+
+  const lines: string[] = [];
+  const problems: string[] = [];
+  for (const d of due) {
+    const client = clients!.find((c) => c.id === d.client_id)!;
+    const had = (k: string) => (d.metrics as any[]).filter((m) => m.metric === k).map((m) => `${fmt(Number(m.value))} (${m.source}${m.status === "approved" ? "" : `, ${m.status}`})`).join(" / ") || "—";
+    const tag = d.inventory_tag ?? "no EC tag";
+    if (d.deliverable_type === "newsletter_ad") {
+      if ((d.ec_brand ?? []).some((b: string) => /weekly/i.test(b))) { problems.push(`${client.name} ${d.start_date} ${tag}: runs in the Weekly; not handled yet`); continue; }
+      const issue = daily.find((p) => etDate(p.publish_date) === d.start_date);
+      if (!issue) { problems.push(`${client.name} ${d.start_date} ${tag}: no Daily issue sent that day`); continue; }
+      const opens = num(issue.stats?.email?.opens);
+      // The ad's short link, from the issue's own click list.
+      const links = ((issue.stats?.clicks ?? []) as any[]).filter((c) => {
+        try { const u = new URL(c.url); return u.host === SHORT_DOMAIN && u.pathname.toLowerCase().replace(/[^a-z0-9]/g, "").startsWith(token(client.name).slice(0, 5)); } catch { return false; }
+      });
+      let clickCell = "no short link found in the issue";
+      if (links.length) {
+        const parts: string[] = [];
+        for (const l of links) {
+          const path = new URL(l.url).pathname.slice(1);
+          const bhTotal = num(l.email?.clicks ?? l.total_clicks), bhUnique = num(l.email?.unique_clicks ?? l.total_unique_clicks);
+          try {
+            const s = await shortClicks(path, d.start_date!, addDays(d.start_date!, 14));
+            parts.push(`${path}: short.io human ${fmt(s.human)} / total ${fmt(s.total)}; beehiiv total ${fmt(bhTotal)} / unique ${fmt(bhUnique)}`);
+          } catch (err) { parts.push(`${path}: short.io error ${(err as Error).message.slice(0, 80)}; beehiiv total ${fmt(bhTotal)} / unique ${fmt(bhUnique)}`); }
+        }
+        clickCell = parts.join(" | ");
+      }
+      lines.push(`| ${client.name} | ${d.start_date} | Newsletter ad (${d.deliverable_label ?? ""}) | ${tag} | impressions: now ${had("impressions")}, beehiiv ${fmt(opens)} | clicks: now ${had("clicks")}; ${clickCell} | ${issue.title} |`);
+    } else {
+      const near = mkt.filter((p) => Math.abs(Date.parse(etDate(p.publish_date)) - Date.parse(d.start_date!)) <= 2 * 864e5
+        && `${p.title} ${p.subject_line ?? ""}`.toLowerCase().replace(/[^a-z0-9]/g, "").includes(token(client.name)));
+      if (near.length !== 1) { problems.push(`${client.name} ${d.start_date} ${tag}: ${near.length} matching emails in Marketing (${near.map((p) => p.title).join("; ") || "none"})`); continue; }
+      const e = near[0].stats?.email ?? {};
+      lines.push(`| ${client.name} | ${d.start_date} | Email blast | ${tag} | sent: now ${had("sent")}, beehiiv ${fmt(num(e.delivered))}; opens: now ${had("opens")}, beehiiv ${fmt(num(e.opens))} | clicks: now ${had("clicks")}, beehiiv ${fmt(num(e.clicks))} (unique ${fmt(num(e.unique_clicks))}) | ${near[0].subject_line ?? near[0].title} |`);
+    }
+  }
+  console.log(`\n| Client | Date | Placement | EC tag | Reach | Clicks | Issue / subject |\n|---|---|---|---|---|---|---|\n${lines.join("\n")}`);
+  console.log(`\nNot matched (${problems.length}):\n${problems.map((p) => `- ${p}`).join("\n") || "- none"}`);
+  console.log(`\nDRY RUN: nothing was written.`);
+}
+
+main().catch((e) => { console.error(e); process.exit(1); });
