@@ -269,19 +269,25 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
     .map((d) => ({ id: d.id, label: `${fmtDate(d.start_date)}: ${d.display_title || soldLabel(d)}${d.inventory_tag ? ` (${d.inventory_tag})` : ""}` }));
   // What was bought in this program and how much of it has run, one line per Notion "Deliverable" value (verbatim).
   const bought = new Map<string, { label: string; type: string; total: number; ran: number; unscheduled: number; values: Record<string, number> }>();
+  // Rows imported from an old report aren't in Notion, so they aren't counted as bought; their numbers go to the line of the same kind.
+  const fromNotion = rows.filter((d) => d.notion_page_id && !dead.has(d.id) && d.deliverable_type !== "marketing_email");
+  const labelForType = (t: string) => fromNotion.find((d) => d.deliverable_type === t) ? soldLabel(fromNotion.find((d) => d.deliverable_type === t)!) : TYPE_LABEL[t] ?? t;
   for (const d of rows) {
     if (dead.has(d.id) || d.deliverable_type === "marketing_email") continue;
-    const label = soldLabel(d);
+    const label = d.notion_page_id ? soldLabel(d) : labelForType(d.deliverable_type);
     const g = bought.get(label) ?? { label, type: d.deliverable_type, total: 0, ran: 0, unscheduled: 0, values: {} };
-    g.total++;
-    if (!d.start_date) g.unscheduled++; else if (d.start_date <= today) g.ran++;
+    if (d.notion_page_id) {
+      g.total++;
+      if (!d.start_date) g.unscheduled++; else if (d.start_date <= today) g.ran++;
+    }
     for (const m of d.metrics) if (showAll || m.status === "approved") g.values[m.metric] = (g.values[m.metric] ?? 0) + Number(m.value);
     bought.set(label, g);
   }
   const boughtRows = [...bought.values()].sort((a, b) => CHANNELS.findIndex((c) => c.types.includes(a.type)) - CHANNELS.findIndex((c) => c.types.includes(b.type)) || a.label.localeCompare(b.label));
   const headline = (g: { type: string; values: Record<string, number> }) => {
     const ch = CHANNELS.find((c) => c.types.includes(g.type));
-    return (ch?.cols ?? []).filter(([k]) => g.values[k] != null).slice(0, 2).map(([k, l]) => `${fmt(g.values[k])} ${l.toLowerCase()}`).join(", ");
+    // The two numbers a client cares about most: for email that's opens and clicks, not sends.
+    return (ch?.cols ?? []).filter(([k]) => k !== "sent" && g.values[k] != null).slice(0, 2).map(([k, l]) => `${fmt(g.values[k])} ${l.toLowerCase()}`).join(", ");
   };
   const progRange = selected && span.get(selected.id);
 
@@ -337,8 +343,12 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
                     <tr key={g.label} className="border-t border-white/15 align-top">
                       <td className="py-3 pr-4 font-medium">{g.label}</td>
                       <td className="py-3 pr-4">
-                        <span className="tabular-nums">{g.ran} of {g.total}</span>
-                        <span className="mt-1.5 block h-1.5 w-28 rounded-full bg-white/15"><span className="block h-1.5 rounded-full bg-sun" style={{ width: `${(g.ran / g.total) * 100}%` }} /></span>
+                        {g.total > 0 ? (
+                          <>
+                            <span className="tabular-nums">{g.ran} of {g.total}</span>
+                            <span className="mt-1.5 block h-1.5 w-28 rounded-full bg-white/15"><span className="block h-1.5 rounded-full bg-sun" style={{ width: `${(g.ran / g.total) * 100}%` }} /></span>
+                          </>
+                        ) : <span className="text-white/70">Delivered</span>}
                         {g.unscheduled > 0 && <span className="mt-1 block text-xs text-white/60">{g.unscheduled} still to schedule</span>}
                       </td>
                       <td className="hidden py-3 text-white/85 sm:table-cell">{headline(g) || (g.ran > 0 ? <span className="text-white/55">Results to come</span> : <span className="text-white/55">Not run yet</span>)}</td>
