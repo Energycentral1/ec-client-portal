@@ -292,11 +292,11 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   const people = new Map<string, Lead>();
   for (const l of periodLeads) people.set(l.email.toLowerCase(), l);
   const byCompany = new Map<string, number>();
-  for (const l of people.values()) { const c = l.company?.trim(); if (c && !/^(n\/?a|none|-|self|freelance)$/i.test(c)) byCompany.set(c, (byCompany.get(c) ?? 0) + 1); }
+  for (const l of people.values()) { const c = l.company?.trim(); if (c && !/^(n\/?a|none|-|self|freelance)$/i.test(c) && !c.toLowerCase().includes(clientName.toLowerCase())) byCompany.set(c, (byCompany.get(c) ?? 0) + 1); }
   const topCompanies = [...byCompany].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 10);
   const bySeniority = new Map<string, number>();
   for (const l of people.values()) { const s = seniorityOf(l.job_title); bySeniority.set(s, (bySeniority.get(s) ?? 0) + 1); }
-  const seniority = [...SENIORITY.map(([s]) => s), "Engineers, analysts and specialists", "Not given"].map((s) => [s, bySeniority.get(s) ?? 0] as [string, number]).filter(([, n]) => n > 0);
+  const seniority = [...SENIORITY.map(([s]) => s), "Engineers, analysts and specialists", "Not given"].map((s) => [s, bySeniority.get(s) ?? 0] as [string, number]).filter(([, n]) => Math.round((n / Math.max(1, people.size)) * 100) > 0);
   const maxSeniority = Math.max(1, ...seniority.map(([, n]) => n));
 
   const sections = [...(proofGroups.length || admin ? [{ id: "approvals", title: awaiting ? `Creative approvals (${awaiting})` : "Creative approvals" }] : []), ...CHANNELS.filter((ch) => delivered.some((l) => ch.types.includes(l.type) && inYear(l))).map((ch) => ({ id: ch.id, title: ch.title })),
