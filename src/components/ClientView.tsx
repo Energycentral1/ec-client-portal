@@ -20,11 +20,10 @@ const CHANNELS: { id: string; title: string; types: string[]; cols: [string, str
   { id: "content", title: "Partner Content", types: ["sponsored_article", "featured_story", "gated_content", "non_gated_content"],
     cols: [["views", "Views"], ["likes", "Likes"], ["comments", "Comments"]], rates: [] },
   { id: "podcast", title: "Podcast", types: ["podcast"], cols: [["plays", "Plays"], ["short_form_views", "Clip views"], ["clicks", "Clicks"]], rates: [] },
-  { id: "sponsorship", title: "Sponsorship and site", types: ["sponsorship", "community_takeover", "website_ad", "linkedin_post", "reel", "other"],
-    cols: [["impressions", "Impressions"], ["clicks", "Clicks"]], rates: [] },
+  { id: "website", title: "Website ads", types: ["website_ad"], cols: [["impressions", "Impressions"], ["clicks", "Clicks"]], rates: [["CTR", "clicks", "impressions"]] },
+  { id: "sponsorship", title: "Sponsorship and community", types: ["sponsorship", "community_takeover", "linkedin_post", "reel", "other"],
+    cols: [["impressions", "Impressions"], ["clicks", "Clicks"]], rates: [["CTR", "clicks", "impressions"]] },
 ];
-/** Site impressions are a homepage-pageview proxy that doesn't reconcile, so clients don't see them (see CLAUDE.md). */
-const SITE_TYPES = ["website_ad", "community_takeover", "sponsorship"];
 
 /** Benchmark keys for the worked-out rates (see the benchmarks table). */
 const RATE_KEY: Record<string, string> = { CTR: "ctr", Attendance: "attendance" };
@@ -126,7 +125,6 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
     line.ids.push(d.id);
     for (const m of d.metrics) {
       if (!showAll && m.status !== "approved") continue;
-      if (!admin && m.metric === "impressions" && SITE_TYPES.includes(d.deliverable_type)) continue;
       line.values[m.metric] ??= Number(m.value);
       if (m.status !== "approved") line.waiting = true;
     }
@@ -170,7 +168,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
       date: l.submitted_at ? l.submitted_at.slice(0, 10) : null, consent: l.consent };
   });
 
-  const LANE_COLORS = ["#ffe02d", "#ffffff", "#fd713b", "#9cc4fb", "#9cc4fb", "#9cc4fb"];
+  const LANE_COLORS = ["#ffe02d", "#ffffff", "#fd713b", "#9cc4fb", "#9cc4fb", "#9cc4fb", "#9cc4fb"];
   const lanes = CHANNELS.map((ch, i) => ({ title: ch.title, color: LANE_COLORS[i], lines: [...delivered, ...upcoming].filter((l) => l.date && ch.types.includes(l.type)) })).filter((l) => l.lines.length > 0);
   const dated = delivered.filter((l) => l.date).map((l) => l.date!).sort();
   const figures: [string, number][] = ([["Impressions", sum(delivered, "impressions")], ["Clicks", sum(delivered, "clicks")],
