@@ -429,7 +429,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
           <h2 className="font-display text-3xl tracking-tight">Your placements</h2>
           {years.length > 1 && (
             <nav aria-label="Placements by year" className="flex flex-wrap gap-1.5 text-sm">
-              {[...years, "all"].map((y) => {
+              {[...years.filter((y) => delivered.some((l) => l.date?.startsWith(y))), "all"].map((y) => {
                 const on = y === "all" ? !year : year === y;
                 return <a key={y} href={`${basePath}period=${y}#placements`} aria-current={on ? "page" : undefined}
                   className={`rounded-full border px-3 py-1.5 ${on ? "border-ink bg-ink text-cream" : "border-line text-ink/80 hover:border-ink"}`}>{y === "all" ? "All years" : y}</a>;
