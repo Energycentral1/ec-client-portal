@@ -130,9 +130,10 @@ async function main() {
     console.log(`Hubs: ${hubList.map((h) => `${h.name} (${h.hub_id})`).join("; ") || "none"}`);
     const seenEv = new Map<string, any>();
     const scopes = ["", ...hubList.map((h) => `&hub_id=${h.hub_id}`)];
-    for (const sc of scopes) for (const q of [`event_status_type=past&from=${since}T00:00:00Z`, `event_status_type=upcoming`]) {
+    for (const sc of scopes) for (const q of [`event_status_type=past`, `event_status_type=upcoming`]) {
       const list = await all(`/zoom_events/events?role_type=host&${q}${sc}`, "events").catch((e) => { problems.push(`Events (${q}${sc}): ${e.message.slice(0, 160)}`); return []; });
-      for (const ev of list) seenEv.set(ev.event_id, ev);
+      // Zoom's own `from` filter returns nothing for hub events, so the date cut is made here.
+      for (const ev of list) if (ev.start_time && etDay(ev.start_time) >= since) seenEv.set(ev.event_id, ev);
     }
     const events = [...seenEv.values()];
     console.log(`Zoom events: ${events.length}. Webinar/PowerSession placements since ${since}: ${placements.length}.`);
@@ -190,25 +191,30 @@ async function main() {
 
     // 4 and 5. Recordings and on-demand viewers, from every hub.
     const hubs = hubList;
+    // Hub videos carry no event id, so a recording belongs to the matched event with the same title.
+    const words = (t: string) => new Set((t ?? "").toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length > 3));
+    const sameTitle = (a: string, b: string) => { const A = words(a), B = words(b); if (!A.size || !B.size) return false; let n = 0; for (const w of A) if (B.has(w)) n++; return n / Math.max(A.size, B.size) >= 0.8; };
+    const strip = (t: string) => String(t ?? "").replace(/^.*?\bpresents\s*[:|]\s*/i, "");
+    const forTitle = (title: string) => { const hits = [...matched.values()].filter((d) => sameTitle(strip(d._event.name), strip(title))); return hits.length === 1 ? hits[0] : undefined; };
     const placementByVideo = new Map<string, any>();
     for (const hub of hubs) {
       const videos = await all(`/zoom_events/hubs/${hub.hub_id}/videos`, "videos").catch((e) => { problems.push(`Hub "${hub.name}" videos: ${e.message.slice(0, 120)}`); return []; });
       for (const v of videos) {
-        const d = v.source_event_id ? matched.get(v.source_event_id) : undefined;
+        const d = forTitle(v.name);
         if (!d) continue;
         placementByVideo.set(v.video_id, d);
-        if (!d.live_url && v.play_link) patch(d.id, { live_url: v.play_link });
+        if (!d.live_url && /^https:\/\/events\.zoom\.us\/.+\/recording\/.+/.test(String(v.play_link ?? ""))) patch(d.id, { live_url: v.play_link });
         if (!d.display_title && d._event?.name) patch(d.id, { display_title: d._event.name });
       }
-      // On-demand channels: the channel id is in the recording links (events.zoom.us/e/channel/<id>/recording/...).
-      const channelIds = new Set(videos.map((v: any) => String(v.play_link ?? "").match(/channel\/([^/]+)/)?.[1]).filter(Boolean) as string[]);
-      for (const ch of channelIds) {
-        const regs = await all(`/zoom_events/hubs/${hub.hub_id}/vod_channels/${ch}/reports/registrations`, "registrations").catch((e) => { problems.push(`On-demand channel ${ch}: ${e.message.slice(0, 120)}`); return []; });
+      const channels = await all(`/zoom_events/hubs/${hub.hub_id}/vod_channels`, "vod_channels").catch((e) => { problems.push(`Hub "${hub.name}" channels: ${e.message.slice(0, 120)}`); return []; });
+      for (const c of channels) {
+        const ch = c.channel_id ?? c.id;
+        const regs = await all(`/zoom_events/hubs/${hub.hub_id}/vod_channels/${ch}/reports/registrations`, "registrations").catch((e) => { problems.push(`On-demand channel "${c.name}": ${e.message.slice(0, 120)}`); return []; });
         for (const r of regs) {
           const email = String(r.email ?? "").trim().toLowerCase();
           if (!email) continue;
           for (const w of r.video_watch_duration ?? []) {
-            const d = placementByVideo.get(w.video_id);
+            const d = placementByVideo.get(w.video_id) ?? forTitle(w.video_name);
             if (!d || !(Number(w.duration) > 0)) continue;
             const a = answers({ tickets: [{ questions: r.questions ?? [] }] });
             leadRows.push({ client_id: d.client_id, deliverable_id: d.id, source: "webinar_on_demand", email, origin: "zoom",

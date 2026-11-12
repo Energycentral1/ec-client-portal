@@ -107,6 +107,7 @@ async function main() {
           else { problems.push(`"${name}" (${client.name}, form made ${String(f.createdAt).slice(0, 10)}): ${near.length} possible placements${near.length ? `: ${near.map((x) => `${x.start_date} ${x.inventory_tag ?? ""}`).join(", ")}` : `; client has ${mine.map((x) => `${x.deliverable_type} ${x.start_date}`).slice(0, 6).join(", ") || "no webinar or content placements on a campaign"}`}`); continue; }
         }
         link.set(d.id, f.id);
+        if (DRY) console.log(`  match: "${name.slice(0, 70)}" -> ${client.name} ${d.deliverable_type} ${d.start_date ?? "no date"} ${d.inventory_tag ?? ""} ${String(d.display_title ?? d.title ?? "").slice(0, 50)}`);
       }
       const source = WEBINAR.includes(d.deliverable_type) ? "webinar_on_demand" : "gated_content";
       for (let page = 1; page < 50; page++) {
