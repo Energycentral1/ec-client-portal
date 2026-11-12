@@ -66,7 +66,7 @@ async function shortClicks(path: string, from: string, to: string) {
   const all = await sio(`https://statistics.short.io/statistics/link/${id}?period=total&tz=America/New_York`);
   const top = (rows: any[], key: string) => (rows ?? []).slice().sort((a, b) => b.score - a.score).slice(0, 3).map((r) => `${r[key] ?? r.city ?? r.country} ${r.score}`).join(", ");
   return { total: num(s.totalClicks), human: num(s.humanClicks), allTotal: num(all.totalClicks), allHuman: num(all.humanClicks), id,
-    topCity: (all.city ?? []).length ? (() => { const c = all.city.slice().sort((a: any, b: any) => b.score - a.score)[0]; return { name: CITY[c.city] ?? `location ${c.city}`, clicks: c.score as number }; })() : null,
+    topCity: (all.city ?? []).length ? ((): { name: string; clicks: number } | null => { const c = all.city.filter((x: any) => String(x.city) !== "6252001").sort((a: any, b: any) => b.score - a.score)[0]; if (!c) return null; return { name: CITY[c.city] ?? `location ${c.city}`, clicks: c.score as number }; })() : null,
     where: `cities: ${top(all.city, "cityName")}; countries: ${top(all.country, "countryName")}; keys: ${Object.keys(all).join(",")}` };
 }
 
