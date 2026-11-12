@@ -8,7 +8,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   if (profile.role !== "admin") redirect("/portal");
   return (
     <Shell title="Back-end" email={profile.email}
-      nav={[{ href: "/admin", label: "Clients" }, { href: "/admin/enter", label: "Enter numbers" }, { href: "/admin/approvals", label: "Approvals" }, { href: "/admin/sync", label: "Data pulls" }]}>
+      nav={[{ href: "/admin", label: "Clients" }, { href: "/admin/enter", label: "Manual entry" }, { href: "/admin/approvals", label: "Approvals" }, { href: "/admin/sync", label: "Data pulls" }]}>
       {children}
     </Shell>
   );
