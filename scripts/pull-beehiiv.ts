@@ -116,7 +116,7 @@ async function main() {
       const links = ((issue.stats?.clicks ?? []) as any[]).filter((c) => {
         try { const u = new URL(c.url); return u.host === SHORT_DOMAIN && u.pathname.toLowerCase().replace(/[^a-z0-9]/g, "").startsWith(token(client.name).slice(0, 5)); } catch { return false; }
       });
-      let clickCell = "no short link found in the issue";
+      let clickCell = `no short link found in the issue (short links in it: ${((issue.stats?.clicks ?? []) as any[]).map((c) => { try { const u = new URL(c.url); return u.host === SHORT_DOMAIN ? u.pathname.slice(1) : null; } catch { return null; } }).filter(Boolean).join(", ") || "none"})`;
       if (links.length) {
         const parts: string[] = [];
         for (const l of links) {
@@ -133,7 +133,13 @@ async function main() {
     } else {
       const near = mkt.filter((p) => Math.abs(Date.parse(etDate(p.publish_date)) - Date.parse(d.start_date!)) <= 2 * 864e5
         && `${p.title} ${p.subject_line ?? ""}`.toLowerCase().replace(/[^a-z0-9]/g, "").includes(token(client.name)));
-      if (near.length !== 1) { problems.push(`${client.name} ${d.start_date} ${tag}: ${near.length} matching emails in Marketing (${near.map((p) => p.title).join("; ") || "none"})`); continue; }
+      if (near.length !== 1) {
+        // Investigation: every post within 3 days in Marketing and in the Daily publication (paid emails before June went out from the Daily).
+        const around = (posts: Post[], label: string) => posts.filter((p) => Math.abs(Date.parse(etDate(p.publish_date)) - Date.parse(d.start_date!)) <= 3 * 864e5)
+          .map((p) => `    ${label} ${etDate(p.publish_date)} | ${p.title} | subj: ${p.subject_line ?? ""} | delivered ${fmt(num(p.stats?.email?.delivered))} | tags ${JSON.stringify((p as any).content_tags ?? [])}`).join("\n");
+        problems.push(`${client.name} ${d.start_date} ${tag}: ${near.length} matching emails in Marketing (${near.map((p) => p.title).join("; ") || "none"})\n${around(mkt, "MKT")}\n${around(daily, "DAILY")}`);
+        continue;
+      }
       const e = near[0].stats?.email ?? {};
       lines.push(`| ${client.name} | ${d.start_date} | Email blast | ${tag} | sent: now ${had("sent")}, beehiiv ${fmt(num(e.delivered))}; opens: now ${had("opens")}, beehiiv ${fmt(num(e.opens))} | clicks: now ${had("clicks")}, beehiiv ${fmt(num(e.clicks))} (unique ${fmt(num(e.unique_clicks))}) | ${near[0].subject_line ?? near[0].title} |`);
     }
