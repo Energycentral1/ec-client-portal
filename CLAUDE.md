@@ -21,7 +21,7 @@ campaign results and leads; the EC team uses `/admin` to review numbers before c
 | Deliverable | Numbers | Source | Pull when |
 |---|---|---|---|
 | Newsletter ad | impressions = Total Opens of that day's EC Daily; clicks | beehiiv; short.io | 14 days after run date |
-| Email blast | sent = Delivered, opens = Unique Opens, clicks = Unique Clicks | beehiiv (EC Marketing pub) | 7 days after send |
+| Email blast | sent = Delivered, opens = total opens, clicks = total raw clicks (SOP says unique; the sheets and the portal use totals, see below) | beehiiv (EC Marketing pub) | 7 days after send |
 | Webinar / PowerSession | registrants, attendees; live leads | Zoom Events | day after; on-demand leads flow in continuously from Tally |
 | Podcast | plays (Flightcast, no API: manual), short_form_views (YouTube + LinkedIn), impressions, clicks | mixed | 30 days after publish |
 | Content | views, likes, comments | Bettermode (beehiiv after migration) | 14 days |
@@ -37,7 +37,9 @@ Notion inventory rows carry no link and usually no title (`Notes` is internal sh
 | Webinar / PowerSession | event page, `energycentral.com/events/post/<slug>` (Bettermode Events space) | the event page title | Bettermode Events space by event date; registrants and attendees still come from Zoom |
 | Content | the Bettermode post URL | post headline | Bettermode |
 
-Email numbers in the legacy sheets do **not** follow the SOP: "Sent" is beehiiv Delivered (as written), but "Opens" is total opens and "Clicks" is total raw clicks, not the unique figures the SOP names. beehiiv also reports verified clicks, which strip scanner traffic and can be far lower. Which figure clients see is an open decision for Chloe; do not pick one silently in `pull-beehiiv.ts`.
+**Email numbers: match the sheets (Chloe, Nov 11 2026).** Clients have already been shown the sheet figures, so the portal and `pull-beehiiv.ts` report the same ones: sent = beehiiv `total_delivered`, opens = `total_opened` (total, not unique), clicks = `total_email_clicked_raw` (total raw, not unique or verified). This overrides the SOP row above, which says unique. Store unique and verified figures too if cheap, back-end only.
+
+**Email blasts need a web version (process change, not yet in place).** Paid emails should be published as "email and web" with "hide from feed" on, so each has an unlisted link at `energycentralmarketing.beehiiv.com/p/<slug>` that the portal can use as `live_url`. Because the web page shows the post title, the internal title ("Semtech Paid 11/10") has to stop being client-visible: either title the post with the subject line or turn off "display title on web". Put the EC number (EC-3167) in the slug or a tag so the pull can match exactly.
 
 ## Task list
 1. [done] Schema, RLS, client seed (65 clients, 34 live).
