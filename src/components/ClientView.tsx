@@ -42,6 +42,8 @@ const pct = (n: number, d: number) => `${((n / d) * 100).toFixed(n / d < 0.1 ? 2
 const DATE = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
 const fmtDate = (d: string | null) => (d ? DATE.format(new Date(d + "T00:00:00Z")) : "Unscheduled");
 
+/** Notion "Notes" values that mark a row as promotion Energy Central ran, not something the client bought. */
+const PROMO = /\b(promo|promotion|house ad)\b/i;
 /** Notion statuses that mean a placement has not run yet ("open inventory"). */
 const OPEN_STATUSES = ["not started", "awaiting assets", "ready for production", "production in progress", "scheduled", "on hold"];
 const MONTH = new Intl.DateTimeFormat("en-US", { month: "short", timeZone: "UTC" });
@@ -122,7 +124,9 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   const fileUrl = (p: Proof) => (signed ?? []).find((x) => x.path === p.file_path)?.signedUrl ?? null;
   // Marketing emails are the sends that promote a client's own event. They are not something the client bought,
   // so they never appear on the client page or in its counts; only paid emails ("Email Blast") do. The back-end view keeps them.
-  const rows = ((dels ?? []) as Deliverable[]).filter((d) => admin || d.deliverable_type !== "marketing_email");
+  // Same for promo and house ads: inventory rows whose Notion note says "Promo", "Promotion" or "House ad" are Energy Central
+  // promoting the client's event in its own newsletter, not ads the client bought.
+  const rows = ((dels ?? []) as Deliverable[]).filter((d) => admin || (d.deliverable_type !== "marketing_email" && !PROMO.test(d.title ?? "")));
   const today = new Date().toISOString().slice(0, 10);
   const nlDates = [...new Set(rows.filter((d) => d.deliverable_type === "newsletter_ad" && d.start_date).map((d) => d.start_date!))];
   const { data: issues } = nlDates.length
