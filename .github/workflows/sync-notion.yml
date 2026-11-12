@@ -1,8 +1,10 @@
 name: Sync Notion campaigns
 
 # Pulls campaigns and deliverables from Notion into Supabase.
-# Run by hand from the Actions tab for now; a nightly schedule comes later.
+# Runs every night before the beehiiv and Zoom pulls, and by hand from the Actions tab.
 on:
+  schedule:
+    - cron: "47 9 * * *"   # 4:47am ET
   workflow_dispatch:
 
 jobs:
