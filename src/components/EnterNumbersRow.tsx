@@ -3,7 +3,7 @@
 import { useActionState } from "react";
 import { saveNumbers, type EnterState } from "@/app/admin/enter/actions";
 
-const input = "mt-1 w-24 rounded-lg border border-line bg-white px-2 py-2 text-sm tabular-nums";
+const input = "mt-1 block w-24 rounded-lg border border-line bg-white px-2 py-2 text-sm tabular-nums";
 
 /** One placement in the "Enter numbers" list: a box per missing number, plus the link and name if those are missing too. */
 export function EnterNumbersRow({ id, fields, needsLink, needsTitle }: {
