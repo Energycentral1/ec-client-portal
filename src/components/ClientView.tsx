@@ -207,7 +207,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
               <p className="mt-1 text-sm text-ink/70">
                 {cols.map(([k, label]) => <span key={k} className="mr-5 whitespace-nowrap"><span className="text-base font-semibold tabular-nums text-ink">{fmt(sum(withNumbers, k))}</span> {label.toLowerCase()}</span>)}
                 {rates.map(([label, n, d]) => sum(withNumbers, d) > 0 && (
-                  <span key={label} className="mr-5 whitespace-nowrap"><span className="text-base font-semibold tabular-nums text-navy">{pct(sum(withNumbers, n), sum(withNumbers, d))}</span> {label.toLowerCase()}</span>
+                  <span key={label} className="mr-5 whitespace-nowrap"><span className="text-base font-semibold tabular-nums text-navy">{pct(sum(withNumbers, n), sum(withNumbers, d))}</span> {label === "CTR" ? label : label.toLowerCase()}</span>
                 ))}
               </p>
             )}
