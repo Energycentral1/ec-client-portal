@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any -- beehiiv and short.io responses are untyped JSON */
 /**
- * beehiiv + short.io pull: newsletter issues, newsletter ad numbers, paid email blast numbers.
+ * beehiiv + short.io pull: newsletter issues, newsletter ad numbers, paid email blast numbers, website ad clicks.
  * Run: npm run pull:beehiiv -- [--dry] [client-slug ...]     (no slugs = every client)
  *
  * 1. Newsletter issues. Every Daily and Weekly issue of the last 12 months is upserted into `newsletter_issues`
@@ -233,6 +233,63 @@ async function main() {
       }
     }
 
+    // 4. Website ad clicks (Chloe, Nov 12 2026). The SOP has the team make one short.io link per web ad, named client + "website"
+    // + run date, but the ad is not in any newsletter issue, so the link is looked up in short.io's own list: the client's
+    // link with "web" or "site" in it, made in the month before the run (or during it). One candidate = counted and saved on
+    // the placement; none or several = listed below, never guessed. Read once, 14+ days after the run ends, all-time human clicks.
+    const webDels: any[] = [];
+    for (let i = 0; i < ids.length; i += 50) {
+      const { data, error: e2 } = await db.from("deliverables")
+        .select("id, client_id, campaign_id, notion_page_id, deliverable_type, deliverable_label, inventory_tag, start_date, end_date, short_link, metrics(metric, value, source, status)")
+        .in("client_id", ids.slice(i, i + 50)).eq("deliverable_type", "website_ad").gte("start_date", since).order("start_date");
+      if (e2) throw e2;
+      webDels.push(...(data ?? []));
+    }
+    const webDue = webDels.filter((d) => (d.campaign_id || !d.notion_page_id) && (d.end_date ?? d.start_date) <= addDays(today, -14) && !has(d, "clicks"));
+    console.log(`Website ads due for clicks: ${webDue.length}.`);
+    if (webDue.length) {
+      const domains = (await sio("https://api.short.io/api/domains")) as any[];
+      const domainId = domains.find((x) => x.hostname === SHORT_DOMAIN)?.id;
+      if (!domainId) throw new Error(`short.io domain ${SHORT_DOMAIN} not found`);
+      const all: { path: string; created: string }[] = [];
+      for (let token_: string | undefined, n = 0; n < 80; n++) {
+        const r = await sio(`https://api.short.io/api/links?domain_id=${domainId}&limit=150${token_ ? `&pageToken=${encodeURIComponent(token_)}` : ""}`);
+        for (const l of (r.links ?? []) as any[]) all.push({ path: String(l.path), created: String(l.createdAt ?? "").slice(0, 10) });
+        token_ = r.nextPageToken; if (!token_ || !(r.links ?? []).length) break;
+        await sleep(300);
+      }
+      console.log(`short.io links listed: ${all.length}.`);
+      const taken = new Set<string>([...webDels.map((d) => d.short_link), ...dels.map((d) => d.short_link)].filter(Boolean).map((u: string) => u.replace(/^https?:\/\/[^/]+\//, "")));
+      for (const d of webDue) {
+        const client = byId.get(d.client_id)!;
+        const end = d.end_date ?? d.start_date;
+        const label = `${client.name} ${d.start_date} ${d.inventory_tag ?? "no EC tag"} (website ad)`;
+        let paths: string[];
+        if (d.short_link) paths = [String(d.short_link).replace(/^https?:\/\/[^/]+\//, "")];
+        else {
+          let c = all.filter((l) => squash(l.path).startsWith(token(client.name)) && /web|site/i.test(l.path) && !/news/i.test(l.path)
+            && l.created >= addDays(d.start_date, -30) && l.created <= end && !taken.has(l.path));
+          if (c.length > 1) {   // several: keep the one whose name carries the run's start date (10.8, 10.08, 1008, 10-08)
+            const [, m, day] = d.start_date.split("-").map(Number);
+            const dated = c.filter((l) => new RegExp(`(^|\\D)0?${m}[.\\-_]?0?${day}(\\D|$)`).test(l.path));
+            if (dated.length === 1) c = dated;
+          }
+          if (c.length !== 1) { problems.push(`${label}: ${c.length} possible short.io web links (${c.map((l) => l.path).join(", ") || "none named for this client around the run dates"}); clicks not pulled`); continue; }
+          paths = [c[0].path];
+        }
+        const path = paths[0];
+        if (usedLinks.has(path)) { problems.push(`${label}: short link ${path} already counted on ${usedLinks.get(path)}; no clicks added here`); continue; }
+        usedLinks.set(path, d.start_date); taken.add(path);
+        try {
+          const st = await shortClicks(path, d.start_date, end);
+          rows.push({ client_id: d.client_id, deliverable_id: d.id, metric: "clicks", value: st.human, window_start: d.start_date, window_end: addDays(end, 14), source: "shortio",
+            status: "pending", flag_reason: null, type: d.deliverable_type, ...({ _top: st.top, _total: st.total, _paths: [path] } as any) });
+          if (!d.short_link) updates.push({ id: d.id, patch: { short_link: `https://${SHORT_DOMAIN}/${path}`, short_link_id: st.id } });
+        } catch (err) { problems.push(`${label}: short.io error on ${path}: ${(err as Error).message.slice(0, 100)}`); }
+      }
+    }
+    dels.push(...webDels);
+
     // Flagging. Outlier rule (Chloe, Nov 12 2026): ad clicks at least 2x the client's median with one city holding 40%+ of them
     // look like a bot farm: report the clicks minus that city, flagged. Any other value more than 3x above or below the client's
     // median for that metric and placement type is flagged for a second look (CLAUDE.md task 6). Medians need 3+ other values.
@@ -256,7 +313,7 @@ async function main() {
     console.log(`\n| Client | Date | Placement | Metric | Value | Status | Note |\n|---|---|---|---|---|---|---|`);
     for (const r of rows) {
       const d = dels.find((x) => x.id === r.deliverable_id)!;
-      console.log(`| ${byId.get(r.client_id)!.name} | ${d.start_date} | ${d.deliverable_type === "newsletter_ad" ? "Newsletter ad" : "Paid email"} ${d.inventory_tag ?? ""} | ${r.metric} (${r.source}) | ${fmt(r.value)} | ${r.status} | ${r.flag_reason ?? ((r as any)._paths ? `${(r as any)._paths.join(", ")}; all clicks ${fmt((r as any)._total)}` : "")} |`);
+      console.log(`| ${byId.get(r.client_id)!.name} | ${d.start_date} | ${d.deliverable_type === "newsletter_ad" ? "Newsletter ad" : d.deliverable_type === "website_ad" ? "Website ad" : "Paid email"} ${d.inventory_tag ?? ""} | ${r.metric} (${r.source}) | ${fmt(r.value)} | ${r.status} | ${r.flag_reason ?? ((r as any)._paths ? `${(r as any)._paths.join(", ")}; all clicks ${fmt((r as any)._total)}` : "")} |`);
     }
     console.log(`\nPlacement updates (short link, post id, subject line, web link): ${updates.length}`);
     console.log(`\nNot pulled (${problems.length}):\n${problems.map((p) => `- ${p}`).join("\n") || "- none"}`);
