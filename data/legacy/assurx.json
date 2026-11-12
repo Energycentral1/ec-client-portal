@@ -1,0 +1,130 @@
+{
+ "client_slug": "assurx",
+ "source_url": "https://drive.google.com/file/d/1UM_rBBZ99dHwAc-BMWmVNwO8JjrsRMui/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 5, email 4, events 4. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "events",
+   "date": "2026-04-08",
+   "title": "Low Impact Is Not Low Effort: Operating One CIP Framework at Scale Modernizing Controls and Evidence for Low Impact Environments",
+   "metrics": {
+    "registrants": 135,
+    "attendees": 70
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2025-05-06",
+   "title": "How to Prepare for a NERC Audit (Without Losing Your Mind\u2026 or Your Evidence)",
+   "metrics": {
+    "registrants": 164,
+    "attendees": 79
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2024-11-21",
+   "title": "Out of Control Internal Controls",
+   "metrics": {
+    "registrants": 201,
+    "attendees": 80
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2020-09-29",
+   "title": "Case Study: Implementing an Enterprise NERC Compliance Management System",
+   "metrics": {
+    "registrants": 222,
+    "attendees": 115
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-02-25",
+   "metrics": {
+    "sent": 114754,
+    "opens": 39413,
+    "clicks": 7430
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2025-01-22",
+   "metrics": {
+    "sent": 29354,
+    "opens": 7002,
+    "clicks": 1352
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2023-04-12",
+   "metrics": {
+    "sent": 32091,
+    "opens": 6001,
+    "clicks": 67
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2023-03-16",
+   "metrics": {
+    "sent": 29755,
+    "opens": 5546,
+    "clicks": 53
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2026-06-17",
+   "metrics": {
+    "views": 1389,
+    "likes": 5
+   },
+   "title": "Control the Controls: Preventing Compliance Drift in the World of NERC Audit Readiness",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/control-the-controls-preventing-compliance-drift-in-the-world-of-nerc-0gMjQTUmSrlRuck"
+  },
+  {
+   "tab": "content",
+   "date": "2025-09-23",
+   "metrics": {
+    "views": 575,
+    "likes": 5
+   },
+   "title": "Out of Control Internal Controls: Mastering Complexity in NERC Regulatory Compliance",
+   "live_url": "https://www.energycentral.com/energy-biz/post/out-of-control-internal-controls-mastering-complexity-in-nerc-regulatory-GmerX2AF2btZ9px"
+  },
+  {
+   "tab": "content",
+   "date": "2025-07-30",
+   "metrics": {
+    "views": 400,
+    "likes": 3
+   },
+   "title": "NERC Audit Survival Guide",
+   "live_url": "https://www.energycentral.com/energy-biz/post/nerc-audit-survival-guide-QBO1hIrGrhkxRkW"
+  },
+  {
+   "tab": "content",
+   "date": "2025-05-24",
+   "metrics": {
+    "views": 422,
+    "likes": 0
+   },
+   "title": "On-Demand Webinar | How to Prepare for a NERC Audit (Without Losing Your Mind\u2026 or Your Evidence)",
+   "live_url": "https://www.energycentral.com/events/post/on-demand-webinar-how-to-prepare-for-a-nerc-audit-without-losing-your-aeJr320Y2fTZSD6"
+  },
+  {
+   "tab": "content",
+   "date": "2025-04-28",
+   "metrics": {
+    "views": 286,
+    "likes": 0
+   },
+   "title": "Welcome Your New Expert Interview Series: Scott Crow, New Expert in the Digital Utility Group - [an Energy Central Power Perspectives\u2122 Expert Interview]",
+   "live_url": "https://www.energycentral.com/home/post/welcome-your-new-expert-interview-series-scott-crow-new-expert-digital-6Iv7BZ04nMkGpY9"
+  }
+ ]
+}

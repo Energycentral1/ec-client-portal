@@ -1,0 +1,34 @@
+{
+ "client_slug": "1898-and-co",
+ "source_url": "https://drive.google.com/file/d/1wR5VeJGGmJ4T_OcuIffWraUMPN9sYy8t/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. newsletter 1, sponsorship 1, website 1. Left out, no clean number or date (2): Events / Thank you for choosing Energy Central!; Podcasts & Interviews / 2023-08-22 00:00:00. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "website",
+   "date": "2025-07-27",
+   "metrics": {
+    "impressions": 105550,
+    "clicks": 3
+   },
+   "end_date": "2025-08-02"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-07-01",
+   "metrics": {
+    "impressions": 42592
+   },
+   "end_date": "2025-07-31"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-07-20",
+   "metrics": {
+    "impressions": 195551,
+    "clicks": 1731
+   },
+   "end_date": "2025-07-26"
+  }
+ ]
+}

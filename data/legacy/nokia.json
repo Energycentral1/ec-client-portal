@@ -1,0 +1,35 @@
+{
+ "client_slug": "nokia",
+ "source_url": "https://drive.google.com/file/d/1ZBtxFyRcXk-ENQVE129BLAIi0-nFbBai/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. events 1, newsletter 2. Left out, no clean number or date (4): Events / Thank you for choosing Energy Central!; Podcasts & Interviews / 2025-03-04 00:00:00; Podcasts & Interviews / 2024-05-09 00:00:00; Podcasts & Interviews / 2024-05-07 00:00:00. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "newsletter",
+   "date": "2024-02-18",
+   "metrics": {
+    "impressions": 41244,
+    "clicks": 95
+   },
+   "end_date": "2024-02-24"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-02-11",
+   "metrics": {
+    "impressions": 47817,
+    "clicks": 79
+   },
+   "end_date": "2024-02-17"
+  },
+  {
+   "tab": "events",
+   "date": "2025-09-23",
+   "title": "Optimizing Grid Flexibility and Resilience Through Digital Twins, Edge Compute, and Communications",
+   "metrics": {
+    "registrants": 276,
+    "attendees": 91
+   }
+  }
+ ]
+}

@@ -1,0 +1,98 @@
+{
+ "client_slug": "mr-reinhausen",
+ "source_url": "https://drive.google.com/file/d/1AxvaokfGbEmx6zyDw9LY8pYChiMptcRC/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. newsletter 3, sponsorship 3, website 4. Left out, no clean number or date (2): Events / Thank you for choosing Energy Central!; Podcasts & Interivew / 2025-04-23 00:00:00. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "website",
+   "date": "2025-04-06",
+   "metrics": {
+    "impressions": 9365,
+    "clicks": 6
+   },
+   "end_date": "2025-04-12"
+  },
+  {
+   "tab": "website",
+   "date": "2025-03-09",
+   "metrics": {
+    "impressions": 5660,
+    "clicks": 3
+   },
+   "end_date": "2025-03-15"
+  },
+  {
+   "tab": "website",
+   "date": "2025-03-09",
+   "metrics": {
+    "impressions": 9532,
+    "clicks": 7
+   },
+   "end_date": "2025-03-15"
+  },
+  {
+   "tab": "website",
+   "date": "2025-02-02",
+   "metrics": {
+    "impressions": 9973,
+    "clicks": 3
+   },
+   "end_date": "2025-02-08"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-03-16",
+   "metrics": {
+    "impressions": 10803,
+    "clicks": 8
+   },
+   "end_date": "2025-04-15"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-02-16",
+   "metrics": {
+    "impressions": 6690,
+    "clicks": 6
+   },
+   "end_date": "2025-03-15"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-01-15",
+   "metrics": {
+    "impressions": 6523,
+    "clicks": 7
+   },
+   "end_date": "2025-02-15"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-04-06",
+   "metrics": {
+    "impressions": 39180,
+    "clicks": 2021
+   },
+   "end_date": "2025-04-12"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-03-09",
+   "metrics": {
+    "impressions": 39731,
+    "clicks": 2689
+   },
+   "end_date": "2025-03-15"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-02-02",
+   "metrics": {
+    "impressions": 40672,
+    "clicks": 199
+   },
+   "end_date": "2025-02-08"
+  }
+ ]
+}

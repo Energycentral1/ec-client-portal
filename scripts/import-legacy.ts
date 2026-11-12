@@ -1,6 +1,6 @@
 /**
  * History import: loads the legacy "Customer Report" numbers in data/legacy/*.json into `metrics`.
- * Run: npm run import:legacy [client-slug]
+ * Run: npm run import:legacy [client-slug[,client-slug...]]
  * Run with --dry to print what would happen and write nothing.
  * Every number lands as source = legacy_sheet, status = approved: clients were already sent these figures in their report,
  * so they need no second sign-off (Chloe, Nov 12 2026). Pulled and typed-in numbers still wait in Approvals.
@@ -138,7 +138,7 @@ async function main() {
     const dir = join(process.cwd(), "data", "legacy");
     for (const f of readdirSync(dir).filter((f) => f.endsWith(".json")).sort()) {
       const file = JSON.parse(readFileSync(join(dir, f), "utf8")) as LegacyFile;
-      if (only && file.client_slug !== only) continue;
+      if (only && !only.split(",").includes(file.client_slug)) continue;
       written += await importFile(file);
     }
     if (DRY) { console.log(`\nDRY RUN: ${written} numbers would be loaded; nothing was written.`); return; }

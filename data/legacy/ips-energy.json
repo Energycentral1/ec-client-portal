@@ -1,0 +1,164 @@
+{
+ "client_slug": "ips-energy",
+ "source_url": "https://drive.google.com/file/d/1yJKt5VemiJ3nh77wZf6mAW-nxvTxtiO-/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. newsletter 6, sponsorship 6, website 6. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "website",
+   "date": "2025-10-26",
+   "metrics": {
+    "impressions": 87040,
+    "clicks": 38
+   },
+   "end_date": "2025-11-01"
+  },
+  {
+   "tab": "website",
+   "date": "2025-10-05",
+   "metrics": {
+    "impressions": 84950,
+    "clicks": 44
+   },
+   "end_date": "2025-10-11"
+  },
+  {
+   "tab": "website",
+   "date": "2025-09-28",
+   "metrics": {
+    "impressions": 72370,
+    "clicks": 53
+   },
+   "end_date": "2025-10-04"
+  },
+  {
+   "tab": "website",
+   "date": "2025-08-24",
+   "metrics": {
+    "impressions": 58940,
+    "clicks": 42
+   },
+   "end_date": "2025-08-30"
+  },
+  {
+   "tab": "website",
+   "date": "2025-08-03",
+   "metrics": {
+    "impressions": 75780,
+    "clicks": 113
+   },
+   "end_date": "2025-08-09"
+  },
+  {
+   "tab": "website",
+   "date": "2025-06-29",
+   "metrics": {
+    "impressions": 66950,
+    "clicks": 90
+   },
+   "end_date": "2025-07-05"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-11-01",
+   "metrics": {
+    "impressions": 15727
+   },
+   "end_date": "2025-11-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-10-01",
+   "metrics": {
+    "impressions": 25346
+   },
+   "end_date": "2025-10-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-09-01",
+   "metrics": {
+    "impressions": 35743
+   },
+   "end_date": "2025-09-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-08-01",
+   "metrics": {
+    "impressions": 35496
+   },
+   "end_date": "2025-08-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-07-01",
+   "metrics": {
+    "impressions": 27240
+   },
+   "end_date": "2025-07-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-06-01",
+   "metrics": {
+    "impressions": 87893
+   },
+   "end_date": "2025-06-30"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-10-26",
+   "metrics": {
+    "impressions": 116425,
+    "clicks": 221
+   },
+   "end_date": "2025-11-01"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-10-05",
+   "metrics": {
+    "impressions": 133192,
+    "clicks": 191
+   },
+   "end_date": "2025-10-11"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-28",
+   "metrics": {
+    "impressions": 148344,
+    "clicks": 264
+   },
+   "end_date": "2025-10-04"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-08-24",
+   "metrics": {
+    "impressions": 174465,
+    "clicks": 609
+   },
+   "end_date": "2025-08-30"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-08-03",
+   "metrics": {
+    "impressions": 193649,
+    "clicks": 34
+   },
+   "end_date": "2025-08-09"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-06-29",
+   "metrics": {
+    "impressions": 162466,
+    "clicks": 1217
+   },
+   "end_date": "2025-07-05"
+  }
+ ]
+}

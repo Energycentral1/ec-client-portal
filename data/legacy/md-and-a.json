@@ -1,0 +1,410 @@
+{
+ "client_slug": "md-and-a",
+ "source_url": "https://drive.google.com/file/d/1XeFUPdTLPRalljPa9eDuUne9lQd9Hp4mNiJ9eIuGPWs/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 19, sponsorship 12, website 12. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "website",
+   "date": "2022-06-19",
+   "metrics": {
+    "impressions": 9801,
+    "clicks": 2
+   },
+   "end_date": "2022-06-25"
+  },
+  {
+   "tab": "website",
+   "date": "2022-05-22",
+   "metrics": {
+    "impressions": 10008,
+    "clicks": 4
+   },
+   "end_date": "2022-05-28"
+  },
+  {
+   "tab": "website",
+   "date": "2022-04-24",
+   "metrics": {
+    "impressions": 10009,
+    "clicks": 1
+   },
+   "end_date": "2022-04-30"
+  },
+  {
+   "tab": "website",
+   "date": "2022-03-27",
+   "metrics": {
+    "impressions": 10005,
+    "clicks": 7
+   },
+   "end_date": "2022-04-02"
+  },
+  {
+   "tab": "website",
+   "date": "2022-02-27",
+   "metrics": {
+    "impressions": 9818,
+    "clicks": 36
+   },
+   "end_date": "2022-03-05"
+  },
+  {
+   "tab": "website",
+   "date": "2022-01-30",
+   "metrics": {
+    "impressions": 9995,
+    "clicks": 28
+   },
+   "end_date": "2022-02-05"
+  },
+  {
+   "tab": "website",
+   "date": "2021-12-12",
+   "metrics": {
+    "impressions": 10001,
+    "clicks": 9
+   },
+   "end_date": "2021-12-18"
+  },
+  {
+   "tab": "website",
+   "date": "2021-11-14",
+   "metrics": {
+    "impressions": 10000,
+    "clicks": 12
+   },
+   "end_date": "2021-11-20"
+  },
+  {
+   "tab": "website",
+   "date": "2021-10-10",
+   "metrics": {
+    "impressions": 9009,
+    "clicks": 8
+   },
+   "end_date": "2021-10-16"
+  },
+  {
+   "tab": "website",
+   "date": "2021-09-12",
+   "metrics": {
+    "impressions": 9357,
+    "clicks": 2
+   },
+   "end_date": "2021-09-18"
+  },
+  {
+   "tab": "website",
+   "date": "2021-08-08",
+   "metrics": {
+    "impressions": 10009,
+    "clicks": 5
+   },
+   "end_date": "2021-08-14"
+  },
+  {
+   "tab": "website",
+   "date": "2021-07-11",
+   "metrics": {
+    "impressions": 10005,
+    "clicks": 9
+   },
+   "end_date": "2021-07-17"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-06-01",
+   "metrics": {
+    "impressions": 13729,
+    "clicks": 12
+   },
+   "end_date": "2022-06-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-05-01",
+   "metrics": {
+    "impressions": 14150,
+    "clicks": 10
+   },
+   "end_date": "2022-05-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-04-01",
+   "metrics": {
+    "impressions": 13844,
+    "clicks": 3
+   },
+   "end_date": "2022-04-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-03-01",
+   "metrics": {
+    "impressions": 19001,
+    "clicks": 16
+   },
+   "end_date": "2022-03-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-02-01",
+   "metrics": {
+    "impressions": 15837,
+    "clicks": 4
+   },
+   "end_date": "2022-02-28"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-01-01",
+   "metrics": {
+    "impressions": 15901,
+    "clicks": 7
+   },
+   "end_date": "2022-01-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-12-01",
+   "metrics": {
+    "impressions": 14024,
+    "clicks": 15
+   },
+   "end_date": "2021-12-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-11-01",
+   "metrics": {
+    "impressions": 14307,
+    "clicks": 5
+   },
+   "end_date": "2021-11-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-10-01",
+   "metrics": {
+    "impressions": 13561,
+    "clicks": 7
+   },
+   "end_date": "2021-10-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-09-01",
+   "metrics": {
+    "impressions": 13135,
+    "clicks": 8
+   },
+   "end_date": "2021-09-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-08-01",
+   "metrics": {
+    "impressions": 14018,
+    "clicks": 13
+   },
+   "end_date": "2021-08-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-07-01",
+   "metrics": {
+    "impressions": 13482,
+    "clicks": 7
+   },
+   "end_date": "2021-07-31"
+  },
+  {
+   "tab": "content",
+   "date": "2026-08-24",
+   "metrics": {
+    "views": 299,
+    "likes": 2
+   },
+   "title": "MD&A Positions Itself as Alternative Source for 7FA & 7EA Gas Turbine Rotors",
+   "live_url": "https://www.energycentral.com/fossil-thermal/post/md-a-positions-itself-as-alternative-source-for-7fa-7ea-gas-turbine-4eEzT9PVN3oy5eA"
+  },
+  {
+   "tab": "content",
+   "date": "2026-07-21",
+   "metrics": {
+    "views": 758,
+    "likes": 14
+   },
+   "title": "MD&A Quadruple Steam Turbine-Generator Majors with Precision, Breadth, and Coordination",
+   "live_url": "https://www.energycentral.com/fossil-thermal/post/md-a-quadruple-steam-turbine-generator-majors-with-precision-breadth-1f9LhdLPDIR4S5M"
+  },
+  {
+   "tab": "content",
+   "date": "2026-05-14",
+   "metrics": {
+    "views": 261,
+    "likes": 2
+   },
+   "title": "MD&A\u2019s Gas Turbine Rotor Life Extension Webinar",
+   "live_url": "https://www.energycentral.com/fossil-thermal/post/md-a-s-gas-turbine-rotor-life-extension-webinar-872Zz8X4xR5IkAF"
+  },
+  {
+   "tab": "content",
+   "date": "2026-04-19",
+   "metrics": {
+    "views": 366,
+    "likes": 2
+   },
+   "title": "MD&A 7FA Gas Turbine and 7FH2 Generator Major Inspections",
+   "live_url": "https://www.energycentral.com/fossil-thermal/post/md-a-7fa-gas-turbine-and-7fh2-generator-major-inspections-cDpDZtGGk2ECe01"
+  },
+  {
+   "tab": "content",
+   "date": "2026-03-17",
+   "metrics": {
+    "views": 246,
+    "likes": 1
+   },
+   "title": "MD&A Steam Turbine N2 Packing Casing Repairs",
+   "live_url": "https://www.energycentral.com/fossil-thermal/post/md-a-steam-turbine-n2-packing-casing-repairs-DpIQYN6slkpEmdc"
+  },
+  {
+   "tab": "content",
+   "date": "2026-02-17",
+   "metrics": {
+    "views": 313,
+    "likes": 6
+   },
+   "title": "MD&A HPIP Outer Shell Valve Chest Weld Restoration Onsite",
+   "live_url": "https://www.energycentral.com/fossil-thermal/post/md-a-hpip-outer-shell-valve-chest-weld-restoration-onsite-0eLJan7ABIWTz5U"
+  },
+  {
+   "tab": "content",
+   "date": "2026-01-15",
+   "metrics": {
+    "views": 300,
+    "likes": 2
+   },
+   "title": "MD&A Completed 330H Generator Stator Rewind",
+   "live_url": "https://www.energycentral.com/fossil-thermal/post/md-a-completed-330h-generator-stator-rewind-UY60Y11XNKPfE0b"
+  },
+  {
+   "tab": "content",
+   "date": "2025-12-18",
+   "metrics": {
+    "views": 331,
+    "likes": 1
+   },
+   "title": "Strategic Parts Inventory Planning \u2013 Staying Ahead of Outage Constraints",
+   "live_url": "https://www.energycentral.com/energy-biz/post/strategic-parts-inventory-planning---staying-ahead-of-outage-constraints-E7bVmYXX3Zsg1va"
+  },
+  {
+   "tab": "content",
+   "date": "2025-11-21",
+   "metrics": {
+    "views": 1792,
+    "likes": 1
+   },
+   "title": "MD&A 2026 Turbine and Generator Inspection and Repair Technology Seminar",
+   "live_url": "https://www.energycentral.com/events/post/md-a-2026-turbine-and-generator-inspection-and-repair-technology-seminar-LEqpaqDQfY3ywUo"
+  },
+  {
+   "tab": "content",
+   "date": "2025-09-25",
+   "metrics": {
+    "views": 347,
+    "likes": 2
+   },
+   "title": "Back-to-Back Major Overhauls on Two 7F.04 Gas Turbines and 7FH2 Generator",
+   "live_url": "https://www.energycentral.com/fossil-thermal/post/back-to-back-major-overhauls-on-two-7f-04-gas-turbines-and-7fh2-generator-3AAdSAezR2eKq5n"
+  },
+  {
+   "tab": "content",
+   "date": "2025-08-26",
+   "metrics": {
+    "views": 220,
+    "likes": 1
+   },
+   "title": "MD&A\u2019s Gas Turbine Fuel Nozzle Flow Issues",
+   "live_url": "https://www.energycentral.com/fossil-thermal/post/md-a-s-gas-turbine-fuel-nozzle-flow-issues-tPIobTGU9Q62nRD"
+  },
+  {
+   "tab": "content",
+   "date": "2025-07-28",
+   "metrics": {
+    "views": 380,
+    "likes": 1
+   },
+   "title": "MD&A\u2019s Generator Stator Rewind with Timely New Bars",
+   "live_url": "https://www.energycentral.com/fossil-thermal/post/md-a-s-generator-stator-rewind-with-timely-new-bars-zVjRLgQP6Lj8U5z"
+  },
+  {
+   "tab": "content",
+   "date": "2025-06-30",
+   "metrics": {
+    "views": 329,
+    "likes": 2
+   },
+   "title": "MD&A\u2019s Industrial Steam Turbine Major Inspection",
+   "live_url": "https://www.energycentral.com/fossil-thermal/post/md-a-s-industrial-steam-turbine-major-inspection-O06AOckoVMn4BR8"
+  },
+  {
+   "tab": "content",
+   "date": "2025-05-29",
+   "metrics": {
+    "views": 623,
+    "likes": 6
+   },
+   "title": "7EA Turbine Major & 7A6 Generator Minor Inspection",
+   "live_url": "https://www.energycentral.com/fossil-thermal/post/7ea-turbine-major-7a6-generator-minor-inspection-kip041jm8IolWr0"
+  },
+  {
+   "tab": "content",
+   "date": "2025-05-22",
+   "metrics": {
+    "views": 338,
+    "likes": 1
+   },
+   "title": "MD&A Webinars | Managing Emergent Findings during Overhaul: \"Generator Stator Wedge Issues\"",
+   "live_url": "https://www.energycentral.com/events/post/md-a-webinars-managing-emergent-findings-during-overhaul-generator-DqTCkuujR3vsuVA"
+  },
+  {
+   "tab": "content",
+   "date": "2025-04-24",
+   "metrics": {
+    "views": 834
+   },
+   "title": "MD&A 2025 Turbine and Generator Inspection and Repair Technology Seminar",
+   "live_url": "https://www.energycentral.com/events/post/md-a-2026-turbine-and-generator-inspection-and-repair-technology-seminar-LEqpaqDQfY3ywUo"
+  },
+  {
+   "tab": "content",
+   "date": "2025-03-25",
+   "metrics": {
+    "views": 700
+   },
+   "title": "MD&A Webinars | Managing Emergent Findings during Overhaul: \"Generator Stator Wedge Issues\"",
+   "live_url": "https://www.energycentral.com/fossil-thermal/post/mda-webinars-managing-emergent-findings-during-overhaul-generator-stator-pzDvufkwHzUVRWu"
+  },
+  {
+   "tab": "content",
+   "date": "2025-02-26",
+   "metrics": {
+    "views": 741
+   },
+   "title": "MD&A\u2019s Main Stop Control Valve and Bucket Replacements",
+   "live_url": "https://www.energycentral.com/fossil-thermal/post/mda-s-main-stop-control-valve-and-bucket-replacements-jswetkcbOEzgGKt"
+  },
+  {
+   "tab": "content",
+   "date": "2025-01-28",
+   "metrics": {
+    "views": 8462
+   },
+   "title": "7A6 Generator Isomode Pad Replacement with Major and Rewind",
+   "live_url": "https://www.energycentral.com/fossil-thermal/post/7a6-generator-isomode-pad-replacement-major-and-rewind-WBrdsjtsptgSFK5"
+  }
+ ]
+}

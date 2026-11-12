@@ -1,0 +1,36 @@
+{
+ "client_slug": "blitzz",
+ "source_url": "https://drive.google.com/file/d/1CNnhUNJb6JlS5bYgnA2xQ_vULmvhjc0D/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. newsletter 4. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "newsletter",
+   "date": "2025-10-23",
+   "metrics": {
+    "impressions": 24849
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-10-16",
+   "metrics": {
+    "impressions": 22924
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-10-09",
+   "metrics": {
+    "impressions": 23120
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-10-02",
+   "metrics": {
+    "impressions": 30542
+   }
+  }
+ ]
+}

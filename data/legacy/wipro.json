@@ -1,0 +1,864 @@
+{
+ "client_slug": "wipro",
+ "source_url": "https://drive.google.com/file/d/1ywQ1cgllRvI8TalRvKIXWYN-TW3njq_X/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. newsletter 25, podcast 1, sponsorship 32, website 37. Left out, no clean number or date (4): Podcasts & Interviews / 2025-06-26 00:00:00; Podcasts & Interviews / 2024-09-16 00:00:00; Podcasts & Interviews / 2023-06-22 00:00:00; Podcasts & Interviews / 2022-11-29 00:00:00. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "website",
+   "date": "2024-10-27",
+   "metrics": {
+    "impressions": 12508,
+    "clicks": 1
+   },
+   "end_date": "2024-11-02"
+  },
+  {
+   "tab": "website",
+   "date": "2024-10-27",
+   "metrics": {
+    "impressions": 10009,
+    "clicks": 4
+   },
+   "end_date": "2024-11-02"
+  },
+  {
+   "tab": "website",
+   "date": "2024-09-22",
+   "metrics": {
+    "impressions": 9190,
+    "clicks": 7
+   },
+   "end_date": "2024-09-28"
+  },
+  {
+   "tab": "website",
+   "date": "2024-09-22",
+   "metrics": {
+    "impressions": 10013,
+    "clicks": 3
+   },
+   "end_date": "2024-09-28"
+  },
+  {
+   "tab": "website",
+   "date": "2024-08-18",
+   "metrics": {
+    "impressions": 34065,
+    "clicks": 5
+   },
+   "end_date": "2024-08-24"
+  },
+  {
+   "tab": "website",
+   "date": "2024-08-18",
+   "metrics": {
+    "impressions": 10016,
+    "clicks": 20
+   },
+   "end_date": "2024-08-24"
+  },
+  {
+   "tab": "website",
+   "date": "2024-07-14",
+   "metrics": {
+    "impressions": 11348,
+    "clicks": 7
+   },
+   "end_date": "2024-07-20"
+  },
+  {
+   "tab": "website",
+   "date": "2024-07-14",
+   "metrics": {
+    "impressions": 10013,
+    "clicks": 7
+   },
+   "end_date": "2024-07-20"
+  },
+  {
+   "tab": "website",
+   "date": "2024-06-09",
+   "metrics": {
+    "impressions": 7903,
+    "clicks": 1
+   },
+   "end_date": "2024-06-15"
+  },
+  {
+   "tab": "website",
+   "date": "2024-06-09",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 5
+   },
+   "end_date": "2024-06-15"
+  },
+  {
+   "tab": "website",
+   "date": "2024-05-12",
+   "metrics": {
+    "impressions": 5961,
+    "clicks": 2
+   },
+   "end_date": "2024-05-18"
+  },
+  {
+   "tab": "website",
+   "date": "2024-05-12",
+   "metrics": {
+    "impressions": 10012,
+    "clicks": 5
+   },
+   "end_date": "2024-05-18"
+  },
+  {
+   "tab": "website",
+   "date": "2024-04-07",
+   "metrics": {
+    "impressions": 7113,
+    "clicks": 1
+   },
+   "end_date": "2024-04-13"
+  },
+  {
+   "tab": "website",
+   "date": "2024-04-07",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 4
+   },
+   "end_date": "2024-04-13"
+  },
+  {
+   "tab": "website",
+   "date": "2024-03-17",
+   "metrics": {
+    "impressions": 5380,
+    "clicks": 1
+   },
+   "end_date": "2024-03-23"
+  },
+  {
+   "tab": "website",
+   "date": "2024-03-17",
+   "metrics": {
+    "impressions": 9953,
+    "clicks": 6
+   },
+   "end_date": "2024-03-23"
+  },
+  {
+   "tab": "website",
+   "date": "2024-02-11",
+   "metrics": {
+    "impressions": 7025,
+    "clicks": 1
+   },
+   "end_date": "2024-02-17"
+  },
+  {
+   "tab": "website",
+   "date": "2024-02-11",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 9
+   },
+   "end_date": "2024-02-17"
+  },
+  {
+   "tab": "website",
+   "date": "2024-01-14",
+   "metrics": {
+    "impressions": 5367,
+    "clicks": 2
+   },
+   "end_date": "2024-01-20"
+  },
+  {
+   "tab": "website",
+   "date": "2024-01-14",
+   "metrics": {
+    "impressions": 10007,
+    "clicks": 2
+   },
+   "end_date": "2024-01-20"
+  },
+  {
+   "tab": "website",
+   "date": "2023-12-10",
+   "metrics": {
+    "impressions": 5123,
+    "clicks": 1
+   },
+   "end_date": "2023-12-16"
+  },
+  {
+   "tab": "website",
+   "date": "2023-12-10",
+   "metrics": {
+    "impressions": 9671,
+    "clicks": 5
+   },
+   "end_date": "2023-12-16"
+  },
+  {
+   "tab": "website",
+   "date": "2023-11-12",
+   "metrics": {
+    "impressions": 8672,
+    "clicks": 8
+   },
+   "end_date": "2023-11-18"
+  },
+  {
+   "tab": "website",
+   "date": "2023-11-12",
+   "metrics": {
+    "impressions": 9970,
+    "clicks": 8
+   },
+   "end_date": "2023-11-18"
+  },
+  {
+   "tab": "website",
+   "date": "2023-02-26",
+   "metrics": {
+    "impressions": 9956,
+    "clicks": 1
+   },
+   "end_date": "2023-03-04"
+  },
+  {
+   "tab": "website",
+   "date": "2023-01-15",
+   "metrics": {
+    "impressions": 10009,
+    "clicks": 11
+   },
+   "end_date": "2023-01-21"
+  },
+  {
+   "tab": "website",
+   "date": "2022-11-06",
+   "metrics": {
+    "impressions": 9229,
+    "clicks": 8
+   },
+   "end_date": "2022-11-12"
+  },
+  {
+   "tab": "website",
+   "date": "2022-10-09",
+   "metrics": {
+    "impressions": 9988,
+    "clicks": 3
+   },
+   "end_date": "2022-10-15"
+  },
+  {
+   "tab": "website",
+   "date": "2022-09-01",
+   "metrics": {
+    "impressions": 4165,
+    "clicks": 1
+   },
+   "end_date": "2022-09-03"
+  },
+  {
+   "tab": "website",
+   "date": "2022-08-28",
+   "metrics": {
+    "impressions": 6201,
+    "clicks": 0
+   },
+   "end_date": "2022-08-31"
+  },
+  {
+   "tab": "website",
+   "date": "2022-07-10",
+   "metrics": {
+    "impressions": 9810,
+    "clicks": 1
+   },
+   "end_date": "2022-07-16"
+  },
+  {
+   "tab": "website",
+   "date": "2022-05-29",
+   "metrics": {
+    "impressions": 10006,
+    "clicks": 2
+   },
+   "end_date": "2022-06-04"
+  },
+  {
+   "tab": "website",
+   "date": "2022-05-08",
+   "metrics": {
+    "impressions": 9983,
+    "clicks": 3
+   },
+   "end_date": "2022-05-14"
+  },
+  {
+   "tab": "website",
+   "date": "2021-10-30",
+   "metrics": {
+    "impressions": 9790,
+    "clicks": 6
+   },
+   "end_date": "2021-11-05"
+  },
+  {
+   "tab": "website",
+   "date": "2021-10-02",
+   "metrics": {
+    "impressions": 8968,
+    "clicks": 2
+   },
+   "end_date": "2021-10-08"
+  },
+  {
+   "tab": "website",
+   "date": "2021-09-11",
+   "metrics": {
+    "impressions": 9360,
+    "clicks": 14
+   },
+   "end_date": "2021-09-17"
+  },
+  {
+   "tab": "website",
+   "date": "2021-07-10",
+   "metrics": {
+    "impressions": 10004,
+    "clicks": 8
+   },
+   "end_date": "2021-07-16"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-10-15",
+   "metrics": {
+    "impressions": 25163,
+    "clicks": 4
+   },
+   "end_date": "2024-11-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-09-15",
+   "metrics": {
+    "impressions": 30302,
+    "clicks": 6
+   },
+   "end_date": "2024-10-14"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-08-15",
+   "metrics": {
+    "impressions": 23753,
+    "clicks": 4
+   },
+   "end_date": "2024-09-14"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-07-15",
+   "metrics": {
+    "impressions": 23309,
+    "clicks": 14
+   },
+   "end_date": "2024-08-14"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-06-15",
+   "metrics": {
+    "impressions": 25439,
+    "clicks": 5
+   },
+   "end_date": "2024-07-14"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-05-15",
+   "metrics": {
+    "impressions": 25878,
+    "clicks": 5
+   },
+   "end_date": "2024-06-14"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-04-15",
+   "metrics": {
+    "impressions": 24165,
+    "clicks": 4
+   },
+   "end_date": "2024-05-14"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-03-15",
+   "metrics": {
+    "impressions": 23596,
+    "clicks": 2
+   },
+   "end_date": "2024-04-14"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-02-15",
+   "metrics": {
+    "impressions": 24052,
+    "clicks": 6
+   },
+   "end_date": "2024-03-14"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-01-15",
+   "metrics": {
+    "impressions": 31787,
+    "clicks": 8
+   },
+   "end_date": "2024-02-14"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-12-15",
+   "metrics": {
+    "impressions": 25257,
+    "clicks": 6
+   },
+   "end_date": "2024-01-14"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-11-15",
+   "metrics": {
+    "impressions": 27202,
+    "clicks": 5
+   },
+   "end_date": "2023-12-14"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-10-15",
+   "metrics": {
+    "impressions": 26483,
+    "clicks": 4
+   },
+   "end_date": "2023-11-14"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-03-01",
+   "metrics": {
+    "impressions": 61714,
+    "clicks": 8
+   },
+   "end_date": "2023-03-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-02-01",
+   "metrics": {
+    "impressions": 61476,
+    "clicks": 4
+   },
+   "end_date": "2023-02-28"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-01-01",
+   "metrics": {
+    "impressions": 76342,
+    "clicks": 14
+   },
+   "end_date": "2022-01-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-12-01",
+   "metrics": {
+    "impressions": 64300,
+    "clicks": 6
+   },
+   "end_date": "2022-12-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-11-01",
+   "metrics": {
+    "impressions": 53951,
+    "clicks": 4
+   },
+   "end_date": "2022-11-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-10-01",
+   "metrics": {
+    "impressions": 55621,
+    "clicks": 9
+   },
+   "end_date": "2022-10-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-09-01",
+   "metrics": {
+    "impressions": 60023,
+    "clicks": 5
+   },
+   "end_date": "2022-09-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-08-01",
+   "metrics": {
+    "impressions": 53395,
+    "clicks": 2
+   },
+   "end_date": "2022-08-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-07-01",
+   "metrics": {
+    "impressions": 45631,
+    "clicks": 8
+   },
+   "end_date": "2022-07-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-06-01",
+   "metrics": {
+    "impressions": 44288,
+    "clicks": 9
+   },
+   "end_date": "2022-06-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-05-01",
+   "metrics": {
+    "impressions": 50608,
+    "clicks": 4
+   },
+   "end_date": "2022-05-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-04-01",
+   "metrics": {
+    "impressions": 46359,
+    "clicks": 3
+   },
+   "end_date": "2022-04-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-11-15",
+   "metrics": {
+    "impressions": 36095,
+    "clicks": 8
+   },
+   "end_date": "2021-12-13"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-10-18",
+   "metrics": {
+    "impressions": 38478,
+    "clicks": 10
+   },
+   "end_date": "2021-11-14"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-09-16",
+   "metrics": {
+    "impressions": 40918,
+    "clicks": 17
+   },
+   "end_date": "2021-10-17"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-08-16",
+   "metrics": {
+    "impressions": 37996,
+    "clicks": 9
+   },
+   "end_date": "2021-09-15"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-07-22",
+   "metrics": {
+    "impressions": 33818,
+    "clicks": 15
+   },
+   "end_date": "2021-08-15"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-06-17",
+   "metrics": {
+    "impressions": 39736,
+    "clicks": 7
+   },
+   "end_date": "2021-07-21"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2021-05-17",
+   "metrics": {
+    "impressions": 40639,
+    "clicks": 17
+   },
+   "end_date": "2021-06-16"
+  },
+  {
+   "tab": "podcast",
+   "date": "2025-10-27",
+   "metrics": {
+    "plays": 676,
+    "short_form_views": 453,
+    "impressions": 45909
+   },
+   "title": "Can the grid handle AI?",
+   "live_url": "https://www.energycentral.com/podcasts/post/can-the-grid-handle-ai-nmgZkscN7zXWRdF"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-10-27",
+   "metrics": {
+    "impressions": 41364,
+    "clicks": 208
+   },
+   "end_date": "2024-11-02"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-09-22",
+   "metrics": {
+    "impressions": 53726,
+    "clicks": 429
+   },
+   "end_date": "2024-09-28"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-08-18",
+   "metrics": {
+    "impressions": 39364,
+    "clicks": 381
+   },
+   "end_date": "2024-08-24"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-07-14",
+   "metrics": {
+    "impressions": 40493,
+    "clicks": 104
+   },
+   "end_date": "2024-07-20"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-06-09",
+   "metrics": {
+    "impressions": 36958,
+    "clicks": 98
+   },
+   "end_date": "2024-06-15"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-05-12",
+   "metrics": {
+    "impressions": 39418,
+    "clicks": 178
+   },
+   "end_date": "2024-05-18"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-04-07",
+   "metrics": {
+    "impressions": 38890,
+    "clicks": 172
+   },
+   "end_date": "2024-04-13"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-03-17",
+   "metrics": {
+    "impressions": 40981,
+    "clicks": 128
+   },
+   "end_date": "2024-03-23"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-02-11",
+   "metrics": {
+    "impressions": 43307,
+    "clicks": 112
+   },
+   "end_date": "2024-02-17"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-01-14",
+   "metrics": {
+    "impressions": 41900,
+    "clicks": 111
+   },
+   "end_date": "2024-01-20"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-12-10",
+   "metrics": {
+    "impressions": 35562
+   },
+   "end_date": "2023-12-16"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-11-12",
+   "metrics": {
+    "impressions": 42724,
+    "clicks": 174
+   },
+   "end_date": "2023-11-18"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-02-26",
+   "metrics": {
+    "impressions": 77418,
+    "clicks": 90
+   },
+   "end_date": "2023-03-04"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-01-15",
+   "metrics": {
+    "impressions": 47004,
+    "clicks": 153
+   },
+   "end_date": "2023-01-21"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-11-06",
+   "metrics": {
+    "impressions": 34266,
+    "clicks": 51
+   },
+   "end_date": "2022-11-12"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-10-09",
+   "metrics": {
+    "impressions": 33703,
+    "clicks": 58
+   },
+   "end_date": "2022-10-15"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-09-01",
+   "metrics": {
+    "impressions": 21112,
+    "clicks": 34
+   },
+   "end_date": "2022-09-03"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-08-28",
+   "metrics": {
+    "impressions": 11477,
+    "clicks": 47
+   },
+   "end_date": "2022-08-31"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-07-10",
+   "metrics": {
+    "impressions": 34928,
+    "clicks": 82
+   },
+   "end_date": "2022-07-16"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-05-29",
+   "metrics": {
+    "impressions": 39728,
+    "clicks": 119
+   },
+   "end_date": "2022-06-04"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-05-08",
+   "metrics": {
+    "impressions": 38914,
+    "clicks": 200
+   },
+   "end_date": "2022-05-14"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2021-10-30",
+   "metrics": {
+    "impressions": 21306,
+    "clicks": 149
+   },
+   "end_date": "2021-11-05"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2021-10-02",
+   "metrics": {
+    "impressions": 24057,
+    "clicks": 105
+   },
+   "end_date": "2021-10-08"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2021-09-11",
+   "metrics": {
+    "impressions": 17758,
+    "clicks": 275
+   },
+   "end_date": "2021-09-17"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2021-07-10",
+   "metrics": {
+    "impressions": 19778,
+    "clicks": 62
+   },
+   "end_date": "2021-07-16"
+  }
+ ]
+}

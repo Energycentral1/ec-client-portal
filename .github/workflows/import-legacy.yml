@@ -1,11 +1,11 @@
 name: Import legacy reports
 
-# Loads data/legacy/*.json (numbers from the old Customer Report sheets) into Supabase as pending.
+# Loads data/legacy/*.json (numbers from the old Customer Report sheets) into Supabase (approved on arrival).
 on:
   workflow_dispatch:
     inputs:
       client:
-        description: Client slug to import (leave empty for all)
+        description: Client slug, or several separated by commas (leave empty for all)
         required: false
       dry_run:
         description: Dry run (print what would be written, write nothing)

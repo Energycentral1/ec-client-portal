@@ -1,0 +1,94 @@
+{
+ "client_slug": "oracle",
+ "source_url": "https://drive.google.com/file/d/1Ii8IQgszkPGL09xCFn2KKQ-lF0ZR88qa/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 5, website 4. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "website",
+   "date": "2026-03-08",
+   "metrics": {
+    "impressions": 63420,
+    "clicks": 47
+   },
+   "end_date": "2026-03-14"
+  },
+  {
+   "tab": "website",
+   "date": "2026-02-08",
+   "metrics": {
+    "impressions": 52990,
+    "clicks": 23
+   },
+   "end_date": "2026-02-14"
+  },
+  {
+   "tab": "website",
+   "date": "2026-01-04",
+   "metrics": {
+    "impressions": 60970,
+    "clicks": 32
+   },
+   "end_date": "2026-01-10"
+  },
+  {
+   "tab": "website",
+   "date": "2025-09-07",
+   "metrics": {
+    "impressions": 71110,
+    "clicks": 45
+   },
+   "end_date": "2025-09-13"
+  },
+  {
+   "tab": "content",
+   "date": "2026-03-17",
+   "metrics": {
+    "views": 998,
+    "likes": 6
+   },
+   "title": "AI in the control room: Is this the future of grid and microgrid management?",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/ai-in-the-control-room-is-this-the-future-of-grid-and-microgrid-NMDRLf3IJPip875"
+  },
+  {
+   "tab": "content",
+   "date": "2026-02-10",
+   "metrics": {
+    "views": 697,
+    "likes": 10
+   },
+   "title": "AI\u2019s power surge: 5 ways AI could make the grid more reliable, efficient, and flexible",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/ai-s-power-surge-5-ways-ai-could-make-the-grid-more-reliable-efficient-6e9xjqYkTRHL5EM"
+  },
+  {
+   "tab": "content",
+   "date": "2026-01-14",
+   "metrics": {
+    "views": 389,
+    "likes": 4
+   },
+   "title": "White Paper | Transforming Your Approach to Utility Asset Lifecycle Management",
+   "live_url": "https://www.energycentral.com/energy-biz/post/white-paper-transforming-your-approach-to-utility-asset-lifecycle-JDMAjaoa4yoxILE"
+  },
+  {
+   "tab": "content",
+   "date": "2026-01-08",
+   "metrics": {
+    "views": 3507,
+    "likes": 1
+   },
+   "title": "Oracle Customer Edge Summit | April 12\u201314, 2026 | Austin, TX",
+   "live_url": "https://www.energycentral.com/events/post/oracle-customer-edge-summit-april-12-14-2026-austin-tx-J37t2j7hDcC6u7G"
+  },
+  {
+   "tab": "content",
+   "date": "2025-10-16",
+   "metrics": {
+    "views": 834,
+    "likes": 1
+   },
+   "title": "Tools and Strategies to Deliver Energy Resilience",
+   "live_url": "https://www.energycentral.com/energy-biz/post/tools-and-strategies-to-deliver-energy-resilience-LZ3MoC5Hs3jkzNb"
+  }
+ ]
+}

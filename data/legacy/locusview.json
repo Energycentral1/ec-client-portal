@@ -1,0 +1,46 @@
+{
+ "client_slug": "locusview",
+ "source_url": "https://drive.google.com/file/d/1GQWLi8ENI3Kn4IRL3Onl_prYwoGQrdo4/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 2, email 1, events 1. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "events",
+   "date": "2025-04-28",
+   "title": "The 21st Century Grid is Here: Do you have 21st Century Construction Management? [an Energy Central PowerSession\u2122]",
+   "metrics": {
+    "registrants": 204,
+    "attendees": 35
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2025-11-20",
+   "metrics": {
+    "sent": 117882,
+    "opens": 42504,
+    "clicks": 8432
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2025-11-17",
+   "metrics": {
+    "views": 59,
+    "likes": 3
+   },
+   "title": "Locusview to be Acquired by Itron, Accelerating Digital Construction Management for Utilities",
+   "live_url": "https://www.energycentral.com/energy-biz/post/locusview-to-be-acquired-by-itron-accelerating-digital-construction-nMNTDD0lBd0el5L"
+  },
+  {
+   "tab": "content",
+   "date": "2025-09-26",
+   "metrics": {
+    "views": 126,
+    "likes": 2
+   },
+   "title": "Locusview Celebrates 1 Million Work Orders and 200 Million feet of Linear Assets Processed",
+   "live_url": "https://www.energycentral.com/energy-biz/post/locusview-celebrates-1-million-work-orders-and-200-million-feet-of-linear-HYweeiKJbeQQiHW"
+  }
+ ]
+}

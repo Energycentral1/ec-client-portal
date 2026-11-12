@@ -1,0 +1,17 @@
+{
+ "client_slug": "halcyon",
+ "source_url": "https://drive.google.com/file/d/1BQInGE8m7tI_Qo8yisuKj6yvoLE7w2mr/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. email 1. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "email",
+   "date": "2025-08-06",
+   "metrics": {
+    "sent": 119626,
+    "opens": 55518,
+    "clicks": 1470
+   }
+  }
+ ]
+}

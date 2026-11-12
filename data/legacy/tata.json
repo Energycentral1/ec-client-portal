@@ -1,0 +1,452 @@
+{
+ "client_slug": "tata",
+ "source_url": "https://drive.google.com/file/d/1bg45XV-zarncFXH7MoG9tK0ZRA5dLmpE/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 3, email 4, newsletter 13, sponsorship 18, website 13. Left out, no clean number or date (2): Events / Thank you for choosing Energy Central!; Podcasts & Interviews / 2025-02-01 00:00:00. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "website",
+   "date": "2023-04-16",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 3
+   },
+   "end_date": "2023-04-22"
+  },
+  {
+   "tab": "website",
+   "date": "2023-03-19",
+   "metrics": {
+    "impressions": 10006,
+    "clicks": 2
+   },
+   "end_date": "2023-03-25"
+  },
+  {
+   "tab": "website",
+   "date": "2023-03-05",
+   "metrics": {
+    "impressions": 10005,
+    "clicks": 5
+   },
+   "end_date": "2023-03-11"
+  },
+  {
+   "tab": "website",
+   "date": "2023-01-31",
+   "metrics": {
+    "impressions": 10008,
+    "clicks": 3
+   },
+   "end_date": "2023-02-03"
+  },
+  {
+   "tab": "website",
+   "date": "2023-01-08",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 3
+   },
+   "end_date": "2023-01-14"
+  },
+  {
+   "tab": "website",
+   "date": "2022-12-18",
+   "metrics": {
+    "impressions": 10003,
+    "clicks": 3
+   },
+   "end_date": "2022-12-24"
+  },
+  {
+   "tab": "website",
+   "date": "2022-11-13",
+   "metrics": {
+    "impressions": 9724,
+    "clicks": 2
+   },
+   "end_date": "2022-11-19"
+  },
+  {
+   "tab": "website",
+   "date": "2022-10-23",
+   "metrics": {
+    "impressions": 10011,
+    "clicks": 5
+   },
+   "end_date": "2022-10-29"
+  },
+  {
+   "tab": "website",
+   "date": "2022-09-18",
+   "metrics": {
+    "impressions": 9997,
+    "clicks": 5
+   },
+   "end_date": "2022-09-24"
+  },
+  {
+   "tab": "website",
+   "date": "2022-08-21",
+   "metrics": {
+    "impressions": 10002,
+    "clicks": 0
+   },
+   "end_date": "2022-08-27"
+  },
+  {
+   "tab": "website",
+   "date": "2022-07-17",
+   "metrics": {
+    "impressions": 9732,
+    "clicks": 1
+   },
+   "end_date": "2022-07-23"
+  },
+  {
+   "tab": "website",
+   "date": "2022-06-19",
+   "metrics": {
+    "impressions": 9401,
+    "clicks": 0
+   },
+   "end_date": "2022-06-25"
+  },
+  {
+   "tab": "website",
+   "date": "2022-05-22",
+   "metrics": {
+    "impressions": 9977,
+    "clicks": 3
+   },
+   "end_date": "2022-05-28"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-11-16",
+   "metrics": {
+    "impressions": 6884
+   },
+   "end_date": "2025-12-15"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-10-16",
+   "metrics": {
+    "impressions": 27092
+   },
+   "end_date": "2025-11-15"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-09-16",
+   "metrics": {
+    "impressions": 17402
+   },
+   "end_date": "2025-10-15"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-08-16",
+   "metrics": {
+    "impressions": 16642
+   },
+   "end_date": "2025-09-15"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-07-16",
+   "metrics": {
+    "impressions": 20611
+   },
+   "end_date": "2025-08-15"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-06-16",
+   "metrics": {
+    "impressions": 29260
+   },
+   "end_date": "2025-07-15"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-04-01",
+   "metrics": {
+    "impressions": 14692
+   },
+   "end_date": "2023-04-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-03-01",
+   "metrics": {
+    "impressions": 17635
+   },
+   "end_date": "2023-03-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-02-01",
+   "metrics": {
+    "impressions": 18038
+   },
+   "end_date": "2023-02-28"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-01-01",
+   "metrics": {
+    "impressions": 21716
+   },
+   "end_date": "2022-01-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-12-01",
+   "metrics": {
+    "impressions": 17636
+   },
+   "end_date": "2022-12-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-11-01",
+   "metrics": {
+    "impressions": 17010
+   },
+   "end_date": "2022-11-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-10-01",
+   "metrics": {
+    "impressions": 15467
+   },
+   "end_date": "2022-10-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-09-01",
+   "metrics": {
+    "impressions": 18734
+   },
+   "end_date": "2022-09-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-08-01",
+   "metrics": {
+    "impressions": 16253
+   },
+   "end_date": "2022-08-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-07-01",
+   "metrics": {
+    "impressions": 13105
+   },
+   "end_date": "2022-07-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-06-01",
+   "metrics": {
+    "impressions": 12662
+   },
+   "end_date": "2022-06-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2022-05-01",
+   "metrics": {
+    "impressions": 15476
+   },
+   "end_date": "2022-05-31"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-04-16",
+   "metrics": {
+    "impressions": 40786,
+    "clicks": 57
+   },
+   "end_date": "2023-04-22"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-03-19",
+   "metrics": {
+    "impressions": 38147,
+    "clicks": 29
+   },
+   "end_date": "2023-03-25"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-03-05",
+   "metrics": {
+    "impressions": 31746,
+    "clicks": 55
+   },
+   "end_date": "2023-03-11"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-01-31",
+   "metrics": {
+    "impressions": 2422,
+    "clicks": 14
+   },
+   "end_date": "2023-02-03"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-01-08",
+   "metrics": {
+    "impressions": 47125,
+    "clicks": 88
+   },
+   "end_date": "2023-01-14"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-12-18",
+   "metrics": {
+    "impressions": 42307,
+    "clicks": 77
+   },
+   "end_date": "2022-12-24"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-11-13",
+   "metrics": {
+    "impressions": 32239,
+    "clicks": 31
+   },
+   "end_date": "2022-11-19"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-10-23",
+   "metrics": {
+    "impressions": 28383,
+    "clicks": 27
+   },
+   "end_date": "2022-10-29"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-09-18",
+   "metrics": {
+    "impressions": 26671,
+    "clicks": 347
+   },
+   "end_date": "2022-09-24"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-08-21",
+   "metrics": {
+    "impressions": 31028,
+    "clicks": 73
+   },
+   "end_date": "2022-08-27"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-07-17",
+   "metrics": {
+    "impressions": 29477,
+    "clicks": 113
+   },
+   "end_date": "2022-07-23"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-06-19",
+   "metrics": {
+    "impressions": 28685,
+    "clicks": 90
+   },
+   "end_date": "2022-06-25"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2022-05-22",
+   "metrics": {
+    "impressions": 40832,
+    "clicks": 123
+   },
+   "end_date": "2022-05-28"
+  },
+  {
+   "tab": "email",
+   "date": "2023-05-29",
+   "metrics": {
+    "sent": 20438,
+    "opens": 3580,
+    "clicks": 24
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2023-05-09",
+   "metrics": {
+    "sent": 20471,
+    "opens": 3851,
+    "clicks": 32
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2023-02-02",
+   "metrics": {
+    "sent": 30033,
+    "opens": 6446,
+    "clicks": 40
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2022-05-12",
+   "metrics": {
+    "sent": 22740,
+    "opens": 4504,
+    "clicks": 72
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2025-11-20",
+   "metrics": {
+    "views": 501,
+    "likes": 3
+   },
+   "title": "DER Connections - Challenges and Opportunities",
+   "live_url": "https://www.energycentral.com/energy-management/post/der-connections---challenges-and-opportunities-qPG1DY40Kkb90s3"
+  },
+  {
+   "tab": "content",
+   "date": "2025-06-30",
+   "metrics": {
+    "views": 458,
+    "likes": 4
+   },
+   "title": "Case Study | UK Power Networks digitises consent management, improves CX",
+   "live_url": "https://www.energycentral.com/energy-biz/post/case-study-uk-power-networks-digitises-consent-management-improves-cx-H2Wb43WpFsof2H0"
+  },
+  {
+   "tab": "content",
+   "date": "2025-06-24",
+   "metrics": {
+    "views": 367,
+    "likes": 2
+   },
+   "title": "Beyond Zero: Race to tomorrow",
+   "live_url": "https://www.energycentral.com/energy-biz/post/beyond-zero-race-to-tomorrow-Lvy5wTshO6fdZlx"
+  }
+ ]
+}

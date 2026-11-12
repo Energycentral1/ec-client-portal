@@ -1,0 +1,827 @@
+{
+ "client_slug": "iqgeo",
+ "source_url": "https://drive.google.com/file/d/16HEvgHWfkao-WYE6Df9YWKiK4OuMHo3C/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. email 2, events 3, newsletter 27, sponsorship 26, website 36. Left out, no clean number or date (3): Content / 2026-03-27 00:00:00; Sponsorship Recognition / 2025-04-01 00:00:00; Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "website",
+   "date": "2025-11-30",
+   "metrics": {
+    "impressions": 147700,
+    "clicks": 12
+   },
+   "end_date": "2025-12-06"
+  },
+  {
+   "tab": "website",
+   "date": "2025-11-02",
+   "metrics": {
+    "impressions": 108730,
+    "clicks": 19
+   },
+   "end_date": "2025-11-08"
+  },
+  {
+   "tab": "website",
+   "date": "2025-10-19",
+   "metrics": {
+    "impressions": 72660,
+    "clicks": 42
+   },
+   "end_date": "2025-10-25"
+  },
+  {
+   "tab": "website",
+   "date": "2025-09-21",
+   "metrics": {
+    "impressions": 73300,
+    "clicks": 15
+   },
+   "end_date": "2025-09-27"
+  },
+  {
+   "tab": "website",
+   "date": "2025-08-03",
+   "metrics": {
+    "impressions": 75780,
+    "clicks": 185
+   },
+   "end_date": "2025-08-09"
+  },
+  {
+   "tab": "website",
+   "date": "2025-07-20",
+   "metrics": {
+    "impressions": 105520,
+    "clicks": 179
+   },
+   "end_date": "2025-07-26"
+  },
+  {
+   "tab": "website",
+   "date": "2025-06-29",
+   "metrics": {
+    "impressions": 66950,
+    "clicks": 284
+   },
+   "end_date": "2025-07-05"
+  },
+  {
+   "tab": "website",
+   "date": "2025-06-01",
+   "metrics": {
+    "impressions": 135047,
+    "clicks": 3
+   },
+   "end_date": "2025-06-07"
+  },
+  {
+   "tab": "website",
+   "date": "2025-05-04",
+   "metrics": {
+    "impressions": 9333,
+    "clicks": 2
+   },
+   "end_date": "2025-05-10"
+  },
+  {
+   "tab": "website",
+   "date": "2025-05-04",
+   "metrics": {
+    "impressions": 3938,
+    "clicks": 2
+   },
+   "end_date": "2025-05-10"
+  },
+  {
+   "tab": "website",
+   "date": "2025-03-23",
+   "metrics": {
+    "impressions": 9737,
+    "clicks": 5
+   },
+   "end_date": "2025-03-29"
+  },
+  {
+   "tab": "website",
+   "date": "2025-03-23",
+   "metrics": {
+    "impressions": 3718,
+    "clicks": 2
+   },
+   "end_date": "2025-03-29"
+  },
+  {
+   "tab": "website",
+   "date": "2025-02-23",
+   "metrics": {
+    "impressions": 6110,
+    "clicks": 6
+   },
+   "end_date": "2025-03-01"
+  },
+  {
+   "tab": "website",
+   "date": "2025-02-23",
+   "metrics": {
+    "impressions": 9745,
+    "clicks": 7
+   },
+   "end_date": "2025-03-01"
+  },
+  {
+   "tab": "website",
+   "date": "2025-01-26",
+   "metrics": {
+    "impressions": 8919,
+    "clicks": 13
+   },
+   "end_date": "2025-02-01"
+  },
+  {
+   "tab": "website",
+   "date": "2025-01-26",
+   "metrics": {
+    "impressions": 7024,
+    "clicks": 12
+   },
+   "end_date": "2025-02-01"
+  },
+  {
+   "tab": "website",
+   "date": "2024-12-08",
+   "metrics": {
+    "impressions": 9507,
+    "clicks": 8
+   },
+   "end_date": "2024-12-14"
+  },
+  {
+   "tab": "website",
+   "date": "2024-12-08",
+   "metrics": {
+    "impressions": 8157,
+    "clicks": 2
+   },
+   "end_date": "2024-12-14"
+  },
+  {
+   "tab": "website",
+   "date": "2024-11-03",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 10
+   },
+   "end_date": "2024-11-09"
+  },
+  {
+   "tab": "website",
+   "date": "2024-10-06",
+   "metrics": {
+    "impressions": 10008,
+    "clicks": 8
+   },
+   "end_date": "2024-10-12"
+  },
+  {
+   "tab": "website",
+   "date": "2024-09-15",
+   "metrics": {
+    "impressions": 8384,
+    "clicks": 4
+   },
+   "end_date": "2024-09-21"
+  },
+  {
+   "tab": "website",
+   "date": "2024-09-15",
+   "metrics": {
+    "impressions": 9939,
+    "clicks": 12
+   },
+   "end_date": "2024-09-21"
+  },
+  {
+   "tab": "website",
+   "date": "2024-08-04",
+   "metrics": {
+    "impressions": 5383,
+    "clicks": 2
+   },
+   "end_date": "2024-08-10"
+  },
+  {
+   "tab": "website",
+   "date": "2024-08-04",
+   "metrics": {
+    "impressions": 10011,
+    "clicks": 13
+   },
+   "end_date": "2024-08-10"
+  },
+  {
+   "tab": "website",
+   "date": "2024-07-14",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 6
+   },
+   "end_date": "2024-07-20"
+  },
+  {
+   "tab": "website",
+   "date": "2024-06-16",
+   "metrics": {
+    "impressions": 14706,
+    "clicks": 3
+   },
+   "end_date": "2024-06-22"
+  },
+  {
+   "tab": "website",
+   "date": "2024-06-16",
+   "metrics": {
+    "impressions": 10011,
+    "clicks": 3
+   },
+   "end_date": "2024-06-22"
+  },
+  {
+   "tab": "website",
+   "date": "2024-05-12",
+   "metrics": {
+    "impressions": 9435,
+    "clicks": 3
+   },
+   "end_date": "2024-05-18"
+  },
+  {
+   "tab": "website",
+   "date": "2024-04-21",
+   "metrics": {
+    "impressions": 7176,
+    "clicks": 5
+   },
+   "end_date": "2024-04-27"
+  },
+  {
+   "tab": "website",
+   "date": "2024-04-21",
+   "metrics": {
+    "impressions": 10008,
+    "clicks": 3
+   },
+   "end_date": "2024-04-27"
+  },
+  {
+   "tab": "website",
+   "date": "2023-10-29",
+   "metrics": {
+    "impressions": 10008,
+    "clicks": 8
+   },
+   "end_date": "2023-11-04"
+  },
+  {
+   "tab": "website",
+   "date": "2023-10-08",
+   "metrics": {
+    "impressions": 10009,
+    "clicks": 12
+   },
+   "end_date": "2023-10-14"
+  },
+  {
+   "tab": "website",
+   "date": "2023-09-17",
+   "metrics": {
+    "impressions": 9975,
+    "clicks": 8
+   },
+   "end_date": "2023-09-23"
+  },
+  {
+   "tab": "website",
+   "date": "2023-08-06",
+   "metrics": {
+    "impressions": 8628,
+    "clicks": 4
+   },
+   "end_date": "2023-08-12"
+  },
+  {
+   "tab": "website",
+   "date": "2023-07-09",
+   "metrics": {
+    "impressions": 10010,
+    "clicks": 3
+   },
+   "end_date": "2023-07-15"
+  },
+  {
+   "tab": "website",
+   "date": "2023-06-11",
+   "metrics": {
+    "impressions": 10006,
+    "clicks": 9
+   },
+   "end_date": "2023-06-17"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-12-01",
+   "metrics": {
+    "impressions": 8066
+   },
+   "end_date": "2025-12-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-11-01",
+   "metrics": {
+    "impressions": 10015
+   },
+   "end_date": "2025-11-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-10-01",
+   "metrics": {
+    "impressions": 15387
+   },
+   "end_date": "2025-10-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-09-01",
+   "metrics": {
+    "impressions": 19089
+   },
+   "end_date": "2025-09-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-08-01",
+   "metrics": {
+    "impressions": 26318
+   },
+   "end_date": "2025-08-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-07-01",
+   "metrics": {
+    "impressions": 19067
+   },
+   "end_date": "2025-07-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-06-01",
+   "metrics": {
+    "impressions": 31335
+   },
+   "end_date": "2025-06-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-05-01",
+   "metrics": {
+    "impressions": 25957
+   },
+   "end_date": "2025-05-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-03-01",
+   "metrics": {
+    "impressions": 15692
+   },
+   "end_date": "2025-03-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-02-01",
+   "metrics": {
+    "impressions": 13580
+   },
+   "end_date": "2025-02-28"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-01-01",
+   "metrics": {
+    "impressions": 14863
+   },
+   "end_date": "2025-01-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-12-01",
+   "metrics": {
+    "impressions": 12806
+   },
+   "end_date": "2024-12-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-11-01",
+   "metrics": {
+    "impressions": 12701
+   },
+   "end_date": "2024-11-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-10-01",
+   "metrics": {
+    "impressions": 16072
+   },
+   "end_date": "2024-10-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-09-01",
+   "metrics": {
+    "impressions": 12519
+   },
+   "end_date": "2024-09-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-08-01",
+   "metrics": {
+    "impressions": 9657
+   },
+   "end_date": "2024-08-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-07-01",
+   "metrics": {
+    "impressions": 14783
+   },
+   "end_date": "2024-07-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-06-01",
+   "metrics": {
+    "impressions": 10888
+   },
+   "end_date": "2024-06-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-05-01",
+   "metrics": {
+    "impressions": 13164
+   },
+   "end_date": "2024-05-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2024-04-01",
+   "metrics": {
+    "impressions": 10977
+   },
+   "end_date": "2024-04-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-11-01",
+   "metrics": {
+    "impressions": 14208
+   },
+   "end_date": "2023-11-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-10-01",
+   "metrics": {
+    "impressions": 13135
+   },
+   "end_date": "2023-10-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-09-01",
+   "metrics": {
+    "impressions": 13048
+   },
+   "end_date": "2023-09-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-08-01",
+   "metrics": {
+    "impressions": 17391
+   },
+   "end_date": "2023-08-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-07-01",
+   "metrics": {
+    "impressions": 13253
+   },
+   "end_date": "2023-07-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2023-06-01",
+   "metrics": {
+    "impressions": 13388
+   },
+   "end_date": "2023-06-30"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-11-30",
+   "metrics": {
+    "impressions": 180440,
+    "clicks": 28
+   },
+   "end_date": "2025-12-06"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-11-02",
+   "metrics": {
+    "impressions": 3136,
+    "clicks": 17
+   },
+   "end_date": "2025-11-08"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-10-19",
+   "metrics": {
+    "impressions": 2248,
+    "clicks": 16
+   },
+   "end_date": "2025-10-25"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-21",
+   "metrics": {
+    "impressions": 2209,
+    "clicks": 18
+   },
+   "end_date": "2025-09-27"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-08-03",
+   "metrics": {
+    "impressions": 1994,
+    "clicks": 2
+   },
+   "end_date": "2025-08-09"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-07-20",
+   "metrics": {
+    "impressions": 1918,
+    "clicks": 62
+   },
+   "end_date": "2025-07-26"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-06-29",
+   "metrics": {
+    "impressions": 175470,
+    "clicks": 1681
+   },
+   "end_date": "2025-07-05"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-06-01",
+   "metrics": {
+    "impressions": 206760,
+    "clicks": 569
+   },
+   "end_date": "2025-06-07"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-05-04",
+   "metrics": {
+    "impressions": 70767
+   },
+   "end_date": "2025-05-10"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-03-23",
+   "metrics": {
+    "impressions": 55929,
+    "clicks": 373
+   },
+   "end_date": "2025-03-29"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-02-23",
+   "metrics": {
+    "impressions": 52639,
+    "clicks": 3468
+   },
+   "end_date": "2025-03-01"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-01-26",
+   "metrics": {
+    "impressions": 58542,
+    "clicks": 368
+   },
+   "end_date": "2025-02-01"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-12-08",
+   "metrics": {
+    "impressions": 56250,
+    "clicks": 268
+   },
+   "end_date": "2024-12-14"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-11-03",
+   "metrics": {
+    "impressions": 53854,
+    "clicks": 172
+   },
+   "end_date": "2024-11-09"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-10-06",
+   "metrics": {
+    "impressions": 52488,
+    "clicks": 156
+   },
+   "end_date": "2024-10-12"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-09-15",
+   "metrics": {
+    "impressions": 52535,
+    "clicks": 151
+   },
+   "end_date": "2024-09-21"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-08-04",
+   "metrics": {
+    "impressions": 32319,
+    "clicks": 36
+   },
+   "end_date": "2024-08-10"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-07-14",
+   "metrics": {
+    "impressions": 53057,
+    "clicks": 83
+   },
+   "end_date": "2024-07-20"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-06-16",
+   "metrics": {
+    "impressions": 44328,
+    "clicks": 150
+   },
+   "end_date": "2024-06-22"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-05-12",
+   "metrics": {
+    "impressions": 48654,
+    "clicks": 90
+   },
+   "end_date": "2024-05-18"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-04-21",
+   "metrics": {
+    "impressions": 44215,
+    "clicks": 250
+   },
+   "end_date": "2024-04-27"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-10-29",
+   "metrics": {
+    "impressions": 54353,
+    "clicks": 137
+   },
+   "end_date": "2023-11-04"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-10-08",
+   "metrics": {
+    "impressions": 50978,
+    "clicks": 94
+   },
+   "end_date": "2023-10-14"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-09-17",
+   "metrics": {
+    "impressions": 55546,
+    "clicks": 75
+   },
+   "end_date": "2023-09-23"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-08-06",
+   "metrics": {
+    "impressions": 54306,
+    "clicks": 111
+   },
+   "end_date": "2023-08-12"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-07-09",
+   "metrics": {
+    "impressions": 57198,
+    "clicks": 124
+   },
+   "end_date": "2023-07-15"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2023-06-11",
+   "metrics": {
+    "impressions": 57786,
+    "clicks": 93
+   },
+   "end_date": "2023-06-17"
+  },
+  {
+   "tab": "events",
+   "date": "2025-08-26",
+   "title": "Bringing Transparency and Clarity from the Back Office to the Field [an Energy Central PowerSession\u2122]",
+   "metrics": {
+    "registrants": 287,
+    "attendees": 101
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2024-11-14",
+   "title": "New Frontiers in Grid Operations: Breaking Down Silos and Enabling New Capabilities Between the Office and the Field [an Energy Central PowerSession\u2122]",
+   "metrics": {
+    "registrants": 255,
+    "attendees": 74
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2023-05-24",
+   "title": "A Utility Network Model Management Alternative that Pairs with your Traditional GIS",
+   "metrics": {
+    "registrants": 256,
+    "attendees": 113
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2025-05-22",
+   "metrics": {
+    "sent": 50037,
+    "opens": 5469,
+    "clicks": 112
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2025-05-16",
+   "metrics": {
+    "sent": 50649,
+    "opens": 5746,
+    "clicks": 64
+   }
+  }
+ ]
+}

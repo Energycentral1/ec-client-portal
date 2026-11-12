@@ -1,0 +1,17 @@
+{
+ "client_slug": "g-and-w-electric",
+ "source_url": "https://drive.google.com/file/d/1w5BSrRdkiW3w0-e4VbzmW8X6TstBp6vb/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. email 1. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "email",
+   "date": "2025-08-12",
+   "metrics": {
+    "sent": 119303,
+    "opens": 42722,
+    "clicks": 1012
+   }
+  }
+ ]
+}

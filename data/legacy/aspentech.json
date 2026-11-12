@@ -1,0 +1,80 @@
+{
+ "client_slug": "aspentech",
+ "source_url": "https://drive.google.com/file/d/1EguoUgZERJwBsaVViaFL4IcGP1j_2kxl/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. email 4, events 4. Left out, no clean number or date (3): Events / Thank you for choosing Energy Central!; Podcasts & Interviews / 2025-09-16 00:00:00; Podcasts & Interviews / 2024-03-26 00:00:00. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "events",
+   "date": "2025-10-02",
+   "title": "Turning Data Chaos into Grid Clarity with Network Model Management",
+   "metrics": {
+    "registrants": 430,
+    "attendees": 149
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2025-06-26",
+   "title": "Ameren\u2019s Distribution Grid of the Future Vision with Advanced Network Model Management",
+   "metrics": {
+    "registrants": 569,
+    "attendees": 206
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2025-02-20",
+   "title": "Outage Management Helps Gainesville Regional Utilities Prepare for Hurricane Season [an Energy Central PowerSession\u2122]",
+   "metrics": {
+    "registrants": 337,
+    "attendees": 120
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2024-06-20",
+   "title": "How Digital Grid Management Powers the Energy Transition for Consumers Energy [an Energy Central PowerSession\u2122]",
+   "metrics": {
+    "registrants": 1557,
+    "attendees": 250
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-09-19",
+   "metrics": {
+    "sent": 25021,
+    "opens": 4512,
+    "clicks": 254
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-09-10",
+   "metrics": {
+    "sent": 23950,
+    "opens": 4574,
+    "clicks": 1002
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-05-22",
+   "metrics": {
+    "sent": 49564,
+    "opens": 1520,
+    "clicks": 40
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-05-15",
+   "metrics": {
+    "sent": 54365,
+    "opens": 4958,
+    "clicks": 108
+   }
+  }
+ ]
+}

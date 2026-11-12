@@ -1,0 +1,17 @@
+{
+ "client_slug": "korem",
+ "source_url": "https://drive.google.com/file/d/1FgmKqg06l95B4ePkCRyteUi7m8idgJpu/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. events 1. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "events",
+   "date": "2025-12-03",
+   "title": "Rewiring Utility Planning: Transforming Property Data into Actionable Intelligence",
+   "metrics": {
+    "registrants": 180,
+    "attendees": 54
+   }
+  }
+ ]
+}

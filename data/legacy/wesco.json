@@ -1,0 +1,141 @@
+{
+ "client_slug": "wesco",
+ "source_url": "https://drive.google.com/file/d/110A6WbrJbZDngzPp7TzW8SYcX8wIWjsU/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 1, newsletter 10, website 4. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "website",
+   "date": "2025-06-29",
+   "metrics": {
+    "impressions": 432700,
+    "clicks": 217
+   },
+   "end_date": "2025-08-02"
+  },
+  {
+   "tab": "website",
+   "date": "2025-06-01",
+   "metrics": {
+    "impressions": 453800,
+    "clicks": 152
+   },
+   "end_date": "2025-06-28"
+  },
+  {
+   "tab": "website",
+   "date": "2025-03-02",
+   "metrics": {
+    "impressions": 13290,
+    "clicks": 3
+   },
+   "end_date": "2025-03-29"
+  },
+  {
+   "tab": "website",
+   "date": "2025-03-02",
+   "metrics": {
+    "impressions": 10008,
+    "clicks": 10
+   },
+   "end_date": "2025-03-29"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-03-18",
+   "metrics": {
+    "impressions": 29643,
+    "clicks": 51
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-02-18",
+   "metrics": {
+    "impressions": 31819,
+    "clicks": 54
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-02-17",
+   "metrics": {
+    "impressions": 31386,
+    "clicks": 26
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-12-07",
+   "metrics": {
+    "impressions": 178064,
+    "clicks": 332
+   },
+   "end_date": "2025-12-13"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-11-10",
+   "metrics": {
+    "impressions": 170558,
+    "clicks": 479
+   },
+   "end_date": "2025-11-16"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-21",
+   "metrics": {
+    "impressions": 172299,
+    "clicks": 1412
+   },
+   "end_date": "2025-09-27"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-08-17",
+   "metrics": {
+    "impressions": 178816,
+    "clicks": 1282
+   },
+   "end_date": "2025-08-23"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-07-13",
+   "metrics": {
+    "impressions": 199600,
+    "clicks": 1118
+   },
+   "end_date": "2025-07-19"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-06-08",
+   "metrics": {
+    "impressions": 270475,
+    "clicks": 911
+   },
+   "end_date": "2025-06-14"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-03-16",
+   "metrics": {
+    "impressions": 43021,
+    "clicks": 1842
+   },
+   "end_date": "2025-03-22"
+  },
+  {
+   "tab": "content",
+   "date": "2026-05-29",
+   "metrics": {
+    "views": 1027,
+    "likes": 1
+   },
+   "title": "Distribution Visibility Delivers Insights To Secure the Last Mile",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/distribution-visibility-delivers-insights-to-secure-the-last-mile-DXrtOq7SRkHCckC"
+  }
+ ]
+}

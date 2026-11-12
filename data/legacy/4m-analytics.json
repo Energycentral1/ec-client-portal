@@ -1,0 +1,17 @@
+{
+ "client_slug": "4m-analytics",
+ "source_url": "https://drive.google.com/file/d/1vylF_Oe8bxrmlwm3gYctPuKAQK0LLWtl/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. events 1. Left out, no clean number or date (2): Content / 2025-10-20 00:00:00; Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "events",
+   "date": "2025-12-09",
+   "title": "Enhancing Damage Prevention & Public Safety with AI Innovation",
+   "metrics": {
+    "registrants": 213,
+    "attendees": 83
+   }
+  }
+ ]
+}

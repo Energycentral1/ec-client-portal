@@ -1,0 +1,27 @@
+{
+ "client_slug": "greenwood",
+ "source_url": "https://drive.google.com/file/d/1Jg3ssQ3sqoyug_V5V2MhX99klF5jNNqLyXjLaltTsiA/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 2. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "content",
+   "date": "2025-10-06",
+   "metrics": {
+    "views": 631,
+    "likes": 12
+   },
+   "title": "Expanding the Role of Low-Power Instrument Transformers in Grid Applications",
+   "live_url": "https://www.energycentral.com/energy-management/post/expanding-the-role-of-low-power-instrument-transformers-in-grid-fMXqSs9ex0FyDEY"
+  },
+  {
+   "tab": "content",
+   "date": "2025-02-18",
+   "metrics": {
+    "views": 312,
+    "likes": 0
+   },
+   "title": "Measurement Technology for a Future-Proof Energy Grid"
+  }
+ ]
+}

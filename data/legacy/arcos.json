@@ -1,0 +1,149 @@
+{
+ "client_slug": "arcos",
+ "source_url": "https://drive.google.com/file/d/1Jqfjq1XdEzATuF9boJp393tD3K-iB3xL/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. email 4, events 1, newsletter 11. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "newsletter",
+   "date": "2020-09-27",
+   "metrics": {
+    "impressions": 26894,
+    "clicks": 807
+   },
+   "end_date": "2020-10-03"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2019-02-04",
+   "metrics": {
+    "impressions": 44501,
+    "clicks": 112
+   },
+   "end_date": "2019-02-08"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2018-12-30",
+   "metrics": {
+    "impressions": 6411,
+    "clicks": 159
+   },
+   "end_date": "2019-01-05"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2018-12-02",
+   "metrics": {
+    "impressions": 6618,
+    "clicks": 24
+   },
+   "end_date": "2018-12-08"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2018-11-04",
+   "metrics": {
+    "impressions": 6797,
+    "clicks": 19
+   },
+   "end_date": "2018-11-10"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2018-10-14",
+   "metrics": {
+    "impressions": 48292,
+    "clicks": 52
+   },
+   "end_date": "2018-10-20"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2018-10-07",
+   "metrics": {
+    "impressions": 5023
+   },
+   "end_date": "2018-10-13"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2018-09-02",
+   "metrics": {
+    "impressions": 6647,
+    "clicks": 21
+   },
+   "end_date": "2018-09-08"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2018-07-29",
+   "metrics": {
+    "impressions": 6703,
+    "clicks": 49
+   },
+   "end_date": "2018-08-04"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2018-06-24",
+   "metrics": {
+    "impressions": 6794
+   },
+   "end_date": "2018-06-30"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2018-06-03",
+   "metrics": {
+    "impressions": 6450
+   },
+   "end_date": "2018-06-09"
+  },
+  {
+   "tab": "events",
+   "date": "2025-08-12",
+   "title": "Connecting and Empowering Today\u2019s Utility Workforce",
+   "metrics": {
+    "registrants": 161,
+    "attendees": 61
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2019-03-19",
+   "metrics": {
+    "sent": 31706,
+    "opens": 2992,
+    "clicks": 0
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2018-12-05",
+   "metrics": {
+    "sent": 5936,
+    "opens": 1433,
+    "clicks": 0
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2018-06-07",
+   "metrics": {
+    "sent": 2823,
+    "opens": 844,
+    "clicks": 0
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2018-01-07",
+   "metrics": {
+    "sent": 5862,
+    "opens": 1343,
+    "clicks": 0
+   }
+  }
+ ]
+}

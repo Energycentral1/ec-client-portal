@@ -1,0 +1,392 @@
+{
+ "client_slug": "ampacimon",
+ "source_url": "https://drive.google.com/file/d/1FtIbQBry8P2HdDatodEqsfyb60C6GGzm/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 2, email 4, newsletter 12, sponsorship 10, website 16. Left out, no clean number or date (3): Sponsorship Recognition / 2025-04-16 00:00:00; Sponsorship Recognition / 2025-03-16 00:00:00; Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "website",
+   "date": "2025-11-30",
+   "metrics": {
+    "impressions": 147700,
+    "clicks": 14
+   },
+   "end_date": "2025-12-06"
+  },
+  {
+   "tab": "website",
+   "date": "2025-11-02",
+   "metrics": {
+    "impressions": 108730,
+    "clicks": 17
+   },
+   "end_date": "2025-11-08"
+  },
+  {
+   "tab": "website",
+   "date": "2025-10-12",
+   "metrics": {
+    "impressions": 110043,
+    "clicks": 37
+   },
+   "end_date": "2025-10-18"
+  },
+  {
+   "tab": "website",
+   "date": "2025-09-14",
+   "metrics": {
+    "impressions": 70460,
+    "clicks": 60
+   },
+   "end_date": "2025-09-20"
+  },
+  {
+   "tab": "website",
+   "date": "2025-08-31",
+   "metrics": {
+    "impressions": 72510,
+    "clicks": 46
+   },
+   "end_date": "2025-09-06"
+  },
+  {
+   "tab": "website",
+   "date": "2025-05-11",
+   "metrics": {
+    "impressions": 9106,
+    "clicks": 64
+   },
+   "end_date": "2025-05-17"
+  },
+  {
+   "tab": "website",
+   "date": "2025-05-11",
+   "metrics": {
+    "impressions": 6581,
+    "clicks": 3
+   },
+   "end_date": "2025-05-17"
+  },
+  {
+   "tab": "website",
+   "date": "2025-04-13",
+   "metrics": {
+    "impressions": 9925,
+    "clicks": 9
+   },
+   "end_date": "2025-04-19"
+  },
+  {
+   "tab": "website",
+   "date": "2025-04-13",
+   "metrics": {
+    "impressions": 2944,
+    "clicks": 2
+   },
+   "end_date": "2025-04-19"
+  },
+  {
+   "tab": "website",
+   "date": "2025-03-16",
+   "metrics": {
+    "impressions": 6772,
+    "clicks": 3
+   },
+   "end_date": "2025-03-22"
+  },
+  {
+   "tab": "website",
+   "date": "2025-03-16",
+   "metrics": {
+    "impressions": 9932,
+    "clicks": 2
+   },
+   "end_date": "2025-03-22"
+  },
+  {
+   "tab": "website",
+   "date": "2025-03-16",
+   "metrics": {
+    "impressions": 4595,
+    "clicks": 3
+   },
+   "end_date": "2025-03-22"
+  },
+  {
+   "tab": "website",
+   "date": "2025-02-23",
+   "metrics": {
+    "impressions": 9995,
+    "clicks": 21
+   },
+   "end_date": "2025-03-01"
+  },
+  {
+   "tab": "website",
+   "date": "2025-02-23",
+   "metrics": {
+    "impressions": 1792,
+    "clicks": 3
+   },
+   "end_date": "2025-03-01"
+  },
+  {
+   "tab": "website",
+   "date": "2025-01-19",
+   "metrics": {
+    "impressions": 9377,
+    "clicks": 27
+   },
+   "end_date": "2025-01-25"
+  },
+  {
+   "tab": "website",
+   "date": "2025-01-19",
+   "metrics": {
+    "impressions": 3362,
+    "clicks": 3
+   },
+   "end_date": "2025-01-25"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-12-16",
+   "metrics": {
+    "impressions": 2444
+   },
+   "end_date": "2026-01-15"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-11-16",
+   "metrics": {
+    "impressions": 3536
+   },
+   "end_date": "2025-12-15"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-10-16",
+   "metrics": {
+    "impressions": 7643
+   },
+   "end_date": "2025-11-15"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-09-16",
+   "metrics": {
+    "impressions": 6919
+   },
+   "end_date": "2025-10-15"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-08-16",
+   "metrics": {
+    "impressions": 4618
+   },
+   "end_date": "2025-09-15"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-07-16",
+   "metrics": {
+    "impressions": 4838
+   },
+   "end_date": "2025-08-15"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-06-16",
+   "metrics": {
+    "impressions": 5102
+   },
+   "end_date": "2025-07-15"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-05-16",
+   "metrics": {
+    "impressions": 10773
+   },
+   "end_date": "2025-06-15"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-02-16",
+   "metrics": {
+    "impressions": 7696
+   },
+   "end_date": "2025-03-15"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-01-16",
+   "metrics": {
+    "impressions": 8989
+   },
+   "end_date": "2025-02-15"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-11-30",
+   "metrics": {
+    "impressions": 180440,
+    "clicks": 175
+   },
+   "end_date": "2025-12-06"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-11-02",
+   "metrics": {
+    "impressions": 98159,
+    "clicks": 479
+   },
+   "end_date": "2025-11-08"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-10-12",
+   "metrics": {
+    "impressions": 121089,
+    "clicks": 209
+   },
+   "end_date": "2025-10-18"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-14",
+   "metrics": {
+    "impressions": 192778,
+    "clicks": 499
+   },
+   "end_date": "2025-09-20"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-08-31",
+   "metrics": {
+    "impressions": 145800,
+    "clicks": 417
+   },
+   "end_date": "2025-09-06"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-05-11",
+   "metrics": {
+    "impressions": 53516,
+    "clicks": 1667
+   },
+   "end_date": "2025-05-17"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-04-13",
+   "metrics": {
+    "impressions": 40032,
+    "clicks": 3759
+   },
+   "end_date": "2025-04-19"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-03-16",
+   "metrics": {
+    "impressions": 45906,
+    "clicks": 302
+   },
+   "end_date": "2025-03-22"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-02-23",
+   "metrics": {
+    "impressions": 39427,
+    "clicks": 2094
+   },
+   "end_date": "2025-03-01"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-09-22",
+   "metrics": {
+    "impressions": 54211,
+    "clicks": 592
+   },
+   "end_date": "2024-09-28"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-09-15",
+   "metrics": {
+    "impressions": 49595,
+    "clicks": 532
+   },
+   "end_date": "2024-09-21"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2024-08-04",
+   "metrics": {
+    "impressions": 30929,
+    "clicks": 54
+   },
+   "end_date": "2024-08-10"
+  },
+  {
+   "tab": "email",
+   "date": "2024-09-27",
+   "metrics": {
+    "sent": 43354,
+    "opens": 4630,
+    "clicks": 171
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-09-17",
+   "metrics": {
+    "sent": 46184,
+    "opens": 6316,
+    "clicks": 334
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-08-08",
+   "metrics": {
+    "sent": 43583,
+    "opens": 1284,
+    "clicks": 36
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-07-31",
+   "metrics": {
+    "sent": 46346,
+    "opens": 3768,
+    "clicks": 476
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2024-09-09",
+   "metrics": {
+    "views": 209
+   },
+   "title": "eGuide | Pathways to FERC Order 881 Compliance - A Grid Operator\u2019s Guide (One Year Countdown Has Begun!)"
+  },
+  {
+   "tab": "content",
+   "date": "2024-07-23",
+   "metrics": {
+    "views": 209
+   },
+   "title": "FERC 881 compliance deadline looms: Design your path to compliance in less than six months."
+  }
+ ]
+}

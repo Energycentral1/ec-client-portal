@@ -1,0 +1,43 @@
+{
+ "client_slug": "hsi",
+ "source_url": "https://drive.google.com/file/d/1WN2n13NpLE2PTf859uWWrI_KNrPCwtTY/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. email 1, events 3. Left out, no clean number or date (4): Content / 2025-05-25 00:00:00; Content / 2025-07-29 00:00:00; Content / 2025-09-03 00:00:00; Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "events",
+   "date": "2025-07-23",
+   "title": "Rethinking Priorities - Bold Utility Leadership",
+   "metrics": {
+    "registrants": 225,
+    "attendees": 87
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2025-05-15",
+   "title": "Bold Utility Leadership In an Era of Shifting Priorities and Workforce Challenges [an Energy Central Powertalk\u2122]",
+   "metrics": {
+    "registrants": 72
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2023-10-03",
+   "title": "Preparing Invertor Based Resources for Regulatory Changes: Efficient and Cost Saving Strategies for NERC Compliance Programs",
+   "metrics": {
+    "registrants": 179,
+    "attendees": 64
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2023-10-24",
+   "metrics": {
+    "sent": 19402,
+    "opens": 3079,
+    "clicks": 27
+   }
+  }
+ ]
+}

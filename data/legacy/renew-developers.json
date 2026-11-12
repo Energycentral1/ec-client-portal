@@ -1,0 +1,100 @@
+{
+ "client_slug": "renew-developers",
+ "source_url": "https://drive.google.com/file/d/1kirgJh3oC742l2oxN_xYLygsobv3m5go/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 1, email 1, events 1, newsletter 8. Left out, no clean number or date (4): Content / 2025-09-04 00:00:00; Content / 2025-09-04 00:00:00; Content / 2025-09-04 00:00:00; Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "newsletter",
+   "date": "2025-09-25",
+   "metrics": {
+    "impressions": 31900,
+    "clicks": 189
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-23",
+   "metrics": {
+    "impressions": 1431,
+    "clicks": 105
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-18",
+   "metrics": {
+    "impressions": 32928,
+    "clicks": 44
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-18",
+   "metrics": {
+    "impressions": 2132,
+    "clicks": 7
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-11",
+   "metrics": {
+    "impressions": 38326,
+    "clicks": 34
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-11",
+   "metrics": {
+    "impressions": 2349,
+    "clicks": 7
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-04",
+   "metrics": {
+    "impressions": 33433,
+    "clicks": 46
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-02",
+   "metrics": {
+    "impressions": 889,
+    "clicks": 13
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2025-10-30",
+   "title": "The Data Center's Green Revolution: Efficiency, Sustainability, and Your Bottom Line",
+   "metrics": {
+    "registrants": 253,
+    "attendees": 85
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2025-10-23",
+   "metrics": {
+    "sent": 109872,
+    "opens": 32122,
+    "clicks": 2591
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2025-11-04",
+   "metrics": {
+    "views": 155,
+    "likes": 1
+   },
+   "title": "The Data Center's Green Revolution: Efficiency, Sustainability, and Your Bottom Line",
+   "live_url": "https://www.energycentral.com/events/post/the-data-center-s-green-revolution-efficiency-sustainability-and-your-rN9XBwvDEKiyAMr"
+  }
+ ]
+}
