@@ -282,6 +282,8 @@ async function main() {
         usedLinks.set(path, d.start_date); taken.add(path);
         try {
           const st = await shortClicks(path, d.start_date, end);
+          // A matched link with no clicks at all is more likely the wrong link than a real zero: list it, write nothing.
+          if (!st.human && !d.short_link) { problems.push(`${label}: only candidate link ${path} has 0 clicks; not written, check the link`); continue; }
           rows.push({ client_id: d.client_id, deliverable_id: d.id, metric: "clicks", value: st.human, window_start: d.start_date, window_end: addDays(end, 14), source: "shortio",
             status: "pending", flag_reason: null, type: d.deliverable_type, ...({ _top: st.top, _total: st.total, _paths: [path] } as any) });
           if (!d.short_link) updates.push({ id: d.id, patch: { short_link: `https://${SHORT_DOMAIN}/${path}`, short_link_id: st.id } });
