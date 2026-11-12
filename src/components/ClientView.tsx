@@ -55,8 +55,6 @@ type Lead = { id: string; deliverable_id: string | null; source: string; attende
 const howLabel = (l: Lead) => l.source === "webinar_live" ? (l.attended ? "Attended live" : "Registered")
   : l.source === "webinar_on_demand" ? "Watched on demand" : l.source === "gated_content" ? "Downloaded content" : l.source === "survey" ? "Answered survey" : "Other";
 
-type Campaign = { id: string; name: string; status: string | null; date_signed: string | null };
-const addDays = (d: string, n: number) => new Date(ms(d) + n * 864e5).toISOString().slice(0, 10);
 /** Rough seniority from a job title, for the "who you reached" breakdown. Order matters: "Director of Engineering" is a director. */
 const SENIORITY: [string, RegExp][] = [
   ["C-suite and owners", /\b(chief|ceo|cfo|coo|cto|cio|ciso|president|owner|founder|principal|partner|gm|general manager)\b/i],
@@ -101,11 +99,11 @@ function Timeline({ lanes, today }: { lanes: { title: string; color: string; lin
 
 /** Campaign results for one client. Used by the client portal and by admins previewing a client.
  *  showAll=true (admin) includes numbers that aren't approved yet; clients never receive those rows from the database. */
-export async function ClientView({ clientId, clientName, showAll, preview = false, programId = null, basePath }: {
+export async function ClientView({ clientId, clientName, showAll, preview = false, period = null, basePath }: {
   clientId: string; clientName: string; showAll: boolean; preview?: boolean;
-  /** A campaign id, "all", or null for the current program. */
-  programId?: string | null;
-  /** Where the program picker links to, ending in "?" or "&" so "program=..." can be appended. */
+  /** A year ("2026"), "all", or null for the year in progress. */
+  period?: string | null;
+  /** Where the period picker links to, ending in "?" or "&" so "period=..." can be appended. */
   basePath: string }) {
   // preview (admin only): lay the page out exactly as the client will see it, but with unapproved numbers filled in.
   const admin = showAll && !preview;
@@ -122,7 +120,6 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
     leadRows.push(...((data ?? []) as Lead[]));
     if (!data || data.length < 1000) break;
   }
-  const { data: campRows } = await supabase.from("campaigns").select("id, name, status, date_signed").eq("client_id", clientId);
   const { data: benchRows } = await supabase.from("benchmarks").select("deliverable_type, metric, value");
   const bench = (type: string, metric: string): number | undefined => {
     const b = (benchRows ?? []).find((r) => r.deliverable_type === type && r.metric === metric);
@@ -144,24 +141,14 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
     || (d.deliverable_type !== "marketing_email" && (d.campaign_id != null || d.notion_page_id == null)));
   const today = new Date().toISOString().slice(0, 10);
 
-  // Programs: one per Notion campaign (one per contract). The page shows one program at a time, the current one by default,
-  // so a client reads "what I bought this time and what it did" rather than every placement since they started.
-  const span = new Map<string, [string, string]>();
-  for (const d of visible) if (d.campaign_id && d.start_date) {
-    const s = span.get(d.campaign_id);
-    span.set(d.campaign_id, s ? [d.start_date < s[0] ? d.start_date : s[0], d.start_date > s[1] ? d.start_date : s[1]] : [d.start_date, d.start_date]);
-  }
-  // Rows imported from an old report have no campaign: they belong to the program whose dates they fall in (two weeks either side).
-  const programOf = (d: Deliverable): string | null => d.campaign_id ?? (d.start_date
-    ? [...span].filter(([, [a, b]]) => d.start_date! >= addDays(a, -14) && d.start_date! <= addDays(b, 14))
-        .sort((x, y) => ms(x[1][1]) - ms(x[1][0]) - (ms(y[1][1]) - ms(y[1][0])))[0]?.[0] ?? null
-    : null);
-  const programs = ((campRows ?? []) as Campaign[]).filter((c) => span.has(c.id))
-    .sort((a, b) => span.get(b.id)![1].localeCompare(span.get(a.id)![1]));
-  const done = (c: Campaign) => /^done$/i.test(c.status ?? "");
-  const current = programs.find((c) => !done(c)) ?? programs[0] ?? null;
-  const selected = programId === "all" ? null : programs.find((c) => c.id === programId) ?? current;
-  const rows = selected ? visible.filter((d) => programOf(d) === selected.id) : visible;
+  // Periods are calendar years, the way clients budget and remember what they bought, never Notion campaign names
+  // (Chloe, Nov 12 2026). Rows with no date yet belong to the year in progress.
+  const yearOf = (d: string | null) => d?.slice(0, 4) ?? null;
+  const years = [...new Set(visible.map((d) => yearOf(d.start_date)).filter((y): y is string => !!y))].sort().reverse();
+  const thisYear = today.slice(0, 4);
+  const defaultYear = years.includes(thisYear) ? thisYear : years[0] ?? thisYear;
+  const year = period === "all" ? null : period && years.includes(period) ? period : defaultYear;
+  const rows = year ? visible.filter((d) => d.start_date ? yearOf(d.start_date) === year : year === defaultYear) : visible;
   const nlDates = [...new Set(rows.filter((d) => d.deliverable_type === "newsletter_ad" && d.start_date).map((d) => d.start_date!))];
   const { data: issues } = nlDates.length
     ? await supabase.from("newsletter_issues").select("publication, issue_date, title, web_url").in("issue_date", nlDates)
@@ -220,9 +207,9 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   const ran = ranLines.length; const withResults = ranLines.filter(has).length;
   const lineOf = new Map<string, Line>(all.flatMap((l) => l.ids.map((id) => [id, l] as [string, Line])));
   const leadsFor = (l: Line) => leadRows.filter((x) => x.deliverable_id && l.ids.includes(x.deliverable_id)).length;
-  const inProgram = new Set(rows.map((d) => d.id));
-  const programLeads = selected ? leadRows.filter((l) => l.deliverable_id && inProgram.has(l.deliverable_id)) : leadRows;
-  const leads: LeadRow[] = programLeads.map((l) => {
+  const inPeriod = new Set(rows.map((d) => d.id));
+  const periodLeads = year ? leadRows.filter((l) => l.deliverable_id && inPeriod.has(l.deliverable_id)) : leadRows;
+  const leads: LeadRow[] = periodLeads.map((l) => {
     const line = l.deliverable_id ? lineOf.get(l.deliverable_id) : undefined;
     return { id: l.id, first_name: l.first_name, last_name: l.last_name, email: l.email, phone: l.phone, job_title: l.job_title, company: l.company,
       company_size: l.company_size, city: l.city, state: l.state, country: l.country, how: howLabel(l),
@@ -267,7 +254,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   // Creative can only be attached to open inventory: Notion rows that have not run yet.
   const placements = visible.filter((d) => OPEN_STATUSES.includes((d.status ?? "").toLowerCase())).sort((a, b) => (a.start_date ?? "9999").localeCompare(b.start_date ?? "9999"))
     .map((d) => ({ id: d.id, label: `${fmtDate(d.start_date)}: ${d.display_title || soldLabel(d)}${d.inventory_tag ? ` (${d.inventory_tag})` : ""}` }));
-  // What was bought in this program and how much of it has run, one line per Notion "Deliverable" value (verbatim).
+  // What was bought in this period and how much of it has run, one line per Notion "Deliverable" value (verbatim).
   const bought = new Map<string, { label: string; type: string; total: number; ran: number; unscheduled: number; values: Record<string, number> }>();
   // Rows imported from an old report aren't in Notion, so they aren't counted as bought; their numbers go to the line of the same kind.
   const fromNotion = rows.filter((d) => d.notion_page_id && !dead.has(d.id) && d.deliverable_type !== "marketing_email");
@@ -284,16 +271,43 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
     bought.set(label, g);
   }
   const boughtRows = [...bought.values()].sort((a, b) => CHANNELS.findIndex((c) => c.types.includes(a.type)) - CHANNELS.findIndex((c) => c.types.includes(b.type)) || a.label.localeCompare(b.label));
-  const headline = (g: { type: string; values: Record<string, number> }) => {
-    const ch = CHANNELS.find((c) => c.types.includes(g.type));
-    // The two numbers a client cares about most: for email that's opens and clicks, not sends.
-    return (ch?.cols ?? []).filter(([k]) => k !== "sent" && g.values[k] != null).slice(0, 2).map(([k, l]) => `${fmt(g.values[k])} ${l.toLowerCase()}`).join(", ");
-  };
-  const progRange = selected && span.get(selected.id);
+  // The overview: the period in one sentence, then one row per channel with the numbers a client quotes.
+  const totals = boughtRows.reduce((t, g) => ({ ran: t.ran + g.ran, total: t.total + g.total }), { ran: 0, total: 0 });
+  const periodMeta = year ? (year === thisYear ? `January to December ${year}` : year) : dated.length ? `Since ${MONTH_YEAR.format(new Date(ms(dated[0])))}` : null;
+  const placementsMeta = totals.total > 0 ? `${totals.ran} of ${totals.total} placements have run` : ran > 0 ? `${ran} ${ran === 1 ? "placement" : "placements"} delivered` : null;
+  const heroLead = !year ? `Since ${dated[0]?.slice(0, 4) ?? "the start"}, your brand has been` : year === thisYear ? "This year your brand has been" : `In ${year} your brand was`;
+  const reachWords = reach >= 1e6 ? `${(reach / 1e6).toFixed(2).replace(/\.?0+$/, "")} million` : fmt(reach);
+  const clicks = sum(delivered, "clicks");
+  const heroSub = [clicks > 0 ? `${fmt(clicks)} clicks went through to your site` : null,
+    sum(ev, "attendees") > 0 ? `${fmt(sum(ev, "attendees"))} people attended your ${ev.length === 1 ? "session" : "sessions"}` : null].filter(Boolean).join(", and ");
+  const channelRows = CHANNELS.map((ch) => {
+    const ls = delivered.filter((l) => ch.types.includes(l.type));
+    const items = boughtRows.filter((g) => ch.types.includes(g.type));
+    if (ls.length === 0 && items.length === 0) return null;
+    const nums = ls.filter(has);
+    // Per-placement average against the Energy Central average, only when every placement is one kind and none is a week-long flight.
+    const avgFor = (k: string) => {
+      const per = nums.filter((l) => l.values[k] != null);
+      const kinds = new Set(per.map((l) => l.type));
+      if (!per.length || kinds.size !== 1 || per.some((l) => l.flight)) return { mean: undefined, avg: undefined };
+      return { mean: sum(per, k) / per.length, avg: bench([...kinds][0], k) };
+    };
+    const figures: { label: string; value: string; mean?: number; avg?: number }[] = ch.cols
+      .filter(([k]) => k !== "sent" && nums.some((l) => l.values[k] != null)).slice(0, 2)
+      .map(([k, label]) => ({ label: label.toLowerCase(), value: fmt(sum(nums, k)), ...avgFor(k) }));
+    for (const [label, n, d] of ch.rates) {
+      if (figures.length >= 3 || !RATE_KEY[label] || !(sum(nums, d) > 0)) continue;
+      const per = nums.filter((l) => l.values[n] != null && l.values[d]);
+      const kinds = new Set(per.map((l) => l.type));
+      figures.push({ label: label === "CTR" ? "CTR" : label.toLowerCase(), value: pct(sum(per, n), sum(per, d)),
+        ...(kinds.size === 1 && !per.some((l) => l.flight) ? { mean: sum(per, n) / sum(per, d), avg: bench([...kinds][0], RATE_KEY[label]) } : {}) });
+    }
+    return { id: ch.id, title: ch.title, items, figures, ran: ls.length };
+  }).filter((r) => r != null);
 
   // Who you reached: the people behind the leads, by company and by seniority. One person counts once, however they came in.
   const people = new Map<string, Lead>();
-  for (const l of programLeads) people.set(l.email.toLowerCase(), l);
+  for (const l of periodLeads) people.set(l.email.toLowerCase(), l);
   const byCompany = new Map<string, number>();
   for (const l of people.values()) { const c = l.company?.trim(); if (c && !/^(n\/?a|none|-|self|freelance)$/i.test(c)) byCompany.set(c, (byCompany.get(c) ?? 0) + 1); }
   const topCompanies = [...byCompany].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 10);
@@ -303,105 +317,88 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   const maxSeniority = Math.max(1, ...seniority.map(([, n]) => n));
 
   const sections = [...(proofGroups.length || admin ? [{ id: "approvals", title: awaiting ? `Creative approvals (${awaiting})` : "Creative approvals" }] : []), ...CHANNELS.filter((ch) => delivered.some((l) => ch.types.includes(l.type))).map((ch) => ({ id: ch.id, title: ch.title })),
-    ...(people.size ? [{ id: "reached", title: "Who you reached" }] : []), ...(leads.length ? [{ id: "leads", title: "Leads" }] : []), ...(upcoming.length ? [{ id: "upcoming", title: "Coming up" }] : [])];
+    ...(leads.length ? [{ id: "leads", title: "Leads" }] : [])];
 
   return (
     <>
       {!admin && awaiting > 0 && (
-        <a href="#approvals" className="mb-4 flex flex-wrap items-center gap-x-3 gap-y-1 rounded-2xl bg-sun px-5 py-4 text-ink hover:brightness-95">
+        <a href="#approvals" className="mb-6 flex flex-wrap items-center gap-x-3 gap-y-1 rounded-2xl bg-sun px-5 py-4 text-ink hover:brightness-95">
           <span className="font-semibold">{awaiting === 1 ? "1 piece of creative needs your approval" : `${awaiting} pieces of creative need your approval`}</span>
           <span className="text-ink/80">before it can run.</span>
           <span className="ml-auto font-semibold underline underline-offset-2">Review now</span>
         </a>
       )}
-      <header className="rounded-3xl bg-navy px-5 py-7 text-white sm:px-9 sm:py-9">
-        <p className="text-sm text-white/70">Energy Central partner report</p>
-        <h1 className="mt-1 font-display text-4xl leading-tight sm:text-5xl">{clientName}</h1>
-        {programs.length > 1 && (
-          <nav aria-label="Programs" className="mt-5 flex flex-wrap gap-2 text-sm">
-            {programs.map((c) => (
-              <a key={c.id} href={`${basePath}program=${c.id}`} aria-current={selected?.id === c.id ? "page" : undefined}
-                className={`rounded-full border px-3 py-1.5 ${selected?.id === c.id ? "border-sun bg-sun text-ink" : "border-white/30 text-white/85 hover:border-white"}`}>{c.name}</a>
-            ))}
-            <a href={`${basePath}program=all`} aria-current={!selected ? "page" : undefined}
-              className={`rounded-full border px-3 py-1.5 ${!selected ? "border-sun bg-sun text-ink" : "border-white/30 text-white/85 hover:border-white"}`}>Everything</a>
-          </nav>
-        )}
-        {selected ? (
-          <>
-            <p className="mt-6 text-white/80">
-              {done(selected) ? "Completed program" : "Current program"}
-              {progRange && <>, {MONTH_YEAR.format(new Date(ms(progRange[0])))} to {MONTH_YEAR.format(new Date(ms(progRange[1])))}</>}
-            </p>
-            <h2 className="mt-1 font-display text-2xl sm:text-3xl">{selected.name}</h2>
-            {boughtRows.length > 0 && (
-              <table className="mt-5 w-full text-left text-sm">
-                <caption className="sr-only">What was bought in this program and how much has run</caption>
-                <thead className="text-white/60"><tr><th className="py-2 pr-4 font-normal">What you bought</th><th className="py-2 pr-4 font-normal">Delivered</th><th className="hidden py-2 font-normal sm:table-cell">Results so far</th></tr></thead>
-                <tbody>
-                  {boughtRows.map((g) => (
-                    <tr key={g.label} className="border-t border-white/15 align-top">
-                      <td className="py-3 pr-4 font-medium">{g.label}</td>
-                      <td className="py-3 pr-4">
-                        {g.total > 0 ? (
-                          <>
-                            <span className="tabular-nums">{g.ran} of {g.total}</span>
-                            <span className="mt-1.5 block h-1.5 w-28 rounded-full bg-white/15"><span className="block h-1.5 rounded-full bg-sun" style={{ width: `${(g.ran / g.total) * 100}%` }} /></span>
-                          </>
-                        ) : <span className="text-white/70">Delivered</span>}
-                        {g.unscheduled > 0 && <span className="mt-1 block text-xs text-white/60">{g.unscheduled} still to schedule</span>}
-                      </td>
-                      <td className="hidden py-3 text-white/85 sm:table-cell">{headline(g) || (g.ran > 0 ? <span className="text-white/55">Results to come</span> : <span className="text-white/55">Not run yet</span>)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-          </>
-        ) : (
-          <p className="mt-6 max-w-2xl text-white/80">
-            Everything since {dated.length > 0 ? MONTH_YEAR.format(new Date(ms(dated[0]))) : "the start"}: {ran} {ran === 1 ? "placement" : "placements"} delivered
-            {upcoming.length > 0 && <>, with {upcoming.length} more scheduled</>}.
-          </p>
-        )}
-        {admin && lanes.length > 0 && <Timeline lanes={lanes} today={today} />}
-        {admin && ran > withResults && <p className="mt-4 text-sm text-white/70">Back-end only: {ran - withResults} placements that ran have no numbers yet.</p>}
-      </header>
+
+      {years.length > 1 && (
+        <nav aria-label="Period" className="flex flex-wrap gap-2 text-sm">
+          {[...years, "all"].map((y) => {
+            const on = y === "all" ? !year : year === y;
+            return <a key={y} href={`${basePath}period=${y}`} aria-current={on ? "page" : undefined}
+              className={`rounded-full border px-4 py-2 ${on ? "border-ink bg-ink text-cream" : "border-ink/80 text-ink hover:bg-white"}`}>{y === "all" ? "All time" : y}</a>;
+          })}
+        </nav>
+      )}
+
+      <section className="mt-8 max-w-4xl">
+        <p className="text-sm text-ink/70">{[clientName, periodMeta, placementsMeta].filter(Boolean).join(" · ")}</p>
+        {reach > 0 ? (
+          <h1 className="mt-3 font-display text-4xl leading-[1.05] tracking-tight sm:text-6xl">
+            {heroLead} in front of energy professionals <em>{reachWords}</em> times.
+          </h1>
+        ) : <h1 className="mt-3 font-display text-4xl leading-tight sm:text-6xl">{clientName}</h1>}
+        {heroSub && <p className="mt-4 max-w-2xl text-lg">{heroSub}.</p>}
+      </section>
+
       {summary.length > 0 && (
-        <dl className="mt-4 grid grid-cols-2 overflow-hidden rounded-2xl border border-ink/80 bg-white sm:grid-cols-3 lg:flex">
+        <dl className="mt-8 grid grid-cols-2 border-y border-ink sm:grid-cols-3 lg:flex">
           {summary.map((f) => (
-            <div key={f.label} className="-mb-px -mr-px flex-1 border-b border-r border-line px-5 py-4">
-              <dt className="text-sm text-ink/60">{f.label}</dt>
-              <dd className="mt-1 font-display text-3xl leading-tight tabular-nums">{f.value}</dd>
-              <dd className="mt-1 text-sm text-ink/60">{f.sub}</dd>
+            <div key={f.label} className="flex-1 border-b border-line py-5 pr-5 last:border-b-0 sm:border-b-0 lg:border-r lg:pl-5 lg:first:pl-0 lg:last:border-r-0">
+              <dt className="text-sm text-ink/70">{f.label}</dt>
+              <dd className="mt-1 font-display text-3xl leading-tight tabular-nums sm:text-4xl">{f.value}</dd>
+              <dd className="mt-1 text-sm text-ink/70">{f.sub}</dd>
             </div>
           ))}
         </dl>
       )}
       {showAll && <p className="mt-3 text-xs text-ink/60">{preview ? "Preview of the client page, with numbers that are still waiting for approval filled in." : "This back-end view includes numbers still waiting for approval. Clients see approved numbers only."}</p>}
 
-      {sections.length > 1 && (
-        <nav aria-label="Sections" className="sticky top-0 z-10 -mx-4 mt-5 flex gap-1 overflow-x-auto border-b border-line bg-cream/95 px-4 py-2 text-sm backdrop-blur">
-          {sections.map((s) => <a key={s.id} href={`#${s.id}`} className="whitespace-nowrap rounded-full px-3 py-2 text-ink/80 hover:bg-white hover:text-navy">{s.title}</a>)}
-        </nav>
+      {channelRows.length > 0 && (
+        <section className="mt-12">
+          <h2 className="font-display text-3xl tracking-tight">By channel</h2>
+          <div className="mt-4 border-b border-ink">
+            {channelRows.map((r, i) => (
+              <div key={r.id} className={`grid gap-x-6 gap-y-3 py-5 sm:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,1fr))_auto] sm:items-baseline ${i === 0 ? "border-t border-ink" : "border-t border-line"}`}>
+                <div>
+                  <p className="font-display text-xl">{r.title}</p>
+                  {r.items.map((g) => (
+                    <p key={g.label} className="text-sm text-ink/70">{g.label}: {g.total > 0 ? `${g.ran} of ${g.total} run` : "delivered"}{g.unscheduled > 0 && `, ${g.unscheduled} still to schedule`}</p>
+                  ))}
+                </div>
+                {r.figures.length ? r.figures.map((f) => (
+                  <div key={f.label}>
+                    <p className="text-2xl font-semibold tabular-nums">{f.value}</p>
+                    <p className="text-sm">{f.label}</p>
+                    {f.mean != null && f.avg != null && <Versus value={f.mean} avg={f.avg} />}
+                  </div>
+                )) : <p className="text-sm text-ink/60 sm:col-span-3">{r.ran ? "Results to come" : "Not run yet"}</p>}
+                {Array.from({ length: Math.max(0, 3 - Math.max(1, r.figures.length)) }).map((_, j) => <span key={j} className="hidden sm:block" />)}
+                <a href={`#${r.id}`} className="text-sm text-navy underline decoration-navy/30 underline-offset-2 hover:decoration-navy sm:text-right">{r.id === "events" ? "See each session" : r.id === "email" ? "See each email" : "See each placement"}</a>
+              </div>
+            ))}
+          </div>
+        </section>
       )}
 
-      {people.size > 0 && (
-        <section id="reached" className="mt-10 scroll-mt-16">
-          <h2 className="font-display text-2xl">Who you reached</h2>
-          <p className="mt-1 text-sm text-ink/70">
-            <span className="font-semibold text-ink">{fmt(people.size)}</span> people from <span className="font-semibold text-ink">{fmt(byCompany.size)}</span> organizations signed up for or attended your sessions.
-          </p>
-          <div className="mt-4 grid gap-4 lg:grid-cols-2">
-            <div className="rounded-2xl border border-line bg-white p-5">
-              <h3 className="text-sm font-medium text-ink/60">Organizations with the most people</h3>
-              <ol className="mt-3 divide-y divide-line text-sm">
-                {topCompanies.map(([c, n]) => <li key={c} className="flex justify-between gap-4 py-2"><span>{c}</span><span className="tabular-nums text-ink/70">{n}</span></li>)}
-              </ol>
-            </div>
-            <div className="rounded-2xl border border-line bg-white p-5">
-              <h3 className="text-sm font-medium text-ink/60">By seniority <span className="font-normal">(from job titles)</span></h3>
-              <ul className="mt-3 space-y-3 text-sm">
+      {(people.size > 0 || upcoming.length > 0) && (
+        <div className="mt-12 grid gap-10 lg:grid-cols-2">
+          {people.size > 0 && (
+            <section id="reached" className="scroll-mt-16">
+              <h2 className="font-display text-3xl tracking-tight">Who you reached</h2>
+              <p className="mt-1 text-sm text-ink/70">
+                <span className="font-semibold text-ink">{fmt(people.size)}</span> people from <span className="font-semibold text-ink">{fmt(byCompany.size)}</span> organizations signed up for or attended your sessions.
+              </p>
+              <h3 className="mt-5 text-sm font-medium text-ink/70">By seniority <span className="font-normal">(from job titles)</span></h3>
+              <ul className="mt-2 space-y-3 text-sm">
                 {seniority.map(([label, n]) => (
                   <li key={label}>
                     <span className="flex justify-between gap-4"><span>{label}</span><span className="tabular-nums text-ink/70">{n} ({Math.round((n / people.size) * 100)}%)</span></span>
@@ -409,10 +406,50 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
                   </li>
                 ))}
               </ul>
-            </div>
-          </div>
-        </section>
+              {topCompanies.length > 0 && (
+                <>
+                  <h3 className="mt-6 text-sm font-medium text-ink/70">Organizations with the most people</h3>
+                  <ol className="mt-1 divide-y divide-line border-y border-line text-sm">
+                    {topCompanies.map(([c, n]) => <li key={c} className="flex justify-between gap-4 py-2"><span>{c}</span><span className="tabular-nums text-ink/70">{n}</span></li>)}
+                  </ol>
+                </>
+              )}
+            </section>
+          )}
+          {upcoming.length > 0 && (
+            <section id="upcoming" className="scroll-mt-16">
+              <h2 className="font-display text-3xl tracking-tight">Coming up</h2>
+              <ul className="mt-3 divide-y divide-line border-y border-ink text-sm">
+                {upcoming.slice(0, 8).map((l) => (
+                  <li key={l.key} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-3">
+                    <span className="font-medium">{l.label}</span>
+                    <span className="flex items-center gap-3">
+                      {proofFor(l) && <a href="#approvals" className={`rounded-full px-2.5 py-1 text-xs font-semibold ${PROOF_STATUS[proofFor(l)!.status][1]}`}>Creative: {PROOF_STATUS[proofFor(l)!.status][0].toLowerCase()}</a>}
+                      <span className="tabular-nums text-ink/70">{fmtDate(l.date)}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              {upcoming.length > 8 && <p className="mt-2 text-sm text-ink/70">And {upcoming.length - 8} more after that.</p>}
+            </section>
+          )}
+        </div>
       )}
+
+      {admin && (lanes.length > 0 || ran > withResults) && (
+        <div className="mt-10 rounded-3xl bg-navy px-5 py-6 text-white sm:px-8">
+          <p className="text-sm text-white/70">Back-end only</p>
+          {lanes.length > 0 && <Timeline lanes={lanes} today={today} />}
+          {ran > withResults && <p className="mt-4 text-sm text-white/70">{ran - withResults} placements that ran have no numbers yet.</p>}
+        </div>
+      )}
+
+      {sections.length > 1 && (
+        <nav aria-label="Sections" className="sticky top-0 z-10 -mx-4 mt-10 flex gap-1 overflow-x-auto border-b border-line bg-cream/95 px-4 py-2 text-sm backdrop-blur">
+          {sections.map((s) => <a key={s.id} href={`#${s.id}`} className="whitespace-nowrap rounded-full px-3 py-2 text-ink/80 hover:bg-white hover:text-navy">{s.title}</a>)}
+        </nav>
+      )}
+
 
       {(proofGroups.length > 0 || admin) && (
         <section id="approvals" className="mt-10 scroll-mt-16">
@@ -507,18 +544,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
         </section>
       )}
 
-      {upcoming.length > 0 && (
-        <section id="upcoming" className="mt-10 scroll-mt-16">
-          <h2 className="font-display text-2xl">Coming up</h2>
-          <ul className="mt-3 divide-y divide-line rounded-2xl border border-line bg-white text-sm">
-            {upcoming.map((l) => (
-              <li key={l.key} className="flex flex-wrap gap-x-4 px-4 py-3"><span className="w-28 tabular-nums text-ink/70">{fmtDate(l.date)}</span>
-                <span className="font-medium">{l.label}</span>{l.detail && <span className="text-ink/60">{l.detail}</span>}
-                {proofFor(l) && <a href="#approvals" className={`ml-auto rounded-full px-2.5 py-1 text-xs font-semibold ${PROOF_STATUS[proofFor(l)!.status][1]}`}>Creative: {PROOF_STATUS[proofFor(l)!.status][0].toLowerCase()}</a>}</li>
-            ))}
-          </ul>
-        </section>
-      )}
+
     </>
   );
 }

@@ -3,8 +3,8 @@ import { createClient, getProfile } from "@/lib/supabase/server";
 import { Shell, Empty } from "@/components/Shell";
 import { ClientView } from "@/components/ClientView";
 
-export default async function Portal({ searchParams }: { searchParams: Promise<{ program?: string }> }) {
-  const { program } = await searchParams;
+export default async function Portal({ searchParams }: { searchParams: Promise<{ period?: string }> }) {
+  const { period } = await searchParams;
   const profile = await getProfile();
   if (!profile) redirect("/login");
   if (profile.role === "admin") redirect("/admin");
@@ -16,7 +16,7 @@ export default async function Portal({ searchParams }: { searchParams: Promise<{
     <Shell title={client?.name ?? "Partner Portal"} email={profile.email} nav={[]}>
       {!client ? <Empty>Your login isn&apos;t linked to a company yet. Your Energy Central account manager can fix that.</Empty> : (
         <>
-          <ClientView clientId={client.id} clientName={client.name} showAll={false} programId={program ?? null} basePath="/portal?" />
+          <ClientView clientId={client.id} clientName={client.name} showAll={false} period={period ?? null} basePath="/portal?" />
         </>
       )}
     </Shell>
