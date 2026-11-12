@@ -40,6 +40,8 @@ const pct = (n: number, d: number) => `${((n / d) * 100).toFixed(n / d < 0.1 ? 2
 const DATE = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
 const fmtDate = (d: string | null) => (d ? DATE.format(new Date(d + "T00:00:00Z")) : "Unscheduled");
 
+/** Notion statuses that mean a placement has not run yet ("open inventory"). */
+const OPEN_STATUSES = ["not started", "awaiting assets", "ready for production", "production in progress", "scheduled", "on hold"];
 const MONTH = new Intl.DateTimeFormat("en-US", { month: "short", timeZone: "UTC" });
 const MONTH_YEAR = new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric", timeZone: "UTC" });
 const ms = (d: string) => Date.parse(d + "T00:00:00Z");
@@ -205,8 +207,9 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   proofGroups.sort((a, b) => rank[a.latest.status] - rank[b.latest.status]);
   const awaiting = proofGroups.filter((g) => g.latest.status === "awaiting_review").length;
   const proofFor = (l: Line) => proofGroups.find((g) => g.latest.deliverable_id && l.ids.includes(g.latest.deliverable_id))?.latest;
-  const placements = [...rows.filter((d) => d.start_date && d.start_date > today).reverse(), ...rows.filter((d) => !(d.start_date && d.start_date > today)).slice(0, 15)]
-    .map((d) => ({ id: d.id, label: `${fmtDate(d.start_date)}: ${d.display_title || soldLabel(d)}` }));
+  // Creative can only be attached to open inventory: Notion rows that have not run yet.
+  const placements = rows.filter((d) => OPEN_STATUSES.includes((d.status ?? "").toLowerCase())).sort((a, b) => (a.start_date ?? "9999").localeCompare(b.start_date ?? "9999"))
+    .map((d) => ({ id: d.id, label: `${fmtDate(d.start_date)}: ${d.display_title || soldLabel(d)}${d.inventory_tag ? ` (${d.inventory_tag})` : ""}` }));
   const sections = [...(proofGroups.length || admin ? [{ id: "approvals", title: awaiting ? `Creative approvals (${awaiting})` : "Creative approvals" }] : []), ...CHANNELS.filter((ch) => delivered.some((l) => ch.types.includes(l.type))).map((ch) => ({ id: ch.id, title: ch.title })),
     ...(leads.length ? [{ id: "leads", title: "Leads" }] : []), ...(upcoming.length ? [{ id: "upcoming", title: "Coming up" }] : [])];
 

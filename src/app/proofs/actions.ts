@@ -7,7 +7,27 @@ const text = (fd: FormData, k: string) => String(fd.get(k) ?? "").trim() || null
 const isHttps = (u: string) => { try { return new URL(u).protocol === "https:"; } catch { return false; } };
 const refresh = () => { revalidatePath("/admin", "layout"); revalidatePath("/portal"); };
 
-export type ProofFormState = { error?: string; ok?: number };
+export type ProofFormState = { error?: string; ok?: number; message?: string };
+
+const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ec-client-portal.vercel.app";
+
+/** Emails the client's own logins that something is waiting for them. Only ever called when a team member adds creative
+ *  with "Email the client" ticked. Returns a sentence saying exactly who was emailed, so nothing goes out silently. */
+async function notifyClient(supabase: Awaited<ReturnType<typeof createClient>>, clientId: string, name: string): Promise<string> {
+  const { data: logins } = await supabase.from("profiles").select("email").eq("client_id", clientId).eq("role", "client");
+  const to = (logins ?? []).map((l) => l.email).filter(Boolean);
+  if (to.length === 0) return "No one was emailed: this client has no logins yet.";
+  const key = process.env.RESEND_API_KEY; const from = process.env.PORTAL_FROM_EMAIL;
+  if (!key || !from) return `No one was emailed: email sending isn't set up yet (${to.length} login${to.length === 1 ? "" : "s"} would have been).`;
+  const sent: string[] = [];
+  for (const email of to) {
+    const res = await fetch("https://api.resend.com/emails", { method: "POST", headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ from, to: [email], subject: "New creative from Energy Central is ready for your approval",
+        text: `Hi,\n\n"${name}" is ready for your review in the Energy Central partner portal.\n\nOpen it here: ${SITE}/portal#approvals\n\nYou can approve it there, or tell us what to change.\n\nEnergy Central` }) });
+    if (res.ok) sent.push(email);
+  }
+  return sent.length ? `Emailed ${sent.join(", ")}.` : "The notification email failed to send.";
+}
 
 /** Energy Central adds a proof for a client to review. Nothing is emailed: the client sees it next time they open the portal. */
 export async function addProof(_prev: ProofFormState, fd: FormData): Promise<ProofFormState> {
@@ -43,7 +63,8 @@ export async function addProof(_prev: ProofFormState, fd: FormData): Promise<Pro
     return { error: error.message };
   }
   refresh();
-  return { ok: Date.now() };
+  const message = fd.get("notify") === "on" ? await notifyClient(supabase, clientId, name) : "No one was emailed.";
+  return { ok: Date.now(), message };
 }
 
 /** Client (or admin on their behalf) approves a proof or asks for changes; admins can also send one back to review. */

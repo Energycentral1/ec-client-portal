@@ -16,7 +16,7 @@ export function ProofForm({ clientId, placements }: { clientId: string; placemen
       <p className="mt-1 text-ink/60">The client sees it at the top of their page until they approve it or ask for changes.</p>
       <input type="hidden" name="client_id" value={clientId} />
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
-        <label className="block">Placement it runs in
+        <label className="block">Placement it runs in <span className="text-ink/50">(open inventory in Notion)</span>
           <select name="deliverable_id" className={field} defaultValue="">
             <option value="">Not tied to a placement</option>
             {placements.map((p) => <option key={p.id} value={p.id}>{p.label}</option>)}
@@ -36,9 +36,10 @@ export function ProofForm({ clientId, placements }: { clientId: string; placemen
         <label className="block sm:col-span-2">Note for the client <span className="text-ink/50">(optional)</span>
           <textarea name="note" rows={2} placeholder="What changed in this version, anything to check" className={field} /></label>
       </div>
+      <label className="mt-4 flex items-center gap-2"><input type="checkbox" name="notify" defaultChecked className="size-4" /> Email the client&apos;s logins that this is waiting for them</label>
       <div className="mt-4 flex flex-wrap items-center gap-3">
         <button type="submit" disabled={pending} className="rounded-lg bg-navy px-4 py-2 font-semibold text-white hover:bg-navy-dark disabled:opacity-50">{pending ? "Adding…" : "Send for approval"}</button>
-        <p role="status" className={state.error ? "text-red-700" : "text-emerald-700"}>{state.error ?? (state.ok ? "Added. It is now waiting for the client." : "")}</p>
+        <p role="status" className={state.error ? "text-red-700" : "text-emerald-700"}>{state.error ?? (state.ok ? `Added. It is now at the top of the client's page. ${state.message ?? ""}` : "")}</p>
       </div>
     </form>
   );
