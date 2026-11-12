@@ -23,7 +23,7 @@ const CHANNELS: { id: string; title: string; types: string[]; cols: [string, str
     rates: [["Attendance", "attendees", "registrants"]] },
   { id: "content", title: "Partner Content", types: ["sponsored_article", "featured_story", "gated_content", "non_gated_content"],
     cols: [["views", "Views"], ["likes", "Likes"], ["comments", "Comments"]], rates: [] },
-  { id: "podcast", title: "Podcast", types: ["podcast"], cols: [["plays", "Plays"], ["short_form_views", "Clip views"], ["clicks", "Clicks"]], rates: [] },
+  { id: "podcast", title: "Podcast", types: ["podcast"], cols: [["plays", "Episode reach"], ["short_form_views", "Short-form reach"], ["impressions", "Impressions"], ["clicks", "Clicks"]], rates: [] },
   { id: "website", title: "Website ads", types: ["website_ad"], cols: [["impressions", "Impressions"], ["clicks", "Clicks"]], rates: [["CTR", "clicks", "impressions"]] },
   { id: "sponsorship", title: "Sponsorship and community", types: ["sponsorship", "community_takeover", "linkedin_post", "reel", "other"],
     cols: [["impressions", "Impressions"], ["clicks", "Clicks"]], rates: [["CTR", "clicks", "impressions"]] },
@@ -168,7 +168,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
       line.label = name || sold;
       line.detail = [name ? sold : null, ...(d.ec_brand ?? [])].filter(Boolean).join(", ") || null;
       line.link = d.live_url;
-      line.linkText = ["webinar", "powersession"].includes(d.deliverable_type) ? "Watch the recording" : ["email_blast", "marketing_email"].includes(d.deliverable_type) ? "View the email" : "View it live";
+      line.linkText = ["webinar", "powersession"].includes(d.deliverable_type) ? "Watch the recording" : ["email_blast", "marketing_email"].includes(d.deliverable_type) ? "View the email" : d.deliverable_type === "podcast" ? "Listen to the episode" : "View it live";
     }
     lines.set(key, line);
   }

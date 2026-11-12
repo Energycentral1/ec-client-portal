@@ -2,7 +2,7 @@
  "client_slug": "3b-protection",
  "source_url": "https://docs.google.com/spreadsheets/d/1ZfcqBrOUJHwM5Mg-kc2uDrcesQsEOz7Pty9pPw2aoOM/edit",
  "extracted_on": "2026-11-11",
- "notes": "Only the Events tab has numbers. Newsletter Advertising and Email tabs say 'No Upcoming Purchased' (Notion's newsletter ads and marketing emails for 3B look like promotion for their own PowerSessions). Website, podcast and content tabs not read yet.",
+ "notes": "Events and Podcasts tabs have numbers. Newsletter Advertising, Email and Website Advertising say 'No Upcoming Purchased'; Content Report is empty. Event links in the sheet point at energycentral.com event pages, which the portal doesn't use (events link to the Zoom Events hub recording).",
  "rows": [
   {
    "tab": "events",
@@ -20,6 +20,30 @@
    "metrics": {
     "registrants": 179,
     "attendees": 103
+   }
+  },
+  {
+   "tab": "podcast",
+   "date": "2026-01-22",
+   "title": "The grid security risk we underestimate",
+   "live_url": "https://www.energycentral.com/podcasts/post/the-grid-security-risk-we-underestimate-INFYeAfD2fU3XXz",
+   "metrics": {
+    "plays": 490,
+    "short_form_views": 94,
+    "impressions": 40643,
+    "clicks": 27
+   }
+  },
+  {
+   "tab": "podcast",
+   "date": "2026-04-10",
+   "title": "Inside a live-fire test of grid security",
+   "live_url": "https://www.energycentral.com/podcasts/post/inside-a-live-fire-test-of-grid-security-h2sfBnOZRUG3VjB",
+   "metrics": {
+    "plays": 459,
+    "short_form_views": 564,
+    "impressions": 30673,
+    "clicks": 13
    }
   }
  ]
