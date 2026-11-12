@@ -337,51 +337,60 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
       {showAll && <p className="mt-3 text-xs text-ink/60">{preview ? "Preview of the client page, with numbers that are still waiting for approval filled in." : "This back-end view includes numbers still waiting for approval. Clients see approved numbers only."}</p>}
 
 
-      {(people.size > 0 || upcoming.length > 0) && (
-        <div className={`mt-12 grid gap-10 ${people.size > 0 && upcoming.length > 0 ? "lg:grid-cols-2" : ""}`}>
-          {people.size > 0 && (
-            <section id="reached" className="scroll-mt-16">
-              <h2 className="font-display text-3xl tracking-tight">Who you reached</h2>
-              <p className="mt-1 text-sm text-ink/70">
-                <span className="font-semibold text-ink">{fmt(people.size)}</span> people from <span className="font-semibold text-ink">{fmt(byCompany.size)}</span> organizations signed up for or attended your sessions.
-              </p>
-              <h3 className="mt-5 text-sm font-medium text-ink/70">By seniority <span className="font-normal">(from job titles)</span></h3>
-              <ul className="mt-2 space-y-3 text-sm">
+      {people.size > 0 && (
+        <section id="reached" className="mt-12 scroll-mt-16">
+          <h2 className="font-display text-3xl tracking-tight">Who you reached</h2>
+          <p className="mt-2 max-w-3xl font-display text-2xl leading-snug">
+            <em>{fmt(people.size)}</em> people from <em>{fmt(byCompany.size)}</em> organizations signed up for or attended your sessions.
+          </p>
+          <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
+            {topCompanies.length > 0 && (
+              <div className="rounded-3xl border border-ink/80 bg-white p-6 sm:p-8">
+                <h3 className="text-sm font-medium text-ink/70">Organizations with the most people</h3>
+                <ol className="mt-4 space-y-3">
+                  {topCompanies.map(([c, n], i) => (
+                    <li key={c} className="grid grid-cols-[1.75rem_minmax(0,1fr)_auto] items-baseline gap-x-3">
+                      <span className="text-sm tabular-nums text-ink/50">{i + 1}</span>
+                      <span>
+                        <span className="block truncate font-medium">{c}</span>
+                        <span className="mt-1 block h-1.5 rounded-full bg-mist"><span className="block h-1.5 rounded-full bg-navy" style={{ width: `${(n / topCompanies[0][1]) * 100}%` }} /></span>
+                      </span>
+                      <span className="tabular-nums text-ink/70">{n}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
+            <div className="rounded-3xl bg-sun p-6 sm:p-8">
+              <h3 className="text-sm font-medium text-ink/80">By seniority <span className="font-normal">(from job titles)</span></h3>
+              <ul className="mt-4 space-y-4">
                 {seniority.map(([label, n]) => (
                   <li key={label}>
-                    <span className="flex justify-between gap-4"><span>{label}</span><span className="tabular-nums text-ink/70">{n} ({Math.round((n / people.size) * 100)}%)</span></span>
-                    <span className="mt-1 block h-2 rounded-full bg-mist"><span className="block h-2 rounded-full bg-sky" style={{ width: `${(n / maxSeniority) * 100}%` }} /></span>
+                    <span className="flex items-baseline justify-between gap-4"><span>{label}</span><span className="font-display text-2xl tabular-nums">{Math.round((n / people.size) * 100)}%</span></span>
+                    <span className="mt-1 block h-2 rounded-full bg-ink/10"><span className="block h-2 rounded-full bg-ink" style={{ width: `${(n / maxSeniority) * 100}%` }} /></span>
                   </li>
                 ))}
               </ul>
-              {topCompanies.length > 0 && (
-                <>
-                  <h3 className="mt-6 text-sm font-medium text-ink/70">Organizations with the most people</h3>
-                  <ol className="mt-1 divide-y divide-line border-y border-line text-sm">
-                    {topCompanies.map(([c, n]) => <li key={c} className="flex justify-between gap-4 py-2"><span>{c}</span><span className="tabular-nums text-ink/70">{n}</span></li>)}
-                  </ol>
-                </>
-              )}
-            </section>
-          )}
-          {upcoming.length > 0 && (
-            <section id="upcoming" className="scroll-mt-16">
-              <h2 className="font-display text-3xl tracking-tight">Coming up</h2>
-              <ul className="mt-3 divide-y divide-line border-y border-ink text-sm">
-                {upcoming.slice(0, 8).map((l) => (
-                  <li key={l.key} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-3">
-                    <span className="font-medium">{l.label}</span>
-                    <span className="flex items-center gap-3">
-                      {proofFor(l) && <a href="#approvals" className={`rounded-full px-2.5 py-1 text-xs font-semibold ${PROOF_STATUS[proofFor(l)!.status][1]}`}>Creative: {PROOF_STATUS[proofFor(l)!.status][0].toLowerCase()}</a>}
-                      <span className="tabular-nums text-ink/70">{fmtDate(l.date)}</span>
-                    </span>
-                  </li>
-                ))}
-              </ul>
-              {upcoming.length > 8 && <p className="mt-2 text-sm text-ink/70">And {upcoming.length - 8} more after that.</p>}
-            </section>
-          )}
-        </div>
+            </div>
+          </div>
+        </section>
+      )}
+      {upcoming.length > 0 && (
+        <section id="upcoming" className="mt-12 scroll-mt-16">
+          <h2 className="font-display text-3xl tracking-tight">Coming up</h2>
+          <ul className="mt-3 divide-y divide-line border-y border-ink text-sm">
+            {upcoming.slice(0, 8).map((l) => (
+              <li key={l.key} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-3">
+                <span className="font-medium">{l.label}</span>
+                <span className="flex items-center gap-3">
+                  {proofFor(l) && <a href="#approvals" className={`rounded-full px-2.5 py-1 text-xs font-semibold ${PROOF_STATUS[proofFor(l)!.status][1]}`}>Creative: {PROOF_STATUS[proofFor(l)!.status][0].toLowerCase()}</a>}
+                  <span className="tabular-nums text-ink/70">{fmtDate(l.date)}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+          {upcoming.length > 8 && <p className="mt-2 text-sm text-ink/70">And {upcoming.length - 8} more after that.</p>}
+        </section>
       )}
 
       {admin && (lanes.length > 0 || ran > withResults) && (
