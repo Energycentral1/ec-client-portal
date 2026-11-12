@@ -174,6 +174,10 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   const delivered = all.filter((l) => !(l.date && l.date > today) && (has(l) || admin || (l.due != null && l.due >= today)));
   const sum = (ls: Line[], k: string) => ls.reduce((s, l) => s + (l.values[k] ?? 0), 0);
 
+  // "Delivered" means it ran, whether or not its numbers have been loaded yet. Cancelled and rolled-over rows never ran.
+  const dead = new Set(rows.filter((d) => /cancel|rolled over/i.test(d.status ?? "")).map((d) => d.id));
+  const ranLines = all.filter((l) => l.date && l.date <= today && !l.ids.every((id) => dead.has(id)));
+  const ran = ranLines.length; const withResults = ranLines.filter(has).length;
   const lineOf = new Map<string, Line>(all.flatMap((l) => l.ids.map((id) => [id, l] as [string, Line])));
   const leadsFor = (l: Line) => leadRows.filter((x) => x.deliverable_id && l.ids.includes(x.deliverable_id)).length;
   const leads: LeadRow[] = leadRows.map((l) => {
@@ -186,7 +190,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
 
   const LANE_COLORS = ["#ffe02d", "#ffffff", "#fd713b", "#9cc4fb", "#9cc4fb", "#9cc4fb", "#9cc4fb"];
   const lanes = CHANNELS.map((ch, i) => ({ title: ch.title, color: LANE_COLORS[i], lines: [...delivered, ...upcoming].filter((l) => l.date && ch.types.includes(l.type)) })).filter((l) => l.lines.length > 0);
-  const dated = delivered.filter((l) => l.date).map((l) => l.date!).sort();
+  const dated = ranLines.map((l) => l.date!).sort();
   // The summary strip: the handful of numbers a client quotes to their boss, each with a line of context.
   const nl = delivered.filter((l) => l.type === "newsletter_ad" && has(l));
   const ev = delivered.filter((l) => ["webinar", "powersession"].includes(l.type) && has(l));
@@ -237,9 +241,10 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
         <p className="text-sm text-white/70">Energy Central partner report</p>
         <h1 className="mt-1 font-display text-4xl leading-tight sm:text-5xl">{clientName}</h1>
         <p className="mt-3 max-w-2xl text-white/80">
-          {delivered.length} {delivered.length === 1 ? "placement" : "placements"} delivered
+          {ran} {ran === 1 ? "placement" : "placements"} delivered
           {dated.length > 0 && <> from {MONTH_YEAR.format(new Date(ms(dated[0])))} to {MONTH_YEAR.format(new Date(ms(dated[dated.length - 1])))}</>}
           {upcoming.length > 0 && <>, with {upcoming.length} more scheduled</>}.
+          {ran > withResults && <> Results {withResults === 0 ? "are" : `for ${ran - withResults} of them are`} still being added.</>}
         </p>
         {lanes.length > 0 && <Timeline lanes={lanes} today={today} />}
       </header>
