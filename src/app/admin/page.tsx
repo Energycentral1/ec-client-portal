@@ -34,8 +34,8 @@ export default async function AdminHome() {
       <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Stat label="Live clients" value={rows.filter((r) => r.live).length} />
         <Stat label="Placements" value={mine.length.toLocaleString("en-US")} />
-        <Stat label="Need numbers" value={sum("need").toLocaleString("en-US")} />
-        <Stat label="To approve" value={sum("approve").toLocaleString("en-US")} />
+        <Stat label="Missing results" value={sum("need").toLocaleString("en-US")} />
+        <Stat label="Awaiting approval" value={sum("approve").toLocaleString("en-US")} />
       </div>
       {rows.length === 0 ? <div className="mt-6"><Empty>No clients yet.</Empty></div> : <ClientList rows={rows} />}
     </>

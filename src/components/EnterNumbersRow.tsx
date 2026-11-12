@@ -21,7 +21,7 @@ export function InventoryRow({ id, date, label, tag, notionUrl, status, title, l
         <span className="font-medium">{label}</span>
         <span className="block text-xs text-ink/60">
           {notionUrl ? <a href={notionUrl} target="_blank" rel="noreferrer" className="text-navy hover:underline">{tag ?? "Notion row"}</a> : (tag ?? "Old report")}
-          {status ? ` · ${status}` : ""}{missing && <span className="ml-1 rounded bg-sun/60 px-1 text-ink">needs numbers</span>}
+          {status ? ` · ${status}` : ""}{missing && <span className="ml-1 rounded bg-sun/60 px-1 text-ink">missing results</span>}
         </span>
       </td>
       <td className="px-1 py-1"><input form={form} name="display_title" defaultValue={title ?? ""} placeholder="Headline the client sees" aria-label="Headline the client sees" autoComplete="off" className={box} /></td>

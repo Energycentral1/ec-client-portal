@@ -53,7 +53,7 @@ export default async function ManualEntry({ searchParams }: { searchParams: Prom
         )}
         <select name="show" defaultValue={sp.show ?? ""} aria-label="Which placements" className={field}>
           <option value="">Everything</option>
-          <option value="missing">Needs numbers only</option>
+          <option value="missing">Missing results only</option>
         </select>
         <button className="rounded-lg bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark">Show</button>
         {(sp.q || sp.show) && <Link href={current ? `/admin/enter?client=${current.slug}` : "/admin/enter"} className="text-sm text-navy hover:underline">Clear</Link>}
@@ -71,13 +71,13 @@ export default async function ManualEntry({ searchParams }: { searchParams: Prom
         {intro}
         <div className="mt-6 overflow-x-auto rounded-xl border border-line bg-white">
           <table className="w-full min-w-[640px] text-left text-sm">
-            <thead className="border-b border-line text-ink/60"><tr><th className="px-4 py-3 font-medium">Client</th><th className="px-4 py-3 font-medium">Placements</th><th className="px-4 py-3 font-medium">Need numbers</th><th className="px-4 py-3 font-medium">Where</th></tr></thead>
+            <thead className="border-b border-line text-ink/60"><tr><th className="px-4 py-3 font-medium">Client</th><th className="px-4 py-3 font-medium">Placements</th><th className="px-4 py-3 font-medium">Missing results</th><th className="px-4 py-3 font-medium">Where</th></tr></thead>
             <tbody>
               {list.map((c) => (
                 <tr key={c.slug} className="border-b border-line align-top last:border-0">
                   <td className="px-4 py-3 font-medium"><Link href={`/admin/enter?client=${c.slug}`} className="text-navy hover:underline">{c.name}</Link>{!c.is_active && <span className="ml-2 text-xs font-normal text-ink/50">past</span>}</td>
                   <td className="px-4 py-3 tabular-nums">{c.total}</td>
-                  <td className="px-4 py-3 tabular-nums">{c.need ? <Link href={`/admin/enter?client=${c.slug}&show=missing`} className="rounded bg-sun/60 px-1.5 py-0.5 hover:underline">{c.need}</Link> : <span className="text-ink/50">All in</span>}</td>
+                  <td className="px-4 py-3 tabular-nums">{c.need ? <Link href={`/admin/enter?client=${c.slug}&show=missing`} className="rounded bg-sun/60 px-1.5 py-0.5 hover:underline">{c.need}</Link> : <span className="text-ink/50">Complete</span>}</td>
                   <td className="px-4 py-3 text-ink/70">{c.byChannel.map(([t, n]) => `${t} ${n}`).join(" · ")}</td>
                 </tr>
               ))}
@@ -104,7 +104,7 @@ export default async function ManualEntry({ searchParams }: { searchParams: Prom
             const need = lines.filter(missing).length;
             return (
               <section key={ch.id} className="mt-6">
-                <h3 className="flex items-baseline gap-3 text-base font-semibold">{ch.title}<span className="text-sm font-normal text-ink/50">{lines.length} {lines.length === 1 ? "placement" : "placements"}{need ? `, ${need} need numbers` : ""}</span></h3>
+                <h3 className="flex items-baseline gap-3 text-base font-semibold">{ch.title}<span className="text-sm font-normal text-ink/50">{lines.length} {lines.length === 1 ? "placement" : "placements"}{need ? `, ${need} missing results` : ""}</span></h3>
                 <div className="mt-2 overflow-x-auto rounded-xl border border-line bg-white">
                   <table className="w-full min-w-[900px] text-left text-sm">
                     <thead className="border-b border-line text-ink/60">

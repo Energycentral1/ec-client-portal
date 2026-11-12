@@ -26,15 +26,15 @@ export function ClientList({ rows }: { rows: ClientRow[] }) {
       <div className="mt-4 overflow-x-auto rounded-xl border border-line bg-white">
         <table className="w-full min-w-[720px] text-left text-sm">
           <thead className="border-b border-line text-ink/60">
-            <tr><th className="px-4 py-3 font-medium">Client</th><th className="px-4 py-3 font-medium">Placements</th><th className="px-4 py-3 font-medium">Need numbers</th>
-              <th className="px-4 py-3 font-medium">To approve</th><th className="px-4 py-3 font-medium">Logins</th><th className="px-4 py-3 font-medium">Old report</th></tr>
+            <tr><th className="px-4 py-3 font-medium">Client</th><th className="px-4 py-3 font-medium">Placements</th><th className="px-4 py-3 font-medium">Missing results</th>
+              <th className="px-4 py-3 font-medium">Awaiting approval</th><th className="px-4 py-3 font-medium">Logins</th><th className="px-4 py-3 font-medium">Old report</th></tr>
           </thead>
           <tbody>
             {shown.map((c) => (
               <tr key={c.id} className="border-b border-line last:border-0">
                 <td className="px-4 py-3"><Link href={`/admin/clients/${c.slug}`} className="font-medium text-navy hover:underline">{c.name}</Link>{!c.live && <span className="ml-2 text-xs text-ink/50">past</span>}</td>
                 <td className="px-4 py-3 tabular-nums">{c.placements}</td>
-                <td className="px-4 py-3">{c.need ? <Link href={`/admin/enter?client=${c.slug}&show=missing`} className={pill}>{c.need}</Link> : <span className="text-ink/40">All in</span>}</td>
+                <td className="px-4 py-3">{c.need ? <Link href={`/admin/enter?client=${c.slug}&show=missing`} className={pill}>{c.need}</Link> : <span className="text-ink/40">Complete</span>}</td>
                 <td className="px-4 py-3">{c.approve ? <Link href="/admin/approvals" className={pill}>{c.approve}</Link> : <span className="text-ink/40">None</span>}</td>
                 <td className="px-4 py-3">{c.logins ? <Link href={`/admin/logins?client=${c.slug}`} className="tabular-nums text-navy hover:underline">{c.logins}</Link> : <Link href={`/admin/logins?client=${c.slug}`} className="text-ink/50 hover:text-navy hover:underline">Add</Link>}</td>
                 <td className="px-4 py-3">{c.report ? <a href={c.report} target="_blank" rel="noreferrer" className="text-navy hover:underline">Open</a> : <span className="text-ink/40">None</span>}</td>
