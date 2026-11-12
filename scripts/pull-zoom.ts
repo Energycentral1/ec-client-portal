@@ -143,15 +143,25 @@ async function main() {
       const day = etDay(ev.start_time), title = squash(ev.name);
       const sameDay = placements.filter((d) => d.start_date && dayDiff(d.start_date, day) <= 1);
       let hit = placements.find((d) => d.zoom_event_id === ev.event_id);
+      // Internal test and template events never belong to a client.
+      if (!hit && /\b(test|testing|template|duplication)\b|^(my|y) event/i.test(ev.name)) continue;
       if (!hit) {
+        const tw = (t: string) => new Set(String(t ?? "").replace(/^.*?\bpresents\s*[:|]\s*/i, "").toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length > 3));
+        const like = (a: string, b: string) => { const A = tw(a), B = tw(b); if (!A.size || !B.size) return 0; let n = 0; for (const w of A) if (B.has(w)) n++; return n / Math.min(A.size, B.size); };
+        // 1. Same title as the placement's client-facing name, within 3 days.
+        const byTitle = placements.filter((d) => d.start_date && dayDiff(d.start_date, day) <= 3 && d.display_title && like(ev.name, d.display_title) >= 0.6);
+        // 2. The client's name in the event title (Zoom event titles usually leave it out).
         const byName = sameDay.filter((d) => {
           const client = squash(nameOf.get(d.client_id) ?? "");
           const first = squash((nameOf.get(d.client_id) ?? "").split(/\s+/)[0]);
           return (first.length >= 3 && title.includes(first)) || title.includes(client)
             || Object.entries(PRESENTS_AS).some(([as, real]) => title.includes(as) && client.includes(real));
         });
-        if (byName.length === 1) hit = byName[0];
-        else if (!byName.length && sameDay.filter((d) => dayDiff(d.start_date!, day) === 0).length === 1 && !/presents/i.test(ev.name)) hit = sameDay.find((d) => dayDiff(d.start_date!, day) === 0);
+        // 3. The only webinar/PowerSession booked that exact day, unless its own name clearly says something else.
+        const onDay = sameDay.filter((d) => dayDiff(d.start_date!, day) === 0);
+        if (byTitle.length === 1) hit = byTitle[0];
+        else if (byName.length === 1) hit = byName[0];
+        else if (!byTitle.length && !byName.length && onDay.length === 1 && (!onDay[0].display_title || like(ev.name, onDay[0].display_title) >= 0.3)) hit = onDay[0];
       }
       if (!hit) { if (sameDay.length || /presents/i.test(ev.name)) problems.push(`Event "${ev.name}" (${day}): no single placement matches (${sameDay.map((d) => `${nameOf.get(d.client_id)} ${d.start_date} ${d.inventory_tag ?? ""}`).join("; ") || "none that day"})`); continue; }
       matched.set(ev.event_id, { ...hit, _event: ev });

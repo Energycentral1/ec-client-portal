@@ -103,6 +103,8 @@ async function main() {
           // Forms are built around the event: a few days before it, or up to a month after for the on-demand replay.
           const near = mine.filter((x) => x.start_date && (isWebinar ? WEBINAR.includes(x.deliverable_type) && Date.parse(f.createdAt) - Date.parse(x.start_date) <= 30 * 864e5 && Date.parse(x.start_date) - Date.parse(f.createdAt) <= 5 * 864e5
             : GATED.includes(x.deliverable_type) && days(x.start_date, f.createdAt) <= 45));
+          // A date-only match never doubles up on a session that already has its own form.
+          if (near.length === 1 && isWebinar && (near[0].tally_form_id || link.has(near[0].id))) { problems.push(`"${name}" (${client.name}): the only session near the form date (${near[0].start_date} ${near[0].inventory_tag ?? ""}) already has a form`); continue; }
           if (near.length === 1) d = near[0];
           else { problems.push(`"${name}" (${client.name}, form made ${String(f.createdAt).slice(0, 10)}): ${near.length} possible placements${near.length ? `: ${near.map((x) => `${x.start_date} ${x.inventory_tag ?? ""}`).join(", ")}` : `; client has ${mine.map((x) => `${x.deliverable_type} ${x.start_date}`).slice(0, 6).join(", ") || "no webinar or content placements on a campaign"}`}`); continue; }
         }
