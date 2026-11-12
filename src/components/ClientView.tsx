@@ -278,9 +278,6 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   const placementsMeta = totals.total > 0 ? `${totals.ran} of ${totals.total} placements have run` : ran > 0 ? `${ran} ${ran === 1 ? "placement" : "placements"} delivered` : null;
   const heroLead = !firstYear || firstYear === thisYear ? "This year you reached" : `Since ${firstYear}, you've reached`;
   const reachWords = reach >= 1e6 ? `${(reach / 1e6).toFixed(2).replace(/\.?0+$/, "")} million` : fmt(reach);
-  const clicks = sum(delivered, "clicks");
-  const heroSub = [clicks > 0 ? `They clicked through ${fmt(clicks)} times` : null,
-    sum(ev, "attendees") > 0 ? `${fmt(sum(ev, "attendees"))} people sat through one of your ${sessionWord.toLowerCase()}s live` : null].filter(Boolean).join(", and ");
 
 
   const sections = [...(proofGroups.length || admin ? [{ id: "approvals", title: awaiting ? `Creative approvals (${awaiting})` : "Creative approvals" }] : []), ...CHANNELS.filter((ch) => delivered.some((l) => ch.types.includes(l.type) && inYear(l))).map((ch) => ({ id: ch.id, title: ch.title })),
@@ -304,7 +301,6 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
             {heroLead} <em>{reachWords}</em> energy professionals.
           </h1>
         ) : <h1 className="mt-3 font-display text-4xl leading-tight sm:text-6xl">{clientName}</h1>}
-        {heroSub && <p className="mt-4 max-w-2xl text-lg">{heroSub}.</p>}
       </section>
 
       {summary.length > 0 && (
