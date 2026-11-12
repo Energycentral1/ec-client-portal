@@ -7,7 +7,7 @@ export default function ChoosePassword() {
   const [state, action, pending] = useActionState(setPassword, null);
   const field = "mt-1 w-full rounded-lg border border-line px-3 py-2.5 outline-none focus:border-sky focus:ring-2 focus:ring-sky/30";
   return (
-    <LoginFrame heading="Change password">
+    <LoginFrame heading="Change password" back="/">
       <form action={action}>
         <p className="mt-2 text-sm text-ink/70">At least 10 characters. You&rsquo;ll sign in with this password from now on.</p>
         <label htmlFor="password" className="mt-6 block text-sm font-medium">Password</label>

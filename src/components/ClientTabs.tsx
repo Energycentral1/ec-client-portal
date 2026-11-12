@@ -15,7 +15,10 @@ export function ClientTabs({ slug, name, active, meta, period }: { slug: string;
   ];
   return (
     <header>
-      <p className="text-sm text-ink/60"><Link href="/admin" className="hover:text-navy hover:underline">Clients</Link> <span aria-hidden>/</span></p>
+      <Link href="/admin" className="inline-flex items-center gap-1.5 rounded-md py-1 pr-2 text-sm font-medium text-navy hover:underline">
+        <svg aria-hidden width="16" height="16" viewBox="0 0 16 16"><path d="M9.5 3.5L5 8l4.5 4.5M5.5 8H13" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+        All clients
+      </Link>
       <h1 className="mt-1 text-3xl font-semibold">{name}</h1>
       {meta && <p className="mt-1 text-sm text-ink/60">{meta}</p>}
       <nav aria-label={`${name} views`} className="mt-5 flex flex-wrap gap-x-6 border-b border-line text-sm">
