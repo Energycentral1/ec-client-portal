@@ -221,17 +221,8 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   const lanes = CHANNELS.map((ch, i) => ({ title: ch.title, color: LANE_COLORS[i], lines: [...delivered, ...upcoming].filter((l) => l.date && ch.types.includes(l.type)) })).filter((l) => l.lines.length > 0);
   const dated = ranLines.map((l) => l.date!).sort();
   // The summary strip: the handful of numbers a client quotes to their boss, each with a line of context.
-  const nl = delivered.filter((l) => l.type === "newsletter_ad" && has(l));
   const ev = delivered.filter((l) => ["webinar", "powersession"].includes(l.type) && has(l));
   const reach = sum(delivered, "impressions") + sum(delivered, "sent") + sum(delivered, "views");
-  const nlCtr = sum(nl, "impressions") > 0 ? sum(nl, "clicks") / sum(nl, "impressions") : null;
-  const summary: { label: string; value: string; sub: React.ReactNode }[] = [];
-  if (reach > 0) summary.push({ label: "Total reach", value: fmt(reach), sub: "Impressions, emails delivered and views" });
-  if (sum(delivered, "clicks") > 0) summary.push({ label: "Clicks", value: fmt(sum(delivered, "clicks")), sub: `Across ${delivered.filter(has).length} placements` });
-  if (nlCtr != null) summary.push({ label: "Newsletter CTR", value: pct(sum(nl, "clicks"), sum(nl, "impressions")), sub: <Versus value={nlCtr} avg={bench("newsletter_ad", "ctr")} /> });
-  if (sum(ev, "attendees") > 0) summary.push({ label: ev.length === 1 ? "Session" : `${ev.length} sessions`, value: `${fmt(sum(ev, "attendees"))} attended`,
-    sub: `${fmt(sum(ev, "registrants"))} registered, ${pct(sum(ev, "attendees"), sum(ev, "registrants"))} attendance` });
-  if (leads.length > 0) summary.push({ label: "Leads", value: fmt(leads.length), sub: <a href="#leads" className="text-navy underline decoration-navy/30 underline-offset-2">View and download</a> });
   // Proofs: the newest version for each placement is the live one; earlier versions fold away underneath it.
   const soldLabel = (d: Deliverable) => d.deliverable_label || TYPE_LABEL[d.deliverable_type] || d.deliverable_type;
   const placementOf = (p: Proof) => { const d = visible.find((r) => r.id === p.deliverable_id); return d ? { label: d.display_title || soldLabel(d), date: d.start_date } : null; };
@@ -295,15 +286,20 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
     const figures: { label: string; value: string; mean?: number; avg?: number }[] = ch.cols
       .filter(([k]) => k !== "sent" && nums.some((l) => l.values[k] != null)).slice(0, 2)
       .map(([k, label]) => ({ label: label.toLowerCase(), value: fmt(sum(nums, k)), ...avgFor(k) }));
+    // Two numbers per channel: the main count, then the rate we have an average for (or the second count).
+    figures.splice(1);
     for (const [label, n, d] of ch.rates) {
-      if (figures.length >= 3 || !RATE_KEY[label] || !(sum(nums, d) > 0)) continue;
+      if (figures.length >= 2 || !RATE_KEY[label] || !(sum(nums, d) > 0)) continue;
       const per = nums.filter((l) => l.values[n] != null && l.values[d]);
       if (per.length === 0) continue;
       const kinds = new Set(per.map((l) => l.type));
       figures.push({ label: label === "CTR" ? "CTR" : label.toLowerCase(), value: pct(sum(per, n), sum(per, d)),
         ...(kinds.size === 1 && !per.some((l) => l.flight) ? { mean: sum(per, n) / sum(per, d), avg: bench([...kinds][0], RATE_KEY[label]) } : {}) });
     }
-    return { id: ch.id, title: ch.title, items, figures, ran: ls.length };
+    const second = ch.cols.filter(([k]) => k !== "sent" && nums.some((l) => l.values[k] != null))[1];
+    if (figures.length < 2 && second) figures.push({ label: second[1].toLowerCase(), value: fmt(sum(nums, second[0])), ...avgFor(second[0]) });
+    const bought = items.reduce((t, g) => ({ ran: t.ran + g.ran, total: t.total + g.total, unscheduled: t.unscheduled + g.unscheduled }), { ran: 0, total: 0, unscheduled: 0 });
+    return { ch, id: ch.id, title: ch.title, bought, figures, ran: ls.length };
   }).filter((r) => r != null);
 
   // Who you reached: the people behind the leads, by company and by seniority. One person counts once, however they came in.
@@ -317,8 +313,56 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   const seniority = [...SENIORITY.map(([s]) => s), "Engineers, analysts and specialists", "Not given"].map((s) => [s, bySeniority.get(s) ?? 0] as [string, number]).filter(([, n]) => n > 0);
   const maxSeniority = Math.max(1, ...seniority.map(([, n]) => n));
 
-  const sections = [...(proofGroups.length || admin ? [{ id: "approvals", title: awaiting ? `Creative approvals (${awaiting})` : "Creative approvals" }] : []), ...CHANNELS.filter((ch) => delivered.some((l) => ch.types.includes(l.type))).map((ch) => ({ id: ch.id, title: ch.title })),
-    ...(leads.length ? [{ id: "leads", title: "Leads" }] : [])];
+
+  // The placement-by-placement table for one channel, shown when a client opens that channel's row.
+  const detailTable = (ch: (typeof CHANNELS)[number]) => {
+        const ls = delivered.filter((l) => ch.types.includes(l.type));
+        if (ls.length === 0) return null;
+        const withNumbers = ls.filter(has);
+        const cols = ch.cols.filter(([k]) => admin || withNumbers.some((l) => l.values[k] != null) || withNumbers.length === 0);
+        const rates = ch.rates.filter(([, n, d]) => cols.some(([k]) => k === n) && cols.some(([k]) => k === d));
+        const lead = cols[0]?.[0];
+        const max = lead ? Math.max(1, ...withNumbers.map((l) => l.values[lead] ?? 0)) : 1;
+        const showLeads = ch.id === "events" && ls.some((l) => leadsFor(l) > 0);
+        return (
+            <div className="mt-3 overflow-x-auto rounded-2xl border border-line bg-white">
+              <table className="w-full min-w-[680px] text-left text-sm">
+                <thead className="border-b border-line text-ink/60">
+                  <tr><th className="px-4 py-3 font-medium">Date</th><th className="px-4 py-3 font-medium">What ran</th>
+                    {cols.map(([k, label]) => <th key={k} className="px-4 py-3 text-right font-medium">{label}</th>)}
+                    {rates.map(([label]) => <th key={label} className="px-4 py-3 text-right font-medium">{label}</th>)}
+                    {showLeads && <th className="px-4 py-3 text-right font-medium">Leads</th>}</tr>
+                </thead>
+                <tbody>
+                  {ls.map((l) => (
+                    <tr key={l.key} className="border-b border-line align-top last:border-0">
+                      <td className="whitespace-nowrap px-4 py-3 tabular-nums">{fmtDate(l.date)}</td>
+                      <td className="max-w-md px-4 py-3"><span className="font-medium">{l.label}</span>
+                        {l.detail && <span className="block text-ink/60">{l.detail}</span>}
+                        {l.link && <a href={l.link} target="_blank" rel="noreferrer" className="mt-0.5 inline-block text-navy underline decoration-navy/30 underline-offset-2 hover:decoration-navy">{l.linkText}</a>}
+                        {admin && <span className="block text-xs text-ink/50">{l.tags.join(", ")}{l.waiting && <span className="ml-2 rounded bg-sun/60 px-1 text-ink">waiting for approval</span>}</span>}</td>
+                      {has(l) ? (
+                        <>
+                          {cols.map(([k], i) => (
+                            <td key={k} className="px-4 py-3 text-right tabular-nums">{fmt(l.values[k])}
+                              {i === 0 && l.values[k] != null && <span className="ml-auto mt-1.5 block h-1 w-24 rounded-full bg-mist"><span className="block h-1 rounded-full bg-sky" style={{ width: `${Math.max(3, (l.values[k] / max) * 100)}%` }} /></span>}
+                              {!l.flight && <Versus value={l.values[k]} avg={bench(l.type, k)} />}</td>
+                          ))}
+                          {rates.map(([label, n, d]) => <td key={label} className="px-4 py-3 text-right font-medium tabular-nums text-navy">{l.values[n] != null && l.values[d] ? pct(l.values[n], l.values[d]) : "—"}
+                            {l.values[n] != null && l.values[d] ? <Versus value={l.values[n] / l.values[d]} avg={bench(l.type, RATE_KEY[label])} /> : null}</td>)}
+                        </>
+                      ) : (
+                        <td colSpan={cols.length + rates.length} className="px-4 py-3 text-right text-ink/50">
+                          {l.due && l.due >= today ? `Results expected ${fmtDate(l.due)}` : admin ? "No numbers yet" : "Results to come"}</td>
+                      )}
+                      {showLeads && <td className="px-4 py-3 text-right tabular-nums">{leadsFor(l) > 0 ? <a href="#leads" className="text-navy underline decoration-navy/30 underline-offset-2 hover:decoration-navy">{fmt(leadsFor(l))}</a> : "—"}</td>}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+        );
+  };
 
   return (
     <>
@@ -348,43 +392,34 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
           </h1>
         ) : <h1 className="mt-3 font-display text-4xl leading-tight sm:text-6xl">{clientName}</h1>}
         {heroSub && <p className="mt-4 max-w-2xl text-lg">{heroSub}.</p>}
+        {leads.length > 0 && <a href="#leads" className="mt-3 inline-block text-navy underline decoration-navy/30 underline-offset-2 hover:decoration-navy">See your {fmt(leads.length)} leads</a>}
       </section>
 
-      {summary.length > 0 && (
-        <dl className="mt-8 grid grid-cols-2 border-y border-ink sm:grid-cols-3 lg:flex">
-          {summary.map((f) => (
-            <div key={f.label} className="flex-1 border-b border-line py-5 pr-5 last:border-b-0 sm:border-b-0 lg:border-r lg:pl-5 lg:first:pl-0 lg:last:border-r-0">
-              <dt className="text-sm text-ink/70">{f.label}</dt>
-              <dd className="mt-1 font-display text-3xl leading-tight tabular-nums sm:text-4xl">{f.value}</dd>
-              <dd className="mt-1 text-sm text-ink/70">{f.sub}</dd>
-            </div>
-          ))}
-        </dl>
-      )}
       {showAll && <p className="mt-3 text-xs text-ink/60">{preview ? "Preview of the client page, with numbers that are still waiting for approval filled in." : "This back-end view includes numbers still waiting for approval. Clients see approved numbers only."}</p>}
 
       {channelRows.length > 0 && (
         <section className="mt-12">
           <h2 className="font-display text-3xl tracking-tight">By channel</h2>
+          <p className="mt-1 text-sm text-ink/70">Open a channel to see each placement.</p>
           <div className="mt-4 border-b border-ink">
             {channelRows.map((r, i) => (
-              <div key={r.id} className={`grid gap-x-6 gap-y-3 py-5 sm:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,1fr))_auto] sm:items-baseline ${i === 0 ? "border-t border-ink" : "border-t border-line"}`}>
-                <div>
-                  <p className="font-display text-xl">{r.title}</p>
-                  {r.items.map((g) => (
-                    <p key={g.label} className="text-sm text-ink/70">{g.label}: {g.total > 0 ? `${g.ran} of ${g.total} run` : "delivered"}{g.unscheduled > 0 && `, ${g.unscheduled} still to schedule`}</p>
-                  ))}
-                </div>
-                {r.figures.length ? r.figures.map((f) => (
-                  <div key={f.label}>
-                    <p className="text-2xl font-semibold tabular-nums">{f.value}</p>
-                    <p className="text-sm">{f.label}</p>
-                    {f.mean != null && f.avg != null && <Versus value={f.mean} avg={f.avg} />}
-                  </div>
-                )) : <p className="text-sm text-ink/60 sm:col-span-3">{r.ran ? "Results to come" : "Not run yet"}</p>}
-                {Array.from({ length: Math.max(0, 3 - Math.max(1, r.figures.length)) }).map((_, j) => <span key={j} className="hidden sm:block" />)}
-                <a href={`#${r.id}`} className="text-sm text-navy underline decoration-navy/30 underline-offset-2 hover:decoration-navy sm:text-right">{r.id === "events" ? "See each session" : r.id === "email" ? "See each email" : "See each placement"}</a>
-              </div>
+              <details key={r.id} id={r.id} className={`group scroll-mt-16 ${i === 0 ? "border-t border-ink" : "border-t border-line"}`}>
+                <summary className="grid cursor-pointer list-none gap-x-6 gap-y-2 py-5 sm:grid-cols-[minmax(0,1.6fr)_repeat(2,minmax(0,1fr))_auto] sm:items-baseline [&::-webkit-details-marker]:hidden">
+                  <span>
+                    <span className="block font-display text-xl">{r.title}</span>
+                    <span className="block text-sm text-ink/70">{r.bought.total > 0 ? `${r.bought.ran} of ${r.bought.total} run` : `${r.ran} run`}{r.bought.unscheduled > 0 && `, ${r.bought.unscheduled} to schedule`}</span>
+                  </span>
+                  {r.figures.length ? r.figures.map((f) => (
+                    <span key={f.label} className="block">
+                      <span className="block text-2xl font-semibold tabular-nums">{f.value} <span className="text-sm font-normal">{f.label}</span></span>
+                      {f.mean != null && f.avg != null && <Versus value={f.mean} avg={f.avg} />}
+                    </span>
+                  )) : <span className="block text-sm text-ink/60 sm:col-span-2">{r.ran ? "Results to come" : "Not run yet"}</span>}
+                  {r.figures.length === 1 && <span className="hidden sm:block" />}
+                  <span className="text-sm text-navy sm:text-right"><span className="group-open:hidden">Show each</span><span className="hidden group-open:inline">Hide</span></span>
+                </summary>
+                <div className="pb-6">{detailTable(r.ch)}</div>
+              </details>
             ))}
           </div>
         </section>
@@ -445,11 +480,6 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
         </div>
       )}
 
-      {sections.length > 1 && (
-        <nav aria-label="Sections" className="sticky top-0 z-10 -mx-4 mt-10 flex gap-1 overflow-x-auto border-b border-line bg-cream/95 px-4 py-2 text-sm backdrop-blur">
-          {sections.map((s) => <a key={s.id} href={`#${s.id}`} className="whitespace-nowrap rounded-full px-3 py-2 text-ink/80 hover:bg-white hover:text-navy">{s.title}</a>)}
-        </nav>
-      )}
 
 
       {(proofGroups.length > 0 || admin) && (
@@ -477,65 +507,6 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
         </section>
       )}
 
-      {CHANNELS.map((ch) => {
-        const ls = delivered.filter((l) => ch.types.includes(l.type));
-        if (ls.length === 0) return null;
-        const withNumbers = ls.filter(has);
-        const cols = ch.cols.filter(([k]) => admin || withNumbers.some((l) => l.values[k] != null) || withNumbers.length === 0);
-        const rates = ch.rates.filter(([, n, d]) => cols.some(([k]) => k === n) && cols.some(([k]) => k === d));
-        const lead = cols[0]?.[0];
-        const max = lead ? Math.max(1, ...withNumbers.map((l) => l.values[lead] ?? 0)) : 1;
-        const showLeads = ch.id === "events" && ls.some((l) => leadsFor(l) > 0);
-        return (
-          <section key={ch.id} id={ch.id} className="mt-10 scroll-mt-16">
-            <h2 className="font-display text-2xl">{ch.title}</h2>
-            {withNumbers.length > 0 && (
-              <p className="mt-1 text-sm text-ink/70">
-                {cols.map(([k, label]) => <span key={k} className="mr-5 whitespace-nowrap"><span className="text-base font-semibold tabular-nums text-ink">{fmt(sum(withNumbers, k))}</span> {label.toLowerCase()}</span>)}
-                {rates.map(([label, n, d]) => sum(withNumbers, d) > 0 && (
-                  <span key={label} className="mr-5 whitespace-nowrap"><span className="text-base font-semibold tabular-nums text-navy">{pct(sum(withNumbers, n), sum(withNumbers, d))}</span> {label === "CTR" ? label : label.toLowerCase()}</span>
-                ))}
-              </p>
-            )}
-            <div className="mt-3 overflow-x-auto rounded-2xl border border-line bg-white">
-              <table className="w-full min-w-[680px] text-left text-sm">
-                <thead className="border-b border-line text-ink/60">
-                  <tr><th className="px-4 py-3 font-medium">Date</th><th className="px-4 py-3 font-medium">What ran</th>
-                    {cols.map(([k, label]) => <th key={k} className="px-4 py-3 text-right font-medium">{label}</th>)}
-                    {rates.map(([label]) => <th key={label} className="px-4 py-3 text-right font-medium">{label}</th>)}
-                    {showLeads && <th className="px-4 py-3 text-right font-medium">Leads</th>}</tr>
-                </thead>
-                <tbody>
-                  {ls.map((l) => (
-                    <tr key={l.key} className="border-b border-line align-top last:border-0">
-                      <td className="whitespace-nowrap px-4 py-3 tabular-nums">{fmtDate(l.date)}</td>
-                      <td className="max-w-md px-4 py-3"><span className="font-medium">{l.label}</span>
-                        {l.detail && <span className="block text-ink/60">{l.detail}</span>}
-                        {l.link && <a href={l.link} target="_blank" rel="noreferrer" className="mt-0.5 inline-block text-navy underline decoration-navy/30 underline-offset-2 hover:decoration-navy">{l.linkText}</a>}
-                        {admin && <span className="block text-xs text-ink/50">{l.tags.join(", ")}{l.waiting && <span className="ml-2 rounded bg-sun/60 px-1 text-ink">waiting for approval</span>}</span>}</td>
-                      {has(l) ? (
-                        <>
-                          {cols.map(([k], i) => (
-                            <td key={k} className="px-4 py-3 text-right tabular-nums">{fmt(l.values[k])}
-                              {i === 0 && l.values[k] != null && <span className="ml-auto mt-1.5 block h-1 w-24 rounded-full bg-mist"><span className="block h-1 rounded-full bg-sky" style={{ width: `${Math.max(3, (l.values[k] / max) * 100)}%` }} /></span>}
-                              {!l.flight && <Versus value={l.values[k]} avg={bench(l.type, k)} />}</td>
-                          ))}
-                          {rates.map(([label, n, d]) => <td key={label} className="px-4 py-3 text-right font-medium tabular-nums text-navy">{l.values[n] != null && l.values[d] ? pct(l.values[n], l.values[d]) : "—"}
-                            {l.values[n] != null && l.values[d] ? <Versus value={l.values[n] / l.values[d]} avg={bench(l.type, RATE_KEY[label])} /> : null}</td>)}
-                        </>
-                      ) : (
-                        <td colSpan={cols.length + rates.length} className="px-4 py-3 text-right text-ink/50">
-                          {l.due && l.due >= today ? `Results expected ${fmtDate(l.due)}` : admin ? "No numbers yet" : "Results to come"}</td>
-                      )}
-                      {showLeads && <td className="px-4 py-3 text-right tabular-nums">{leadsFor(l) > 0 ? <a href="#leads" className="text-navy underline decoration-navy/30 underline-offset-2 hover:decoration-navy">{fmt(leadsFor(l))}</a> : "—"}</td>}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </section>
-        );
-      })}
 
       {leads.length > 0 && (
         <section id="leads" className="mt-10 scroll-mt-16">
