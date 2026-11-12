@@ -6,7 +6,7 @@
  */
 import { config } from "dotenv";
 config({ path: ".env.local" });
-import { readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { createClient } from "@supabase/supabase-js";
 
@@ -15,9 +15,9 @@ for (const k of ["NEXT_PUBLIC_SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"]) {
 }
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, { auth: { persistSession: false } });
 
-type Row = { tab: string; date: string; end_date?: string; title?: string; metrics: Record<string, number> };
+type Row = { tab: string; date: string; end_date?: string; title?: string; live_url?: string; metrics: Record<string, number> };
 type LegacyFile = { client_slug: string; rows: Row[] };
-type Deliverable = { id: string; deliverable_type: string; placement: string | null; start_date: string | null; inventory_tag: string | null };
+type Deliverable = { id: string; deliverable_type: string; placement: string | null; start_date: string | null; inventory_tag: string | null; title: string | null };
 
 /** Which deliverable types a sheet tab can describe, most likely first. dayWindow = how far the sheet date may be from Notion's. */
 const TABS: Record<string, { types: string[]; dayWindow: number }> = {
@@ -34,7 +34,7 @@ const days = (a: string, b: string) => Math.abs((Date.parse(a) - Date.parse(b)) 
 async function importFile(file: LegacyFile) {
   const { data: client } = await db.from("clients").select("id, name").eq("slug", file.client_slug).maybeSingle();
   if (!client) { console.log(`✗ ${file.client_slug}: no client with that slug, skipped`); return 0; }
-  const { data: dels, error } = await db.from("deliverables").select("id, deliverable_type, placement, start_date, inventory_tag").eq("client_id", client.id);
+  const { data: dels, error } = await db.from("deliverables").select("id, deliverable_type, placement, start_date, inventory_tag, title").eq("client_id", client.id);
   if (error) throw error;
   const pool = (dels ?? []) as Deliverable[];
   const used = new Set<string>();
@@ -56,11 +56,16 @@ async function importFile(file: LegacyFile) {
       const { data: made, error: e } = await db.from("deliverables").insert({
         client_id: client.id, deliverable_type: tab.types[0], title: row.title ?? null, start_date: row.date, end_date: row.end_date ?? null,
         status: "Done", notes: "From the legacy Customer Report; no matching row in Notion inventory.",
-      }).select("id, deliverable_type, placement, start_date, inventory_tag").single();
+      }).select("id, deliverable_type, placement, start_date, inventory_tag, title").single();
       if (e) throw e;
       target = made as Deliverable; created++;
     }
     used.add(target.id);
+    // Carry over what the sheet knows and Notion doesn't: the event or post name, and where it lives.
+    const patch: Record<string, string> = {};
+    if (row.live_url) patch.live_url = row.live_url;
+    if (row.title && !target.title && row.tab !== "newsletter") patch.title = row.title;
+    if (Object.keys(patch).length) { const { error: e3 } = await db.from("deliverables").update(patch).eq("id", target.id); if (e3) throw e3; }
     const rows = Object.entries(row.metrics).map(([metric, value]) => ({
       client_id: client.id, deliverable_id: target.id, metric, value, source: "legacy_sheet", status: "pending",
       window_start: row.date, window_end: row.end_date ?? row.date,
@@ -79,6 +84,14 @@ async function main() {
   const { data: run } = await db.from("sync_runs").insert({ source: "legacy_sheet" }).select("id").single();
   let written = 0;
   try {
+    // Newsletter issues (date → link). Interim source until scripts/pull-beehiiv.ts fills this table nightly.
+    const issuesFile = join(process.cwd(), "data", "newsletter-issues.json");
+    if (existsSync(issuesFile)) {
+      const issues = JSON.parse(readFileSync(issuesFile, "utf8"));
+      const { error: e } = await db.from("newsletter_issues").upsert(issues, { onConflict: "publication,issue_date" });
+      if (e) throw e;
+      console.log(`Newsletter issues: ${issues.length} dates linked.`);
+    }
     const dir = join(process.cwd(), "data", "legacy");
     for (const f of readdirSync(dir).filter((f) => f.endsWith(".json")).sort()) {
       const file = JSON.parse(readFileSync(join(dir, f), "utf8")) as LegacyFile;

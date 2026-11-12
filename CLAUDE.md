@@ -13,6 +13,7 @@ campaign results and leads; the EC team uses `/admin` to review numbers before c
 - **No public sign-up.** Logins are created by an admin (Supabase invite), then linked by setting `profiles.client_id`.
 - **Numbers reach clients only after approval** in `/admin/approvals`. Pull jobs insert `pending`, or `flagged` with a `flag_reason` when a value is far outside that client's usual range.
 - **Notion is the source of truth for what was sold and scheduled.** `[Master] Energy Central Campaigns` → `campaigns`; `[Master] Energy Central Campaign Inventory` → `deliverables` (one row per EC-XXXX tag). A client is "live" if it has a campaign not marked Done. The sync creates a client for every Partner that has a campaign and sets `is_active` from Notion on each run; non-client partners (house ads, DTECH, RE+) are in `SKIP_PARTNERS` and spelling variants in `PARTNER_ALIASES` in `scripts/sync-notion.ts`.
+- **Names and links.** The portal shows the Notion `Deliverable` value verbatim (`deliverable_label`), so clients read exactly what was sold. Newsletter ads link to that day's issue through `newsletter_issues` (publication + date); everything else links through `deliverables.live_url`. Pulls should fill both.
 - **Website ad impressions are out of scope** until an ad server exists (the current "home page views" figure doesn't reconcile). Do not surface `website_ad` impressions to clients.
 - Brand: navy #225591, yellow #FFE02D, orange #FD713B, blue #3F8EF5; fonts Family (display) and Switzer (body). Say "daily newsletter", never "briefing"; sponsored posts are "Partner Content".
 
@@ -36,7 +37,7 @@ Short.io links do not follow one naming pattern (`Semtech.10.8.news`, `Semtec.9.
 6. Flagging: compare each new value to the client's median for that metric and deliverable type; flag beyond 3x.
 7. Tally webhook → `leads` (consent checkbox → `consent`); Zoom Events registrants/attendees → `metrics` + `leads`.
 8. Admin: invite a client user and link to a client; leads table with CSV export in `/portal`.
-9. History import from the legacy reports in `clients.customer_report_sheet_url`. They are a mix of Google Sheets and .xlsx with the same 8 tabs; insert as `source = 'legacy_sheet'`, `status = 'pending'`.
+9. [Semtech done as pilot; `scripts/import-legacy.ts` + `data/legacy/*.json`, run from the "Import legacy reports" Action] History import from the legacy reports in `clients.customer_report_sheet_url`. They are a mix of Google Sheets and .xlsx with the same 8 tabs; insert as `source = 'legacy_sheet'`, `status = 'pending'`.
 10. Schedule the pulls nightly (Vercel Cron or Supabase scheduled functions).
 
 ## Commands

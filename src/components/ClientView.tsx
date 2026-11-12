@@ -2,10 +2,10 @@ import { createClient } from "@/lib/supabase/server";
 import { Stat, Empty, fmt, TYPE_LABEL } from "@/components/Shell";
 
 type Metric = { metric: string; value: number; status: string; source: string };
-type Deliverable = { id: string; inventory_tag: string | null; deliverable_type: string; title: string | null; ec_brand: string[] | null;
-  placement: string | null; start_date: string | null; reporting_due_date: string | null; status: string | null; metrics: Metric[] };
+type Deliverable = { id: string; inventory_tag: string | null; deliverable_type: string; deliverable_label: string | null; title: string | null;
+  ec_brand: string[] | null; live_url: string | null; placement: string | null; start_date: string | null; reporting_due_date: string | null; status: string | null; metrics: Metric[] };
 /** One line in a channel table. Same-day newsletter placements are merged into one line, the way clients think about them. */
-type Line = { key: string; type: string; date: string | null; due: string | null; label: string; detail: string | null;
+type Line = { key: string; type: string; date: string | null; due: string | null; label: string; detail: string | null; link: string | null; linkText: string;
   values: Record<string, number>; waiting: boolean; tags: string[] };
 
 /** Channels in the order a client reads them. `cols` are raw numbers; `rates` are worked out from them at display time,
@@ -28,7 +28,6 @@ const SITE_TYPES = ["website_ad", "community_takeover", "sponsorship"];
 const pct = (n: number, d: number) => `${((n / d) * 100).toFixed(n / d < 0.1 ? 2 : 1)}%`;
 const DATE = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
 const fmtDate = (d: string | null) => (d ? DATE.format(new Date(d + "T00:00:00Z")) : "Unscheduled");
-const PLACEMENT = (p: string) => (p === "hero" ? "Hero" : p.replace("spot_", "Position "));
 
 /** Campaign results for one client. Used by the client portal and by admins previewing a client.
  *  showAll=true (admin) includes numbers that aren't approved yet; clients never receive those rows from the database. */
@@ -38,19 +37,25 @@ export async function ClientView({ clientId, showAll, preview = false }: { clien
   const supabase = await createClient();
   const [{ data: dels }, { count: leadCount }] = await Promise.all([
     supabase.from("deliverables")
-      .select("id, inventory_tag, deliverable_type, title, ec_brand, placement, start_date, reporting_due_date, status, metrics(metric, value, status, source)")
+      .select("id, inventory_tag, deliverable_type, deliverable_label, title, ec_brand, live_url, placement, start_date, reporting_due_date, status, metrics(metric, value, status, source)")
       .eq("client_id", clientId).order("start_date", { ascending: false, nullsFirst: false }),
     supabase.from("leads").select("id", { count: "exact", head: true }).eq("client_id", clientId),
   ]);
   const rows = (dels ?? []) as Deliverable[];
   const today = new Date().toISOString().slice(0, 10);
+  const nlDates = [...new Set(rows.filter((d) => d.deliverable_type === "newsletter_ad" && d.start_date).map((d) => d.start_date!))];
+  const { data: issues } = nlDates.length
+    ? await supabase.from("newsletter_issues").select("publication, issue_date, title, web_url").in("issue_date", nlDates)
+    : { data: [] };
+  const issueFor = (d: Deliverable) => (issues ?? []).find((i) => i.issue_date === d.start_date
+    && i.publication === ((d.ec_brand ?? []).includes("Weekly") ? "weekly" : "daily"));
   if (rows.length === 0) return <Empty>Nothing here yet. Campaigns appear once they are scheduled.</Empty>;
 
   const lines = new Map<string, Line & { placements: string[] }>();
   for (const d of rows) {
     const merge = d.deliverable_type === "newsletter_ad" && d.start_date;
     const key = merge ? `nl-${d.start_date}` : d.id;
-    const line = lines.get(key) ?? { key, type: d.deliverable_type, date: d.start_date, due: d.reporting_due_date, label: "", detail: null,
+    const line = lines.get(key) ?? { key, type: d.deliverable_type, date: d.start_date, due: d.reporting_due_date, label: "", detail: null, link: null, linkText: "",
       values: {}, waiting: false, tags: [], placements: [] };
     for (const m of d.metrics) {
       if (!showAll && m.status !== "approved") continue;
@@ -58,13 +63,22 @@ export async function ClientView({ clientId, showAll, preview = false }: { clien
       line.values[m.metric] ??= Number(m.value);
       if (m.status !== "approved") line.waiting = true;
     }
-    if (d.placement) line.placements.push(PLACEMENT(d.placement));
     if (d.inventory_tag) line.tags.push(d.inventory_tag);
+    // Names come straight from the Notion "Deliverable" value, so the portal says exactly what was sold.
+    const sold = d.deliverable_label || TYPE_LABEL[d.deliverable_type] || d.deliverable_type;
     if (merge) {
-      line.label = [(d.ec_brand ?? []).join(", ") || "Newsletter", line.placements.sort().join(" + ")].filter(Boolean).join(" · ");
+      // "Newsletter Ad - Hero" + "Newsletter Ad - 1st Spot" on the same day → "Newsletter Ad - Hero + 1st Spot"
+      line.placements.push(sold.replace(/^Newsletter Ad - /i, ""));
+      const order = ["Hero", "1st Spot", "2nd Spot", "3rd Spot", "4th Spot", "5th Spot"];
+      line.placements.sort((a, b) => order.indexOf(a) - order.indexOf(b));
+      const issue = issueFor(d);
+      line.label = `Newsletter Ad - ${line.placements.join(" + ")}`;
+      line.detail = [(d.ec_brand ?? []).join(", "), issue?.title].filter(Boolean).join(" · ") || null;
+      line.link = issue?.web_url ?? null; line.linkText = "View the issue";
     } else {
-      line.label = d.title || TYPE_LABEL[d.deliverable_type] || d.deliverable_type;
-      line.detail = d.title ? TYPE_LABEL[d.deliverable_type] ?? null : null;
+      line.label = d.title || sold;
+      line.detail = [d.title ? sold : null, (d.ec_brand ?? []).join(", ")].filter(Boolean).join(" · ") || null;
+      line.link = d.live_url; line.linkText = "View it live";
     }
     lines.set(key, line);
   }
@@ -127,6 +141,7 @@ export async function ClientView({ clientId, showAll, preview = false }: { clien
                       <td className="whitespace-nowrap px-4 py-3 tabular-nums">{fmtDate(l.date)}</td>
                       <td className="px-4 py-3"><span className="font-medium">{l.label}</span>
                         {l.detail && <span className="block text-ink/60">{l.detail}</span>}
+                        {l.link && <a href={l.link} target="_blank" rel="noreferrer" className="inline-block py-1 text-navy underline-offset-2 hover:underline">{l.linkText} ↗</a>}
                         {admin && <span className="block text-xs text-ink/50">{l.tags.join(", ")}{l.waiting && <span className="ml-2 rounded bg-sun/60 px-1 text-ink">waiting for approval</span>}</span>}</td>
                       {has(l) ? (
                         <>
