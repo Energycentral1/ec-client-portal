@@ -29,6 +29,15 @@ export function ProofForm({ clientId, placements }: { clientId: string; placemen
           <input name="link_url" type="url" placeholder="https://" className={field} /></label>
         <label className="block sm:col-span-2">Ad copy, exactly as it will run <span className="text-ink/50">(optional)</span>
           <textarea name="copy_text" rows={3} className={field} /></label>
+        <label className="block">Linked call to action <span className="text-ink/50">(the clickable words, optional)</span>
+          <input name="cta_text" placeholder="Run your numbers today" className={field} /></label>
+        <label className="block">Show the client a preview as
+          <select name="format" className={field} defaultValue="">
+            <option value="">Match the placement</option>
+            <option value="newsletter_ad">Newsletter ad (image beside copy)</option>
+            <option value="newsletter_hero">Newsletter sponsor logo (top of the issue)</option>
+            <option value="plain">Just the creative</option>
+          </select></label>
         <label className="block">Where the ad clicks to <span className="text-ink/50">(optional)</span>
           <input name="click_url" type="url" placeholder="https://" className={field} /></label>
         <label className="block">Approve by <span className="text-ink/50">(default: 3 days before it runs)</span>

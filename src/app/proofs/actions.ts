@@ -57,7 +57,7 @@ export async function addProof(_prev: ProofFormState, fd: FormData): Promise<Pro
     if (error) return { error: `Upload failed: ${error.message}` };
   }
   const { error } = await supabase.from("proofs").insert({ client_id: clientId, deliverable_id: deliverableId, name, copy_text: copy, click_url: click,
-    note: text(fd, "note"), file_path: path, link_url: link, due_date: due });
+    note: text(fd, "note"), file_path: path, link_url: link, due_date: due, cta_text: text(fd, "cta_text"), format: text(fd, "format") });
   if (error) {
     if (path) await supabase.storage.from("proofs").remove([path]);
     return { error: error.message };

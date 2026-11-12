@@ -111,7 +111,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
     return b ? Number(b.value) : undefined;
   };
   const { data: proofRows } = await supabase.from("proofs")
-    .select("id, deliverable_id, name, copy_text, click_url, note, file_path, link_url, due_date, status, feedback, reviewed_by_email, reviewed_at, created_at")
+    .select("id, deliverable_id, name, copy_text, click_url, cta_text, format, note, file_path, link_url, due_date, status, feedback, reviewed_by_email, reviewed_at, created_at")
     .eq("client_id", clientId).order("created_at", { ascending: false });
   const proofs = (proofRows ?? []) as Proof[];
   const paths = proofs.filter((p) => p.file_path).map((p) => p.file_path!);
@@ -198,6 +198,13 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   // Proofs: the newest version for each placement is the live one; earlier versions fold away underneath it.
   const soldLabel = (d: Deliverable) => d.deliverable_label || TYPE_LABEL[d.deliverable_type] || d.deliverable_type;
   const placementOf = (p: Proof) => { const d = rows.find((r) => r.id === p.deliverable_id); return d ? { label: d.display_title || soldLabel(d), date: d.start_date } : null; };
+  // Which layout to preview a proof in: what the team picked, otherwise whatever the placement is.
+  const kindOf = (p: Proof): "newsletter_ad" | "newsletter_hero" | "plain" => {
+    if (p.format) return p.format;
+    const d = rows.find((r) => r.id === p.deliverable_id);
+    if (d?.deliverable_type !== "newsletter_ad") return "plain";
+    return /hero/i.test(soldLabel(d)) ? "newsletter_hero" : "newsletter_ad";
+  };
   const proofGroups: { latest: Proof; older: Proof[] }[] = [];
   for (const p of proofs) {
     const g = p.deliverable_id ? proofGroups.find((x) => x.latest.deliverable_id === p.deliverable_id) : undefined;
@@ -259,7 +266,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
             <div className="mt-4 grid gap-4 lg:grid-cols-2">
               {proofGroups.map((g) => (
                 <div key={g.latest.id} className="flex flex-col">
-                  <ProofCard proof={g.latest} fileUrl={fileUrl(g.latest)} placement={placementOf(g.latest)} version={g.older.length ? g.older.length + 1 : null} admin={admin} today={today} />
+                  <ProofCard proof={g.latest} fileUrl={fileUrl(g.latest)} placement={placementOf(g.latest)} kind={kindOf(g.latest)} version={g.older.length ? g.older.length + 1 : null} admin={admin} today={today} />
                   {g.older.length > 0 && (
                     <details className="mt-2 text-sm"><summary className="cursor-pointer text-ink/70 hover:text-navy">{g.older.length} earlier {g.older.length === 1 ? "version" : "versions"}</summary>
                       <ul className="mt-2 space-y-2">{g.older.map((o, i) => (
