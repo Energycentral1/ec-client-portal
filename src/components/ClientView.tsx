@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import { Empty, fmt, TYPE_LABEL } from "@/components/Shell";
 import { LeadsTable, type LeadRow } from "@/components/LeadsTable";
+import { ProofCard, PROOF_STATUS, type Proof } from "@/components/Proofs";
+import { ProofForm } from "@/components/ProofForm";
 
 type Metric = { metric: string; value: number; status: string; source: string };
 type Deliverable = { id: string; inventory_tag: string | null; deliverable_type: string; deliverable_label: string | null; title: string | null; display_title: string | null;
@@ -106,6 +108,14 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
     const b = (benchRows ?? []).find((r) => r.deliverable_type === type && r.metric === metric);
     return b ? Number(b.value) : undefined;
   };
+  const { data: proofRows } = await supabase.from("proofs")
+    .select("id, deliverable_id, name, copy_text, click_url, note, file_path, link_url, due_date, status, feedback, reviewed_by_email, reviewed_at, created_at")
+    .eq("client_id", clientId).order("created_at", { ascending: false });
+  const proofs = (proofRows ?? []) as Proof[];
+  const paths = proofs.filter((p) => p.file_path).map((p) => p.file_path!);
+  // Proof files live in a private bucket; these links work for an hour.
+  const { data: signed } = paths.length ? await supabase.storage.from("proofs").createSignedUrls(paths, 3600) : { data: [] };
+  const fileUrl = (p: Proof) => (signed ?? []).find((x) => x.path === p.file_path)?.signedUrl ?? null;
   const rows = (dels ?? []) as Deliverable[];
   const today = new Date().toISOString().slice(0, 10);
   const nlDates = [...new Set(rows.filter((d) => d.deliverable_type === "newsletter_ad" && d.start_date).map((d) => d.start_date!))];
@@ -114,7 +124,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
     : { data: [] };
   const issueFor = (d: Deliverable) => (issues ?? []).find((i) => i.issue_date === d.start_date
     && i.publication === ((d.ec_brand ?? []).includes("Weekly") ? "weekly" : "daily"));
-  if (rows.length === 0) return <Empty>Nothing here yet. Campaigns appear once they are scheduled.</Empty>;
+  if (rows.length === 0 && proofs.length === 0) return <Empty>Nothing here yet. Campaigns appear once they are scheduled.</Empty>;
 
   const lines = new Map<string, Line & { placements: string[] }>();
   for (const d of rows) {
@@ -183,7 +193,21 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   if (sum(ev, "attendees") > 0) summary.push({ label: ev.length === 1 ? "Session" : `${ev.length} sessions`, value: `${fmt(sum(ev, "attendees"))} attended`,
     sub: `${fmt(sum(ev, "registrants"))} registered, ${pct(sum(ev, "attendees"), sum(ev, "registrants"))} attendance` });
   if (leads.length > 0) summary.push({ label: "Leads", value: fmt(leads.length), sub: <a href="#leads" className="text-navy underline decoration-navy/30 underline-offset-2">View and download</a> });
-  const sections = [...CHANNELS.filter((ch) => delivered.some((l) => ch.types.includes(l.type))).map((ch) => ({ id: ch.id, title: ch.title })),
+  // Proofs: the newest version for each placement is the live one; earlier versions fold away underneath it.
+  const soldLabel = (d: Deliverable) => d.deliverable_label || TYPE_LABEL[d.deliverable_type] || d.deliverable_type;
+  const placementOf = (p: Proof) => { const d = rows.find((r) => r.id === p.deliverable_id); return d ? { label: d.display_title || soldLabel(d), date: d.start_date } : null; };
+  const proofGroups: { latest: Proof; older: Proof[] }[] = [];
+  for (const p of proofs) {
+    const g = p.deliverable_id ? proofGroups.find((x) => x.latest.deliverable_id === p.deliverable_id) : undefined;
+    if (g) g.older.push(p); else proofGroups.push({ latest: p, older: [] });
+  }
+  const rank = { awaiting_review: 0, changes_requested: 1, approved: 2 };
+  proofGroups.sort((a, b) => rank[a.latest.status] - rank[b.latest.status]);
+  const awaiting = proofGroups.filter((g) => g.latest.status === "awaiting_review").length;
+  const proofFor = (l: Line) => proofGroups.find((g) => g.latest.deliverable_id && l.ids.includes(g.latest.deliverable_id))?.latest;
+  const placements = [...rows.filter((d) => d.start_date && d.start_date > today).reverse(), ...rows.filter((d) => !(d.start_date && d.start_date > today)).slice(0, 15)]
+    .map((d) => ({ id: d.id, label: `${fmtDate(d.start_date)}: ${d.display_title || soldLabel(d)}` }));
+  const sections = [...(proofGroups.length || admin ? [{ id: "proofs", title: awaiting ? `Creative proofs (${awaiting})` : "Creative proofs" }] : []), ...CHANNELS.filter((ch) => delivered.some((l) => ch.types.includes(l.type))).map((ch) => ({ id: ch.id, title: ch.title })),
     ...(leads.length ? [{ id: "leads", title: "Leads" }] : []), ...(upcoming.length ? [{ id: "upcoming", title: "Coming up" }] : [])];
 
   return (
@@ -215,6 +239,31 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
         <nav aria-label="Sections" className="sticky top-0 z-10 -mx-4 mt-5 flex gap-1 overflow-x-auto border-b border-line bg-cream/95 px-4 py-2 text-sm backdrop-blur">
           {sections.map((s) => <a key={s.id} href={`#${s.id}`} className="whitespace-nowrap rounded-full px-3 py-2 text-ink/80 hover:bg-white hover:text-navy">{s.title}</a>)}
         </nav>
+      )}
+
+      {(proofGroups.length > 0 || admin) && (
+        <section id="proofs" className="mt-10 scroll-mt-16">
+          <h2 className="font-display text-2xl">{!admin && awaiting ? "Creative for your approval" : "Creative proofs"}</h2>
+          {!admin && <p className="mt-1 max-w-2xl text-sm text-ink/70">{awaiting ? "This is what will run. Check the creative and where it clicks to, then approve it or tell us what to change." : "The creative you have reviewed, with who signed it off."}</p>}
+          {proofGroups.length > 0 && (
+            <div className="mt-4 grid gap-4 lg:grid-cols-2">
+              {proofGroups.map((g) => (
+                <div key={g.latest.id} className="flex flex-col">
+                  <ProofCard proof={g.latest} fileUrl={fileUrl(g.latest)} placement={placementOf(g.latest)} version={g.older.length ? g.older.length + 1 : null} admin={admin} today={today} />
+                  {g.older.length > 0 && (
+                    <details className="mt-2 text-sm"><summary className="cursor-pointer text-ink/70 hover:text-navy">{g.older.length} earlier {g.older.length === 1 ? "version" : "versions"}</summary>
+                      <ul className="mt-2 space-y-2">{g.older.map((o, i) => (
+                        <li key={o.id} className="rounded-xl border border-line bg-white px-4 py-3">Version {g.older.length - i}: {o.name}, {PROOF_STATUS[o.status][0].toLowerCase().replace("needs your approval", "replaced before review")}
+                          {o.feedback && <span className="block text-ink/70">{o.feedback}</span>}
+                          {fileUrl(o) && <a href={fileUrl(o)!} target="_blank" rel="noreferrer" className="text-navy underline decoration-navy/30 underline-offset-2">Open the file</a>}</li>
+                      ))}</ul></details>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+          {admin && <div className="mt-4"><ProofForm clientId={clientId} placements={placements} /></div>}
+        </section>
       )}
 
       {CHANNELS.map((ch) => {
@@ -291,7 +340,8 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
           <ul className="mt-3 divide-y divide-line rounded-2xl border border-line bg-white text-sm">
             {upcoming.map((l) => (
               <li key={l.key} className="flex flex-wrap gap-x-4 px-4 py-3"><span className="w-28 tabular-nums text-ink/70">{fmtDate(l.date)}</span>
-                <span className="font-medium">{l.label}</span>{l.detail && <span className="text-ink/60">{l.detail}</span>}</li>
+                <span className="font-medium">{l.label}</span>{l.detail && <span className="text-ink/60">{l.detail}</span>}
+                {proofFor(l) && <a href="#proofs" className={`ml-auto rounded-full px-2.5 py-1 text-xs font-semibold ${PROOF_STATUS[proofFor(l)!.status][1]}`}>Creative: {PROOF_STATUS[proofFor(l)!.status][0].toLowerCase()}</a>}</li>
             ))}
           </ul>
         </section>
