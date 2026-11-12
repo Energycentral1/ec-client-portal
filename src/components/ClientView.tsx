@@ -226,7 +226,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   const reach = sum(delivered, "impressions") + sum(delivered, "sent") + sum(delivered, "views");
   const nlCtr = sum(nl, "impressions") > 0 ? sum(nl, "clicks") / sum(nl, "impressions") : null;
   const summary: { label: string; value: string; sub: React.ReactNode }[] = [];
-  if (reach > 0) summary.push({ label: "Total reach", value: reach >= 1e6 ? `${(reach / 1e6).toFixed(1)}M` : fmt(reach), sub: "Impressions, emails delivered and views" });
+  if (reach > 0) summary.push({ label: "Total reach", value: fmt(reach), sub: "Impressions, emails delivered and views" });
   if (sum(delivered, "clicks") > 0) summary.push({ label: "Clicks", value: fmt(sum(delivered, "clicks")), sub: `Across ${delivered.filter(has).length} placements` });
   if (nlCtr != null) summary.push({ label: "Newsletter CTR", value: pct(sum(nl, "clicks"), sum(nl, "impressions")), sub: <Versus value={nlCtr} avg={bench("newsletter_ad", "ctr")} /> });
   if (sum(ev, "attendees") > 0) summary.push({ label: ev.length === 1 ? "Session" : `${ev.length} sessions`, value: `${fmt(sum(ev, "attendees"))} attended`,
@@ -298,6 +298,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
     for (const [label, n, d] of ch.rates) {
       if (figures.length >= 3 || !RATE_KEY[label] || !(sum(nums, d) > 0)) continue;
       const per = nums.filter((l) => l.values[n] != null && l.values[d]);
+      if (per.length === 0) continue;
       const kinds = new Set(per.map((l) => l.type));
       figures.push({ label: label === "CTR" ? "CTR" : label.toLowerCase(), value: pct(sum(per, n), sum(per, d)),
         ...(kinds.size === 1 && !per.some((l) => l.flight) ? { mean: sum(per, n) / sum(per, d), avg: bench([...kinds][0], RATE_KEY[label]) } : {}) });
@@ -390,7 +391,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
       )}
 
       {(people.size > 0 || upcoming.length > 0) && (
-        <div className="mt-12 grid gap-10 lg:grid-cols-2">
+        <div className={`mt-12 grid gap-10 ${people.size > 0 && upcoming.length > 0 ? "lg:grid-cols-2" : ""}`}>
           {people.size > 0 && (
             <section id="reached" className="scroll-mt-16">
               <h2 className="font-display text-3xl tracking-tight">Who you reached</h2>
