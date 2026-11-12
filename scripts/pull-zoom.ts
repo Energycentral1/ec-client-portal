@@ -109,10 +109,16 @@ async function main() {
     const placements = (dels ?? []).filter((d) => d.campaign_id || !d.notion_page_id);
 
     // 1. Events (past and upcoming) -> placements.
-    const events = [
-      ...(await all(`/zoom_events/events?role_type=host&event_status_type=past&from=${since}T00:00:00Z`, "events")),
-      ...(await all(`/zoom_events/events?role_type=host&event_status_type=upcoming`, "events")),
-    ];
+    // Events are listed per hub as well as for the app owner: most sessions are hosted by other people on the team.
+    const hubList: any[] = await zoom(`/zoom_events/hubs?role_type=host`).then((r) => r.hubs ?? []).catch((e) => { problems.push(`Hubs: ${e.message.slice(0, 160)}`); return []; });
+    console.log(`Hubs: ${hubList.map((h) => `${h.name} (${h.hub_id})`).join("; ") || "none"}`);
+    const seenEv = new Map<string, any>();
+    const scopes = ["", ...hubList.map((h) => `&hub_id=${h.hub_id}`)];
+    for (const sc of scopes) for (const q of [`event_status_type=past&from=${since}T00:00:00Z`, `event_status_type=upcoming`]) {
+      const list = await all(`/zoom_events/events?role_type=host&${q}${sc}`, "events").catch((e) => { problems.push(`Events (${q}${sc}): ${e.message.slice(0, 160)}`); return []; });
+      for (const ev of list) seenEv.set(ev.event_id, ev);
+    }
+    const events = [...seenEv.values()];
     console.log(`Zoom events: ${events.length}. Webinar/PowerSession placements since ${since}: ${placements.length}.`);
     const matched = new Map<string, any>(); // event_id -> placement
     for (const ev of events) {
@@ -134,6 +140,7 @@ async function main() {
       matched.set(ev.event_id, { ...hit, _event: ev });
     }
     console.log(`Matched ${matched.size} events to placements.`);
+    if (DRY) for (const ev of events) console.log(`  event ${ev.start_time ? etDay(ev.start_time) : "?"} | ${ev.name} | ${matched.has(ev.event_id) ? "matched" : "-"}`);
 
     // 2 and 3. Registrations, attendance, numbers.
     const leadRows: any[] = [];
@@ -166,7 +173,7 @@ async function main() {
     }
 
     // 4 and 5. Recordings and on-demand viewers, from every hub.
-    const hubs = await zoom(`/zoom_events/hubs?role_type=host`).then((r) => r.hubs ?? []).catch((e) => { problems.push(`Hubs: ${e.message.slice(0, 120)}`); return []; });
+    const hubs = hubList;
     const placementByVideo = new Map<string, any>();
     for (const hub of hubs) {
       const videos = await all(`/zoom_events/hubs/${hub.hub_id}/videos`, "videos").catch((e) => { problems.push(`Hub "${hub.name}" videos: ${e.message.slice(0, 120)}`); return []; });

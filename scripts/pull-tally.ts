@@ -40,12 +40,12 @@ const squash = (s: string) => (s ?? "").toLowerCase().replace(/[^a-z0-9]/g, "");
 const words = (s: string) => new Set((s ?? "").toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length > 3));
 const overlap = (a: string, b: string) => { const A = words(a), B = words(b); if (!A.size || !B.size) return 0; let n = 0; for (const w of A) if (B.has(w)) n++; return n / Math.min(A.size, B.size); };
 const days = (a: string, b: string) => Math.abs(Date.parse(a) - Date.parse(b)) / 864e5;
-const PRESENTS_AS: Record<string, string> = { itron: "locusview" };
+const PRESENTS_AS: Record<string, string> = { itron: "locusview", ltm: "ltimindtree" };
 const WEBINAR = ["webinar", "powersession"], GATED = ["gated_content", "non_gated_content", "other"];
 
 /** Tally answers -> lead columns, by question label. */
 function toLead(questions: any[], s: any) {
-  const label = new Map(questions.map((q) => [q.id, String(q.label ?? "").toLowerCase()]));
+  const label = new Map(questions.map((q) => [q.id, `${q.title ?? q.label ?? ""} ${q.type ?? ""}`.toLowerCase()]));
   const out: Record<string, any> = {};
   for (const r of s.responses ?? []) {
     const l = label.get(r.questionId) ?? "";
@@ -100,16 +100,18 @@ async function main() {
         if (scored.length && (scored.length === 1 || scored[0].s > scored[1].s)) d = scored[0].x;
         else {
           const isWebinar = /presents/i.test(name) && !/paper|report|ebook|survey|assessment|guide/i.test(name);
-          const near = mine.filter((x) => x.start_date && (isWebinar ? WEBINAR.includes(x.deliverable_type) && days(x.start_date, f.createdAt) <= 3
+          // Forms are built around the event: a few days before it, or up to a month after for the on-demand replay.
+          const near = mine.filter((x) => x.start_date && (isWebinar ? WEBINAR.includes(x.deliverable_type) && Date.parse(f.createdAt) - Date.parse(x.start_date) <= 30 * 864e5 && Date.parse(x.start_date) - Date.parse(f.createdAt) <= 5 * 864e5
             : GATED.includes(x.deliverable_type) && days(x.start_date, f.createdAt) <= 45));
           if (near.length === 1) d = near[0];
-          else { problems.push(`"${name}" (${client.name}, form made ${String(f.createdAt).slice(0, 10)}): ${near.length} possible placements${near.length ? `: ${near.map((x) => `${x.start_date} ${x.inventory_tag ?? ""}`).join(", ")}` : ""}`); continue; }
+          else { problems.push(`"${name}" (${client.name}, form made ${String(f.createdAt).slice(0, 10)}): ${near.length} possible placements${near.length ? `: ${near.map((x) => `${x.start_date} ${x.inventory_tag ?? ""}`).join(", ")}` : `; client has ${mine.map((x) => `${x.deliverable_type} ${x.start_date}`).slice(0, 6).join(", ") || "no webinar or content placements on a campaign"}`}`); continue; }
         }
         link.set(d.id, f.id);
       }
       const source = WEBINAR.includes(d.deliverable_type) ? "webinar_on_demand" : "gated_content";
       for (let page = 1; page < 50; page++) {
         const r = await tally(`/forms/${f.id}/submissions?page=${page}&limit=500&filter=completed`);
+        if (DRY && page === 1 && leads.length === 0) console.log(`  shape check "${name.slice(0, 40)}": keys ${Object.keys(r).join(",")}; question keys ${Object.keys((r.questions ?? [])[0] ?? {}).join(",")}; submission keys ${Object.keys((r.submissions ?? [])[0] ?? {}).join(",")}`);
         for (const s of r.submissions ?? []) {
           const l = toLead(r.questions ?? [], s);
           if (!l.email) continue;
