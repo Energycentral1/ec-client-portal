@@ -6,7 +6,7 @@ import { ApprovalCells } from "@/components/ApprovalRow";
 type Row = { id: string; metric: string; value: number; source: string; status: string; flag_reason: string | null;
   clients: { name: string; slug: string } | null;
   deliverables: { deliverable_type: string; deliverable_label: string | null; display_title: string | null; start_date: string | null; inventory_tag: string | null;
-    notion_page_id: string | null; live_url: string | null; short_link: string | null; ec_brand: string[] | null } | null };
+    notion_page_id: string | null; live_url: string | null; short_link: string | null; short_link_id: string | null; ec_brand: string[] | null } | null };
 const SOURCE: Record<string, string> = { beehiiv: "beehiiv", shortio: "short.io", zoom: "Zoom", tally: "Tally", manual: "typed in", legacy_sheet: "old report" };
 
 /** Approvals: every number waiting, with a way to open the thing it measures, check it in Notion, correct it, and approve. */
@@ -16,7 +16,7 @@ export default async function Approvals({ searchParams }: { searchParams: Promis
   const { data: clients } = await supabase.from("clients").select("id, name, slug").order("name");
   const current = (clients ?? []).find((c) => c.slug === sp.client);
   let query = supabase.from("metrics")
-    .select("id, metric, value, source, status, flag_reason, clients(name, slug), deliverables(deliverable_type, deliverable_label, display_title, start_date, inventory_tag, notion_page_id, live_url, short_link, ec_brand)")
+    .select("id, metric, value, source, status, flag_reason, clients(name, slug), deliverables(deliverable_type, deliverable_label, display_title, start_date, inventory_tag, notion_page_id, live_url, short_link, short_link_id, ec_brand)")
     .in("status", ["flagged", "pending"]).order("status").order("pulled_at", { ascending: false }).limit(300);
   if (current) query = query.eq("client_id", current.id);
   const { data } = await query;
@@ -56,7 +56,7 @@ export default async function Approvals({ searchParams }: { searchParams: Promis
                     {d?.display_title && <span className="block text-ink/70">{d.display_title}</span>}
                     <span className="mt-0.5 flex flex-wrap gap-x-3 text-xs">
                       {link ? <a href={link} target="_blank" rel="noreferrer" className={a}>{d?.deliverable_type === "newsletter_ad" ? "Open the issue" : "Open it"}</a> : <span className="text-ink/40">No link saved</span>}
-                      {d?.short_link && <a href={`${d.short_link}+`} target="_blank" rel="noreferrer" className={a}>Short link</a>}
+                      {d?.short_link_id && <a href={`https://app.short.io/users/dashboard/1327932/links/${d.short_link_id}/statistics`} target="_blank" rel="noreferrer" className={a} title={d.short_link ?? undefined}>Click stats</a>}
                       {d?.notion_page_id && <a href={`https://www.notion.so/${d.notion_page_id.replace(/-/g, "")}`} target="_blank" rel="noreferrer" className={a}>{d.inventory_tag ?? "Notion"}</a>}
                       {r.clients && <Link href={`/admin/enter?client=${r.clients.slug}&q=${encodeURIComponent(d?.inventory_tag ?? d?.start_date ?? "")}`} className={a}>Edit placement</Link>}
                     </span>
