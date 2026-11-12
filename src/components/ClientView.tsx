@@ -3,6 +3,7 @@ import { Empty, fmt, TYPE_LABEL } from "@/components/Shell";
 import { LeadsTable, type LeadRow } from "@/components/LeadsTable";
 import { ProofCard, PROOF_STATUS, type Proof } from "@/components/Proofs";
 import { ProofForm } from "@/components/ProofForm";
+import { CountUp } from "@/components/CountUp";
 import { companyTypeOf, seniorityOf } from "@/lib/leadProfile";
 
 type Metric = { metric: string; value: number; status: string; source: string; window_start: string | null; window_end: string | null };
@@ -277,7 +278,6 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   const periodMeta = dated.length ? `Since ${MONTH_YEAR.format(new Date(ms(dated[0])))}` : null;
   const placementsMeta = totals.total > 0 ? `${totals.ran} of ${totals.total} placements have run` : ran > 0 ? `${ran} ${ran === 1 ? "placement" : "placements"} delivered` : null;
   const heroLead = !firstYear || firstYear === thisYear ? "This year you reached" : `Since ${firstYear}, you've reached`;
-  const reachWords = reach >= 1e6 ? `${(reach / 1e6).toFixed(2).replace(/\.?0+$/, "")} million` : fmt(reach);
 
 
   const sections = [...(proofGroups.length || admin ? [{ id: "approvals", title: awaiting ? `Creative approvals (${awaiting})` : "Creative approvals" }] : []), ...CHANNELS.filter((ch) => delivered.some((l) => ch.types.includes(l.type) && inYear(l))).map((ch) => ({ id: ch.id, title: ch.title })),
@@ -294,13 +294,24 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
       )}
 
 
-      <section className="mt-8 max-w-4xl">
-        <p className="text-sm text-ink/70">{[clientName, periodMeta, placementsMeta].filter(Boolean).join(" · ")}</p>
+      <section className="mt-8">
+        <p className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-ink/70">
+          <span>{[clientName, periodMeta, placementsMeta].filter(Boolean).join(" · ")}</span>
+          {reach > 0 && (
+            <span className="inline-flex items-center gap-2 rounded-full bg-sun px-3 py-1 text-xs font-medium text-ink">
+              <span className="relative flex h-2 w-2" aria-hidden="true">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-[#FD713B] opacity-75 motion-safe:animate-ping" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#FD713B]" />
+              </span>
+              Live total: grows as new results come in
+            </span>
+          )}
+        </p>
         {reach > 0 ? (
-          <h1 className="mt-3 font-display text-4xl leading-[1.05] tracking-tight sm:text-6xl">
-            {heroLead} <em>{reachWords}</em> energy professionals.
+          <h1 className="mt-3 font-display text-4xl leading-[1.05] tracking-tight sm:text-5xl xl:whitespace-nowrap xl:text-[2.9rem]">
+            {heroLead} <em><CountUp value={reach} /></em> energy professionals.
           </h1>
-        ) : <h1 className="mt-3 font-display text-4xl leading-tight sm:text-6xl">{clientName}</h1>}
+        ) : <h1 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">{clientName}</h1>}
       </section>
 
       {summary.length > 0 && (
