@@ -164,6 +164,22 @@ async function main() {
       rows.push({ client_id: d.client_id, deliverable_id: d.id, metric, value, window_start: from, window_end: to, source, status: reason ? "flagged" : "pending", flag_reason: reason, type: d.deliverable_type });
     };
 
+    // Short links of a newsletter ad, read from its issue's click list.
+    const adLinks = (d: any) => {
+      const client = byId.get(d.client_id)!;
+      const pub = (d.ec_brand ?? []).some((b: string) => /weekly/i.test(b)) ? "weekly" : "daily";
+      let issueId = issueFor.get(`${pub}:${d.start_date}`);
+      for (let k = 1; !issueId && pub === "weekly" && k <= 6; k++) issueId = issueFor.get(`weekly:${addDays(d.start_date, k)}`);
+      const issue = issueId ? postById.get(issueId) : undefined;
+      const urls = ((issue?.stats?.clicks ?? []) as any[]).map((c) => { try { return new URL(c.url); } catch { return null; } })
+        .filter((u): u is URL => !!u && u.host === SHORT_DOMAIN && squash(u.pathname).startsWith(token(client.name)));
+      return [...new Set(urls.map((u) => u.pathname.slice(1)))];
+    };
+    // Links already counted on any placement that has clicks (a legacy sheet or an earlier run) are used up before anything
+    // is written, whatever order placements come in: a shared weekly link, or Hero + 1st Spot on one day, is counted once, ever.
+    due.sort((a, b) => a.start_date.localeCompare(b.start_date) || String(a.inventory_tag).localeCompare(String(b.inventory_tag)));
+    for (const d of due) if (d.deliverable_type === "newsletter_ad" && has(d, "clicks")) for (const path of adLinks(d)) if (!usedLinks.has(path)) usedLinks.set(path, d.start_date);
+
     for (const d of due) {
       const client = byId.get(d.client_id)!;
       const label = `${client.name} ${d.start_date} ${d.inventory_tag ?? "no EC tag"}`;
