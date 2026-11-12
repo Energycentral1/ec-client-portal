@@ -1,0 +1,26 @@
+{
+ "client_slug": "3b-protection",
+ "source_url": "https://docs.google.com/spreadsheets/d/1ZfcqBrOUJHwM5Mg-kc2uDrcesQsEOz7Pty9pPw2aoOM/edit",
+ "extracted_on": "2026-11-11",
+ "notes": "Only the Events tab has numbers. Newsletter Advertising and Email tabs say 'No Upcoming Purchased' (Notion's newsletter ads and marketing emails for 3B look like promotion for their own PowerSessions). Website, podcast and content tabs not read yet.",
+ "rows": [
+  {
+   "tab": "events",
+   "date": "2026-01-27",
+   "title": "Holistic Perimeter Security for Utilities in an Uncertain World",
+   "metrics": {
+    "registrants": 239,
+    "attendees": 75
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2026-06-24",
+   "title": "Hardening the Heart of the Grid: Modernizing Substation Physical Security",
+   "metrics": {
+    "registrants": 179,
+    "attendees": 103
+   }
+  }
+ ]
+}

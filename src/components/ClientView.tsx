@@ -170,12 +170,12 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   const all = [...lines.values()];
   const has = (l: Line) => Object.keys(l.values).length > 0;
   const upcoming = all.filter((l) => l.date && l.date > today).sort((a, b) => a.date!.localeCompare(b.date!));
-  // Clients see a delivered line once it has numbers, or while its numbers are still inside the normal reporting window.
-  const delivered = all.filter((l) => !(l.date && l.date > today) && (has(l) || admin || (l.due != null && l.due >= today)));
+  // Everything that ran is listed, with or without numbers yet, so a client never lands on an empty page.
+  // Cancelled and rolled-over rows never ran: only the back-end view shows those.
+  const dead = new Set(rows.filter((d) => /cancel|rolled over/i.test(d.status ?? "")).map((d) => d.id));
+  const delivered = all.filter((l) => !(l.date && l.date > today) && (admin || has(l) || (l.date != null && !l.ids.every((id) => dead.has(id)))));
   const sum = (ls: Line[], k: string) => ls.reduce((s, l) => s + (l.values[k] ?? 0), 0);
 
-  // "Delivered" means it ran, whether or not its numbers have been loaded yet. Cancelled and rolled-over rows never ran.
-  const dead = new Set(rows.filter((d) => /cancel|rolled over/i.test(d.status ?? "")).map((d) => d.id));
   const ranLines = all.filter((l) => l.date && l.date <= today && !l.ids.every((id) => dead.has(id)));
   const ran = ranLines.length; const withResults = ranLines.filter(has).length;
   const lineOf = new Map<string, Line>(all.flatMap((l) => l.ids.map((id) => [id, l] as [string, Line])));
@@ -340,7 +340,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
                         </>
                       ) : (
                         <td colSpan={cols.length + rates.length} className="px-4 py-3 text-right text-ink/50">
-                          {l.due && l.due >= today ? `Results expected ${fmtDate(l.due)}` : "No numbers yet"}</td>
+                          {l.due && l.due >= today ? `Results expected ${fmtDate(l.due)}` : admin ? "No numbers yet" : "Results to come"}</td>
                       )}
                       {showLeads && <td className="px-4 py-3 text-right tabular-nums">{leadsFor(l) > 0 ? <a href="#leads" className="text-navy underline decoration-navy/30 underline-offset-2 hover:decoration-navy">{fmt(leadsFor(l))}</a> : "—"}</td>}
                     </tr>
