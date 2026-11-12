@@ -65,7 +65,8 @@ async function importFile(file: LegacyFile) {
     if (target) { matched++; }
     else {
       const { data: made, error: e } = await db.from("deliverables").insert({
-        client_id: client.id, deliverable_type: tab.types[0], display_title: row.title ?? null, start_date: row.date, end_date: row.end_date ?? null,
+        // No Notion row: use whichever of this tab's types the client has most of, so a sponsorship week isn't filed as a takeover.
+        client_id: client.id, deliverable_type: [...tab.types].sort((x, y) => pool.filter((d) => d.deliverable_type === y).length - pool.filter((d) => d.deliverable_type === x).length)[0], display_title: row.title ?? null, start_date: row.date, end_date: row.end_date ?? null,
         status: "Done", notes: "From the legacy Customer Report; no matching row in Notion inventory.",
       }).select("id, deliverable_type, placement, start_date, inventory_tag, title").single();
       if (e) throw e;
