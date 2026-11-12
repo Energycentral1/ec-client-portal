@@ -12,7 +12,7 @@ export function ProofForm({ clientId, placements }: { clientId: string; placemen
   useEffect(() => { if (state.ok) form.current?.reset(); }, [state.ok]);
   return (
     <form ref={form} action={action} className="rounded-2xl border border-line bg-white p-5 text-sm">
-      <h3 className="text-base font-semibold">Add a proof</h3>
+      <h3 className="text-base font-semibold">Add creative for approval</h3>
       <p className="mt-1 text-ink/60">The client sees it at the top of their page until they approve it or ask for changes.</p>
       <input type="hidden" name="client_id" value={clientId} />
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -21,7 +21,7 @@ export function ProofForm({ clientId, placements }: { clientId: string; placemen
             <option value="">Not tied to a placement</option>
             {placements.map((p) => <option key={p.id} value={p.id}>{p.label}</option>)}
           </select></label>
-        <label className="block">Proof name
+        <label className="block">Name
           <input name="name" required placeholder="Newsletter ad, Dec 3" className={field} /></label>
         <label className="block">Creative file <span className="text-ink/50">(image or PDF, up to 4 MB)</span>
           <input name="file" type="file" accept="image/png,image/jpeg,image/gif,image/webp,application/pdf" className={field} /></label>
@@ -37,7 +37,7 @@ export function ProofForm({ clientId, placements }: { clientId: string; placemen
           <textarea name="note" rows={2} placeholder="What changed in this version, anything to check" className={field} /></label>
       </div>
       <div className="mt-4 flex flex-wrap items-center gap-3">
-        <button type="submit" disabled={pending} className="rounded-lg bg-navy px-4 py-2 font-semibold text-white hover:bg-navy-dark disabled:opacity-50">{pending ? "Adding…" : "Add proof for review"}</button>
+        <button type="submit" disabled={pending} className="rounded-lg bg-navy px-4 py-2 font-semibold text-white hover:bg-navy-dark disabled:opacity-50">{pending ? "Adding…" : "Send for approval"}</button>
         <p role="status" className={state.error ? "text-red-700" : "text-emerald-700"}>{state.error ?? (state.ok ? "Added. It is now waiting for the client." : "")}</p>
       </div>
     </form>

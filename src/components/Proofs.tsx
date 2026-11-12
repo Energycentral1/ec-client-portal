@@ -33,7 +33,7 @@ export function ProofCard({ proof: p, fileUrl, placement, version, admin, today 
       {isImage && fileUrl && (
         // Signed, short-lived storage URL, so next/image optimisation doesn't apply.
         // eslint-disable-next-line @next/next/no-img-element
-        <a href={fileUrl} target="_blank" rel="noreferrer" className="mt-4 block rounded-xl border border-line bg-mist p-3"><img src={fileUrl} alt={`Proof: ${p.name}`} className="mx-auto max-h-80 w-auto max-w-full" /></a>
+        <a href={fileUrl} target="_blank" rel="noreferrer" className="mt-4 block rounded-xl border border-line bg-mist p-3"><img src={fileUrl} alt={`Creative: ${p.name}`} className="mx-auto max-h-80 w-auto max-w-full" /></a>
       )}
       <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
         {fileUrl && <a href={fileUrl} target="_blank" rel="noreferrer" className="text-navy underline decoration-navy/30 underline-offset-2">{isImage ? "Open full size" : "Open the file"}</a>}
@@ -66,7 +66,7 @@ export function ProofCard({ proof: p, fileUrl, placement, version, admin, today 
         {admin && !waiting && <form action={reviewProof}><input type="hidden" name="id" value={p.id} /><input type="hidden" name="decision" value="awaiting_review" /><button type="submit" className={btn}>Send back to review</button></form>}
         {admin && (
           <details className="ml-auto"><summary className="cursor-pointer list-none px-2 py-2 text-ink/60 hover:text-red-700">Remove</summary>
-            <form action={removeProof} className="mt-1"><input type="hidden" name="id" value={p.id} /><button type="submit" className="rounded-lg border border-red-300 px-3 py-2 text-red-700 hover:bg-red-50">Delete this proof for good</button></form></details>
+            <form action={removeProof} className="mt-1"><input type="hidden" name="id" value={p.id} /><button type="submit" className="rounded-lg border border-red-300 px-3 py-2 text-red-700 hover:bg-red-50">Delete this for good</button></form></details>
         )}
       </div>
     </article>

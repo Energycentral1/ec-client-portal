@@ -207,7 +207,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   const proofFor = (l: Line) => proofGroups.find((g) => g.latest.deliverable_id && l.ids.includes(g.latest.deliverable_id))?.latest;
   const placements = [...rows.filter((d) => d.start_date && d.start_date > today).reverse(), ...rows.filter((d) => !(d.start_date && d.start_date > today)).slice(0, 15)]
     .map((d) => ({ id: d.id, label: `${fmtDate(d.start_date)}: ${d.display_title || soldLabel(d)}` }));
-  const sections = [...(proofGroups.length || admin ? [{ id: "proofs", title: awaiting ? `Creative proofs (${awaiting})` : "Creative proofs" }] : []), ...CHANNELS.filter((ch) => delivered.some((l) => ch.types.includes(l.type))).map((ch) => ({ id: ch.id, title: ch.title })),
+  const sections = [...(proofGroups.length || admin ? [{ id: "approvals", title: awaiting ? `Creative approvals (${awaiting})` : "Creative approvals" }] : []), ...CHANNELS.filter((ch) => delivered.some((l) => ch.types.includes(l.type))).map((ch) => ({ id: ch.id, title: ch.title })),
     ...(leads.length ? [{ id: "leads", title: "Leads" }] : []), ...(upcoming.length ? [{ id: "upcoming", title: "Coming up" }] : [])];
 
   return (
@@ -242,8 +242,8 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
       )}
 
       {(proofGroups.length > 0 || admin) && (
-        <section id="proofs" className="mt-10 scroll-mt-16">
-          <h2 className="font-display text-2xl">{!admin && awaiting ? "Creative for your approval" : "Creative proofs"}</h2>
+        <section id="approvals" className="mt-10 scroll-mt-16">
+          <h2 className="font-display text-2xl">{!admin && awaiting ? "Creative for your approval" : "Creative approvals"}</h2>
           {!admin && <p className="mt-1 max-w-2xl text-sm text-ink/70">{awaiting ? "This is what will run. Check the creative and where it clicks to, then approve it or tell us what to change." : "The creative you have reviewed, with who signed it off."}</p>}
           {proofGroups.length > 0 && (
             <div className="mt-4 grid gap-4 lg:grid-cols-2">
@@ -341,7 +341,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
             {upcoming.map((l) => (
               <li key={l.key} className="flex flex-wrap gap-x-4 px-4 py-3"><span className="w-28 tabular-nums text-ink/70">{fmtDate(l.date)}</span>
                 <span className="font-medium">{l.label}</span>{l.detail && <span className="text-ink/60">{l.detail}</span>}
-                {proofFor(l) && <a href="#proofs" className={`ml-auto rounded-full px-2.5 py-1 text-xs font-semibold ${PROOF_STATUS[proofFor(l)!.status][1]}`}>Creative: {PROOF_STATUS[proofFor(l)!.status][0].toLowerCase()}</a>}</li>
+                {proofFor(l) && <a href="#approvals" className={`ml-auto rounded-full px-2.5 py-1 text-xs font-semibold ${PROOF_STATUS[proofFor(l)!.status][1]}`}>Creative: {PROOF_STATUS[proofFor(l)!.status][0].toLowerCase()}</a>}</li>
             ))}
           </ul>
         </section>

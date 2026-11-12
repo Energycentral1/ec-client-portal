@@ -12,13 +12,13 @@ export type ProofFormState = { error?: string; ok?: number };
 /** Energy Central adds a proof for a client to review. Nothing is emailed: the client sees it next time they open the portal. */
 export async function addProof(_prev: ProofFormState, fd: FormData): Promise<ProofFormState> {
   const profile = await getProfile();
-  if (profile?.role !== "admin") return { error: "Only the Energy Central team can add proofs." };
+  if (profile?.role !== "admin") return { error: "Only the Energy Central team can add creative." };
   const clientId = text(fd, "client_id"); const name = text(fd, "name");
   const link = text(fd, "link_url"); const click = text(fd, "click_url"); const copy = text(fd, "copy_text");
   const deliverableId = text(fd, "deliverable_id");
   const file = fd.get("file") as File | null;
   const hasFile = !!file && file.size > 0;
-  if (!clientId || !name) return { error: "Give the proof a name." };
+  if (!clientId || !name) return { error: "Give it a name." };
   if (link && !isHttps(link)) return { error: "The link needs to start with https://" };
   if (click && !isHttps(click)) return { error: "The click-through URL needs to start with https://" };
   if (!hasFile && !link && !copy) return { error: "Add a file, a link or the ad copy." };

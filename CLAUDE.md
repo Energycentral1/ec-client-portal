@@ -44,7 +44,8 @@ Notion inventory rows carry no link and usually no title (`Notes` is internal sh
 ## Benchmarks
 Clients see each number against the Energy Central average as a percent note under the number ("+48% vs average"). The averages themselves are not shown to clients (Chloe, Nov 11 2026). Averages live in the `benchmarks` table (deliverable_type, metric, value; rates `ctr` and `attendance` are fractions), seeded from the media kit "Benchmark Results" slide (Oct 2026). Community takeover averages are in; the website ad average is per week (60K impressions, 25 clicks), so it is not compared yet because placements run for different lengths. Later: recompute from approved portal data once enough clients are in.
 
-## Creative proofs (PJ's ask, Nov 11 2026)
+## Creative approvals (PJ's ask, Nov 11 2026)
+Called "Creative approvals" everywhere a person reads it (Chloe); `proofs` is only the table and code name.
 The team adds the creative a client must sign off (`proofs` table, files in the private `proofs` storage bucket under `<client_id>/`); the client approves or requests changes in the portal through the `review_proof` function, which is the only write clients have. A proof is tied to the placement it runs in (`deliverable_id`); a newer proof for the same placement is the next version and older ones fold away. Each proof can carry the ad copy and the click-through URL, and an approve-by date (default 3 days before the run date). Nothing is emailed yet when a proof is added or reviewed.
 
 ## Leads
