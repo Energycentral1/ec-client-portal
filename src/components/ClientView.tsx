@@ -153,7 +153,8 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
       line.placements.sort((a, b) => order.indexOf(a) - order.indexOf(b));
       const issue = issueFor(d);
       line.label = `Newsletter Ad - ${line.placements.join(" + ")}`;
-      line.detail = [...(d.ec_brand ?? []), d.display_title].filter(Boolean).join(", ") || null;
+      // Issues sent before the Daily was also published to the web have no page to link to: show the headline as plain text.
+      line.detail = [...(d.ec_brand ?? []), d.display_title, issue && !issue.web_url ? issue.title : null].filter(Boolean).join(", ") || null;
       // The issue headline is the link, so the client sees which issue they ran in and can open it.
       line.link = issue?.web_url ?? null; line.linkText = issue?.title || "View the issue";
     } else {
