@@ -97,6 +97,22 @@ async function main() {
   const problems: string[] = [];
   try {
     await auth();
+    if (process.argv.includes("--probe")) {
+      // What this app can see: counts only, no personal data.
+      const tryIt = async (label: string, path: string, key: string) => { try { const r = await zoom(path); console.log(`${label}: ${(r[key] ?? []).length} (total_records ${r.total_records ?? "?"})${(r[key] ?? [])[0] ? ` first keys ${Object.keys(r[key][0]).join(",")}` : ""}`); return r[key] ?? []; } catch (e) { console.log(`${label}: ERROR ${(e as Error).message.slice(0, 200)}`); return []; } };
+      const hubs = await tryIt("hubs host", `/zoom_events/hubs?role_type=host`, "hubs");
+      for (const st of ["past", "upcoming", "draft"]) { await tryIt(`events host ${st}`, `/zoom_events/events?role_type=host&event_status_type=${st}&page_size=300`, "events"); await tryIt(`events attendee ${st}`, `/zoom_events/events?role_type=attendee&event_status_type=${st}&page_size=300`, "events"); }
+      for (const h of hubs) {
+        await tryIt(`hub ${h.name} events past`, `/zoom_events/events?role_type=host&event_status_type=past&hub_id=${h.hub_id}&page_size=300`, "events");
+        const vids = await tryIt(`hub ${h.name} videos`, `/zoom_events/hubs/${h.hub_id}/videos?page_size=300`, "videos");
+        console.log(`  videos with source_event_id: ${vids.filter((v: any) => v.source_event_id).length}; source types ${[...new Set(vids.map((v: any) => v.source_type))].join(",")}; sample: ${vids.slice(0, 4).map((v: any) => `${v.name} | ${v.source_type} | ev ${v.source_event_id ? "yes" : "no"} | ${String(v.play_link ?? "").replace(/[?].*/, "")}`).join(" ;; ")}`);
+        const withEv = vids.find((v: any) => v.source_event_id);
+        if (withEv) { await tryIt(`registration report for "${withEv.name}"`, `/zoom_events/events/${withEv.source_event_id}/reports/ticket_registration?page_size=30`, "registrations"); await tryIt(`attendance report`, `/zoom_events/events/${withEv.source_event_id}/reports/event_attendance?page_size=30`, "attendees"); try { const ev = await zoom(`/zoom_events/events/${withEv.source_event_id}`); console.log(`event detail keys: ${Object.keys(ev).join(",")}; start ${ev.start_time}; name ${ev.name}`); } catch (e) { console.log(`event detail: ERROR ${(e as Error).message.slice(0, 160)}`); } }
+        const chans = await tryIt(`hub ${h.name} vod channels`, `/zoom_events/hubs/${h.hub_id}/vod_channels?page_size=300`, "vod_channels");
+        console.log(`  channels: ${chans.map((c: any) => `${c.name} (${c.channel_id ?? c.id})`).join("; ")}`);
+      }
+      return;
+    }
     const since = new Date(Date.now() - DAYS * 864e5).toISOString().slice(0, 10);
 
     // Placements: webinars and PowerSessions on a campaign (clients never see the rest), plus the client names to match on.

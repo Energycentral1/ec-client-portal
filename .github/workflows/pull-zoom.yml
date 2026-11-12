@@ -10,6 +10,9 @@ on:
         description: Dry run (print what would be written, write nothing)
         type: boolean
         default: false
+      extra:
+        description: Extra flags (leave empty)
+        required: false
 
 jobs:
   pull:
@@ -22,7 +25,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run pull:zoom -- ${{ inputs.dry_run && '--dry' || '' }}
+      - run: npm run pull:zoom -- ${{ inputs.dry_run && '--dry' || '' }} ${{ inputs.extra }}
         env:
           NEXT_PUBLIC_SUPABASE_URL: https://kzaiplniicuuxhprrxxc.supabase.co
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
