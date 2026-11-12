@@ -283,31 +283,6 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   const clicks = sum(delivered, "clicks");
   const heroSub = [clicks > 0 ? `They clicked through ${fmt(clicks)} times` : null,
     sum(ev, "attendees") > 0 ? `${fmt(sum(ev, "attendees"))} people sat through one of your ${sessionWord.toLowerCase()}s live` : null].filter(Boolean).join(", and ");
-  const channelRows = CHANNELS.map((ch) => {
-    const ls = delivered.filter((l) => ch.types.includes(l.type));
-    const items = boughtRows.filter((g) => ch.types.includes(g.type));
-    if (ls.length === 0 && items.length === 0) return null;
-    const nums = ls.filter(has);
-    // Per-placement average against the Energy Central average, only when every placement is one kind and none is a week-long flight.
-    const avgFor = (k: string) => {
-      const per = nums.filter((l) => l.values[k] != null);
-      const kinds = new Set(per.map((l) => l.type));
-      if (!per.length || kinds.size !== 1 || per.some((l) => l.flight)) return { mean: undefined, avg: undefined };
-      return { mean: sum(per, k) / per.length, avg: bench([...kinds][0], k) };
-    };
-    const figures: { label: string; value: string; mean?: number; avg?: number }[] = ch.cols
-      .filter(([k]) => k !== "sent" && nums.some((l) => l.values[k] != null)).slice(0, 2)
-      .map(([k, label]) => ({ label: label.toLowerCase(), value: fmt(sum(nums, k)), ...avgFor(k) }));
-    for (const [label, n, d] of ch.rates) {
-      if (figures.length >= 3 || !RATE_KEY[label] || !(sum(nums, d) > 0)) continue;
-      const per = nums.filter((l) => l.values[n] != null && l.values[d]);
-      if (per.length === 0) continue;
-      const kinds = new Set(per.map((l) => l.type));
-      figures.push({ label: label === "CTR" ? "CTR" : label.toLowerCase(), value: pct(sum(per, n), sum(per, d)),
-        ...(kinds.size === 1 && !per.some((l) => l.flight) ? { mean: sum(per, n) / sum(per, d), avg: bench([...kinds][0], RATE_KEY[label]) } : {}) });
-    }
-    return { id: ch.id, title: ch.title, items, figures, ran: ls.length };
-  }).filter((r) => r != null);
 
   // Who you reached: the people behind the leads, by company and by seniority. One person counts once, however they came in.
   const people = new Map<string, Lead>();
@@ -366,32 +341,6 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
       )}
       {showAll && <p className="mt-3 text-xs text-ink/60">{preview ? "Preview of the client page, with numbers that are still waiting for approval filled in." : "This back-end view includes numbers still waiting for approval. Clients see approved numbers only."}</p>}
 
-      {channelRows.length > 0 && (
-        <section className="mt-12">
-          <h2 className="font-display text-3xl tracking-tight">By channel</h2>
-          <div className="mt-4 border-b border-ink">
-            {channelRows.map((r, i) => (
-              <div key={r.id} className={`grid gap-x-6 gap-y-3 py-5 sm:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,1fr))_auto] sm:items-baseline ${i === 0 ? "border-t border-ink" : "border-t border-line"}`}>
-                <div>
-                  <p className="font-display text-xl">{r.title}</p>
-                  {r.items.map((g) => (
-                    <p key={g.label} className="text-sm text-ink/70">{g.label}: {g.total > 0 ? `${g.ran} of ${g.total} run` : "delivered"}{g.unscheduled > 0 && `, ${g.unscheduled} still to schedule`}</p>
-                  ))}
-                </div>
-                {r.figures.length ? r.figures.map((f) => (
-                  <div key={f.label}>
-                    <p className="text-2xl font-semibold tabular-nums">{f.value}</p>
-                    <p className="text-sm">{f.label}</p>
-                    {f.mean != null && f.avg != null && <Versus value={f.mean} avg={f.avg} />}
-                  </div>
-                )) : <p className="text-sm text-ink/60 sm:col-span-3">{r.ran ? "Results to come" : "Not run yet"}</p>}
-                {Array.from({ length: Math.max(0, 3 - Math.max(1, r.figures.length)) }).map((_, j) => <span key={j} className="hidden sm:block" />)}
-                <a href={`#${r.id}`} className="text-sm text-navy underline decoration-navy/30 underline-offset-2 hover:decoration-navy sm:text-right">{r.id === "events" ? "See each session" : r.id === "email" ? "See each email" : "See each placement"}</a>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
 
       {(people.size > 0 || upcoming.length > 0) && (
         <div className={`mt-12 grid gap-10 ${people.size > 0 && upcoming.length > 0 ? "lg:grid-cols-2" : ""}`}>
