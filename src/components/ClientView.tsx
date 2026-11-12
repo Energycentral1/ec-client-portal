@@ -337,7 +337,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
           ))}
         </dl>
       )}
-      {showAll && <p className="mt-3 text-xs text-ink/60">{preview ? "Preview of the client page, with numbers that are still waiting for approval filled in." : "This back-end view includes numbers still waiting for approval. Clients see approved numbers only."}</p>}
+      {showAll && <p className="mt-3 text-xs text-ink/60">{preview ? "Preview of the client page, with numbers that are still waiting for approval filled in." : "This team view includes numbers still waiting for approval. Clients see approved numbers only."}</p>}
 
 
       {upcoming.length > 0 && (
@@ -360,7 +360,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
 
       {admin && (lanes.length > 0 || ran > withResults) && (
         <div className="mt-10 rounded-3xl bg-navy px-5 py-6 text-white sm:px-8">
-          <p className="text-sm text-white/70">Back-end only</p>
+          <p className="text-sm text-white/70">Team only</p>
           {lanes.length > 0 && <Timeline lanes={lanes} today={today} />}
           {ran > withResults && <p className="mt-4 text-sm text-white/70">{ran - withResults} placements that ran have no numbers yet.</p>}
         </div>

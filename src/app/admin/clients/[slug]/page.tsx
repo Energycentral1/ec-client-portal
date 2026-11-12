@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { ClientTabs } from "@/components/ClientTabs";
 import { ClientView } from "@/components/ClientView";
 
 export default async function AdminClient({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ view?: string; period?: string }> }) {
@@ -13,17 +13,9 @@ export default async function AdminClient({ params, searchParams }: { params: Pr
   const logins = (client.profiles as { email: string }[]) ?? [];
   return (
     <>
-      <h1 className="text-2xl font-semibold">{client.name}</h1>
-      <p className="mt-1 text-sm text-ink/60">
-        {client.is_active ? "Live" : "Past"} · Notion name: {client.notion_partner_name ?? "none"} · Logins: {logins.length ? logins.map((l) => l.email).join(", ") : "none yet"}
-        {client.customer_report_sheet_url && <> · <a className="text-navy hover:underline" href={client.customer_report_sheet_url} target="_blank" rel="noreferrer">Old report</a></>}
-      </p>
-      <p className="mt-4 inline-flex rounded-lg border border-line bg-white p-1 text-sm">
-        <Link href={`/admin/clients/${slug}${sp.period ? `?period=${sp.period}` : ""}`} className={`rounded-md px-3 py-2 ${preview ? "text-ink/70" : "bg-navy text-white"}`}>Back-end view</Link>
-        <Link href={`/admin/clients/${slug}?view=client${sp.period ? `&period=${sp.period}` : ""}`} className={`rounded-md px-3 py-2 ${preview ? "bg-navy text-white" : "text-ink/70"}`}>What the client sees</Link>
-        <Link href={`/admin/enter?client=${slug}`} className="rounded-md px-3 py-2 text-ink/70">Manual entry</Link>
-        <Link href={`/admin/logins?client=${slug}`} className="rounded-md px-3 py-2 text-ink/70">Logins</Link>
-      </p>
+      <ClientTabs slug={slug} name={client.name} active={preview ? "client" : "team"} period={sp.period}
+        meta={<>{client.is_active ? "Live" : "Past"} · {logins.length ? `${logins.length} client login${logins.length === 1 ? "" : "s"}` : "No client logins yet"}
+          {client.customer_report_sheet_url && <> · <a className="text-navy hover:underline" href={client.customer_report_sheet_url} target="_blank" rel="noreferrer">Old report</a></>}</>} />
       <div className="mt-6">
         <ClientView clientId={client.id} clientName={client.name} showAll preview={preview} period={sp.period ?? null}
           basePath={`/admin/clients/${slug}?${preview ? "view=client&" : ""}`} />

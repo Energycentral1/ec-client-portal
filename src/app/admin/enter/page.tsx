@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ClientTabs } from "@/components/ClientTabs";
 import { createClient } from "@/lib/supabase/server";
 import { Empty, TYPE_LABEL } from "@/components/Shell";
 import { CHANNELS } from "@/components/ClientView";
@@ -40,20 +41,22 @@ export default async function ManualEntry({ searchParams }: { searchParams: Prom
   const field = "rounded-lg border border-line bg-white px-3 py-2 text-sm";
   const intro = (
     <>
-      <h1 className="text-2xl font-semibold">Manual entry{current ? `: ${current.name}` : ""}</h1>
-      <p className="mt-1 max-w-3xl text-sm text-ink/60">Fill in or correct any placement: its numbers, the headline the client sees and its link. Laid out like the client page, one table per channel, with each row linked to Notion. A new or changed number waits in Approvals before the client sees it.</p>
+      {current ? <ClientTabs slug={current.slug} name={current.name} active="entry" /> : <h1 className="text-3xl font-semibold">Manual entry</h1>}
+      <p className={`${current ? "mt-5" : "mt-1"} max-w-3xl text-sm text-ink/60`}>Fill in or correct any placement: its numbers, the headline the client sees and its link. Laid out like the client page, one table per channel, with each row linked to Notion. A new or changed number waits in Approvals before the client sees it.</p>
       <form action="/admin/enter" className="mt-4 flex flex-wrap items-center gap-2">
         <input name="q" defaultValue={sp.q ?? ""} placeholder="Search: EC number, headline, date" aria-label="Search placements" className={`${field} w-72`} />
-        <select name="client" defaultValue={sp.client ?? ""} aria-label="Client" className={field}>
-          <option value="">All clients</option>
-          {clients.map((c) => <option key={c.slug} value={c.slug}>{c.name}</option>)}
-        </select>
+        {current ? <input type="hidden" name="client" value={current.slug} /> : (
+          <select name="client" defaultValue="" aria-label="Client" className={field}>
+            <option value="">All clients</option>
+            {clients.map((c) => <option key={c.slug} value={c.slug}>{c.name}</option>)}
+          </select>
+        )}
         <select name="show" defaultValue={sp.show ?? ""} aria-label="Which placements" className={field}>
           <option value="">Everything</option>
           <option value="missing">Needs numbers only</option>
         </select>
         <button className="rounded-lg bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark">Show</button>
-        {(sp.q || sp.client || sp.show) && <Link href="/admin/enter" className="text-sm text-navy hover:underline">Back to all clients</Link>}
+        {(sp.q || sp.show) && <Link href={current ? `/admin/enter?client=${current.slug}` : "/admin/enter"} className="text-sm text-navy hover:underline">Clear</Link>}
       </form>
     </>
   );
@@ -94,7 +97,6 @@ export default async function ManualEntry({ searchParams }: { searchParams: Prom
   return (
     <>
       {intro}
-      {current && <p className="mt-3 text-sm"><Link href={`/admin/clients/${current.slug}`} className="text-navy hover:underline">Back-end view</Link> · <Link href={`/admin/clients/${current.slug}?view=client`} className="text-navy hover:underline">What the client sees</Link></p>}
       {rows.length === 0 ? <div className="mt-6"><Empty>Nothing matches.</Empty></div> : groups.map((g) => (
         <div key={g.cid}>
           {!current && <h2 className="mt-8 text-xl font-semibold"><Link href={`/admin/enter?client=${g.slug}`} className="hover:underline">{g.name}</Link></h2>}

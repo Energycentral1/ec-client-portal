@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { createClient, getProfile } from "@/lib/supabase/server";
+import { ClientTabs } from "@/components/ClientTabs";
 import { AddLogin, LoginRow } from "@/components/LoginForms";
 
 type P = { id: string; email: string; full_name: string | null; role: string; client_id: string | null; created_at: string };
 
-/** Logins: who on the team can use the back-end, and which email addresses can see each client's page. */
+/** Logins: who on the team can sign in, and which email addresses can see each client's page. */
 export default async function Logins({ searchParams }: { searchParams: Promise<{ client?: string }> }) {
   const sp = await searchParams;
   const me = await getProfile();
@@ -24,8 +25,8 @@ export default async function Logins({ searchParams }: { searchParams: Promise<{
   const ready = !!process.env.SUPABASE_SERVICE_ROLE_KEY;
   return (
     <>
-      <h1 className="text-3xl font-semibold">Logins</h1>
-      <p className="mt-2 max-w-2xl text-ink/70">Add or remove who can sign in. Adding someone never emails them: you get their email and password to pass on yourself. Logins don&rsquo;t expire.</p>
+      {current ? <ClientTabs slug={current.slug} name={current.name} active="logins" /> : <h1 className="text-3xl font-semibold">Logins</h1>}
+      <p className={`${current ? "mt-5" : "mt-2"} max-w-2xl text-ink/70`}>Add or remove who can sign in. Adding someone never emails them: you get their email and password to pass on yourself. Logins don&rsquo;t expire.</p>
       {!ready && <p role="alert" className="mt-4 rounded-lg border border-ember/40 bg-white p-3 text-sm">Adding and removing is off until <code>SUPABASE_SERVICE_ROLE_KEY</code> is added in Vercel. The lists below are current.</p>}
 
       {!current && (
@@ -39,14 +40,14 @@ export default async function Logins({ searchParams }: { searchParams: Promise<{
         </section>
       )}
 
-      <section className="mt-10">
-        <h2 className="text-xl font-semibold">{current ? `${current.name} logins` : "Client logins"}</h2>
-        <p className="mt-1 text-sm text-ink/70">A client login sees only that client&rsquo;s page: approved numbers, leads and creative approvals.{current && <> <Link href="/admin/logins" className="text-navy hover:underline">All logins</Link></>}</p>
+      <section className={current ? "mt-6" : "mt-10"}>
+        {!current && <h2 className="text-xl font-semibold">Client logins</h2>}
+        <p className="mt-1 text-sm text-ink/70">A client login sees only that client&rsquo;s page: approved numbers, leads and creative approvals.</p>
         <AddLogin kind="client" clients={clients.map((c) => ({ id: c.id, name: c.name }))} defaultClient={current?.id} />
         {groups.length === 0 && <p className="mt-4 rounded-xl border border-dashed border-line p-6 text-sm text-ink/60">{current ? "No one at this client has a login yet." : "No client has a login yet."}</p>}
         {groups.map((g) => (
           <div key={g.id} className="mt-6">
-            <h3 className="font-semibold"><Link href={`/admin/clients/${g.slug}`} className="hover:underline">{g.name}</Link></h3>
+            {!current && <h3 className="font-semibold"><Link href={`/admin/logins?client=${g.slug}`} className="hover:underline">{g.name}</Link></h3>}
             {g.people.length ? <ul className="mt-2 rounded-xl border border-line bg-white">
               {g.people.map((p) => <LoginRow key={p.id} id={p.id} email={p.email} name={p.full_name} self={false} />)}
             </ul> : <p className="mt-2 text-sm text-ink/60">No logins yet.</p>}

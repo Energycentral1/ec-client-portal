@@ -13,7 +13,7 @@ export default async function AdminHome() {
   const live = rows.filter((c) => c.is_active);
   return (
     <>
-      <h1 className="text-2xl font-semibold">Clients</h1>
+      <h1 className="text-3xl font-semibold">Clients</h1>
       <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Stat label="Live clients" value={live.length} />
         <Stat label="All clients" value={rows.length} />

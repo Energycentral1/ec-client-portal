@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { Suspense } from "react";
+import { NavLinks } from "@/components/NavLinks";
 import { signOut } from "@/app/login/actions";
 
 import { LOGO } from "@/lib/brand";
@@ -9,16 +11,14 @@ export function Shell({ title, nav, email, children }: {
   return (
     <div className="min-h-screen">
       <header className="bg-navy text-white">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-8 gap-y-2 px-4 py-3">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-2.5">
           <Link href="/" className="flex items-center gap-3">
             {/* The logo is the one on news.energycentral.com, served from the same place, so it changes when the site's does. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={LOGO} alt="Energy Central" width={158} height={25} className="h-[25px] w-auto" />
             <span className="border-l border-white/30 pl-3 text-sm text-white/80">{title}</span>
           </Link>
-          <nav className="flex flex-wrap gap-x-5 gap-y-1 text-sm">
-            {nav.map((n) => <Link key={n.href} href={n.href} className="py-2 text-white/85 hover:text-sun">{n.label}</Link>)}
-          </nav>
+          <Suspense fallback={null}><NavLinks nav={nav} /></Suspense>
           <form action={signOut} className="ml-auto flex items-center gap-3 text-sm">
             <span className="text-white/70">{email}</span>
             <Link href="/login/password" className="text-white/85 underline decoration-white/30 underline-offset-2 hover:text-sun">Change password</Link>

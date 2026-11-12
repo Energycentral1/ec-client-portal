@@ -13,7 +13,7 @@ export default async function Approvals() {
   const rows = (data ?? []) as unknown as Row[];
   return (
     <>
-      <h1 className="text-2xl font-semibold">Approvals</h1>
+      <h1 className="text-3xl font-semibold">Approvals</h1>
       <p className="mt-1 text-sm text-ink/60">Clients only see a number after it is approved here. Flagged numbers look unusual and need a second look.</p>
       {rows.length === 0 ? <div className="mt-6"><Empty>Nothing waiting for review.</Empty></div> : (
         <div className="mt-6 overflow-x-auto rounded-xl border border-line bg-white">

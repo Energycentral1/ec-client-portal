@@ -7,7 +7,7 @@ export default async function SyncRuns() {
   const rows = data ?? [];
   return (
     <>
-      <h1 className="text-2xl font-semibold">Data pulls</h1>
+      <h1 className="text-3xl font-semibold">Data pulls</h1>
       <p className="mt-1 text-sm text-ink/60">Every run of every source, newest first.</p>
       {rows.length === 0 ? <div className="mt-6"><Empty>No data pulls have run yet.</Empty></div> : (
         <div className="mt-6 overflow-x-auto rounded-xl border border-line bg-white">
