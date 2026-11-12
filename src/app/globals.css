@@ -1,5 +1,9 @@
-@import url("https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&f[]=sentient@400,500&display=swap");
+@import url("https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&display=swap");
 @import "tailwindcss";
+
+@font-face { font-family: "Family"; src: url("/fonts/family-regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Family"; src: url("/fonts/family-medium.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Family"; src: url("/fonts/family-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
 
 @theme {
   --color-navy: #225591;
@@ -11,8 +15,8 @@
   --color-mist: #f4f6fa;
   --color-line: #dfe5ee;
   --color-cream: #fffdf2;
-  /* "Family" is the brand display face; Sentient stands in until the licensed font files are added. */
-  --font-display: "Family", "Sentient", Georgia, serif;
+  /* Family is the brand display face (files in public/fonts, from "Energy Central - Branding Files 2026"). */
+  --font-display: "Family", Georgia, serif;
   --font-sans: "Switzer", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
