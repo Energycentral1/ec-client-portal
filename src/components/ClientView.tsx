@@ -49,6 +49,7 @@ const OPEN_STATUSES = ["not started", "awaiting assets", "ready for production",
 const MONTH = new Intl.DateTimeFormat("en-US", { month: "short", timeZone: "UTC" });
 const MONTH_YEAR = new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric", timeZone: "UTC" });
 const ms = (d: string) => Date.parse(d + "T00:00:00Z");
+const addDays = (d: string, n: number) => new Date(ms(d) + n * 864e5).toISOString().slice(0, 10);
 
 type Lead = { id: string; deliverable_id: string | null; source: string; attended: boolean | null; email: string; first_name: string | null; last_name: string | null;
   job_title: string | null; company: string | null; company_size: string | null; phone: string | null; city: string | null; state: string | null; country: string | null;
@@ -147,7 +148,11 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   // placement tables lower down (Chloe, Nov 12 2026: a year picker at the top was "too much control").
   const rows = visible;
   const inYear = (l: { date: string | null }) => !year || (l.date ? yearOf(l.date) === year : year === defaultYear);
-  const nlDates = [...new Set(rows.filter((d) => d.deliverable_type === "newsletter_ad" && d.start_date).map((d) => d.start_date!))];
+  // Placements that run inside the newsletter: newsletter ads, and sponsorships sold as newsletter (+ web) weeks.
+  // A sponsorship week links to the first issue it ran in.
+  const inNewsletter = (d: Deliverable) => d.deliverable_type === "newsletter_ad"
+    || (["sponsorship", "community_takeover", "other"].includes(d.deliverable_type) && ((d.ec_brand ?? []).some((b) => /daily|weekly/i.test(b)) || /\bNL\b|newsletter/i.test(d.deliverable_label ?? "")));
+  const nlDates = [...new Set(rows.filter((d) => inNewsletter(d) && d.start_date).flatMap((d) => d.deliverable_type === "newsletter_ad" ? [d.start_date!] : [0, 1, 2, 3, 4, 5, 6].map((n) => addDays(d.start_date!, n))))];
   const { data: issues } = nlDates.length
     ? await supabase.from("newsletter_issues").select("publication, issue_date, title, web_url").in("issue_date", nlDates)
     : { data: [] };
@@ -187,8 +192,15 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
       const name = d.display_title || (admin ? d.title : null);
       line.label = name || sold;
       line.detail = [name ? sold : null, ...(d.ec_brand ?? [])].filter(Boolean).join(", ") || null;
-      line.link = d.live_url;
       line.linkText = ["webinar", "powersession"].includes(d.deliverable_type) ? "Watch the recording" : ["email_blast", "marketing_email"].includes(d.deliverable_type) ? "View the email" : d.deliverable_type === "podcast" ? "Listen to the episode" : "View it live";
+      line.link = d.live_url;
+      if (!line.link && inNewsletter(d) && d.start_date) {
+        const pub = (d.ec_brand ?? []).some((b) => /weekly/i.test(b)) ? "weekly" : "daily";
+        const first = (issues ?? []).filter((i) => i.publication === pub && i.issue_date >= d.start_date! && i.issue_date <= addDays(d.start_date!, 6))
+          .sort((a, b) => a.issue_date.localeCompare(b.issue_date))[0];
+        if (first?.web_url) { line.link = first.web_url; line.linkText = first.title ? `See it in the daily newsletter: ${first.title}` : "See it in the daily newsletter"; }
+        else if (first?.title) line.detail = [line.detail, first.title].filter(Boolean).join(", ");
+      }
     }
     lines.set(key, line);
   }
