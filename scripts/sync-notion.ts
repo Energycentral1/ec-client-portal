@@ -12,7 +12,7 @@ const CAMPAIGNS_DS = "440fe11a-4f04-4022-82bb-99a6f5c76683"; // [Master] Energy 
 const INVENTORY_DS = "170f9ef7-2740-4e08-904f-8378999ebbe0"; // [Master] Energy Central Campaign Inventory
 
 for (const k of ["NEXT_PUBLIC_SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY", "NOTION_TOKEN"]) {
-  if (!process.env[k]) { console.error(`Missing ${k} in .env.local`); process.exit(1); }
+  if (!process.env[k]) { console.error(`Missing ${k} (set it in .env.local, or as a GitHub Actions secret)`); process.exit(1); }
 }
 const notion = new Notion({ auth: process.env.NOTION_TOKEN });
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, { auth: { persistSession: false } });
