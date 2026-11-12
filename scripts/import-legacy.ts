@@ -54,7 +54,7 @@ async function importFile(file: LegacyFile) {
     if (target) { matched++; }
     else {
       const { data: made, error: e } = await db.from("deliverables").insert({
-        client_id: client.id, deliverable_type: tab.types[0], title: row.title ?? null, start_date: row.date, end_date: row.end_date ?? null,
+        client_id: client.id, deliverable_type: tab.types[0], display_title: row.title ?? null, start_date: row.date, end_date: row.end_date ?? null,
         status: "Done", notes: "From the legacy Customer Report; no matching row in Notion inventory.",
       }).select("id, deliverable_type, placement, start_date, inventory_tag, title").single();
       if (e) throw e;
@@ -64,7 +64,7 @@ async function importFile(file: LegacyFile) {
     // Carry over what the sheet knows and Notion doesn't: the event or post name, and where it lives.
     const patch: Record<string, string> = {};
     if (row.live_url) patch.live_url = row.live_url;
-    if (row.title && !target.title && row.tab !== "newsletter") patch.title = row.title;
+    if (row.title) patch.display_title = row.title;
     if (Object.keys(patch).length) { const { error: e3 } = await db.from("deliverables").update(patch).eq("id", target.id); if (e3) throw e3; }
     const rows = Object.entries(row.metrics).map(([metric, value]) => ({
       client_id: client.id, deliverable_id: target.id, metric, value, source: "legacy_sheet", status: "pending",

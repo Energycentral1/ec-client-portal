@@ -3,18 +3,117 @@
   "source_url": "https://docs.google.com/spreadsheets/d/1r4qlrzniXyUQd-t9ffJk-jO6vs369Qx4AbUP15uPhmg/edit",
   "extracted_on": "2026-11-11",
   "rows": [
-    { "tab": "newsletter", "date": "2026-10-08", "title": "Daily News | Hero & Position 1", "metrics": { "impressions": 26149, "clicks": 347 } },
-    { "tab": "newsletter", "date": "2026-10-01", "title": "Daily News | Hero & Position 1", "metrics": { "impressions": 25997, "clicks": 702 } },
-    { "tab": "newsletter", "date": "2026-09-24", "title": "Daily News | Hero & Position 1", "metrics": { "impressions": 26608, "clicks": 454 } },
-    { "tab": "newsletter", "date": "2026-09-10", "title": "Daily News | Hero & Position 1", "metrics": { "impressions": 27714, "clicks": 513 } },
-    { "tab": "newsletter", "date": "2026-03-19", "title": "Daily News | Hero & Position 1", "metrics": { "impressions": 30731, "clicks": 51 } },
-    { "tab": "newsletter", "date": "2026-03-12", "title": "Daily News | Hero & Position 1", "metrics": { "impressions": 31837, "clicks": 65 } },
-    { "tab": "newsletter", "date": "2026-03-05", "title": "Daily News | Hero & Position 1", "metrics": { "impressions": 31002, "clicks": 53 } },
-    { "tab": "newsletter", "date": "2026-02-26", "title": "Daily News | Hero & Position 1", "metrics": { "impressions": 31532, "clicks": 28 } },
-    { "tab": "email", "date": "2026-02-18", "title": "Direct email", "metrics": { "sent": 114830, "opens": 28981, "clicks": 2347 } },
-    { "tab": "email", "date": "2026-11-10", "title": "Direct email", "metrics": { "sent": 106620, "opens": 34843, "clicks": 6242 } },
-    { "tab": "events", "date": "2026-05-26", "title": "Next-Gen Utility Networks: Smart, Secure, and Adaptive", "metrics": { "registrants": 244, "attendees": 100 } },
-    { "tab": "events", "date": "2026-08-04", "title": "How eSIM Delivers Full Coverage for Battery-Constrained Smart Meters", "metrics": { "registrants": 150, "attendees": 67 } },
-    { "tab": "sponsorship", "date": "2026-07-03", "end_date": "2026-08-04", "title": "Community Takeover: Fossil Fuels & Generation", "metrics": { "impressions": 6750, "clicks": 8 } }
+    {
+      "tab": "newsletter",
+      "date": "2026-10-08",
+      "metrics": {
+        "impressions": 26149,
+        "clicks": 347
+      }
+    },
+    {
+      "tab": "newsletter",
+      "date": "2026-10-01",
+      "metrics": {
+        "impressions": 25997,
+        "clicks": 702
+      }
+    },
+    {
+      "tab": "newsletter",
+      "date": "2026-09-24",
+      "metrics": {
+        "impressions": 26608,
+        "clicks": 454
+      }
+    },
+    {
+      "tab": "newsletter",
+      "date": "2026-09-10",
+      "metrics": {
+        "impressions": 27714,
+        "clicks": 513
+      }
+    },
+    {
+      "tab": "newsletter",
+      "date": "2026-03-19",
+      "metrics": {
+        "impressions": 30731,
+        "clicks": 51
+      }
+    },
+    {
+      "tab": "newsletter",
+      "date": "2026-03-12",
+      "metrics": {
+        "impressions": 31837,
+        "clicks": 65
+      }
+    },
+    {
+      "tab": "newsletter",
+      "date": "2026-03-05",
+      "metrics": {
+        "impressions": 31002,
+        "clicks": 53
+      }
+    },
+    {
+      "tab": "newsletter",
+      "date": "2026-02-26",
+      "metrics": {
+        "impressions": 31532,
+        "clicks": 28
+      }
+    },
+    {
+      "tab": "email",
+      "date": "2026-02-18",
+      "metrics": {
+        "sent": 114830,
+        "opens": 28981,
+        "clicks": 2347
+      }
+    },
+    {
+      "tab": "email",
+      "date": "2026-11-10",
+      "metrics": {
+        "sent": 106620,
+        "opens": 34843,
+        "clicks": 6242
+      },
+      "title": "Band 106 for Private LTE: What Utilities Need to Know"
+    },
+    {
+      "tab": "events",
+      "date": "2026-05-26",
+      "title": "Next-Gen Utility Networks: Smart, Secure, and Adaptive",
+      "metrics": {
+        "registrants": 244,
+        "attendees": 100
+      },
+      "live_url": "https://www.energycentral.com/events/post/next-gen-utility-networks-smart-secure-and-adaptive-MZnHEq6iaZXCpZi"
+    },
+    {
+      "tab": "events",
+      "date": "2026-08-04",
+      "title": "How eSIM Delivers Full Coverage with Zero Power Penalty for Battery-Constrained Smart Meters",
+      "metrics": {
+        "registrants": 150,
+        "attendees": 67
+      },
+      "live_url": "https://energycentral.com/events/post/how-esim-delivers-full-coverage-with-zero-power-penalty-for-battery-ygSmdtVbakEBpZt"
+    },
+    {
+      "tab": "sponsorship",
+      "date": "2026-07-03",
+      "end_date": "2026-08-04",
+      "metrics": {
+        "impressions": 6750,
+        "clicks": 8
+      }
+    }
   ]
 }

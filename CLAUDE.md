@@ -28,6 +28,17 @@ campaign results and leads; the EC team uses `/admin` to review numbers before c
 
 Short.io links do not follow one naming pattern (`Semtech.10.8.news`, `Semtec.9.10.news`, `Semtechnews2.22`), so never derive a link from client+date: store it on the deliverable (`short_link`). Count clicks only inside a fixed window (run date + 14 days); late and bot clicks inflate totals.
 
+## Where links and client-facing names come from (checked on Semtech, Nov 2026)
+Notion inventory rows carry no link and usually no title (`Notes` is internal shorthand like "Campaign #2"), so pulls must supply both: `deliverables.live_url` and `deliverables.display_title`. The Notion sync never writes those two columns.
+| Deliverable | Link | Name | How a pull finds it |
+|---|---|---|---|
+| Newsletter ad | that day's issue, `news.energycentral.com/p/<slug>` via `newsletter_issues` | issue headline | beehiiv "Energy Central" pub, tag `daily-newsletter`, by send date |
+| Email blast / marketing email | none: Energy Central Marketing posts are `platform: email`, so their `/p/` URL does not load | `subject_line` of the beehiiv post | EC Marketing pub. Titles and tags are inconsistent (7 of the last 100 posts tagged `paid-email`, 43 untagged; "Semtech Paid 11/10", "Semtech - Paid Email Blast - 09.06.26"). Match on client name in title + send date within 2 days of the Notion date, and flag anything unmatched rather than guessing |
+| Webinar / PowerSession | event page, `energycentral.com/events/post/<slug>` (Bettermode Events space) | the event page title | Bettermode Events space by event date; registrants and attendees still come from Zoom |
+| Content | the Bettermode post URL | post headline | Bettermode |
+
+Email numbers in the legacy sheets do **not** follow the SOP: "Sent" is beehiiv Delivered (as written), but "Opens" is total opens and "Clicks" is total raw clicks, not the unique figures the SOP names. beehiiv also reports verified clicks, which strip scanner traffic and can be far lower. Which figure clients see is an open decision for Chloe; do not pick one silently in `pull-beehiiv.ts`.
+
 ## Task list
 1. [done] Schema, RLS, client seed (65 clients, 34 live).
 2. [done] Login, `/admin` (clients, client detail, approvals, data-pull log), `/portal` client view.

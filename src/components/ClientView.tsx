@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Stat, Empty, fmt, TYPE_LABEL } from "@/components/Shell";
 
 type Metric = { metric: string; value: number; status: string; source: string };
-type Deliverable = { id: string; inventory_tag: string | null; deliverable_type: string; deliverable_label: string | null; title: string | null;
+type Deliverable = { id: string; inventory_tag: string | null; deliverable_type: string; deliverable_label: string | null; title: string | null; display_title: string | null;
   ec_brand: string[] | null; live_url: string | null; placement: string | null; start_date: string | null; reporting_due_date: string | null; status: string | null; metrics: Metric[] };
 /** One line in a channel table. Same-day newsletter placements are merged into one line, the way clients think about them. */
 type Line = { key: string; type: string; date: string | null; due: string | null; label: string; detail: string | null; link: string | null; linkText: string;
@@ -37,7 +37,7 @@ export async function ClientView({ clientId, showAll, preview = false }: { clien
   const supabase = await createClient();
   const [{ data: dels }, { count: leadCount }] = await Promise.all([
     supabase.from("deliverables")
-      .select("id, inventory_tag, deliverable_type, deliverable_label, title, ec_brand, live_url, placement, start_date, reporting_due_date, status, metrics(metric, value, status, source)")
+      .select("id, inventory_tag, deliverable_type, deliverable_label, title, display_title, ec_brand, live_url, placement, start_date, reporting_due_date, status, metrics(metric, value, status, source)")
       .eq("client_id", clientId).order("start_date", { ascending: false, nullsFirst: false }),
     supabase.from("leads").select("id", { count: "exact", head: true }).eq("client_id", clientId),
   ]);
@@ -76,8 +76,10 @@ export async function ClientView({ clientId, showAll, preview = false }: { clien
       line.detail = [(d.ec_brand ?? []).join(", "), issue?.title].filter(Boolean).join(" · ") || null;
       line.link = issue?.web_url ?? null; line.linkText = "View the issue";
     } else {
-      line.label = d.title || sold;
-      line.detail = [d.title ? sold : null, (d.ec_brand ?? []).join(", ")].filter(Boolean).join(" · ") || null;
+      // Client-facing name first (event title, subject line); the Notion note is internal shorthand, so only admins fall back to it.
+      const name = d.display_title || (admin ? d.title : null);
+      line.label = name || sold;
+      line.detail = [name ? sold : null, (d.ec_brand ?? []).join(", ")].filter(Boolean).join(" · ") || null;
       line.link = d.live_url; line.linkText = "View it live";
     }
     lines.set(key, line);
