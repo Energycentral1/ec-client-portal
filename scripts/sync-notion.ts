@@ -65,17 +65,69 @@ function reportingDue(type: string, start: string | null, end: string | null): s
   }
 }
 
+/** Notion "Partner" values that are not paying clients: never synced, never created. */
+const SKIP_PARTNERS = new Set(["Energy Central", "EC House Ad", "Holiday - No NL's", "DTECH", "RE+", "RE+ Events"].map(norm));
+/** Alternate spellings in Notion → the partner name they belong to. */
+const PARTNER_ALIASES: Record<string, string> = Object.fromEntries(Object.entries({
+  "Franklin Energy (Snugg Pro)": "Franklin Energy", "Franklin Energy/SnuggPro": "Franklin Energy", "Greenwood-Power": "Greenwood",
+}).map(([k, v]) => [norm(k), v]));
+const canonical = (partner: string | null) => (partner ? PARTNER_ALIASES[norm(partner)] ?? partner : null);
+const slugify = (s: string) => s.toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+const isOpen = (status: string | null) => !/^done$/i.test(status ?? "");
+
 async function main() {
   const { data: run } = await db.from("sync_runs").insert({ source: "notion" }).select("id").single();
   let written = 0;
   try {
-    const { data: clients, error } = await db.from("clients").select("id, name, notion_partner_name, notion_aliases");
-    if (error) throw error;
-    const byName = new Map<string, string>();
-    for (const c of clients!) for (const n of [c.name, c.notion_partner_name, ...(c.notion_aliases ?? [])]) if (n) byName.set(norm(n), c.id);
+    // Notion's Campaigns database decides who is in the portal: every partner with a campaign gets a client row,
+    // and a client is live when at least one of its campaigns is not marked Done.
+    const campaignPages = await queryAll(CAMPAIGNS_DS);
+    const openByPartner = new Map<string, { name: string; open: boolean }>();
+    for (const page of campaignPages) {
+      const partner = canonical(sel(page.properties["Partner"]));
+      if (!partner || SKIP_PARTNERS.has(norm(partner))) continue;
+      const cur = openByPartner.get(norm(partner)) ?? { name: partner, open: false };
+      cur.open = cur.open || isOpen(sel(page.properties["Status"]));
+      openByPartner.set(norm(partner), cur);
+    }
+
+    const loadClients = async () => {
+      const { data, error } = await db.from("clients").select("id, name, slug, is_active, notion_partner_name, notion_aliases");
+      if (error) throw error;
+      const map = new Map<string, string>();
+      for (const c of data!) for (const n of [c.name, c.notion_partner_name, ...(c.notion_aliases ?? [])]) if (n) map.set(norm(n), c.id);
+      return { rows: data!, map };
+    };
+    let { rows: clients, map: byName } = await loadClients();
+
+    const slugs = new Set(clients.map((c) => c.slug));
+    const toCreate = [...openByPartner].filter(([k]) => !byName.has(k)).map(([, v]) => {
+      let slug = slugify(v.name) || "client";
+      while (slugs.has(slug)) slug += "-2";
+      slugs.add(slug);
+      return { name: v.name, slug, notion_partner_name: v.name, is_active: v.open };
+    });
+    if (toCreate.length) {
+      const { error: e } = await db.from("clients").insert(toCreate);
+      if (e) throw e;
+      console.log(`Added ${toCreate.length} clients from Notion: ${toCreate.map((c) => c.name).join(", ")}`);
+      ({ rows: clients, map: byName } = await loadClients());
+    }
+
+    // Live / past follows Notion for every client.
+    const liveIds = new Set([...openByPartner].filter(([, v]) => v.open).map(([k]) => byName.get(k)).filter(Boolean));
+    const flips = clients.filter((c) => c.is_active !== liveIds.has(c.id));
+    for (const c of flips) {
+      const { error: e } = await db.from("clients").update({ is_active: liveIds.has(c.id) }).eq("id", c.id);
+      if (e) throw e;
+    }
+    if (flips.length) console.log(`Live/past changed for ${flips.length}: ${flips.map((c) => `${c.name} → ${liveIds.has(c.id) ? "live" : "past"}`).join(", ")}`);
+    console.log(`${liveIds.size} live clients, ${clients.length} total.`);
+
     const unmatched = new Map<string, number>();
-    const clientFor = (partner: string | null) => {
-      if (!partner) return null;
+    const clientFor = (raw: string | null) => {
+      const partner = canonical(raw);
+      if (!partner || SKIP_PARTNERS.has(norm(partner))) return null;
       const id = byName.get(norm(partner));
       if (!id) unmatched.set(partner, (unmatched.get(partner) ?? 0) + 1);
       return id ?? null;
@@ -83,7 +135,7 @@ async function main() {
 
     // 1. Campaigns
     const campaignRows = [];
-    for (const page of await queryAll(CAMPAIGNS_DS)) {
+    for (const page of campaignPages) {
       const p = page.properties;
       const client_id = clientFor(sel(p["Partner"]));
       if (!client_id) continue;
@@ -132,7 +184,7 @@ async function main() {
     await db.from("sync_runs").update({ status: "success", finished_at: new Date().toISOString(), records_written: written }).eq("id", run!.id);
     console.log(`Synced ${campaignRows.length} campaigns and ${delRows.length} deliverables.`);
     if (unmatched.size) {
-      console.log("Notion partners with no matching client (skipped):");
+      console.log("Inventory rows skipped because the partner has no campaign in Notion:");
       [...unmatched].sort((a, b) => b[1] - a[1]).forEach(([n, c]) => console.log(`  ${n}: ${c} rows`));
     }
   } catch (e: any) {

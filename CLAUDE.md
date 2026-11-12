@@ -12,7 +12,7 @@ campaign results and leads; the EC team uses `/admin` to review numbers before c
 - **Row-level security is the access control.** Clients read only their own `client_id` rows, and only `metrics` with `status = 'approved'`. Never query with the service role key from app code; only `scripts/` uses it.
 - **No public sign-up.** Logins are created by an admin (Supabase invite), then linked by setting `profiles.client_id`.
 - **Numbers reach clients only after approval** in `/admin/approvals`. Pull jobs insert `pending`, or `flagged` with a `flag_reason` when a value is far outside that client's usual range.
-- **Notion is the source of truth for what was sold and scheduled.** `[Master] Energy Central Campaigns` → `campaigns`; `[Master] Energy Central Campaign Inventory` → `deliverables` (one row per EC-XXXX tag). A client is "live" if it has a campaign not marked Done.
+- **Notion is the source of truth for what was sold and scheduled.** `[Master] Energy Central Campaigns` → `campaigns`; `[Master] Energy Central Campaign Inventory` → `deliverables` (one row per EC-XXXX tag). A client is "live" if it has a campaign not marked Done. The sync creates a client for every Partner that has a campaign and sets `is_active` from Notion on each run; non-client partners (house ads, DTECH, RE+) are in `SKIP_PARTNERS` and spelling variants in `PARTNER_ALIASES` in `scripts/sync-notion.ts`.
 - **Website ad impressions are out of scope** until an ad server exists (the current "home page views" figure doesn't reconcile). Do not surface `website_ad` impressions to clients.
 - Brand: navy #225591, yellow #FFE02D, orange #FD713B, blue #3F8EF5; fonts Family (display) and Switzer (body). Say "daily newsletter", never "briefing"; sponsored posts are "Partner Content".
 
@@ -30,7 +30,7 @@ Short.io links do not follow one naming pattern (`Semtech.10.8.news`, `Semtec.9.
 ## Task list
 1. [done] Schema, RLS, client seed (65 clients, 34 live).
 2. [done] Login, `/admin` (clients, client detail, approvals, data-pull log), `/portal` client view.
-3. [written, not yet run against real data] `scripts/sync-notion.ts`. Needs a Notion integration token shared with both databases. Run it, then fix any "no matching client" names it prints by adding to `clients.notion_aliases`.
+3. [done] `scripts/sync-notion.ts`, run from the "Sync Notion campaigns" GitHub Action (manual trigger; secrets `NOTION_TOKEN`, `SUPABASE_SERVICE_ROLE_KEY`).
 4. `scripts/pull-shortio.ts`: for deliverables past `reporting_due_date` with a `short_link`, fetch clicks for the window, insert `metrics`.
 5. `scripts/pull-beehiiv.ts`: newsletter ad impressions and email blast stats, matched by date / post id.
 6. Flagging: compare each new value to the client's median for that metric and deliverable type; flag beyond 3x.
