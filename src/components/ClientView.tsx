@@ -101,12 +101,14 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   period?: string | null;
   /** Where the period picker links to, ending in "?" or "&" so "period=..." can be appended. */
   basePath: string }) {
-  // preview (admin only): lay the page out exactly as the client will see it, but with unapproved numbers filled in.
+  // preview (admin only, "Client view"): exactly what the client sees, approved numbers only (Chloe, Nov 12 2026).
   const admin = showAll && !preview;
   const supabase = await createClient();
   const { data: dels } = await supabase.from("deliverables")
     .select("id, campaign_id, notion_page_id, inventory_tag, deliverable_type, deliverable_label, title, display_title, ec_brand, live_url, placement, start_date, reporting_due_date, status, metrics(metric, value, status, source, window_start, window_end)")
     .eq("client_id", clientId).order("start_date", { ascending: false, nullsFirst: false });
+  const waitingCount = ((dels ?? []) as { campaign_id: string | null; notion_page_id: string | null; metrics: { status: string }[] }[])
+    .filter((d) => d.campaign_id || !d.notion_page_id).reduce((n, d) => n + d.metrics.filter((m) => m.status !== "approved").length, 0);
   // Leads come back 1,000 at a time; keep reading until a short page so the table and the CSV are always complete.
   const leadRows: Lead[] = [];
   for (let from = 0; ; from += 1000) {
@@ -168,7 +170,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
       values: {}, waiting: false, tags: [], flight: false, placements: [] };
     line.ids.push(d.id);
     for (const m of d.metrics) {
-      if (!showAll && m.status !== "approved") continue;
+      if (!admin && m.status !== "approved") continue;
       line.values[m.metric] ??= Number(m.value);
       if (m.window_start && m.window_end && m.window_end > m.window_start) line.flight = true;
       if (m.status !== "approved") line.waiting = true;
@@ -280,7 +282,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
       g.total++;
       if (!d.start_date) g.unscheduled++; else if (d.start_date <= today) g.ran++;
     }
-    for (const m of d.metrics) if (showAll || m.status === "approved") g.values[m.metric] = (g.values[m.metric] ?? 0) + Number(m.value);
+    for (const m of d.metrics) if (admin || m.status === "approved") g.values[m.metric] = (g.values[m.metric] ?? 0) + Number(m.value);
     bought.set(label, g);
   }
   const boughtRows = [...bought.values()].sort((a, b) => CHANNELS.findIndex((c) => c.types.includes(a.type)) - CHANNELS.findIndex((c) => c.types.includes(b.type)) || a.label.localeCompare(b.label));
@@ -337,7 +339,9 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
           ))}
         </dl>
       )}
-      {showAll && <p className="mt-3 text-xs text-ink/60">{preview ? "Preview of the client page, with numbers that are still waiting for approval filled in." : "This team view includes numbers still waiting for approval. Clients see approved numbers only."}</p>}
+      {showAll && <p className="mt-3 text-xs text-ink/60">{preview
+        ? <>This is exactly what the client sees: approved numbers only.{waitingCount > 0 && <> {waitingCount.toLocaleString("en-US")} more {waitingCount === 1 ? "number is" : "numbers are"} waiting in <a href="/admin/approvals" className="text-navy underline">Approvals</a>.</>}</>
+        : "This team view includes numbers still waiting for approval. Clients see approved numbers only."}</p>}
 
 
       {upcoming.length > 0 && (
