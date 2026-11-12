@@ -42,9 +42,9 @@ export default async function ManualEntry({ searchParams }: { searchParams: Prom
   const intro = (
     <>
       {current ? <ClientTabs slug={current.slug} name={current.name} active="entry" /> : <h1 className="text-3xl font-semibold">Manual entry</h1>}
-      <p className={`${current ? "mt-5" : "mt-1"} max-w-3xl text-sm text-ink/60`}>Fill in or correct any placement: its numbers, the headline the client sees and its link. Laid out like the client page, one table per channel, with each row linked to Notion. A new or changed number waits in Approvals before the client sees it.</p>
+      <p className={`${current ? "mt-5" : "mt-1"} max-w-3xl text-sm text-ink/60`}>Fill in or correct any placement: its numbers, the title the client sees and its link. Laid out like the client page, one table per channel, with each row linked to Notion. A new or changed number waits in Approvals before the client sees it.</p>
       <form action="/admin/enter" className="mt-4 flex flex-wrap items-center gap-2">
-        <input name="q" defaultValue={sp.q ?? ""} placeholder="Search: EC number, headline, date" aria-label="Search placements" className={`${field} w-72`} />
+        <input name="q" defaultValue={sp.q ?? ""} placeholder="Search: EC number, title, date" aria-label="Search placements" className={`${field} w-72`} />
         {current ? <input type="hidden" name="client" value={current.slug} /> : (
           <select name="client" defaultValue="" aria-label="Client" className={field}>
             <option value="">All clients</option>
@@ -108,7 +108,7 @@ export default async function ManualEntry({ searchParams }: { searchParams: Prom
                 <div className="mt-2 overflow-x-auto rounded-xl border border-line bg-white">
                   <table className="w-full min-w-[900px] text-left text-sm">
                     <thead className="border-b border-line text-ink/60">
-                      <tr><th className="px-3 py-2 font-medium">Date</th><th className="px-3 py-2 font-medium">Placement</th><th className="px-3 py-2 font-medium">Headline</th>
+                      <tr><th className="px-3 py-2 font-medium">Date</th><th className="px-3 py-2 font-medium">Placement</th><th className="px-3 py-2 font-medium">Title</th>
                         {ch.cols.map(([m, label]) => <th key={m} className="px-3 py-2 text-right font-medium">{label}</th>)}
                         <th className="px-3 py-2 font-medium">Link</th><th className="px-3 py-2" /></tr>
                     </thead>

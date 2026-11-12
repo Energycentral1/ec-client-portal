@@ -24,7 +24,7 @@ export function InventoryRow({ id, date, label, tag, notionUrl, status, title, l
           {status ? ` · ${status}` : ""}{missing && <span className="ml-1 rounded bg-sun/60 px-1 text-ink">missing results</span>}
         </span>
       </td>
-      <td className="px-1 py-1"><input form={form} name="display_title" defaultValue={title ?? ""} placeholder="Headline the client sees" aria-label="Headline the client sees" autoComplete="off" className={box} /></td>
+      <td className="px-1 py-1"><input form={form} name="display_title" defaultValue={title ?? ""} placeholder="Title the client sees" aria-label="Title the client sees" autoComplete="off" className={box} /></td>
       {fields.map((f) => (
         <td key={f.metric} className="px-1 py-1">
           <input form={form} name={f.metric} defaultValue={f.value ?? ""} inputMode="numeric" autoComplete="off" aria-label={f.metric.replace(/_/g, " ")}
