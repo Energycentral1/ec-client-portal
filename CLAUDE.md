@@ -41,6 +41,9 @@ Notion inventory rows carry no link and usually no title (`Notes` is internal sh
 
 **Paid email blasts need a web version (process change, not yet in place).** This applies to paid emails only (Notion "Email Blast"), not marketing emails (the promo sends for a client's webinar or white paper), which stay email-only and unlinked. Already-sent posts can be switched to web after the fact. Paid emails should be published as "email and web" with "hide from feed" on, so each has an unlisted link at `energycentralmarketing.beehiiv.com/p/<slug>` that the portal can use as `live_url`. Because the web page shows the post title, the internal title ("Semtech Paid 11/10") has to stop being client-visible: either title the post with the subject line or turn off "display title on web". Put the EC number (EC-3167) in the slug or a tag so the pull can match exactly.
 
+## Benchmarks
+Clients see each number against the Energy Central average ("+48% vs average", plus an average row at the top of each table). Averages live in the `benchmarks` table (deliverable_type, metric, value; rates `ctr` and `attendance` are fractions), seeded from the media kit "Benchmark Results" slide (Oct 2026). Website ad and community takeover impressions are left out on purpose (same reason as above). Later: recompute from approved portal data once enough clients are in.
+
 ## Leads
 - **Lead rows are personal data: never commit them to the repo** (no `data/*.json` for leads, unlike metrics). Semtech's history was loaded straight from the lead sheets into Supabase through the SQL editor.
 - `leads.source` + `leads.attended` drive the client-facing "how they came in": `webinar_live` + attended → "Attended live", `webinar_live` + not attended → "Registered", `webinar_on_demand` → "Watched on demand". `leads.origin` records the system (zoom, tally, legacy_sheet, manual).

@@ -26,6 +26,16 @@ const CHANNELS: { id: string; title: string; types: string[]; cols: [string, str
 /** Site impressions are a homepage-pageview proxy that doesn't reconcile, so clients don't see them (see CLAUDE.md). */
 const SITE_TYPES = ["website_ad", "community_takeover", "sponsorship"];
 
+/** Benchmark keys for the worked-out rates (see the benchmarks table). */
+const RATE_KEY: Record<string, string> = { CTR: "ctr", Attendance: "attendance" };
+const pctOf = (v: number) => `${(v * 100).toFixed(v < 0.1 ? 2 : 1).replace(/\.?0+$/, "")}%`;
+/** How a number compares with the Energy Central average. Within 5% either way reads as "on par". */
+function Versus({ value, avg }: { value: number | undefined; avg: number | undefined }) {
+  if (value == null || !avg) return null;
+  const diff = value / avg - 1;
+  if (Math.abs(diff) < 0.05) return <span className="block text-xs font-normal text-ink/50">on par with average</span>;
+  return <span className={`block text-xs font-normal ${diff > 0 ? "text-emerald-700" : "text-ink/50"}`}>{diff > 0 ? "+" : "−"}{Math.abs(diff) >= 1 ? `${(Math.abs(diff) * 100).toFixed(0)}` : (Math.abs(diff) * 100).toFixed(0)}% vs average</span>;
+}
 const pct = (n: number, d: number) => `${((n / d) * 100).toFixed(n / d < 0.1 ? 2 : 1)}%`;
 const DATE = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
 const fmtDate = (d: string | null) => (d ? DATE.format(new Date(d + "T00:00:00Z")) : "Unscheduled");
@@ -93,6 +103,11 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
     leadRows.push(...((data ?? []) as Lead[]));
     if (!data || data.length < 1000) break;
   }
+  const { data: benchRows } = await supabase.from("benchmarks").select("deliverable_type, metric, value");
+  const bench = (type: string, metric: string): number | undefined => {
+    const b = (benchRows ?? []).find((r) => r.deliverable_type === type && r.metric === metric);
+    return b ? Number(b.value) : undefined;
+  };
   const rows = (dels ?? []) as Deliverable[];
   const today = new Date().toISOString().slice(0, 10);
   const nlDates = [...new Set(rows.filter((d) => d.deliverable_type === "newsletter_ad" && d.start_date).map((d) => d.start_date!))];
@@ -199,6 +214,8 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
         const rates = ch.rates.filter(([, n, d]) => cols.some(([k]) => k === n) && cols.some(([k]) => k === d));
         const lead = cols[0]?.[0];
         const max = lead ? Math.max(1, ...withNumbers.map((l) => l.values[lead] ?? 0)) : 1;
+        // One average row per deliverable type in this channel that has benchmarks (PowerSession and webinar differ).
+        const benchTypes = [...new Set(withNumbers.map((l) => l.type))].filter((t) => cols.some(([k]) => bench(t, k) != null) || rates.some(([label]) => bench(t, RATE_KEY[label]) != null));
         const showLeads = ch.id === "events" && ls.some((l) => leadsFor(l) > 0);
         return (
           <section key={ch.id} id={ch.id} className="mt-10 scroll-mt-16">
@@ -220,6 +237,14 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
                     {showLeads && <th className="px-4 py-3 text-right font-medium">Leads</th>}</tr>
                 </thead>
                 <tbody>
+                  {benchTypes.map((t) => (
+                    <tr key={`avg-${t}`} className="border-b border-line bg-mist/70 text-ink/70">
+                      <td className="px-4 py-2.5" colSpan={2}>Energy Central average{benchTypes.length > 1 || ch.types.length > 1 ? `, ${(TYPE_LABEL[t] ?? t).toLowerCase() === "powersession" ? "PowerSession" : (TYPE_LABEL[t] ?? t).toLowerCase()}` : ""}</td>
+                      {cols.map(([k]) => <td key={k} className="px-4 py-2.5 text-right tabular-nums">{bench(t, k) != null ? fmt(bench(t, k)) : ""}</td>)}
+                      {rates.map(([label]) => <td key={label} className="px-4 py-2.5 text-right tabular-nums">{bench(t, RATE_KEY[label]) != null ? pctOf(bench(t, RATE_KEY[label])!) : ""}</td>)}
+                      {showLeads && <td />}
+                    </tr>
+                  ))}
                   {ls.map((l) => (
                     <tr key={l.key} className="border-b border-line align-top last:border-0">
                       <td className="whitespace-nowrap px-4 py-3 tabular-nums">{fmtDate(l.date)}</td>
@@ -231,9 +256,11 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
                         <>
                           {cols.map(([k], i) => (
                             <td key={k} className="px-4 py-3 text-right tabular-nums">{fmt(l.values[k])}
-                              {i === 0 && l.values[k] != null && <span className="ml-auto mt-1.5 block h-1 w-24 rounded-full bg-mist"><span className="block h-1 rounded-full bg-sky" style={{ width: `${Math.max(3, (l.values[k] / max) * 100)}%` }} /></span>}</td>
+                              {i === 0 && l.values[k] != null && <span className="ml-auto mt-1.5 block h-1 w-24 rounded-full bg-mist"><span className="block h-1 rounded-full bg-sky" style={{ width: `${Math.max(3, (l.values[k] / max) * 100)}%` }} /></span>}
+                              <Versus value={l.values[k]} avg={bench(l.type, k)} /></td>
                           ))}
-                          {rates.map(([label, n, d]) => <td key={label} className="px-4 py-3 text-right font-medium tabular-nums text-navy">{l.values[n] != null && l.values[d] ? pct(l.values[n], l.values[d]) : "—"}</td>)}
+                          {rates.map(([label, n, d]) => <td key={label} className="px-4 py-3 text-right font-medium tabular-nums text-navy">{l.values[n] != null && l.values[d] ? pct(l.values[n], l.values[d]) : "—"}
+                            {l.values[n] != null && l.values[d] ? <Versus value={l.values[n] / l.values[d]} avg={bench(l.type, RATE_KEY[label])} /> : null}</td>)}
                         </>
                       ) : (
                         <td colSpan={cols.length + rates.length} className="px-4 py-3 text-right text-ink/50">
