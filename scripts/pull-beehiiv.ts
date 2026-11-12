@@ -7,7 +7,7 @@
  *    (headline, opens, and the web link only when the post was published to the web), so newsletter ads link to their issue.
  * 2. Newsletter ad (Notion "Newsletter Ad", 14+ days after the run date)
  *    impressions = total opens of that day's issue (Isuri's SOP).
- *    clicks      = short.io human clicks on the ad's short link from the run date to run date + 14 days. The short link is
+ *    clicks      = short.io human (bot-filtered) clicks on the ad's short link, all time, read once at 14+ days and then kept. The link is
  *                  found in the issue's own click list (energycentral.short.gy/<client>...) and saved on the placement.
  *                  A short link reused for a week of placements is counted once, on the first day.
  * 3. Paid email (Notion "Email Blast", 7+ days after the send)
@@ -76,7 +76,10 @@ const UNKNOWN_CITY = "6252001";
 async function shortClicks(path: string, from: string, to: string) {
   const link = await sio(`https://api.short.io/links/expand?domain=${SHORT_DOMAIN}&path=${encodeURIComponent(path)}`);
   const id = String(link.idString ?? link.id);
-  const s = await sio(`https://statistics.short.io/statistics/link/${id}?period=custom&startDate=${from}&endDate=${to}&tz=America/New_York`);
+  // All-time human clicks, read once the placement is 14+ days old and never re-read: the method behind the old sheets
+  // (Chloe, Nov 12 2026). short.io's custom date window undercounts against them (Semtech Feb 26 2026: 6 in the window, 28 on the sheet).
+  void from; void to;
+  const s = await sio(`https://statistics.short.io/statistics/link/${id}?period=total&tz=America/New_York`);
   await sleep(400);
   const c = ((s.city ?? []) as any[]).filter((x) => String(x.city) !== UNKNOWN_CITY).sort((a, b) => b.score - a.score)[0];
   return { id, human: num(s.humanClicks) ?? 0, total: num(s.totalClicks) ?? 0, top: c ? { name: CITY[c.city] ?? `location ${c.city}`, clicks: Number(c.score) } : null };

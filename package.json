@@ -9,7 +9,9 @@
     "lint": "eslint",
     "sync:notion": "tsx scripts/sync-notion.ts",
     "import:legacy": "tsx scripts/import-legacy.ts",
-    "pull:beehiiv": "tsx scripts/pull-beehiiv.ts"
+    "pull:beehiiv": "tsx scripts/pull-beehiiv.ts",
+    "pull:zoom": "tsx scripts/pull-zoom.ts",
+    "pull:tally": "tsx scripts/pull-tally.ts"
   },
   "dependencies": {
     "@notionhq/client": "^5.31.1",

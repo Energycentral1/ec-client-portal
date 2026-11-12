@@ -1,0 +1,31 @@
+name: Pull Zoom registrations, attendance and recordings
+
+# Leads land without anyone touching a sheet. See scripts/pull-zoom.ts for what is matched and written.
+on:
+  schedule:
+    - cron: "37 */3 * * *"   # every 3 hours
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Dry run (print what would be written, write nothing)
+        type: boolean
+        default: false
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run pull:zoom -- ${{ inputs.dry_run && '--dry' || '' }}
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://kzaiplniicuuxhprrxxc.supabase.co
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          ZOOM_ACCOUNT_ID: ${{ secrets.ZOOM_ACCOUNT_ID }}
+          ZOOM_CLIENT_ID: ${{ secrets.ZOOM_CLIENT_ID }}
+          ZOOM_CLIENT_SECRET: ${{ secrets.ZOOM_CLIENT_SECRET }}

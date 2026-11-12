@@ -1,0 +1,29 @@
+name: Pull Tally sign-ups
+
+# Leads land without anyone touching a sheet. See scripts/pull-tally.ts for what is matched and written.
+on:
+  schedule:
+    - cron: "7 */2 * * *"    # every 2 hours
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Dry run (print what would be written, write nothing)
+        type: boolean
+        default: false
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run pull:tally -- ${{ inputs.dry_run && '--dry' || '' }}
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://kzaiplniicuuxhprrxxc.supabase.co
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          TALLY_API_KEY: ${{ secrets.TALLY_API_KEY }}

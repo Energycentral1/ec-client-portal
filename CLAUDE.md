@@ -29,7 +29,7 @@ campaign results and leads; the EC team uses `/admin` to review numbers before c
 | Podcast | plays (Flightcast, no API: manual), short_form_views (YouTube + LinkedIn), impressions, clicks | mixed | 30 days after publish |
 | Content | views, likes, comments | Bettermode (beehiiv after migration) | 14 days |
 
-Short.io links do not follow one naming pattern (`Semtech.10.8.news`, `Semtec.9.10.news`, `Semtechnews2.22`), so never derive a link from client+date: store it on the deliverable (`short_link`). Count clicks only inside a fixed window (run date + 14 days); late and bot clicks inflate totals.
+Short.io links do not follow one naming pattern (`Semtech.10.8.news`, `Semtec.9.10.news`, `Semtechnews2.22`), so never derive a link from client+date: store it on the deliverable (`short_link`). Clicks = short.io human clicks, all time, read once the ad is 14+ days old and then never re-read (this is what the old sheets used; short.io's custom date window undercounts against them). Bot farms are handled by the outlier rule in `pull-beehiiv.ts`.
 
 ## Where links and client-facing names come from (checked on Semtech, Nov 2026)
 Notion inventory rows carry no link and usually no title (`Notes` is internal shorthand like "Campaign #2"), so pulls must supply both: `deliverables.live_url` and `deliverables.display_title`. The Notion sync never writes those two columns.
