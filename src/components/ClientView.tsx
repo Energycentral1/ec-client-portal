@@ -32,11 +32,11 @@ const CHANNELS: { id: string; title: string; types: string[]; cols: [string, str
 /** Benchmark keys for the worked-out rates (see the benchmarks table). */
 const RATE_KEY: Record<string, string> = { CTR: "ctr", Attendance: "attendance" };
 /** How a number compares with the Energy Central average. Within 5% either way reads as "on par". */
-function Versus({ value, avg }: { value: number | undefined; avg: number | undefined }) {
+function Versus({ value, avg, dark = false }: { value: number | undefined; avg: number | undefined; dark?: boolean }) {
   if (value == null || !avg) return null;
   const diff = value / avg - 1;
-  if (Math.abs(diff) < 0.05) return <span className="block text-xs font-normal text-ink/50">on par with average</span>;
-  return <span className={`block text-xs font-normal ${diff > 0 ? "text-emerald-700" : "text-ink/50"}`}>{diff > 0 ? "+" : "−"}{Math.abs(diff) >= 1 ? `${(Math.abs(diff) * 100).toFixed(0)}` : (Math.abs(diff) * 100).toFixed(0)}% vs average</span>;
+  if (Math.abs(diff) < 0.05) return <span className={`block text-xs font-normal ${dark ? "text-white/70" : "text-ink/50"}`}>on par with average</span>;
+  return <span className={`block text-xs font-normal ${diff > 0 ? (dark ? "text-sun" : "text-emerald-700") : dark ? "text-white/70" : "text-ink/50"}`}>{diff > 0 ? "+" : "−"}{Math.abs(diff) >= 1 ? `${(Math.abs(diff) * 100).toFixed(0)}` : (Math.abs(diff) * 100).toFixed(0)}% vs average</span>;
 }
 const pct = (n: number, d: number) => `${((n / d) * 100).toFixed(n / d < 0.1 ? 2 : 1)}%`;
 const DATE = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
@@ -232,9 +232,9 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   if (sum(ev, "attendees") > 0 && sum(ev, "registrants") > 0) {
     const live = ev.filter((l) => l.values.attendees != null && l.values.registrants);
     summary.push({ label: "Attended live", value: `${Math.round((sum(live, "attendees") / sum(live, "registrants")) * 100)}%`,
-      sub: live.every((l) => !l.flight) && new Set(live.map((l) => l.type)).size === 1 ? <Versus value={sum(live, "attendees") / sum(live, "registrants")} avg={bench(live[0].type, "attendance")} /> : null });
+      sub: live.every((l) => !l.flight) && new Set(live.map((l) => l.type)).size === 1 ? <Versus value={sum(live, "attendees") / sum(live, "registrants")} avg={bench(live[0].type, "attendance")} dark /> : null });
   }
-  if (leads.length > 0) summary.push({ label: "Leads", value: fmt(leads.length), sub: <a href="#leads" className="text-navy underline decoration-navy/30 underline-offset-2">View and download</a> });
+  if (leads.length > 0) summary.push({ label: "Leads", value: fmt(leads.length), sub: <a href="#leads" className="text-sun underline decoration-sun/40 underline-offset-2 hover:decoration-sun">View and download</a> });
   // Proofs: the newest version for each placement is the live one; earlier versions fold away underneath it.
   const soldLabel = (d: Deliverable) => d.deliverable_label || TYPE_LABEL[d.deliverable_type] || d.deliverable_type;
   const placementOf = (p: Proof) => { const d = visible.find((r) => r.id === p.deliverable_id); return d ? { label: d.display_title || soldLabel(d), date: d.start_date } : null; };
@@ -329,12 +329,12 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
       </section>
 
       {summary.length > 0 && (
-        <dl className="mt-8 grid grid-cols-2 border-y border-ink sm:grid-cols-3 lg:flex">
+        <dl className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-3xl bg-white/15 text-white sm:grid-cols-3 lg:flex">
           {summary.map((f) => (
-            <div key={f.label} className="flex-1 border-b border-line py-5 pr-5 last:border-b-0 sm:border-b-0 lg:border-r lg:pl-5 lg:first:pl-0 lg:last:border-r-0">
+            <div key={f.label} className="flex-1 bg-navy px-6 py-7 sm:px-8">
               <dt className="sr-only">{f.label}</dt>
-              <dd className="font-display text-3xl leading-tight tabular-nums sm:text-4xl">{f.value}</dd>
-              <dd className="mt-1 text-sm">{f.label}{f.sub && <span className="block text-ink/70">{f.sub}</span>}</dd>
+              <dd className="font-display text-4xl leading-none tabular-nums sm:text-5xl">{f.value}</dd>
+              <dd className="mt-3 text-sm text-white/85">{f.label}{f.sub && <span className="mt-1 block text-xs">{f.sub}</span>}</dd>
             </div>
           ))}
         </dl>
