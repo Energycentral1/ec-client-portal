@@ -215,6 +215,13 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
 
   return (
     <>
+      {!admin && awaiting > 0 && (
+        <a href="#approvals" className="mb-4 flex flex-wrap items-center gap-x-3 gap-y-1 rounded-2xl bg-sun px-5 py-4 text-ink hover:brightness-95">
+          <span className="font-semibold">{awaiting === 1 ? "1 piece of creative needs your approval" : `${awaiting} pieces of creative need your approval`}</span>
+          <span className="text-ink/80">before it can run.</span>
+          <span className="ml-auto font-semibold underline underline-offset-2">Review now</span>
+        </a>
+      )}
       <header className="rounded-3xl bg-navy px-5 py-7 text-white sm:px-9 sm:py-9">
         <p className="text-sm text-white/70">Energy Central partner report</p>
         <h1 className="mt-1 font-display text-4xl leading-tight sm:text-5xl">{clientName}</h1>
