@@ -1,0 +1,17 @@
+{
+ "client_slug": "ironwall",
+ "source_url": "https://docs.google.com/spreadsheets/d/1RaQNBKCEhfOFnL2VFsu3cvjP9G2BX4Tzdn4mGghwBY8/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. events 1. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "events",
+   "date": "2026-04-30",
+   "title": "When the Threat Goes Personal: Protecting Utility Leaders",
+   "metrics": {
+    "registrants": 112,
+    "attendees": 49
+   }
+  }
+ ]
+}

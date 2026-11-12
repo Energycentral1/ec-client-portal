@@ -1,0 +1,68 @@
+{
+ "client_slug": "southwire",
+ "source_url": "https://docs.google.com/spreadsheets/d/1znolE-VcoeCbLYgBaUUke7x6IiYPZ9wb38SFjir1-OE/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 3, events 2, podcast 1. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "podcast",
+   "date": "2026-03-09",
+   "metrics": {
+    "plays": 96493,
+    "short_form_views": 243,
+    "impressions": 41442,
+    "clicks": 9
+   },
+   "title": "https://www.energycentral.com/podcasts/post/what-makes-overhead-lines-fail-and-how-to-fix-it-NDrgSOdxh0AnDft",
+   "live_url": "https://www.energycentral.com/podcasts/post/what-makes-overhead-lines-fail-and-how-to-fix-it-NDrgSOdxh0AnDft"
+  },
+  {
+   "tab": "events",
+   "date": "2026-08-26",
+   "title": "Availability Is the New Optimization: When every foot of conductor counts.",
+   "metrics": {
+    "registrants": 120,
+    "attendees": 60
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2025-08-19",
+   "title": "Data-Driven Decisions for Reliability & Resilience [an Energy Central PowerSession\u2122]",
+   "metrics": {
+    "registrants": 196,
+    "attendees": 75
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2025-10-08",
+   "metrics": {
+    "views": 468,
+    "likes": 2
+   },
+   "title": "Paper: Using Artificial Intelligence to Improve System Resiliency & Sustainability",
+   "live_url": "https://www.energycentral.com/energy-management/post/paper-using-artificial-intelligence-to-improve-system-resiliency-RhfPZxu1A9qXIqp"
+  },
+  {
+   "tab": "content",
+   "date": "2025-08-05",
+   "metrics": {
+    "views": 447,
+    "likes": 3
+   },
+   "title": "Above It All: How Modern Overhead Conductors Are Shaping the Grid\u2019s Future",
+   "live_url": "https://www.energycentral.com/energy-management/post/above-it-all-how-modern-overhead-conductors-are-shaping-the-grid-s-future-fj6lYLHDWABN61i"
+  },
+  {
+   "tab": "content",
+   "date": "2025-07-19",
+   "metrics": {
+    "views": 339,
+    "likes": 2
+   },
+   "title": "Beneath the Surface: Why Underground Cables Are Powering Tomorrow\u2019s Grid",
+   "live_url": "https://www.energycentral.com/energy-management/post/beneath-the-surface-why-underground-cables-are-powering-tomorrow-s-grid-oH2N7ql59sIOtCB"
+  }
+ ]
+}

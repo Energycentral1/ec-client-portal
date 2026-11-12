@@ -1,0 +1,36 @@
+{
+ "client_slug": "brillion-ai",
+ "source_url": "https://docs.google.com/spreadsheets/d/1LrK5pQ9WKuDhWadQCjcW6wFTsVyCPxR_cwD7fQeD3MY/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 1, email 2. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "email",
+   "date": "2025-12-04",
+   "metrics": {
+    "sent": 117552,
+    "opens": 41156,
+    "clicks": 8837
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2025-10-30",
+   "metrics": {
+    "sent": 118824,
+    "opens": 40193,
+    "clicks": 8728
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2025-11-25",
+   "metrics": {
+    "views": 420,
+    "likes": 7
+   },
+   "title": "Property Data: The Future of Customer Engagement",
+   "live_url": "https://www.energycentral.com/energy-biz/post/property-data-the-future-of-customer-engagement-X2QC37Gq5Z3AsUy"
+  }
+ ]
+}

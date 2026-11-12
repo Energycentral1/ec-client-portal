@@ -2,7 +2,8 @@
  * History import: loads the legacy "Customer Report" numbers in data/legacy/*.json into `metrics`.
  * Run: npm run import:legacy [client-slug]
  * Run with --dry to print what would happen and write nothing.
- * Every number lands as source = legacy_sheet, status = pending, so nothing reaches a client until approved.
+ * Every number lands as source = legacy_sheet, status = approved: clients were already sent these figures in their report,
+ * so they need no second sign-off (Chloe, Nov 12 2026). Pulled and typed-in numbers still wait in Approvals.
  * The old report is the source of truth for anything already reported (Chloe, Nov 12 2026): where a sheet row lands on a
  * placement, numbers pulled from beehiiv, short.io or Zoom for the same metric are retired (status rejected, reason kept),
  * and the other Notion rows the sheet number covers (the days of a week, a second spot the same day) are linked to it with
@@ -46,20 +47,17 @@ async function importFile(file: LegacyFile) {
   if (error) throw error;
   const pool = (dels ?? []) as Deliverable[];
   const used = new Set<string>();
-  let written = 0, matched = 0, created = 0, skipped = 0, retired = 0, linked = 0;
+  let written = 0, matched = 0, created = 0, retired = 0, linked = 0;
   // A newsletter date with a single sheet row covers every newsletter ad the client ran that day.
   const perDay = new Map<string, number>();
   for (const r of file.rows) if (r.tab === "newsletter" && !r.end_date) perDay.set(r.date, (perDay.get(r.date) ?? 0) + 1);
-  // Sheets go back years; Notion inventory doesn't. Rows from before Notion's first placement (less a week) are left out,
-  // so the portal doesn't fill up with history nobody can check. Loading older history is a decision for the team.
-  const first = pool.map((d) => d.start_date).filter(Boolean).sort()[0];
-  const cutoff = first ? new Date(Date.parse(first) - 7 * 864e5).toISOString().slice(0, 10) : null;
+  // The whole sheet is loaded, however far back it goes (Chloe, Nov 12 2026: "historical clients like to have this data").
+  // Rows older than Notion's inventory have nothing to match, so they are added as placements of their own.
   console.log(`\n${client.name}: ${file.rows.length} sheet rows, ${pool.length} deliverables from Notion`);
 
   for (const row of file.rows) {
     const tab = TABS[row.tab];
     if (!tab) { console.log(`  ? unknown tab "${row.tab}"`); continue; }
-    if (cutoff && row.date < cutoff) { skipped++; continue; }
     // A sheet row with an end date is a whole flight (usually a week) reported as one number. Notion may hold one row per day
     // for it: the numbers go on the first of them and the rest are taken out of play so no later row grabs them.
     const inFlight = (d: Deliverable) => !!row.end_date && !!d.start_date && d.start_date >= new Date(Date.parse(row.date) - 864e5).toISOString().slice(0, 10)
@@ -111,7 +109,7 @@ async function importFile(file: LegacyFile) {
     else if (row.end_date && row.end_date !== row.date) patch.display_title = span(row.date, row.end_date);
     if (Object.keys(patch).length) { const { error: e3 } = await db.from("deliverables").update(patch).eq("id", target.id); if (e3) throw e3; }
     const rows = Object.entries(row.metrics).map(([metric, value]) => ({
-      client_id: client.id, deliverable_id: target.id, metric, value, source: "legacy_sheet", status: "pending",
+      client_id: client.id, deliverable_id: target.id, metric, value, source: "legacy_sheet", status: "approved", approved_at: new Date().toISOString(),
       window_start: row.date, window_end: row.end_date ?? row.date,
     }));
     const { error: e2 } = await db.from("metrics").upsert(rows, { onConflict: "deliverable_id,metric,source,window_end", ignoreDuplicates: true });
@@ -120,7 +118,7 @@ async function importFile(file: LegacyFile) {
     console.log(`  ${candidates[0] ? "✓" : "+"} ${row.tab} ${row.date} → ${target.inventory_tag ?? "new row"} (${target.deliverable_type}${target.start_date !== row.date ? `, Notion date ${target.start_date}` : ""}) ${Object.entries(row.metrics).map(([k, v]) => `${k} ${v}`).join(", ")}`);
   }
   console.log(`  ${retired} pulled numbers ${DRY ? "would be" : ""} retired in favour of the sheet; ${linked} extra Notion rows covered by a sheet row.`);
-  console.log(`  ${matched} matched to Notion, ${created} added because Notion had no row${skipped ? `, ${skipped} left out (before Notion's first placement, ${first})` : ""}.`);
+  console.log(`  ${matched} matched to Notion, ${created} added because Notion had no row.`);
   return written;
 }
 
@@ -145,7 +143,7 @@ async function main() {
     }
     if (DRY) { console.log(`\nDRY RUN: ${written} numbers would be loaded; nothing was written.`); return; }
     await db.from("sync_runs").update({ status: "success", finished_at: new Date().toISOString(), records_written: written }).eq("id", run?.id);
-    console.log(`\nDone: ${written} numbers loaded as pending.`);
+    console.log(`\nDone: ${written} sheet numbers loaded (approved).`);
   } catch (e) {
     const msg = e instanceof Error ? e.message : JSON.stringify(e);
     if (run) await db.from("sync_runs").update({ status: "error", finished_at: new Date().toISOString(), records_written: written, error: msg.slice(0, 500) }).eq("id", run.id);

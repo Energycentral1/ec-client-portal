@@ -1,120 +1,121 @@
 {
-  "client_slug": "semtech",
-  "source_url": "https://docs.google.com/spreadsheets/d/1r4qlrzniXyUQd-t9ffJk-jO6vs369Qx4AbUP15uPhmg/edit",
-  "extracted_on": "2026-11-11",
-  "rows": [
-    {
-      "tab": "newsletter",
-      "date": "2026-10-08",
-      "metrics": {
-        "impressions": 26149,
-        "clicks": 347
-      }
-    },
-    {
-      "tab": "newsletter",
-      "date": "2026-10-01",
-      "metrics": {
-        "impressions": 25997,
-        "clicks": 702
-      }
-    },
-    {
-      "tab": "newsletter",
-      "date": "2026-09-24",
-      "metrics": {
-        "impressions": 26608,
-        "clicks": 454
-      }
-    },
-    {
-      "tab": "newsletter",
-      "date": "2026-09-10",
-      "metrics": {
-        "impressions": 27714,
-        "clicks": 513
-      }
-    },
-    {
-      "tab": "newsletter",
-      "date": "2026-03-19",
-      "metrics": {
-        "impressions": 30731,
-        "clicks": 51
-      }
-    },
-    {
-      "tab": "newsletter",
-      "date": "2026-03-12",
-      "metrics": {
-        "impressions": 31837,
-        "clicks": 65
-      }
-    },
-    {
-      "tab": "newsletter",
-      "date": "2026-03-05",
-      "metrics": {
-        "impressions": 31002,
-        "clicks": 53
-      }
-    },
-    {
-      "tab": "newsletter",
-      "date": "2026-02-26",
-      "metrics": {
-        "impressions": 31532,
-        "clicks": 28
-      }
-    },
-    {
-      "tab": "email",
-      "date": "2026-02-18",
-      "metrics": {
-        "sent": 114830,
-        "opens": 28981,
-        "clicks": 2347
-      }
-    },
-    {
-      "tab": "email",
-      "date": "2026-11-10",
-      "metrics": {
-        "sent": 106620,
-        "opens": 34843,
-        "clicks": 6242
-      },
-      "title": "Band 106 for Private LTE: What Utilities Need to Know",
-      "live_url": "https://energycentralmarketing.beehiiv.com/p/semtech-paid-11-10"
-    },
-    {
-      "tab": "events",
-      "date": "2026-05-26",
-      "title": "Semtech Presents: Next-Gen Utility Networks: Smart, Secure, and Adaptive",
-      "metrics": {
-        "registrants": 244,
-        "attendees": 100
-      },
-      "live_url": "https://events.zoom.us/e/channel/nEP4pfyuQeu3tzRFrOoksw/recording/cmkG_fmeThK0DAJ-akYXDQ"
-    },
-    {
-      "tab": "events",
-      "date": "2026-08-04",
-      "title": "Semtech Presents: How eSIM Delivers Full Coverage for Battery-Constrained Smart Meters",
-      "metrics": {
-        "registrants": 150,
-        "attendees": 67
-      },
-      "live_url": "https://events.zoom.us/e/channel/nEP4pfyuQeu3tzRFrOoksw/recording/3R5_noQzQ82GtFMR_9KNAQ"
-    },
-    {
-      "tab": "sponsorship",
-      "date": "2026-07-03",
-      "end_date": "2026-08-04",
-      "metrics": {
-        "impressions": 6750,
-        "clicks": 8
-      }
-    }
-  ]
+ "client_slug": "semtech",
+ "source_url": "https://docs.google.com/spreadsheets/d/1r4qlrzniXyUQd-t9ffJk-jO6vs369Qx4AbUP15uPhmg/edit",
+ "extracted_on": "2026-11-11",
+ "rows": [
+  {
+   "tab": "newsletter",
+   "date": "2026-10-08",
+   "metrics": {
+    "impressions": 26149,
+    "clicks": 347
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-10-01",
+   "metrics": {
+    "impressions": 25997,
+    "clicks": 702
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-09-24",
+   "metrics": {
+    "impressions": 26608,
+    "clicks": 454
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-09-10",
+   "metrics": {
+    "impressions": 27714,
+    "clicks": 513
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-03-19",
+   "metrics": {
+    "impressions": 30731,
+    "clicks": 51
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-03-12",
+   "metrics": {
+    "impressions": 31837,
+    "clicks": 65
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-03-05",
+   "metrics": {
+    "impressions": 31002,
+    "clicks": 53
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-02-26",
+   "metrics": {
+    "impressions": 31532,
+    "clicks": 28
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-02-18",
+   "metrics": {
+    "sent": 114830,
+    "opens": 28981,
+    "clicks": 2347
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-11-10",
+   "metrics": {
+    "sent": 106620,
+    "opens": 34843,
+    "clicks": 6242
+   },
+   "title": "Band 106 for Private LTE: What Utilities Need to Know",
+   "live_url": "https://energycentralmarketing.beehiiv.com/p/semtech-paid-11-10"
+  },
+  {
+   "tab": "events",
+   "date": "2026-05-26",
+   "title": "Semtech Presents: Next-Gen Utility Networks: Smart, Secure, and Adaptive",
+   "metrics": {
+    "registrants": 244,
+    "attendees": 100
+   },
+   "live_url": "https://events.zoom.us/e/channel/nEP4pfyuQeu3tzRFrOoksw/recording/cmkG_fmeThK0DAJ-akYXDQ"
+  },
+  {
+   "tab": "events",
+   "date": "2026-08-04",
+   "title": "Semtech Presents: How eSIM Delivers Full Coverage for Battery-Constrained Smart Meters",
+   "metrics": {
+    "registrants": 150,
+    "attendees": 67
+   },
+   "live_url": "https://events.zoom.us/e/channel/nEP4pfyuQeu3tzRFrOoksw/recording/3R5_noQzQ82GtFMR_9KNAQ"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2026-07-03",
+   "end_date": "2026-08-04",
+   "metrics": {
+    "impressions": 6750,
+    "clicks": 8
+   }
+  }
+ ],
+ "notes": " Older history (0 rows before the hand-read range) added by scripts/read-legacy-xlsx.py on 2026-11-12."
 }

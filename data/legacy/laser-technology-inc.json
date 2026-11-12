@@ -1,0 +1,52 @@
+{
+ "client_slug": "laser-technology-inc",
+ "source_url": "https://docs.google.com/spreadsheets/d/1cTrxzlFBjPu4B8wL1FBHZ4V7g7SDsKfguxumQZViibw/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. newsletter 4, podcast 1. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "podcast",
+   "date": "2026-05-08",
+   "metrics": {
+    "plays": 398,
+    "short_form_views": 322,
+    "impressions": 30632,
+    "clicks": 2
+   },
+   "title": "How utilities get field data when GNSS fails https://www.energycentral.com/podcasts/post/how-utilities-get-field-data-when-gnss-fails-z0NCRSLPLceKrQK",
+   "live_url": "https://www.energycentral.com/podcasts/post/how-utilities-get-field-data-when-gnss-fails-z0NCRSLPLceKrQK"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-06-18",
+   "metrics": {
+    "impressions": 31297,
+    "clicks": 106
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-06-05",
+   "metrics": {
+    "impressions": 27562,
+    "clicks": 111
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-05-22",
+   "metrics": {
+    "impressions": 28996,
+    "clicks": 157
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-04-06",
+   "metrics": {
+    "impressions": 29458,
+    "clicks": 36
+   }
+  }
+ ]
+}

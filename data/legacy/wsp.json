@@ -1,0 +1,7 @@
+{
+ "client_slug": "wsp",
+ "source_url": "https://docs.google.com/spreadsheets/d/1-NaNUsNH2NMA2qULcTS2zar8VK42Ve0EFNlZPa955X0/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. . Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": []
+}

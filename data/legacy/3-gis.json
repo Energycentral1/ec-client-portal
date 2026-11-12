@@ -1,0 +1,51 @@
+{
+ "client_slug": "3-gis",
+ "source_url": "https://docs.google.com/spreadsheets/d/1QmrmaW3kzwHLuDSENdkq_L1ZSoFIpFzYhUbHZTvs5fY/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. events 1, newsletter 4. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "newsletter",
+   "date": "2026-04-13",
+   "metrics": {
+    "impressions": 28646,
+    "clicks": 24
+   },
+   "end_date": "2026-04-14"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-03-23",
+   "metrics": {
+    "impressions": 29501,
+    "clicks": 30
+   },
+   "end_date": "2026-03-24"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-02-19",
+   "metrics": {
+    "impressions": 32418,
+    "clicks": 43
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-02-09",
+   "metrics": {
+    "impressions": 30540,
+    "clicks": 42
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2026-05-13",
+   "title": "How do you turn inspections into action? Closing the gap between documentation and repair",
+   "metrics": {
+    "registrants": 156,
+    "attendees": 64
+   }
+  }
+ ]
+}

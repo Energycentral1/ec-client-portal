@@ -1,0 +1,29 @@
+{
+ "client_slug": "integ-analytics",
+ "source_url": "https://docs.google.com/spreadsheets/d/1yUDnkB4Pq4DWsRH9ITKoKw00efoTMnXK0Hpmg9HlRDo/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. email 1, podcast 1. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "podcast",
+   "date": "2026-01-23",
+   "metrics": {
+    "plays": 351,
+    "short_form_views": 130,
+    "impressions": 149641,
+    "clicks": 83
+   },
+   "title": "When load forecasting stops being predictable",
+   "live_url": "https://www.energycentral.com/podcasts/post/when-load-forecasting-stops-being-predictable-gxj5jzwb3ynf08h"
+  },
+  {
+   "tab": "email",
+   "date": "2026-02-12",
+   "metrics": {
+    "sent": 115111,
+    "opens": 34083,
+    "clicks": 4074
+   }
+  }
+ ]
+}

@@ -1,0 +1,68 @@
+{
+ "client_slug": "epsilon-composite",
+ "source_url": "https://docs.google.com/spreadsheets/d/13wY2zRYWxgQFlMfgpD_liAUeRElxjZdev3XjpQqNLTs/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 6. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "content",
+   "date": "2025-12-15",
+   "metrics": {
+    "views": 373,
+    "likes": 2
+   },
+   "title": "CORECHECK: Turning composite core conductors into verifiable assets for modern transmission networks",
+   "live_url": "https://www.energycentral.com/energy-management/post/corecheck-turning-composite-core-conductors-into-verifiable-assets-for-hmHUDdhxfq3bshw"
+  },
+  {
+   "tab": "content",
+   "date": "2025-11-19",
+   "metrics": {
+    "views": 7546,
+    "likes": 2
+   },
+   "title": "The Evolution of Overhead Conductors",
+   "live_url": "https://www.energycentral.com/energy-management/post/the-modern-conductor-has-arrived-9nbzToIjkVM3dJr"
+  },
+  {
+   "tab": "content",
+   "date": "2025-06-23",
+   "metrics": {
+    "views": 410,
+    "likes": 4
+   },
+   "title": "Epsilon Composite and Toray Carbon Fibers Europe: A 15-year partnership driving the energy transition",
+   "live_url": "https://www.energycentral.com/energy-management/post/press-release---epsilon-composite-and-toray-carbon-fibers-europe-a-15-tBjDsDh4ciEdcv7"
+  },
+  {
+   "tab": "content",
+   "date": "2025-01-07",
+   "metrics": {
+    "views": 300,
+    "likes": 0
+   },
+   "title": "Building a resilient grid: Commissioner Pinocci\u2019s vision for composite core conductors and tower raising solutions",
+   "live_url": "https://www.energycentral.com/home/post/building-resilient-grid-commissioner-pinocci-s-vision-composite-core-I8Dv5JivjqIALD0"
+  },
+  {
+   "tab": "content",
+   "date": "2024-11-29",
+   "metrics": {
+    "views": 1680,
+    "likes": 0
+   },
+   "title": "What types of composite core conductors are commercially viable today?",
+   "live_url": "https://www.energycentral.com/energy-management/post/what-types-composite-core-conductors-are-commercially-viable-today-GF0xhXxz1dQA6Ci"
+  },
+  {
+   "tab": "content",
+   "date": "2024-11-27",
+   "metrics": {
+    "views": 322,
+    "likes": 0
+   },
+   "title": "Conductor classification & brand names: how to avoid a common confusion",
+   "live_url": "https://www.energycentral.com/energy-management/post/conductor-classification-brand-names-how-avoid-common-confusion-1kYvhO0xeMQzeI4"
+  }
+ ]
+}

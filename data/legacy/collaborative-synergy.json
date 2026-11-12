@@ -1,0 +1,60 @@
+{
+ "client_slug": "collaborative-synergy",
+ "source_url": "https://docs.google.com/spreadsheets/d/1ZbFsudlCyfmzFKHs-Q6XTm2FjASVTS0vfylXhOoix1U/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 2, newsletter 4. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "newsletter",
+   "date": "2026-08-25",
+   "metrics": {
+    "impressions": 29269,
+    "clicks": 1108
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-08-18",
+   "metrics": {
+    "impressions": 20954,
+    "clicks": 201
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-08-11",
+   "metrics": {
+    "impressions": 28460,
+    "clicks": 160
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-08-03",
+   "metrics": {
+    "impressions": 30594,
+    "clicks": 206
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2026-07-28",
+   "metrics": {
+    "views": 280,
+    "likes": 2
+   },
+   "title": "New Industry Paper | How Rural Utilities Can Survive the BEAD Permitting Surge",
+   "live_url": "https://www.energycentral.com/energy-management/post/new-industry-paper-how-rural-utilities-can-survive-the-bead-permitting-4tf7JbT6EZJ664X"
+  },
+  {
+   "tab": "content",
+   "date": "2026-02-12",
+   "metrics": {
+    "views": 304,
+    "likes": 3
+   },
+   "title": "Infographic | Supporting Utility Workflow: Managing the Surge in Pole Permits",
+   "live_url": "https://www.energycentral.com/energy-biz/post/infographic-supporting-utility-workflow-managing-the-surge-in-pole-bmxWDJLAhtEeFPh"
+  }
+ ]
+}

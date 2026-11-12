@@ -1,0 +1,494 @@
+{
+ "client_slug": "cgi",
+ "source_url": "https://drive.google.com/file/d/1yQ_jBvFpGmfUVHHvQRP3BKR4tAN1Xsnn/view",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 9, email 4, events 2, newsletter 12, podcast 1, sponsorship 11, website 15. Left out, no clean number or date (4): Sponsorship Recognition / 2025-04-01 00:00:00; Events / Thank you for choosing Energy Central!; Podcasts & Interviews / 2025-04-21 00:00:00; Podcasts & Interviews / 2024-04-30 00:00:00. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "website",
+   "date": "2026-02-15",
+   "metrics": {
+    "impressions": 51100,
+    "clicks": 15
+   },
+   "end_date": "2026-02-21"
+  },
+  {
+   "tab": "website",
+   "date": "2026-01-18",
+   "metrics": {
+    "impressions": 53400,
+    "clicks": 24
+   },
+   "end_date": "2026-01-24"
+  },
+  {
+   "tab": "website",
+   "date": "2025-11-30",
+   "metrics": {
+    "impressions": 147700,
+    "clicks": 16
+   },
+   "end_date": "2025-12-06"
+  },
+  {
+   "tab": "website",
+   "date": "2025-11-02",
+   "metrics": {
+    "impressions": 108730,
+    "clicks": 19
+   },
+   "end_date": "2025-11-08"
+  },
+  {
+   "tab": "website",
+   "date": "2025-10-05",
+   "metrics": {
+    "impressions": 84950,
+    "clicks": 121
+   },
+   "end_date": "2025-10-11"
+  },
+  {
+   "tab": "website",
+   "date": "2025-09-07",
+   "metrics": {
+    "impressions": 71110,
+    "clicks": 109
+   },
+   "end_date": "2025-09-13"
+  },
+  {
+   "tab": "website",
+   "date": "2025-08-10",
+   "metrics": {
+    "impressions": 58270,
+    "clicks": 68
+   },
+   "end_date": "2025-08-16"
+  },
+  {
+   "tab": "website",
+   "date": "2025-07-13",
+   "metrics": {
+    "impressions": 114890,
+    "clicks": 157
+   },
+   "end_date": "2025-07-19"
+  },
+  {
+   "tab": "website",
+   "date": "2025-06-08",
+   "metrics": {
+    "impressions": 146000,
+    "clicks": 2
+   },
+   "end_date": "2025-06-14"
+  },
+  {
+   "tab": "website",
+   "date": "2025-05-11",
+   "metrics": {
+    "impressions": 9983,
+    "clicks": 4
+   },
+   "end_date": "2025-05-17"
+  },
+  {
+   "tab": "website",
+   "date": "2025-05-11",
+   "metrics": {
+    "impressions": 6754,
+    "clicks": 2
+   },
+   "end_date": "2025-05-17"
+  },
+  {
+   "tab": "website",
+   "date": "2025-04-13",
+   "metrics": {
+    "impressions": 8809,
+    "clicks": 7
+   },
+   "end_date": "2025-04-19"
+  },
+  {
+   "tab": "website",
+   "date": "2025-04-13",
+   "metrics": {
+    "impressions": 3821,
+    "clicks": 1
+   },
+   "end_date": "2025-04-19"
+  },
+  {
+   "tab": "website",
+   "date": "2025-03-02",
+   "metrics": {
+    "impressions": 9875,
+    "clicks": 8
+   },
+   "end_date": "2025-03-08"
+  },
+  {
+   "tab": "website",
+   "date": "2025-03-02",
+   "metrics": {
+    "impressions": 4202,
+    "clicks": 3
+   },
+   "end_date": "2025-03-08"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2026-02-01",
+   "metrics": {
+    "impressions": 687217
+   },
+   "end_date": "2026-02-28"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2026-01-01",
+   "metrics": {
+    "impressions": 650340
+   },
+   "end_date": "2026-01-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-12-01",
+   "metrics": {
+    "impressions": 662827
+   },
+   "end_date": "2025-12-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-11-01",
+   "metrics": {
+    "impressions": 26233
+   },
+   "end_date": "2025-11-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-10-01",
+   "metrics": {
+    "impressions": 32409
+   },
+   "end_date": "2025-10-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-09-01",
+   "metrics": {
+    "impressions": 43624
+   },
+   "end_date": "2025-09-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-08-01",
+   "metrics": {
+    "impressions": 52460
+   },
+   "end_date": "2025-08-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-07-01",
+   "metrics": {
+    "impressions": 42592
+   },
+   "end_date": "2025-07-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-06-01",
+   "metrics": {
+    "impressions": 92403
+   },
+   "end_date": "2025-06-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-05-01",
+   "metrics": {
+    "impressions": 33430
+   },
+   "end_date": "2025-05-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-03-01",
+   "metrics": {
+    "impressions": 20686
+   },
+   "end_date": "2025-03-31"
+  },
+  {
+   "tab": "podcast",
+   "date": "2026-04-24",
+   "metrics": {
+    "plays": 487,
+    "short_form_views": 1927,
+    "impressions": 31211,
+    "clicks": 34
+   },
+   "title": "When AI finally popped at Southern Company",
+   "live_url": "https://www.energycentral.com/podcasts/post/when-ai-finally-popped-at-southern-company-BAnk0dvE9SGw5qm?trk=public_post_comment-text"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-02-17",
+   "metrics": {
+    "impressions": 128673,
+    "clicks": 275
+   },
+   "end_date": "2026-02-20"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-01-18",
+   "metrics": {
+    "impressions": 134460,
+    "clicks": 234
+   },
+   "end_date": "2026-01-24"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-11-30",
+   "metrics": {
+    "impressions": 180440,
+    "clicks": 207
+   },
+   "end_date": "2025-12-06"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-11-02",
+   "metrics": {
+    "impressions": 99986,
+    "clicks": 351
+   },
+   "end_date": "2025-11-08"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-10-05",
+   "metrics": {
+    "impressions": 134113,
+    "clicks": 481
+   },
+   "end_date": "2025-10-11"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-07",
+   "metrics": {
+    "impressions": 193598,
+    "clicks": 1026
+   },
+   "end_date": "2025-09-13"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-08-10",
+   "metrics": {
+    "impressions": 191524,
+    "clicks": 721
+   },
+   "end_date": "2025-08-16"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-07-13",
+   "metrics": {
+    "impressions": 201482,
+    "clicks": 701
+   },
+   "end_date": "2025-07-19"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-06-08",
+   "metrics": {
+    "impressions": 267262,
+    "clicks": 259
+   },
+   "end_date": "2025-06-14"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-05-11",
+   "metrics": {
+    "impressions": 578
+   },
+   "end_date": "2025-05-17"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-04-13",
+   "metrics": {
+    "impressions": 58459,
+    "clicks": 463
+   },
+   "end_date": "2025-04-19"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-03-02",
+   "metrics": {
+    "impressions": 52182,
+    "clicks": 2097
+   },
+   "end_date": "2025-03-08"
+  },
+  {
+   "tab": "events",
+   "date": "2025-09-09",
+   "title": "Purpose-Driven AI: Building a Bridge to Value with AI [an Energy Central PowerSession\u2122]",
+   "metrics": {
+    "registrants": 328,
+    "attendees": 139
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2024-09-10",
+   "title": "Navigating Utility\u2019s Data-Rich Environment in the New Energy Landscape [an Energy Central PowerSession\u2122]",
+   "metrics": {
+    "registrants": 303,
+    "attendees": 101
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-08-13",
+   "metrics": {
+    "sent": 110398,
+    "opens": 26277,
+    "clicks": 5302
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-08-07",
+   "metrics": {
+    "sent": 110474,
+    "opens": 27977,
+    "clicks": 5146
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2025-09-24",
+   "metrics": {
+    "sent": 45919,
+    "opens": 4565,
+    "clicks": 1960
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2024-09-17",
+   "metrics": {
+    "sent": 53815,
+    "opens": 7592,
+    "clicks": 2068
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2026-10-14",
+   "metrics": {
+    "views": 161,
+    "likes": 2
+   },
+   "title": "Expert Interview | The AI-enabled utility: Balancing AI innovations with human expertise",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/expert-interview-the-ai-enabled-utility-balancing-ai-innovations-with-CtJxgxEnBTMXExG"
+  },
+  {
+   "tab": "content",
+   "date": "2026-07-16",
+   "metrics": {
+    "views": 550,
+    "likes": 4
+   },
+   "title": "Operationalizing AI in the Call Center: Analytics, LLMOps, and Real-World Impact",
+   "live_url": "https://www.energycentral.com/events/post/operationalizing-ai-in-the-call-center-analytics-llmops-and-real-world-H6LwjVOTl5naKy3"
+  },
+  {
+   "tab": "content",
+   "date": "2026-01-20",
+   "metrics": {
+    "views": 500,
+    "likes": 3
+   },
+   "title": "How AI drives business value for large utilities",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/how-ai-drives-business-value-for-large-utilities-X50G7dwPqSyp7Eu"
+  },
+  {
+   "tab": "content",
+   "date": "2025-11-06",
+   "metrics": {
+    "views": 365,
+    "likes": 1
+   },
+   "title": "New White Paper | Navigating an AI Ecosystem: Scaling for Impact",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/new-white-paper-navigating-an-ai-ecosystem-scaling-for-impact-49X8qMCPn3I4SLR"
+  },
+  {
+   "tab": "content",
+   "date": "2025-11-04",
+   "metrics": {
+    "views": 305,
+    "likes": 2
+   },
+   "title": "White Paper | People + AI An executive\u2019s guide to uniting talent and technology",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/white-paper-people-ai-an-executive-s-guide-to-uniting-talent-and-W4bE4NIdxKtgGyZ"
+  },
+  {
+   "tab": "content",
+   "date": "2025-09-16",
+   "metrics": {
+    "views": 1682,
+    "likes": 6
+   },
+   "title": "Leveraging AI to Accelerate the Energy Transition",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/leveraging-ai-to-accelerate-the-energy-transition-6tEW40xp69pUakV"
+  },
+  {
+   "tab": "content",
+   "date": "2025-08-11",
+   "metrics": {
+    "views": 773,
+    "likes": 3
+   },
+   "title": "Purpose-Driven AI: Building a Bridge to Value with AI [an Energy Central PowerSession\u2122]",
+   "live_url": "https://www.energycentral.com/events/post/purpose-driven-ai-building-a-bridge-to-value-with-ai-an-energy-central-IAV2HESkYQpCPV7"
+  },
+  {
+   "tab": "content",
+   "date": "2025-03-11",
+   "metrics": {
+    "views": 332,
+    "likes": 0
+   },
+   "title": "CGI Set to Showcase Innovation at DISTRIBUTECH 2025 in Dallas",
+   "live_url": "https://www.energycentral.com/home/post/cgi-set-showcase-innovation-distributech-2025-dallas-3LqqBDQojBNBYSk"
+  },
+  {
+   "tab": "content",
+   "date": "2024-08-21",
+   "metrics": {
+    "views": 725,
+    "likes": 0
+   },
+   "title": "Is your data ready for the energy transition? Strategies to address data readiness for modern utilities",
+   "live_url": "https://www.energycentral.com/home/post/your-data-ready-energy-transition-strategies-address-data-readiness-modern-YC2wNqSOoq8mzuW"
+  }
+ ]
+}

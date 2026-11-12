@@ -1,0 +1,17 @@
+{
+ "client_slug": "metric-theory",
+ "source_url": "https://docs.google.com/spreadsheets/d/1DFGuQHIOeAkA8oENwfJrV4mfZs3ZdqCZlGHt1jaRNwE/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. email 1. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "email",
+   "date": "2026-07-31",
+   "metrics": {
+    "sent": 109856,
+    "opens": 25697,
+    "clicks": 4813
+   }
+  }
+ ]
+}

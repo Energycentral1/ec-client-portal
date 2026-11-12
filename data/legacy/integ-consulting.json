@@ -1,0 +1,69 @@
+{
+ "client_slug": "integ-consulting",
+ "source_url": "https://docs.google.com/spreadsheets/d/1iDtoh22oclWfwld1zd7S_WSSDnMUxvwvEgUpKVWT7LE/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. events 1, newsletter 5, podcast 1. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "podcast",
+   "date": "2026-01-23",
+   "metrics": {
+    "plays": 398,
+    "short_form_views": 324,
+    "impressions": 43458,
+    "clicks": 21
+   },
+   "title": "https://www.energycentral.com/podcasts/post/when-load-forecasting-stops-being-predictable-gxj5jzwb3ynf08h",
+   "live_url": "https://www.energycentral.com/podcasts/post/when-load-forecasting-stops-being-predictable-gxj5jzwb3ynf08h"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-02-11",
+   "metrics": {
+    "impressions": 31954,
+    "clicks": 27
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-02-04",
+   "metrics": {
+    "impressions": 31644,
+    "clicks": 16
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-01-12",
+   "metrics": {
+    "impressions": 33307,
+    "clicks": 122
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-01-08",
+   "metrics": {
+    "impressions": 33787,
+    "clicks": 63
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-11-06",
+   "metrics": {
+    "impressions": 22553,
+    "clicks": 56
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2026-02-25",
+   "title": "Generation Outage Excellence: Streamlining Processes & Ensuring Compliance in an Era of Energy Transition",
+   "metrics": {
+    "registrants": 234,
+    "attendees": 73
+   }
+  }
+ ]
+}

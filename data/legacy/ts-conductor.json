@@ -1,0 +1,58 @@
+{
+ "client_slug": "ts-conductor",
+ "source_url": "https://docs.google.com/spreadsheets/d/1qLwUh-Mm3TuHwfXNIHy_WKCziawcwKjxJX1xoGTZMLA/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 5. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "content",
+   "date": "2026-01-20",
+   "metrics": {
+    "views": 704,
+    "likes": 10
+   },
+   "title": "How advanced conductors help address America\u2019s electricity pricing crisis",
+   "live_url": "https://www.energycentral.com/energy-management/post/how-advanced-conductors-help-address-america-s-electricity-pricing-crisis-TXecWMWkbz679hu"
+  },
+  {
+   "tab": "content",
+   "date": "2026-01-16",
+   "metrics": {
+    "views": 506,
+    "likes": 3
+   },
+   "title": "How state and DC policy are aligning to accelerate advanced conductors",
+   "live_url": "https://www.energycentral.com/energy-management/post/how-state-and-dc-policy-are-aligning-to-accelerate-advanced-conductors-0S1pEo0xOI8pJQr"
+  },
+  {
+   "tab": "content",
+   "date": "2025-12-08",
+   "metrics": {
+    "views": 731,
+    "likes": 2
+   },
+   "title": "Why advanced conductors are key to affordable grid modernization",
+   "live_url": "https://www.energycentral.com/energy-management/post/why-advanced-conductors-are-key-to-affordable-grid-modernization-RNFHX3Yi9IB3LZ2"
+  },
+  {
+   "tab": "content",
+   "date": "2025-08-15",
+   "metrics": {
+    "views": 566,
+    "likes": 2
+   },
+   "title": "Advanced conductors made in the USA support America\u2019s energy and AI goals. Here\u2019s how.",
+   "live_url": "https://www.energycentral.com/energy-management/post/advanced-conductors-made-in-the-usa-support-america-s-energy-and-ai-m7tkIAjVOJA7bg8"
+  },
+  {
+   "tab": "content",
+   "date": "2025-06-25",
+   "metrics": {
+    "views": 898,
+    "likes": 6
+   },
+   "title": "Transmission Conductors Are Evolving \u2014 and Next-gen Advanced Conductors Are Already Here",
+   "live_url": "https://www.energycentral.com/energy-management/post/transmission-conductors-are-evolving----and-next-gen-advanced-conductors-dPfLuFnsx3JMwun"
+  }
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "client_slug": "invoicecloud",
+ "source_url": "https://docs.google.com/spreadsheets/d/1h-NrxL532wzRGYkKoTjDzfHhoJNmUu6XwCrfczvB2e0/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 3, email 1, sponsorship 2. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "sponsorship",
+   "date": "2026-03-01",
+   "metrics": {
+    "impressions": 7
+   },
+   "end_date": "2026-04-01"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2026-01-28",
+   "metrics": {
+    "impressions": 11
+   },
+   "end_date": "2026-03-01"
+  },
+  {
+   "tab": "email",
+   "date": "2026-01-13",
+   "metrics": {
+    "sent": 115716,
+    "opens": 42653,
+    "clicks": 8210
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2026-03-10",
+   "metrics": {
+    "views": 86,
+    "likes": 3
+   },
+   "title": "How the Digital Trust Gap is Stalling Utility Payment Adoption",
+   "live_url": "https://www.energycentral.com/customer-engagement-experience/post/how-the-digital-trust-gap-is-stalling-utility-payment-adoption-pyFJ4HPcmq8FtXL"
+  },
+  {
+   "tab": "content",
+   "date": "2026-02-17",
+   "metrics": {
+    "views": 561,
+    "likes": 5
+   },
+   "title": "3 Strategies for Reducing Delinquent Utility Payments",
+   "live_url": "https://www.energycentral.com/energy-biz/post/3-strategies-for-reducing-delinquent-utility-payments-XXkVOBJLhoI3MvG"
+  },
+  {
+   "tab": "content",
+   "date": "2026-01-06",
+   "metrics": {
+    "views": 677,
+    "likes": 1
+   },
+   "title": "Why Utilities Can\u2019t Afford to Ignore the Shift to Mobile Billing",
+   "live_url": "https://www.energycentral.com/energy-biz/post/why-utilities-can-t-afford-to-ignore-the-shift-to-mobile-billing-NyVTAOLWdowGfvv"
+  }
+ ]
+}

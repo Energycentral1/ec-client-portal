@@ -1,0 +1,65 @@
+{
+ "client_slug": "diversified-iesna",
+ "source_url": "https://docs.google.com/spreadsheets/d/1ZX5osM7f-fu0tOy8uPp28-V_adINDWZj9LSiNpGU2_s/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. email 1, newsletter 5, sponsorship 1. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "sponsorship",
+   "date": "2026-01-15",
+   "metrics": {
+    "impressions": 26
+   },
+   "end_date": "2026-02-15"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-02-12",
+   "metrics": {
+    "impressions": 31475,
+    "clicks": 26
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-02-05",
+   "metrics": {
+    "impressions": 30418,
+    "clicks": 87
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-02-02",
+   "metrics": {
+    "impressions": 22302,
+    "clicks": 80
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-01-29",
+   "metrics": {
+    "impressions": 32940,
+    "clicks": 145
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-01-22",
+   "metrics": {
+    "impressions": 35758,
+    "clicks": 60
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-02-10",
+   "metrics": {
+    "sent": 115211,
+    "opens": 34687,
+    "clicks": 5163
+   }
+  }
+ ]
+}

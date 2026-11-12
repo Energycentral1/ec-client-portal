@@ -1,0 +1,33 @@
+{
+ "client_slug": "gridwise-alliance",
+ "source_url": "https://docs.google.com/spreadsheets/d/10uJ5W-rE2B-RTKtWBr9358oKGY7lU2VRqav0ggSUkgs/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. email 1, newsletter 2. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "newsletter",
+   "date": "2026-09-08",
+   "metrics": {
+    "impressions": 27735,
+    "clicks": 1394
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-05-07",
+   "metrics": {
+    "impressions": 26466,
+    "clicks": 388
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-04-07",
+   "metrics": {
+    "sent": 113943,
+    "opens": 28842,
+    "clicks": 1260
+   }
+  }
+ ]
+}

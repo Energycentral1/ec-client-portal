@@ -2,7 +2,7 @@
  "client_slug": "scottmadden",
  "source_url": "https://docs.google.com/spreadsheets/d/1uj_ODaQabIo_SIHJjSLOEDboU3ICArngetL0aLPCbYM/edit",
  "extracted_on": "2026-11-12",
- "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 13, email 2, events 14, newsletter 10, podcast 3, sponsorship 4, website 3. Left out, no clean number or date (14): Content Report / 2026-11-12 00:00:00; Newsletter Advertising / 2026-11-05 00:00:00; Events / ScottMadden's Energy Industry Update - D; Events / ScottMadden's Energy Industry Update - R; Events / ScottMadden's Energy Industry Update \u2013 G; Events / ScottMadden's Energy Industry Update - I; Events / ScottMadden's Energy Industry Update - A; Events / ScottMadden's Energy Industry Update - N; Events / ScottMadden's Fall 2015 Energy Industry ; Events / State of the Energy Industry: A Mid-Year; Events / Thank you for choosing Energy Central!; Podcasts & Interviews / 2026-10-23 00:00:00; Podcasts & Interviews / 2023-10-10 00:00:00; Podcasts & Interviews / 2022-03-08 00:00:00. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 13, email 2, events 22, newsletter 10, podcast 3, sponsorship 4, website 3. Left out, no clean number or date (6): Content Report / 2026-11-12 00:00:00; Newsletter Advertising / 2026-11-05 00:00:00; Events / Thank you for choosing Energy Central!; Podcasts & Interviews / 2026-10-23 00:00:00; Podcasts & Interviews / 2023-10-10 00:00:00; Podcasts & Interviews / 2022-03-08 00:00:00. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
  "rows": [
   {
    "tab": "website",
@@ -302,6 +302,78 @@
    "metrics": {
     "registrants": 638,
     "attendees": 221
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2018-11-02",
+   "title": "ScottMadden's Energy Industry Update - Don\u2019t Stop Believin\u2019",
+   "metrics": {
+    "registrants": 603,
+    "attendees": 247
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2018-06-01",
+   "title": "ScottMadden's Energy Industry Update - Recalibration",
+   "metrics": {
+    "registrants": 636,
+    "attendees": 248
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2017-11-03",
+   "title": "ScottMadden's Energy Industry Update \u2013 Generation to Generation: An Energy Evolution",
+   "metrics": {
+    "registrants": 605,
+    "attendees": 251
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2017-05-19",
+   "title": "ScottMadden's Energy Industry Update - It\u2019s the End of the World as We Know It (And I Feel Fine)",
+   "metrics": {
+    "registrants": 363,
+    "attendees": 135
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2016-11-04",
+   "title": "ScottMadden's Energy Industry Update - As Yogi Berra Might Say\u2026",
+   "metrics": {
+    "registrants": 618,
+    "attendees": 284
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2016-04-29",
+   "title": "ScottMadden's Energy Industry Update - Neither Fish nor Fowl",
+   "metrics": {
+    "registrants": 474,
+    "attendees": 240
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2015-09-25",
+   "title": "ScottMadden's Fall 2015 Energy Industry Update - Strange Brew: Adapting to Changing Fundamentals",
+   "metrics": {
+    "registrants": 611,
+    "attendees": 256
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2014-08-22",
+   "title": "State of the Energy Industry: A Mid-Year Review (or \"I Feel the Earth Move Under My Feet\" [with apologies to Carole King])",
+   "metrics": {
+    "registrants": 732,
+    "attendees": 358
    }
   },
   {

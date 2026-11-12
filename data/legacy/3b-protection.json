@@ -2,7 +2,7 @@
  "client_slug": "3b-protection",
  "source_url": "https://docs.google.com/spreadsheets/d/1ZfcqBrOUJHwM5Mg-kc2uDrcesQsEOz7Pty9pPw2aoOM/edit",
  "extracted_on": "2026-11-11",
- "notes": "Events and Podcasts tabs have numbers. Newsletter Advertising, Email and Website Advertising say 'No Upcoming Purchased'; Content Report is empty. Event links in the sheet point at energycentral.com event pages, which the portal doesn't use (events link to the Zoom Events hub recording).",
+ "notes": "Events and Podcasts tabs have numbers. Newsletter Advertising, Email and Website Advertising say 'No Upcoming Purchased'; Content Report is empty. Event links in the sheet point at energycentral.com event pages, which the portal doesn't use (events link to the Zoom Events hub recording). Older history (0 rows before the hand-read range) added by scripts/read-legacy-xlsx.py on 2026-11-12.",
  "rows": [
   {
    "tab": "events",

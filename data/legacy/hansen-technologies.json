@@ -1,0 +1,67 @@
+{
+ "client_slug": "hansen-technologies",
+ "source_url": "https://docs.google.com/spreadsheets/d/1-7-S-ZjoS2NkPexAb-zGZmBSjGjn0C8tId68YI0fq4Q/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 5, podcast 1. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "podcast",
+   "date": "2025-06-25",
+   "metrics": {
+    "impressions": 355
+   },
+   "title": "Welcome Your New Expert Interview Series: David Castree",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/welcome-your-new-expert-interview-series-david-castree-iomMiLGlg9iVKb5"
+  },
+  {
+   "tab": "content",
+   "date": "2026-02-12",
+   "metrics": {
+    "views": 745,
+    "likes": 10
+   },
+   "title": "When AI Answers the Call: Kingsport\u2019s experiment in AI + human agents, powered by Hansen",
+   "live_url": "https://www.energycentral.com/energy-biz/post/when-ai-answers-the-call-kingsport-s-experiment-in-ai-human-agents-aksYxhZrbwvcjZi"
+  },
+  {
+   "tab": "content",
+   "date": "2025-12-02",
+   "metrics": {
+    "views": 496,
+    "likes": 8
+   },
+   "title": "Reimagining Utility Data Management: Why Modern MDM is the Key to Resilience and Innovation",
+   "live_url": "https://www.energycentral.com/customer-engagement-experience/post/reimagining-utility-data-management-why-modern-mdm-is-the-key-to-PTZjPFKkpz5MyhH"
+  },
+  {
+   "tab": "content",
+   "date": "2025-09-29",
+   "metrics": {
+    "views": 657,
+    "likes": 8
+   },
+   "title": "Moving Core Utility Systems to SaaS: Lessons and Reflections",
+   "live_url": "https://www.energycentral.com/customer-engagement-experience/post/moving-core-utility-systems-to-saas-lessons-and-reflections-xazrIIpNWiw8xWj"
+  },
+  {
+   "tab": "content",
+   "date": "2025-07-14",
+   "metrics": {
+    "views": 433,
+    "likes": 10
+   },
+   "title": "GenAI Is Rewriting the Energy Sector - But Only If You Treat It Like a Teammate, not a Tool",
+   "live_url": "https://www.energycentral.com/customer-engagement-experience/post/genai-is-rewriting-the-energy-sector---but-only-if-you-treat-it-like-a-5y1z5CmP4Eamxc6"
+  },
+  {
+   "tab": "content",
+   "date": "2025-07-02",
+   "metrics": {
+    "views": 428,
+    "likes": 2
+   },
+   "title": "Welcome Your New Expert Interview Series: David Castree",
+   "live_url": "https://www.energycentral.com/energy-biz/post/welcome-your-new-expert-interview-series-david-castree-2mZYXnnjtvz5MbV"
+  }
+ ]
+}

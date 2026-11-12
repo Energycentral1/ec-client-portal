@@ -2,7 +2,7 @@
  "client_slug": "ifs",
  "source_url": "https://drive.google.com/file/d/1f65OaRmbg85df5yygG03iJyZDHKWFMFQ/view",
  "extracted_on": "2026-11-12",
- "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 4, email 9, events 12, newsletter 37, podcast 1, sponsorship 34, website 54. Left out, no clean number or date (8): Content / 2026-03-04 00:00:00; Sponsorship Recognition / 2025-12-01 00:00:00; Sponsorship Recognition / 2025-04-01 00:00:00; Events / Using Criticality and Value to Reach Opt; Events / ISO 55000 Planning: A Guide to Getting S; Events / Thank you for choosing Energy Central!; Podcasts & Interviews / 2025-02-04 00:00:00; Podcasts & Interviews / 2023-11-14 00:00:00. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 4, email 9, events 14, newsletter 37, podcast 1, sponsorship 34, website 54. Left out, no clean number or date (6): Content / 2026-03-04 00:00:00; Sponsorship Recognition / 2025-12-01 00:00:00; Sponsorship Recognition / 2025-04-01 00:00:00; Events / Thank you for choosing Energy Central!; Podcasts & Interviews / 2025-02-04 00:00:00; Podcasts & Interviews / 2023-11-14 00:00:00. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
  "rows": [
   {
    "tab": "website",
@@ -1210,6 +1210,24 @@
    "metrics": {
     "registrants": 356,
     "attendees": 148
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2015-06-05",
+   "title": "Using Criticality and Value to Reach Optimal Decisions in a Constrained World",
+   "metrics": {
+    "registrants": 199,
+    "attendees": 94
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2014-11-13",
+   "title": "ISO 55000 Planning: A Guide to Getting Started",
+   "metrics": {
+    "registrants": 251,
+    "attendees": 124
    }
   },
   {

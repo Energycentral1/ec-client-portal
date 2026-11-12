@@ -1,0 +1,33 @@
+{
+ "client_slug": "centric",
+ "source_url": "https://docs.google.com/spreadsheets/d/1DMQTT4K2o4V504y_UU3FJfkb1urWK2XKHZkbRJt3q5c/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. events 1, newsletter 2. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "newsletter",
+   "date": "2026-04-15",
+   "metrics": {
+    "impressions": 27453,
+    "clicks": 34
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-04-09",
+   "metrics": {
+    "impressions": 28140,
+    "clicks": 32
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2026-03-03",
+   "title": "From Automation to Orchestration: A Path Forward for Utility Leaders in the AI Era",
+   "metrics": {
+    "registrants": 241,
+    "attendees": 99
+   }
+  }
+ ]
+}

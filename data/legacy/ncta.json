@@ -1,0 +1,164 @@
+{
+ "client_slug": "ncta",
+ "source_url": "https://docs.google.com/spreadsheets/d/1lW3ACRA_Cg-_70oIEpUH9OWutFdcwOfBpUlT0W9Su90/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 1, email 2, newsletter 16. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "newsletter",
+   "date": "2025-12-11",
+   "metrics": {
+    "impressions": 35845,
+    "clicks": 16
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-12-10",
+   "metrics": {
+    "impressions": 35799,
+    "clicks": 52
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-12-09",
+   "metrics": {
+    "impressions": 34146,
+    "clicks": 131
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-12-04",
+   "metrics": {
+    "impressions": 37375,
+    "clicks": 3
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-12-02",
+   "metrics": {
+    "impressions": 35646,
+    "clicks": 36
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-11-19",
+   "metrics": {
+    "impressions": 1791,
+    "clicks": 3
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-11-18",
+   "metrics": {
+    "impressions": 34055,
+    "clicks": 66
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-11-12",
+   "metrics": {
+    "impressions": 31388,
+    "clicks": 32
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-11-12",
+   "metrics": {
+    "impressions": 1962,
+    "clicks": 1
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-11-06",
+   "metrics": {
+    "impressions": 3767,
+    "clicks": 1
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-11-04",
+   "metrics": {
+    "impressions": 23879,
+    "clicks": 56
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-10-28",
+   "metrics": {
+    "impressions": 31566,
+    "clicks": 8
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-10-22",
+   "metrics": {
+    "impressions": 25140,
+    "clicks": 173
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-10-22",
+   "metrics": {
+    "impressions": 1203,
+    "clicks": 35
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-10-16",
+   "metrics": {
+    "impressions": 22924,
+    "clicks": 32
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-10-15",
+   "metrics": {
+    "impressions": 22260,
+    "clicks": 91
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2025-12-10",
+   "metrics": {
+    "sent": 117332,
+    "opens": 43105,
+    "clicks": 8726
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2025-10-16",
+   "metrics": {
+    "sent": 110158,
+    "opens": 46403,
+    "clicks": 6095
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2025-11-14",
+   "metrics": {
+    "views": 145,
+    "likes": 3
+   },
+   "title": "Reconnecting Essential Services After a Disaster Takes Teamwork",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/reconnecting-essential-services-after-a-disaster-takes-teamwork-KZA1onQW1kZJxWz"
+  }
+ ]
+}

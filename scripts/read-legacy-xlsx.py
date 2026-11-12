@@ -28,7 +28,7 @@ def date(v):
         y = int(m.group(3)); y += 2000 if y < 100 else 0
         try: d = datetime.date(y, int(m.group(1)), int(m.group(2)))
         except ValueError: return None
-    return d.isoformat() if datetime.date(2019, 1, 1) <= d <= TODAY else None
+    return d.isoformat() if datetime.date(2010, 1, 1) <= d <= TODAY else None
 
 def text(v): return re.sub(r"\s+", " ", str(v)).strip() if v is not None else ""
 def whole(n): return int(round(n))

@@ -1,0 +1,80 @@
+{
+ "client_slug": "kleinschmidt",
+ "source_url": "https://docs.google.com/spreadsheets/d/1UsP7ZAEY52l-KTVjX0Gj7HSBk4Tz2J-HfUgg-oP5GVA/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 3, newsletter 4, podcast 1. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "podcast",
+   "date": "2026-05-15",
+   "metrics": {
+    "plays": 521,
+    "short_form_views": 104
+   },
+   "title": "The modeling breakthrough changing emergency preparedness https://www.energycentral.com/podcasts/post/the-modeling-breakthrough-changing-emergency-preparedness-mZ6BaGmChMga9BR",
+   "live_url": "https://www.energycentral.com/podcasts/post/the-modeling-breakthrough-changing-emergency-preparedness-mZ6BaGmChMga9BR"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-10-14",
+   "metrics": {
+    "impressions": 26142,
+    "clicks": 936
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-08-26",
+   "metrics": {
+    "impressions": 29167,
+    "clicks": 1108
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-05-12",
+   "metrics": {
+    "impressions": 26993,
+    "clicks": 139
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-03-04",
+   "metrics": {
+    "impressions": 30042,
+    "clicks": 104
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2026-10-08",
+   "metrics": {
+    "views": 161,
+    "likes": 4
+   },
+   "title": "Every Piece Matters: Why the Future of Hydropower Depends on Connecting the Dots",
+   "live_url": "https://www.energycentral.com/renewables/post/every-piece-matters-why-the-future-of-hydropower-depends-on-connecting-rAYWaZqZDOtjzqW"
+  },
+  {
+   "tab": "content",
+   "date": "2026-08-17",
+   "metrics": {
+    "views": 403,
+    "likes": 12
+   },
+   "title": "Reimagining America's Existing Infrastructure: How Kentucky's Lock and Dam 14 Hydropower Project Is Raising the Bar for Small Hydro",
+   "live_url": "https://www.energycentral.com/energy-management/post/reimagining-america-s-existing-infrastructure-how-kentucky-s-lock-and-z5cSV0l9afZk7yn"
+  },
+  {
+   "tab": "content",
+   "date": "2026-04-29",
+   "metrics": {
+    "views": 738,
+    "likes": 12
+   },
+   "title": "Modernizing Legacy Infrastructure: Lessons from the Lake Conestee Dam Replacement",
+   "live_url": "https://www.energycentral.com/energy-management/post/modernizing-legacy-infrastructure-lessons-from-the-lake-conestee-dam-nEMAXD9PEkg8EFv"
+  }
+ ]
+}

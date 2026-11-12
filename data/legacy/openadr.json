@@ -1,0 +1,16 @@
+{
+ "client_slug": "openadr",
+ "source_url": "https://docs.google.com/spreadsheets/d/1Lw32OHO4Db8sdaouz-QVRJ1F8AcDMuhQa58hhM0ExNo/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. newsletter 1. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "newsletter",
+   "date": "2026-04-16",
+   "metrics": {
+    "impressions": 26949,
+    "clicks": 39
+   }
+  }
+ ]
+}

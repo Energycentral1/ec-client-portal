@@ -1,0 +1,18 @@
+{
+ "client_slug": "outsmart-labs",
+ "source_url": "https://docs.google.com/spreadsheets/d/1ELhcr7ex7VE1J81vtyoir5z1NlBDyglgtrm2LbvMRW0/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 1. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "content",
+   "date": "2025-09-25",
+   "metrics": {
+    "views": 387,
+    "likes": 1
+   },
+   "title": "The Power Sector at a Breaking Point \u2014 How Commodity Consulting Extrapolates Directly to Power",
+   "live_url": "https://www.energycentral.com/home/post/the-power-sector-at-a-breaking-point----how-commodity-consulting-mcru8rK0DsHn3c8"
+  }
+ ]
+}

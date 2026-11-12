@@ -1,0 +1,17 @@
+{
+ "client_slug": "kloudgin",
+ "source_url": "https://docs.google.com/spreadsheets/d/1ap-0WKj9QvFFC5XCKULVys9PQFVXQIC2LxKF4JPxQXo/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. email 1. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "email",
+   "date": "2026-03-10",
+   "metrics": {
+    "sent": 114517,
+    "opens": 33724,
+    "clicks": 4970
+   }
+  }
+ ]
+}
