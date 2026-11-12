@@ -55,7 +55,7 @@ The team adds the creative a client must sign off (`proofs` table, files in the 
 - **Lead rows are personal data: never commit them to the repo** (no `data/*.json` for leads, unlike metrics). Semtech's history was loaded straight from the lead sheets into Supabase through the SQL editor.
 - `leads.source` + `leads.attended` drive the client-facing "how they came in": `webinar_live` + attended → "Attended live", `webinar_live` + not attended → "Registered", `webinar_on_demand` → "Watched on demand". `leads.origin` records the system (zoom, tally, legacy_sheet, manual).
 - Leads have no approval step: clients see them as soon as they land.
-- **Leads table filters** (Chloe, Nov 12 2026, replacing the "Who you reached" section): type of organization as chips with Utilities highlighted in yellow ("X% work at utilities" above the table, a Utility badge on rows), then seniority, company, how they came in and source. Type and seniority are guessed from company name and job title in `src/lib/leadProfile.ts` (utility name list + keywords); the page says a few will be off. Both go in the CSV.
+- **Leads table filters** (Chloe, Nov 12 2026, replacing the "Who you reached" section): type of organization as chips with Utilities highlighted in yellow (a Utility badge on rows; the "X% work at utilities" line was removed at Chloe's ask), then seniority, company, how they came in and source. Type and seniority are guessed from company name and job title in `src/lib/leadProfile.ts` (utility name list + keywords); the page says a few will be off. Both go in the CSV.
 
 ## Task list
 1. [done] Schema, RLS, client seed (65 clients, 34 live).

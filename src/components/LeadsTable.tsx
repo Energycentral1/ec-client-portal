@@ -48,8 +48,6 @@ export function LeadsTable({ leads, fileName }: { leads: LeadRow[]; fileName: st
   const types = useMemo(() => tally(leads, (l) => l.companyType), [leads]);
   const levels = useMemo(() => tally(leads, (l) => l.seniority), [leads]);
   const companies = useMemo(() => [...tally(leads, (l) => l.company?.trim() || "")].filter(([c]) => c).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])), [leads]);
-  const people = useMemo(() => new Set(leads.map((l) => l.email.toLowerCase())).size, [leads]);
-  const utilityShare = leads.length ? Math.round(((types.get(UTILITY) ?? 0) / leads.length) * 100) : 0;
   const rows = useMemo(() => {
     const s = q.trim().toLowerCase();
     return leads.filter((l) => (how === "All" || l.how === how) && (event === "All" || l.event === event)
@@ -77,11 +75,6 @@ export function LeadsTable({ leads, fileName }: { leads: LeadRow[]; fileName: st
 
   return (
     <div>
-      {utilityShare > 0 && (
-        <p className="mb-4 font-display text-2xl leading-snug">
-          {people.toLocaleString("en-US")} people. <span className="rounded bg-sun px-1.5">{utilityShare}% work at utilities</span>.
-        </p>
-      )}
       <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filter by type of organization">
         {chip("All", leads.length, type, setType)}
         {COMPANY_TYPES.filter((t) => types.get(t)).map((t) => chip(t, types.get(t)!, type, setType, t === UTILITY))}
