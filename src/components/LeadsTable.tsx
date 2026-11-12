@@ -16,9 +16,12 @@ const CSV_COLS: [string, (l: LeadRow) => string][] = [
   ["Phone", (l) => l.phone ?? ""], ["Job title", (l) => l.job_title ?? ""], ["Company", (l) => l.company ?? ""],
   ["Company size", (l) => l.company_size ?? ""], ["City", (l) => l.city ?? ""], ["State", (l) => l.state ?? ""],
   ["Country", (l) => l.country ?? ""], ["How they came in", (l) => l.how], ["Source", (l) => l.event],
-  ["Source date", (l) => l.eventDate ?? ""], ["Signed up", (l) => l.date ?? ""],
+  ["Date", (l) => when(l) ?? ""], ["Source date", (l) => l.eventDate ?? ""],
   ["Consent to contact", (l) => (l.consent == null ? "" : l.consent ? "Yes" : "No")],
 ];
+const DATE = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
+/** The day the person signed up. Older imports don't always have it, so those fall back to the session date. */
+const when = (l: LeadRow) => l.date ?? l.eventDate;
 const cell = (v: string) => (/[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v);
 
 /** Leads with filters and a CSV download. The download always matches what the filters show. */
@@ -37,7 +40,8 @@ export function LeadsTable({ leads, fileName }: { leads: LeadRow[]; fileName: st
   const rows = useMemo(() => {
     const s = q.trim().toLowerCase();
     return leads.filter((l) => (how === "All" || l.how === how) && (event === "All" || l.event === event)
-      && (!s || [l.first_name, l.last_name, l.email, l.company, l.job_title].some((v) => v?.toLowerCase().includes(s))));
+      && (!s || [l.first_name, l.last_name, l.email, l.company, l.job_title].some((v) => v?.toLowerCase().includes(s))))
+      .sort((a, b) => (when(b) ?? "").localeCompare(when(a) ?? ""));
   }, [leads, how, event, q]);
   const reset = () => setShown(PAGE);
 
@@ -79,13 +83,14 @@ export function LeadsTable({ leads, fileName }: { leads: LeadRow[]; fileName: st
       </div>
 
       <div className="mt-3 overflow-x-auto rounded-2xl border border-line bg-white">
-        <table className="w-full min-w-[760px] text-left text-sm">
+        <table className="w-full min-w-[860px] text-left text-sm">
           <thead className="border-b border-line text-ink/60">
-            <tr>{["Name", "Role", "Location", "How they came in", "Source"].map((h) => <th key={h} className="px-4 py-3 font-medium">{h}</th>)}</tr>
+            <tr>{["Date", "Name", "Role", "Location", "How they came in", "Source"].map((h) => <th key={h} className="px-4 py-3 font-medium">{h}</th>)}</tr>
           </thead>
           <tbody>
             {rows.slice(0, shown).map((l) => (
               <tr key={l.id} className="border-b border-line align-top last:border-0">
+                <td className="whitespace-nowrap px-4 py-3 tabular-nums">{when(l) ? DATE.format(new Date(when(l) + "T00:00:00Z")) : "—"}</td>
                 <td className="px-4 py-3"><span className="font-medium">{[l.first_name, l.last_name].filter(Boolean).join(" ") || "No name given"}</span>
                   <a href={`mailto:${l.email}`} className="block break-all text-navy hover:underline">{l.email}</a></td>
                 <td className="px-4 py-3">{l.job_title || "—"}<span className="block text-ink/60">{l.company}</span></td>
@@ -95,7 +100,7 @@ export function LeadsTable({ leads, fileName }: { leads: LeadRow[]; fileName: st
                 <td className="max-w-[260px] px-4 py-3 text-ink/80">{l.event}</td>
               </tr>
             ))}
-            {rows.length === 0 && <tr><td colSpan={5} className="px-4 py-8 text-center text-ink/60">No leads match these filters.</td></tr>}
+            {rows.length === 0 && <tr><td colSpan={6} className="px-4 py-8 text-center text-ink/60">No leads match these filters.</td></tr>}
           </tbody>
         </table>
       </div>
