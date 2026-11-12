@@ -171,8 +171,18 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   const LANE_COLORS = ["#ffe02d", "#ffffff", "#fd713b", "#9cc4fb", "#9cc4fb", "#9cc4fb", "#9cc4fb"];
   const lanes = CHANNELS.map((ch, i) => ({ title: ch.title, color: LANE_COLORS[i], lines: [...delivered, ...upcoming].filter((l) => l.date && ch.types.includes(l.type)) })).filter((l) => l.lines.length > 0);
   const dated = delivered.filter((l) => l.date).map((l) => l.date!).sort();
-  const figures: [string, number][] = ([["Impressions", sum(delivered, "impressions")], ["Clicks", sum(delivered, "clicks")],
-    ["Event registrations", sum(delivered, "registrants")], ["Leads", leads.length]] as [string, number][]).filter(([, v]) => v > 0);
+  // The summary strip: the handful of numbers a client quotes to their boss, each with a line of context.
+  const nl = delivered.filter((l) => l.type === "newsletter_ad" && has(l));
+  const ev = delivered.filter((l) => ["webinar", "powersession"].includes(l.type) && has(l));
+  const reach = sum(delivered, "impressions") + sum(delivered, "sent") + sum(delivered, "views");
+  const nlCtr = sum(nl, "impressions") > 0 ? sum(nl, "clicks") / sum(nl, "impressions") : null;
+  const summary: { label: string; value: string; sub: React.ReactNode }[] = [];
+  if (reach > 0) summary.push({ label: "Total reach", value: reach >= 1e6 ? `${(reach / 1e6).toFixed(1)}M` : fmt(reach), sub: "Impressions, emails delivered and views" });
+  if (sum(delivered, "clicks") > 0) summary.push({ label: "Clicks", value: fmt(sum(delivered, "clicks")), sub: `Across ${delivered.filter(has).length} placements` });
+  if (nlCtr != null) summary.push({ label: "Newsletter CTR", value: pct(sum(nl, "clicks"), sum(nl, "impressions")), sub: <Versus value={nlCtr} avg={bench("newsletter_ad", "ctr")} /> });
+  if (sum(ev, "attendees") > 0) summary.push({ label: ev.length === 1 ? "Session" : `${ev.length} sessions`, value: `${fmt(sum(ev, "attendees"))} attended`,
+    sub: `${fmt(sum(ev, "registrants"))} registered, ${pct(sum(ev, "attendees"), sum(ev, "registrants"))} attendance` });
+  if (leads.length > 0) summary.push({ label: "Leads", value: fmt(leads.length), sub: <a href="#leads" className="text-navy underline decoration-navy/30 underline-offset-2">View and download</a> });
   const sections = [...CHANNELS.filter((ch) => delivered.some((l) => ch.types.includes(l.type))).map((ch) => ({ id: ch.id, title: ch.title })),
     ...(leads.length ? [{ id: "leads", title: "Leads" }] : []), ...(upcoming.length ? [{ id: "upcoming", title: "Coming up" }] : [])];
 
@@ -186,15 +196,19 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
           {dated.length > 0 && <> from {MONTH_YEAR.format(new Date(ms(dated[0])))} to {MONTH_YEAR.format(new Date(ms(dated[dated.length - 1])))}</>}
           {upcoming.length > 0 && <>, with {upcoming.length} more scheduled</>}.
         </p>
-        {figures.length > 0 && (
-          <dl className="mt-7 grid grid-cols-2 gap-x-8 gap-y-5 sm:flex sm:flex-wrap sm:gap-x-12">
-            {figures.map(([label, v]) => (
-              <div key={label}><dd className="font-display text-3xl tabular-nums text-sun sm:text-4xl">{fmt(v)}</dd><dt className="mt-1 text-sm text-white/70">{label}</dt></div>
-            ))}
-          </dl>
-        )}
         {lanes.length > 0 && <Timeline lanes={lanes} today={today} />}
       </header>
+      {summary.length > 0 && (
+        <dl className="mt-4 grid grid-cols-2 overflow-hidden rounded-2xl border border-ink/80 bg-white sm:grid-cols-3 lg:flex">
+          {summary.map((f) => (
+            <div key={f.label} className="-mb-px -mr-px flex-1 border-b border-r border-line px-5 py-4">
+              <dt className="text-sm text-ink/60">{f.label}</dt>
+              <dd className="mt-1 font-display text-3xl leading-tight tabular-nums">{f.value}</dd>
+              <dd className="mt-1 text-sm text-ink/60">{f.sub}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
       {showAll && <p className="mt-3 text-xs text-ink/60">{preview ? "Preview of the client page, with numbers that are still waiting for approval filled in." : "This back-end view includes numbers still waiting for approval. Clients see approved numbers only."}</p>}
 
       {sections.length > 1 && (
