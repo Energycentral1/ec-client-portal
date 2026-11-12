@@ -40,6 +40,6 @@ export const fmt = (n: number | string | null | undefined) => (n == null ? "—"
 export const TYPE_LABEL: Record<string, string> = {
   newsletter_ad: "Newsletter ad", website_ad: "Website ad", email_blast: "Email blast", marketing_email: "Marketing email",
   webinar: "Webinar", powersession: "PowerSession", podcast: "Podcast", featured_story: "Featured story",
-  sponsored_article: "Sponsored article", gated_content: "Gated content", non_gated_content: "Content",
+  sponsored_article: "Partner Content", gated_content: "Gated content", non_gated_content: "Content",
   sponsorship: "Sponsorship", community_takeover: "Community takeover", linkedin_post: "LinkedIn post", reel: "Reel", other: "Other",
 };
