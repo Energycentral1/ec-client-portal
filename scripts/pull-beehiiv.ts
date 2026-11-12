@@ -66,11 +66,20 @@ async function shortClicks(path: string, from: string, to: string) {
   const all = await sio(`https://statistics.short.io/statistics/link/${id}?period=total&tz=America/New_York`);
   const top = (rows: any[], key: string) => (rows ?? []).slice().sort((a, b) => b.score - a.score).slice(0, 3).map((r) => `${r[key] ?? r.city ?? r.country} ${r.score}`).join(", ");
   return { total: num(s.totalClicks), human: num(s.humanClicks), allTotal: num(all.totalClicks), allHuman: num(all.humanClicks), id,
+    topCity: (all.city ?? []).length ? (() => { const c = all.city.slice().sort((a: any, b: any) => b.score - a.score)[0]; return { name: CITY[c.city] ?? `location ${c.city}`, clicks: c.score as number }; })() : null,
     where: `cities: ${top(all.city, "cityName")}; countries: ${top(all.country, "countryName")}; keys: ${Object.keys(all).join(",")}` };
 }
 
+/** short.io reports cities as GeoNames ids. The ones seen so far; anything else shows as "location <id>". */
+const CITY: Record<string, string> = { "4744870": "Ashburn, VA (data centers)", "6252001": "United States, city unknown", "5308655": "Phoenix, AZ",
+  "4726206": "San Antonio, TX", "4509177": "Columbus, OH", "2925533": "Frankfurt, Germany", "6167865": "Toronto, Canada", "5368361": "Los Angeles, CA" };
 const fmt = (v: number | null | undefined) => (v == null ? "—" : Math.round(v).toLocaleString("en-US"));
-const token = (name: string) => name.toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 5);
+const token = (name: string) => name.toLowerCase().split(/\s+/)[0].replace(/[^a-z0-9]/g, "").slice(0, 5);
+/** beehiiv content tags say what a send was. Daily publication (before June 2026): "type: paid partner email blast" vs
+ *  "type: marketing email"; Marketing publication: "paid email" vs "marketing email". Only paid sends are reported. */
+const tagsOf = (p: Post) => ((p as any).content_tags ?? []).map((t: string) => t.toLowerCase());
+const isPaid = (p: Post) => tagsOf(p).some((t: string) => t === "paid email" || t === "type: paid partner email blast") && !tagsOf(p).some((t: string) => t.includes("marketing email"));
+const brandMatches = (p: Post, client: string) => tagsOf(p).some((t: string) => t.startsWith("brand:") && t.replace(/[^a-z0-9]/g, "").includes(token(client)));
 
 async function main() {
   const slugs = process.argv.slice(2).filter(Boolean);
@@ -101,6 +110,10 @@ async function main() {
   if (daily[0]) console.log(`Shape check, stats fields on one Daily issue: ${JSON.stringify(Object.keys(daily[0].stats ?? {}))}, email: ${JSON.stringify(daily[0].stats?.email ?? {})}`);
 
   const lines: string[] = [];
+  const usedPosts = new Set<string>();
+  const usedLinks = new Map<string, string>(); // short path -> first placement date it was counted for
+  // Clicks per client for the outlier check, filled as links are read.
+  const clickLog: { client: string; date: string; path: string; human: number; top: { name: string; clicks: number } | null }[] = [];
   const problems: string[] = [];
   for (const d of due) {
     const client = clients!.find((c) => c.id === d.client_id)!;
@@ -121,9 +134,13 @@ async function main() {
         const parts: string[] = [];
         for (const l of links) {
           const path = new URL(l.url).pathname.slice(1);
+          // One short link used for a whole week of placements: count it once, on the first day it ran.
+          if (usedLinks.has(path)) { parts.push(`${path}: counted with ${usedLinks.get(path)}`); continue; }
+          usedLinks.set(path, d.start_date!);
           const bhTotal = num(l.email?.clicks ?? l.total_clicks), bhUnique = num(l.email?.unique_clicks ?? l.total_unique_clicks);
           try {
             const s = await shortClicks(path, d.start_date!, addDays(d.start_date!, 14));
+            clickLog.push({ client: client.name, date: d.start_date!, path, human: s.allHuman ?? 0, top: s.topCity });
             parts.push(`${path}: short.io 14 days human ${fmt(s.human)} / total ${fmt(s.total)}, all time human ${fmt(s.allHuman)} / total ${fmt(s.allTotal)} [${s.where}]; beehiiv total ${fmt(bhTotal)} / unique ${fmt(bhUnique)}`);
           } catch (err) { parts.push(`${path}: short.io error ${(err as Error).message.slice(0, 80)}; beehiiv total ${fmt(bhTotal)} / unique ${fmt(bhUnique)}`); }
         }
@@ -131,8 +148,9 @@ async function main() {
       }
       lines.push(`| ${client.name} | ${d.start_date} | Newsletter ad (${d.deliverable_label ?? ""}) | ${tag} | impressions: now ${had("impressions")}, beehiiv ${fmt(opens)} | clicks: now ${had("clicks")}; ${clickCell} | ${issue.title} |`);
     } else {
-      const near = mkt.filter((p) => Math.abs(Date.parse(etDate(p.publish_date)) - Date.parse(d.start_date!)) <= 2 * 864e5
-        && `${p.title} ${p.subject_line ?? ""}`.toLowerCase().replace(/[^a-z0-9]/g, "").includes(token(client.name)));
+      // Paid sends only, matched by the brand tag, from either publication (paid emails before June went out from the Daily).
+      const near = [...mkt, ...daily].filter((p) => Math.abs(Date.parse(etDate(p.publish_date)) - Date.parse(d.start_date!)) <= 2 * 864e5
+        && isPaid(p) && brandMatches(p, client.name) && !usedPosts.has(p.id));
       if (near.length !== 1) {
         // Investigation: every post within 3 days in Marketing and in the Daily publication (paid emails before June went out from the Daily).
         const around = (posts: Post[], label: string) => posts.filter((p) => Math.abs(Date.parse(etDate(p.publish_date)) - Date.parse(d.start_date!)) <= 3 * 864e5)
@@ -140,11 +158,22 @@ async function main() {
         problems.push(`${client.name} ${d.start_date} ${tag}: ${near.length} matching emails in Marketing (${near.map((p) => p.title).join("; ") || "none"})\n${around(mkt, "MKT")}\n${around(daily, "DAILY")}`);
         continue;
       }
+      usedPosts.add(near[0].id);
       const e = near[0].stats?.email ?? {};
       lines.push(`| ${client.name} | ${d.start_date} | Email blast | ${tag} | sent: now ${had("sent")}, beehiiv ${fmt(num(e.delivered))}; opens: now ${had("opens")}, beehiiv ${fmt(num(e.opens))} | clicks: now ${had("clicks")}, beehiiv ${fmt(num(e.clicks))} (unique ${fmt(num(e.unique_clicks))}) | ${near[0].subject_line ?? near[0].title} |`);
     }
   }
   console.log(`\n| Client | Date | Placement | EC tag | Reach | Clicks | Issue / subject |\n|---|---|---|---|---|---|---|\n${lines.join("\n")}`);
+  // Outlier rule (Chloe, Nov 12 2026): when an ad's clicks are far above the client's usual, remove the location with the most
+  // clicks. "Far above" = at least 2x the client's median ad AND one location holding 40%+ of the clicks (a bot farm signature).
+  console.log(`\nOutlier check (clicks vs client median, top location share):`);
+  for (const c of clickLog) {
+    const peers = clickLog.filter((x) => x.client === c.client && x !== c).map((x) => x.human).sort((a, b) => a - b);
+    const median = peers.length ? peers[Math.floor(peers.length / 2)] : 0;
+    const share = c.top && c.human ? c.top.clicks / c.human : 0;
+    const out = median > 0 && c.human >= 2 * median && share >= 0.4;
+    console.log(`- ${c.client} ${c.date} ${c.path}: ${fmt(c.human)} clicks, median ${fmt(median)}, top ${c.top?.name ?? "—"} ${Math.round(share * 100)}%${out ? ` -> OUTLIER: report ${fmt(c.human - c.top!.clicks)} (minus ${fmt(c.top!.clicks)} from ${c.top!.name})` : ""}`);
+  }
   console.log(`\nNot matched (${problems.length}):\n${problems.map((p) => `- ${p}`).join("\n") || "- none"}`);
   console.log(`\nDRY RUN: nothing was written.`);
 }
