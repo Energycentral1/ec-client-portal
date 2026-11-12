@@ -457,7 +457,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
       {leads.length > 0 && (
         <section id="leads" className="mt-10 scroll-mt-16">
           <h2 className="font-display text-2xl">Leads</h2>
-          <p className="mt-1 max-w-2xl text-sm text-ink/70">Everyone who registered for, attended or watched your sessions. Filter by how they came in, then download exactly what you see.</p>
+          <p className="mt-1 max-w-2xl text-sm text-ink/70">Everyone who registered for, attended or watched your sessions. Filter by type of organization, seniority, company or how they came in, then download exactly what you see.</p>
           <div className="mt-4"><LeadsTable leads={leads} fileName={`${clientName.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-leads-${today}.csv`} /></div>
         </section>
       )}
