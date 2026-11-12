@@ -21,6 +21,7 @@ export default async function AdminClient({ params, searchParams }: { params: Pr
       <p className="mt-4 inline-flex rounded-lg border border-line bg-white p-1 text-sm">
         <Link href={`/admin/clients/${slug}${sp.period ? `?period=${sp.period}` : ""}`} className={`rounded-md px-3 py-2 ${preview ? "text-ink/70" : "bg-navy text-white"}`}>Back-end view</Link>
         <Link href={`/admin/clients/${slug}?view=client${sp.period ? `&period=${sp.period}` : ""}`} className={`rounded-md px-3 py-2 ${preview ? "bg-navy text-white" : "text-ink/70"}`}>What the client sees</Link>
+        <Link href={`/admin/enter?client=${slug}`} className="rounded-md px-3 py-2 text-ink/70">Enter numbers</Link>
       </p>
       <div className="mt-6">
         <ClientView clientId={client.id} clientName={client.name} showAll preview={preview} period={sp.period ?? null}

@@ -39,7 +39,8 @@ export default async function EnterNumbers({ searchParams }: { searchParams: Pro
   const pill = (on: boolean) => `rounded-full border px-3 py-1 text-sm ${on ? "border-navy bg-navy text-white" : "border-line bg-white text-ink/70 hover:bg-mist"}`;
   return (
     <>
-      <h1 className="text-2xl font-semibold">Enter numbers</h1>
+      <h1 className="text-2xl font-semibold">Enter numbers{sp.client && clients.find(([s]) => s === sp.client) ? `: ${clients.find(([s]) => s === sp.client)![1]}` : ""}</h1>
+      {sp.client && <p className="mt-1 text-sm"><Link href={`/admin/clients/${sp.client}`} className="text-navy hover:underline">Back to this client&apos;s page</Link></p>}
       <p className="mt-1 max-w-3xl text-sm text-ink/60">Placements that have run and still have a number missing, for the types no data pull covers: Partner Content and website ads (read from Bettermode), podcasts (Flightcast) and sponsorships. What you save here waits in Approvals before the client sees it.</p>
       <div className="mt-4 flex flex-wrap gap-2">
         <Link href={href({ type: undefined })} className={pill(!sp.type)}>All types ({open.filter((d) => !sp.client || d.clients?.slug === sp.client).length})</Link>
