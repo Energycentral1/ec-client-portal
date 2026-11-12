@@ -41,6 +41,11 @@ Notion inventory rows carry no link and usually no title (`Notes` is internal sh
 
 **Paid email blasts need a web version (process change, not yet in place).** This applies to paid emails only (Notion "Email Blast"), not marketing emails (the promo sends for a client's webinar or white paper), which stay email-only and unlinked. Already-sent posts can be switched to web after the fact. Paid emails should be published as "email and web" with "hide from feed" on, so each has an unlisted link at `energycentralmarketing.beehiiv.com/p/<slug>` that the portal can use as `live_url`. Because the web page shows the post title, the internal title ("Semtech Paid 11/10") has to stop being client-visible: either title the post with the subject line or turn off "display title on web". Put the EC number (EC-3167) in the slug or a tag so the pull can match exactly.
 
+## Leads
+- **Lead rows are personal data: never commit them to the repo** (no `data/*.json` for leads, unlike metrics). Semtech's history was loaded straight from the lead sheets into Supabase through the SQL editor.
+- `leads.source` + `leads.attended` drive the client-facing "how they came in": `webinar_live` + attended → "Attended live", `webinar_live` + not attended → "Registered", `webinar_on_demand` → "Watched on demand". `leads.origin` records the system (zoom, tally, legacy_sheet, manual).
+- Leads have no approval step: clients see them as soon as they land.
+
 ## Task list
 1. [done] Schema, RLS, client seed (65 clients, 34 live).
 2. [done] Login, `/admin` (clients, client detail, approvals, data-pull log), `/portal` client view.
@@ -48,8 +53,9 @@ Notion inventory rows carry no link and usually no title (`Notes` is internal sh
 4. `scripts/pull-shortio.ts`: for deliverables past `reporting_due_date` with a `short_link`, fetch clicks for the window, insert `metrics`.
 5. `scripts/pull-beehiiv.ts`: newsletter ad impressions and email blast stats, matched by date / post id.
 6. Flagging: compare each new value to the client's median for that metric and deliverable type; flag beyond 3x.
-7. Tally webhook → `leads` (consent checkbox → `consent`); Zoom Events registrants/attendees → `metrics` + `leads`.
-8. Admin: invite a client user and link to a client; leads table with CSV export in `/portal`.
+7. Tally webhook → `leads` (consent checkbox → `consent`, `origin = 'tally'`); Zoom Events registrants/attendees → `metrics` + `leads` (`origin = 'zoom'`, `attended` true/false). Every new lead should land without anyone touching a sheet.
+8. Admin: invite a client user and link to a client. [done] Leads table in the client view: filter by how they came in, search, CSV download (`LeadsTable.tsx`).
+8b. CRM push (Chloe, Nov 11 2026): each client can have new leads added to their own CRM automatically, tagged with the Energy Central source (event title, how they came in). Plan: one connection per client (HubSpot first, plus a generic webhook for Salesforce/Marketo/Zapier), run from `scripts/` after each lead pull, stamp `leads.crm_pushed_at`. Not started; needs to know which CRMs clients use.
 9. [Semtech done as pilot; `scripts/import-legacy.ts` + `data/legacy/*.json`, run from the "Import legacy reports" Action] History import from the legacy reports in `clients.customer_report_sheet_url`. They are a mix of Google Sheets and .xlsx with the same 8 tabs; insert as `source = 'legacy_sheet'`, `status = 'pending'`.
 10. Schedule the pulls nightly (Vercel Cron or Supabase scheduled functions).
 

@@ -22,8 +22,7 @@ export default async function AdminClient({ params, searchParams }: { params: Pr
         <Link href={`/admin/clients/${slug}?view=client`} className={`rounded-md px-3 py-2 ${preview ? "bg-navy text-white" : "text-ink/70"}`}>What the client sees</Link>
       </p>
       <div className="mt-6">
-        {preview && <h2 className="mb-6 text-2xl font-semibold">{client.name} × Energy Central</h2>}
-        <ClientView clientId={client.id} showAll preview={preview} />
+        <ClientView clientId={client.id} clientName={client.name} showAll preview={preview} />
       </div>
     </>
   );

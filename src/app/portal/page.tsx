@@ -15,8 +15,7 @@ export default async function Portal() {
     <Shell title={client?.name ?? "Partner Portal"} email={profile.email} nav={[]}>
       {!client ? <Empty>Your login isn&apos;t linked to a company yet. Your Energy Central account manager can fix that.</Empty> : (
         <>
-          <h1 className="mb-6 text-2xl font-semibold">{client.name} × Energy Central</h1>
-          <ClientView clientId={client.id} showAll={false} />
+          <ClientView clientId={client.id} clientName={client.name} showAll={false} />
         </>
       )}
     </Shell>

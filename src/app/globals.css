@@ -1,3 +1,4 @@
+@import url("https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&f[]=sentient@400,500&display=swap");
 @import "tailwindcss";
 
 @theme {
@@ -9,7 +10,14 @@
   --color-ink: #14213a;
   --color-mist: #f4f6fa;
   --color-line: #dfe5ee;
+  --color-cream: #fffdf2;
+  /* "Family" is the brand display face; Sentient stands in until the licensed font files are added. */
+  --font-display: "Family", "Sentient", Georgia, serif;
   --font-sans: "Switzer", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
-body { background: var(--color-mist); color: var(--color-ink); font-family: var(--font-sans); }
+body { background: var(--color-cream); color: var(--color-ink); font-family: var(--font-sans); }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+:focus-visible { outline: 2px solid var(--color-sky); outline-offset: 2px; }
