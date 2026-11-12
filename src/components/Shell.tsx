@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { NavLinks } from "@/components/NavLinks";
-import { signOut } from "@/app/login/actions";
+import { AccountMenu } from "@/components/AccountMenu";
 
 import { LOGO } from "@/lib/brand";
 
-export function Shell({ title, nav, email, children }: {
-  title: string; nav: { href: string; label: string }[]; email: string; children: React.ReactNode;
+export function Shell({ title, nav, menu = [], email, children }: {
+  title?: string; nav: { href: string; label: string; badge?: number }[]; menu?: { href: string; label: string }[]; email: string; children: React.ReactNode;
 }) {
   return (
     <div className="min-h-screen">
@@ -16,14 +16,10 @@ export function Shell({ title, nav, email, children }: {
             {/* The logo is the one on news.energycentral.com, served from the same place, so it changes when the site's does. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={LOGO} alt="Energy Central" width={158} height={25} className="h-[25px] w-auto" />
-            <span className="border-l border-white/30 pl-3 text-sm text-white/80">{title}</span>
+            {title && <span className="border-l border-white/30 pl-3 text-sm text-white/80">{title}</span>}
           </Link>
           <Suspense fallback={null}><NavLinks nav={nav} /></Suspense>
-          <form action={signOut} className="ml-auto flex items-center gap-3 text-sm">
-            <span className="text-white/70">{email}</span>
-            <Link href="/login/password" className="text-white/85 underline decoration-white/30 underline-offset-2 hover:text-sun">Change password</Link>
-            <button type="submit" className="rounded-lg border border-white/40 px-3 py-2 hover:bg-white/10">Sign out</button>
-          </form>
+          <AccountMenu email={email} links={menu} />
         </div>
       </header>
       <main className="mx-auto max-w-6xl px-4 py-8">{children}</main>
