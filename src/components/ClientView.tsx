@@ -4,12 +4,14 @@ import { LeadsTable, type LeadRow } from "@/components/LeadsTable";
 import { ProofCard, PROOF_STATUS, type Proof } from "@/components/Proofs";
 import { ProofForm } from "@/components/ProofForm";
 
-type Metric = { metric: string; value: number; status: string; source: string };
+type Metric = { metric: string; value: number; status: string; source: string; window_start: string | null; window_end: string | null };
 type Deliverable = { id: string; inventory_tag: string | null; deliverable_type: string; deliverable_label: string | null; title: string | null; display_title: string | null;
   ec_brand: string[] | null; live_url: string | null; placement: string | null; start_date: string | null; reporting_due_date: string | null; status: string | null; metrics: Metric[] };
 /** One line in a channel table. Same-day newsletter placements are merged into one line, the way clients think about them. */
 type Line = { key: string; ids: string[]; type: string; date: string | null; due: string | null; label: string; detail: string | null; link: string | null; linkText: string;
-  values: Record<string, number>; waiting: boolean; tags: string[] };
+  values: Record<string, number>; waiting: boolean; tags: string[];
+  /** True when the numbers cover a multi-day flight (a week of ads reported as one figure), so per-ad averages don't apply. */
+  flight: boolean };
 
 /** Channels in the order a client reads them. `cols` are raw numbers; `rates` are worked out from them at display time,
  *  so they stay right when a number is corrected and never need their own data pull. */
@@ -94,7 +96,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   const admin = showAll && !preview;
   const supabase = await createClient();
   const { data: dels } = await supabase.from("deliverables")
-    .select("id, inventory_tag, deliverable_type, deliverable_label, title, display_title, ec_brand, live_url, placement, start_date, reporting_due_date, status, metrics(metric, value, status, source)")
+    .select("id, inventory_tag, deliverable_type, deliverable_label, title, display_title, ec_brand, live_url, placement, start_date, reporting_due_date, status, metrics(metric, value, status, source, window_start, window_end)")
     .eq("client_id", clientId).order("start_date", { ascending: false, nullsFirst: false });
   // Leads come back 1,000 at a time; keep reading until a short page so the table and the CSV are always complete.
   const leadRows: Lead[] = [];
@@ -133,11 +135,12 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
     const merge = d.deliverable_type === "newsletter_ad" && d.start_date;
     const key = merge ? `nl-${d.start_date}` : d.id;
     const line = lines.get(key) ?? { key, ids: [], type: d.deliverable_type, date: d.start_date, due: d.reporting_due_date, label: "", detail: null, link: null, linkText: "",
-      values: {}, waiting: false, tags: [], placements: [] };
+      values: {}, waiting: false, tags: [], flight: false, placements: [] };
     line.ids.push(d.id);
     for (const m of d.metrics) {
       if (!showAll && m.status !== "approved") continue;
       line.values[m.metric] ??= Number(m.value);
+      if (m.window_start && m.window_end && m.window_end > m.window_start) line.flight = true;
       if (m.status !== "approved") line.waiting = true;
     }
     if (d.inventory_tag) line.tags.push(d.inventory_tag);
@@ -150,7 +153,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
       line.placements.sort((a, b) => order.indexOf(a) - order.indexOf(b));
       const issue = issueFor(d);
       line.label = `Newsletter Ad - ${line.placements.join(" + ")}`;
-      line.detail = (d.ec_brand ?? []).join(", ") || null;
+      line.detail = [...(d.ec_brand ?? []), d.display_title].filter(Boolean).join(", ") || null;
       // The issue headline is the link, so the client sees which issue they ran in and can open it.
       line.link = issue?.web_url ?? null; line.linkText = issue?.title || "View the issue";
     } else {
@@ -324,7 +327,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
                           {cols.map(([k], i) => (
                             <td key={k} className="px-4 py-3 text-right tabular-nums">{fmt(l.values[k])}
                               {i === 0 && l.values[k] != null && <span className="ml-auto mt-1.5 block h-1 w-24 rounded-full bg-mist"><span className="block h-1 rounded-full bg-sky" style={{ width: `${Math.max(3, (l.values[k] / max) * 100)}%` }} /></span>}
-                              <Versus value={l.values[k]} avg={bench(l.type, k)} /></td>
+                              {!l.flight && <Versus value={l.values[k]} avg={bench(l.type, k)} />}</td>
                           ))}
                           {rates.map(([label, n, d]) => <td key={label} className="px-4 py-3 text-right font-medium tabular-nums text-navy">{l.values[n] != null && l.values[d] ? pct(l.values[n], l.values[d]) : "—"}
                             {l.values[n] != null && l.values[d] ? <Versus value={l.values[n] / l.values[d]} avg={bench(l.type, RATE_KEY[label])} /> : null}</td>)}

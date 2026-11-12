@@ -29,6 +29,8 @@ const TABS: Record<string, { types: string[]; dayWindow: number }> = {
   content: { types: ["sponsored_article", "featured_story", "gated_content", "non_gated_content", "other"], dayWindow: 3 },
   podcast: { types: ["podcast"], dayWindow: 7 },
 };
+const WEEK = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+const span = (a: string, b: string) => `Week of ${WEEK.format(new Date(a + "T00:00:00Z"))} to ${WEEK.format(new Date(b + "T00:00:00Z"))}`;
 const days = (a: string, b: string) => Math.abs((Date.parse(a) - Date.parse(b)) / 86400000);
 
 async function importFile(file: LegacyFile) {
@@ -38,15 +40,24 @@ async function importFile(file: LegacyFile) {
   if (error) throw error;
   const pool = (dels ?? []) as Deliverable[];
   const used = new Set<string>();
-  let written = 0, matched = 0, created = 0;
+  let written = 0, matched = 0, created = 0, skipped = 0;
+  // Sheets go back years; Notion inventory doesn't. Rows from before Notion's first placement (less a week) are left out,
+  // so the portal doesn't fill up with history nobody can check. Loading older history is a decision for the team.
+  const first = pool.map((d) => d.start_date).filter(Boolean).sort()[0];
+  const cutoff = first ? new Date(Date.parse(first) - 7 * 864e5).toISOString().slice(0, 10) : null;
   console.log(`\n${client.name}: ${file.rows.length} sheet rows, ${pool.length} deliverables from Notion`);
 
   for (const row of file.rows) {
     const tab = TABS[row.tab];
     if (!tab) { console.log(`  ? unknown tab "${row.tab}"`); continue; }
+    if (cutoff && row.date < cutoff) { skipped++; continue; }
+    // A sheet row with an end date is a whole flight (usually a week) reported as one number. Notion may hold one row per day
+    // for it: the numbers go on the first of them and the rest are taken out of play so no later row grabs them.
+    const inFlight = (d: Deliverable) => !!row.end_date && !!d.start_date && d.start_date >= new Date(Date.parse(row.date) - 864e5).toISOString().slice(0, 10)
+      && d.start_date <= new Date(Date.parse(row.end_date) + 864e5).toISOString().slice(0, 10);
     // Closest date wins; hero placement breaks ties (the sheet reports one number for "Hero & Position 1").
     const candidates = pool
-      .filter((d) => !used.has(d.id) && tab.types.includes(d.deliverable_type) && d.start_date && days(d.start_date, row.date) <= tab.dayWindow)
+      .filter((d) => !used.has(d.id) && tab.types.includes(d.deliverable_type) && d.start_date && (row.end_date ? inFlight(d) : days(d.start_date, row.date) <= tab.dayWindow))
       .sort((a, b) => days(a.start_date!, row.date) - days(b.start_date!, row.date)
         || tab.types.indexOf(a.deliverable_type) - tab.types.indexOf(b.deliverable_type)
         || (a.placement === "hero" ? -1 : 0) - (b.placement === "hero" ? -1 : 0));
@@ -61,10 +72,12 @@ async function importFile(file: LegacyFile) {
       target = made as Deliverable; created++;
     }
     used.add(target.id);
+    if (row.end_date) for (const c of candidates) if (c.deliverable_type === target.deliverable_type) used.add(c.id);
     // Carry over what the sheet knows and Notion doesn't: the event or post name, and where it lives.
     const patch: Record<string, string> = {};
     if (row.live_url) patch.live_url = row.live_url;
     if (row.title) patch.display_title = row.title;
+    else if (row.end_date && row.end_date !== row.date) patch.display_title = span(row.date, row.end_date);
     if (Object.keys(patch).length) { const { error: e3 } = await db.from("deliverables").update(patch).eq("id", target.id); if (e3) throw e3; }
     const rows = Object.entries(row.metrics).map(([metric, value]) => ({
       client_id: client.id, deliverable_id: target.id, metric, value, source: "legacy_sheet", status: "pending",
@@ -75,7 +88,7 @@ async function importFile(file: LegacyFile) {
     written += rows.length;
     console.log(`  ${candidates[0] ? "✓" : "+"} ${row.tab} ${row.date} → ${target.inventory_tag ?? "new row"} (${target.deliverable_type}${target.start_date !== row.date ? `, Notion date ${target.start_date}` : ""}) ${Object.entries(row.metrics).map(([k, v]) => `${k} ${v}`).join(", ")}`);
   }
-  console.log(`  ${matched} matched to Notion, ${created} added because Notion had no row.`);
+  console.log(`  ${matched} matched to Notion, ${created} added because Notion had no row${skipped ? `, ${skipped} left out (before Notion's first placement, ${first})` : ""}.`);
   return written;
 }
 

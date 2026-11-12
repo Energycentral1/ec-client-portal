@@ -1,0 +1,527 @@
+{
+ "client_slug": "ssp-innovations",
+ "source_url": "https://docs.google.com/spreadsheets/d/185-1ofDXitvMzF911r_-T50b6IdHmFDo31xTz8BtPo0/edit",
+ "extracted_on": "2026-11-11",
+ "notes": "Rows from 2025 on. Left out: 2023-2024 history; rows with no numbers yet; podcast tab (Sep 2025 episode has only a note '321+100 views on youtube = 421', Dec 2024 has no number); the sheet's 'likes and comments' is one figure, stored as likes.",
+ "rows": [
+  {
+   "tab": "newsletter",
+   "date": "2025-12-28",
+   "end_date": "2026-01-03",
+   "metrics": {
+    "impressions": 46765,
+    "clicks": 131
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-12-21",
+   "end_date": "2025-12-27",
+   "metrics": {
+    "impressions": 65056,
+    "clicks": 123
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-12-14",
+   "end_date": "2025-12-20",
+   "metrics": {
+    "impressions": 165690,
+    "clicks": 232
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-11-16",
+   "end_date": "2025-11-22",
+   "metrics": {
+    "impressions": 150317,
+    "clicks": 360
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-10-12",
+   "end_date": "2025-10-18",
+   "metrics": {
+    "impressions": 121865,
+    "clicks": 237
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-14",
+   "end_date": "2025-09-20",
+   "metrics": {
+    "impressions": 193598,
+    "clicks": 980
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-08-17",
+   "end_date": "2025-08-23",
+   "metrics": {
+    "impressions": 180506,
+    "clicks": 776
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-07-27",
+   "end_date": "2025-08-02",
+   "metrics": {
+    "impressions": 196596,
+    "clicks": 553
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-06-22",
+   "end_date": "2025-06-28",
+   "metrics": {
+    "impressions": 222642,
+    "clicks": 1301
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-05-25",
+   "end_date": "2025-05-31",
+   "metrics": {
+    "impressions": 43299,
+    "clicks": 223
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-04-27",
+   "end_date": "2025-05-03",
+   "metrics": {
+    "impressions": 73793,
+    "clicks": 443
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-03-09",
+   "end_date": "2025-03-15",
+   "metrics": {
+    "impressions": 54009,
+    "clicks": 455
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-02-09",
+   "end_date": "2025-02-15",
+   "metrics": {
+    "impressions": 53959,
+    "clicks": 2882
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-01-19",
+   "end_date": "2025-01-25",
+   "metrics": {
+    "impressions": 49860,
+    "clicks": 372
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2025-12-10",
+   "metrics": {
+    "sent": 32579,
+    "opens": 11695,
+    "clicks": 2272
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-03-24",
+   "metrics": {
+    "sent": 121288,
+    "opens": 30832,
+    "clicks": 3307
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-06-23",
+   "metrics": {
+    "sent": 112422,
+    "opens": 27070,
+    "clicks": 988
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-09-16",
+   "metrics": {
+    "sent": 108596,
+    "opens": 20477,
+    "clicks": 4065
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2026-09-23",
+   "title": "The Plain Truth About Migrating to the Utility Network",
+   "metrics": {
+    "registrants": 200,
+    "attendees": 111
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2026-06-30",
+   "title": "Optimizing Utility Capital Programs: Aligning Capital, O&M, and Data for Better Outcomes",
+   "metrics": {
+    "registrants": 173,
+    "attendees": 56
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2026-10-04",
+   "end_date": "2026-10-10",
+   "metrics": {
+    "impressions": 45220,
+    "clicks": 44
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2026-09-06",
+   "end_date": "2026-09-12",
+   "metrics": {
+    "impressions": 42160,
+    "clicks": 74
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2026-08-02",
+   "end_date": "2026-08-08",
+   "metrics": {
+    "impressions": 49800,
+    "clicks": 64
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2026-07-05",
+   "end_date": "2026-07-11",
+   "metrics": {
+    "impressions": 45260,
+    "clicks": 22
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2026-06-07",
+   "end_date": "2026-06-13",
+   "metrics": {
+    "impressions": 46340,
+    "clicks": 8
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2026-05-03",
+   "end_date": "2026-05-09",
+   "metrics": {
+    "impressions": 50390,
+    "clicks": 35
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2026-04-05",
+   "end_date": "2026-04-11",
+   "metrics": {
+    "impressions": 47910,
+    "clicks": 28
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2026-03-01",
+   "end_date": "2026-03-07",
+   "metrics": {
+    "impressions": 57770,
+    "clicks": 29
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2026-02-08",
+   "end_date": "2026-02-14",
+   "metrics": {
+    "impressions": 52340,
+    "clicks": 21
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2026-01-25",
+   "end_date": "2026-01-31",
+   "metrics": {
+    "impressions": 43451,
+    "clicks": 25
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2025-12-28",
+   "end_date": "2026-01-03",
+   "metrics": {
+    "impressions": 34810,
+    "clicks": 14
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2025-12-21",
+   "end_date": "2025-12-27",
+   "metrics": {
+    "impressions": 43005,
+    "clicks": 13
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2025-12-14",
+   "end_date": "2025-12-20",
+   "metrics": {
+    "impressions": 52540,
+    "clicks": 6
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2025-11-16",
+   "end_date": "2025-11-22",
+   "metrics": {
+    "impressions": 115940,
+    "clicks": 20
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2025-10-12",
+   "end_date": "2025-10-18",
+   "metrics": {
+    "impressions": 110043,
+    "clicks": 19
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2025-09-14",
+   "end_date": "2025-09-20",
+   "metrics": {
+    "impressions": 70460,
+    "clicks": 60
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2025-08-17",
+   "end_date": "2025-08-23",
+   "metrics": {
+    "impressions": 60220,
+    "clicks": 44
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2025-07-27",
+   "end_date": "2025-08-02",
+   "metrics": {
+    "impressions": 59090,
+    "clicks": 95
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2025-06-22",
+   "end_date": "2025-06-28",
+   "metrics": {
+    "impressions": 81610,
+    "clicks": 97
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2025-05-25",
+   "end_date": "2025-05-31",
+   "title": "Instream Ad, run of site",
+   "metrics": {
+    "impressions": 4163,
+    "clicks": 3
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2025-05-25",
+   "end_date": "2025-05-31",
+   "title": "Medium Rectangle, run of site",
+   "metrics": {
+    "impressions": 7609,
+    "clicks": 4
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2025-04-27",
+   "end_date": "2025-05-03",
+   "title": "Instream Ad, run of site",
+   "metrics": {
+    "impressions": 5021,
+    "clicks": 3
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2025-04-27",
+   "end_date": "2025-05-03",
+   "title": "Medium Rectangle, run of site",
+   "metrics": {
+    "impressions": 9301,
+    "clicks": 5
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2025-03-09",
+   "end_date": "2025-03-15",
+   "title": "Instream Ad, run of site",
+   "metrics": {
+    "impressions": 5092,
+    "clicks": 2
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2025-03-09",
+   "end_date": "2025-03-15",
+   "title": "Medium Rectangle, run of site",
+   "metrics": {
+    "impressions": 9572,
+    "clicks": 6
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2025-02-09",
+   "end_date": "2025-02-15",
+   "title": "Instream Ad, run of site",
+   "metrics": {
+    "impressions": 6050,
+    "clicks": 2
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2025-02-09",
+   "end_date": "2025-02-15",
+   "title": "Medium Rectangle, run of site",
+   "metrics": {
+    "impressions": 9939,
+    "clicks": 7
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2025-01-19",
+   "end_date": "2025-01-25",
+   "title": "Instream Ad, run of site",
+   "metrics": {
+    "impressions": 7789,
+    "clicks": 2
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2025-01-19",
+   "end_date": "2025-01-25",
+   "title": "Mobile Leaderboard, run of site",
+   "metrics": {
+    "impressions": 3389,
+    "clicks": 1
+   }
+  },
+  {
+   "tab": "website",
+   "date": "2025-01-19",
+   "end_date": "2025-01-25",
+   "title": "Leaderboard, run of site",
+   "metrics": {
+    "impressions": 9258,
+    "clicks": 120
+   }
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2026-07-12",
+   "end_date": "2026-07-18",
+   "metrics": {
+    "impressions": 153251
+   }
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2026-06-14",
+   "end_date": "2026-06-20",
+   "metrics": {
+    "impressions": 150853
+   }
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2026-05-10",
+   "end_date": "2026-05-16",
+   "metrics": {
+    "impressions": 139986
+   }
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2026-04-12",
+   "end_date": "2026-04-18",
+   "metrics": {
+    "impressions": 142787
+   }
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2026-03-11",
+   "end_date": "2026-03-17",
+   "metrics": {
+    "impressions": 158436
+   }
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2026-02-01",
+   "end_date": "2026-02-07",
+   "metrics": {
+    "impressions": 154057
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2025-12-05",
+   "title": "Guide | 5 Strategic Moves for Utility GIS",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/guide-5-strategic-moves-for-utility-gis-YIy6hTsDc3ot1jF",
+   "metrics": {
+    "views": 590,
+    "likes": 2
+   }
+  }
+ ]
+}
