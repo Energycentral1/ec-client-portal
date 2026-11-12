@@ -58,7 +58,7 @@ export default async function Approvals({ searchParams }: { searchParams: Promis
                       {link ? <a href={link} target="_blank" rel="noreferrer" className={a}>{d?.deliverable_type === "newsletter_ad" ? "Open the issue" : "Open it"}</a> : <span className="text-ink/40">No link saved</span>}
                       {d?.short_link && <a href={`${d.short_link}+`} target="_blank" rel="noreferrer" className={a}>Short link</a>}
                       {d?.notion_page_id && <a href={`https://www.notion.so/${d.notion_page_id.replace(/-/g, "")}`} target="_blank" rel="noreferrer" className={a}>{d.inventory_tag ?? "Notion"}</a>}
-                      {r.clients && <Link href={`/admin/enter?client=${r.clients.slug}&q=${encodeURIComponent(d?.inventory_tag ?? d?.start_date ?? "")}`} className={a}>Adjust the rest of the data</Link>}
+                      {r.clients && <Link href={`/admin/enter?client=${r.clients.slug}&q=${encodeURIComponent(d?.inventory_tag ?? d?.start_date ?? "")}`} className={a}>Edit placement</Link>}
                     </span>
                   </td>
                   <ApprovalCells id={r.id} value={Number(r.value)} metric={r.metric.replace(/_/g, " ")} source={SOURCE[r.source] ?? r.source} flag={r.status === "flagged" ? r.flag_reason ?? "Flagged" : null} />
