@@ -1,96 +1,130 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { Empty, TYPE_LABEL } from "@/components/Shell";
-import { EnterNumbersRow } from "@/components/EnterNumbersRow";
+import { CHANNELS } from "@/components/ClientView";
+import { InventoryRow } from "@/components/EnterNumbersRow";
 
-/** Placement types whose numbers nobody can pull yet, and the numbers each one needs (same columns as the client page).
- *  Partner Content and website ads are read from Bettermode's screens (no API on the current plan) until the move to
- *  beehiiv; podcast plays come from Flightcast, which has no API. */
-const MANUAL: { types: string[]; fields: [string, string][] }[] = [
-  { types: ["sponsored_article", "featured_story", "gated_content", "non_gated_content"], fields: [["views", "Views"], ["likes", "Likes"], ["comments", "Comments"]] },
-  { types: ["podcast"], fields: [["plays", "Episode reach"], ["short_form_views", "Short-form reach"], ["impressions", "Impressions"], ["clicks", "Clicks"]] },
-  { types: ["website_ad"], fields: [["impressions", "Impressions"], ["clicks", "Clicks"]] },
-  { types: ["sponsorship", "community_takeover", "linkedin_post", "reel"], fields: [["impressions", "Impressions"], ["clicks", "Clicks"]] },
-];
-const TYPES = MANUAL.flatMap((m) => m.types);
+/** Manual entry (Chloe, Nov 12 2026): anyone on the team can fill in or correct any piece of inventory. Laid out like the
+ *  client page (one table per channel, same columns) with Notion's row details (EC number linked to the Notion row, status),
+ *  so it reads the same as the two places the team already knows. Start: a list of clients with what still needs numbers. */
+type Row = { id: string; client_id: string; campaign_id: string | null; notion_page_id: string | null; deliverable_type: string; deliverable_label: string | null; title: string | null;
+  display_title: string | null; live_url: string | null; status: string | null; inventory_tag: string | null; start_date: string | null;
+  metrics: { metric: string; value: number; source: string; status: string }[] };
 
-type Row = { id: string; campaign_id: string | null; notion_page_id: string | null; deliverable_type: string; deliverable_label: string | null; title: string | null;
-  display_title: string | null; live_url: string | null; status: string | null; inventory_tag: string | null; start_date: string | null; ec_brand: string[] | null;
-  clients: { name: string; slug: string } | null; metrics: { metric: string; value: number }[] };
+const SOURCE: Record<string, string> = { beehiiv: "beehiiv", shortio: "short.io", zoom: "Zoom", tally: "Tally", manual: "typed in", legacy_sheet: "old report", bettermode: "Bettermode", youtube: "YouTube", flightcast: "Flightcast", linkedin: "LinkedIn" };
 
-export default async function EnterNumbers({ searchParams }: { searchParams: Promise<{ client?: string; type?: string; q?: string }> }) {
+export default async function ManualEntry({ searchParams }: { searchParams: Promise<{ client?: string; q?: string; show?: string }> }) {
   const sp = await searchParams;
   const supabase = await createClient();
-  const now = new Date();
-  const today = now.toISOString().slice(0, 10);
-  const since = new Date(now.getTime() - 548 * 864e5).toISOString().slice(0, 10);   // the last 18 months
-  const { data } = await supabase.from("deliverables")
-    .select("id, campaign_id, notion_page_id, deliverable_type, deliverable_label, title, display_title, live_url, status, inventory_tag, start_date, ec_brand, clients(name, slug), metrics(metric, value)")
-    .in("deliverable_type", TYPES).lte("start_date", today).gte("start_date", since).order("start_date", { ascending: false }).limit(2000);
-  const fieldsOf = (t: string) => MANUAL.find((m) => m.types.includes(t))!.fields;
-  // Same rules as the client page: only what is on a campaign, and newsletter-week sponsorships are covered by the issue.
-  const inNewsletter = (d: Row) => d.deliverable_type !== "website_ad" && ((d.ec_brand ?? []).some((b) => /daily|weekly/i.test(b)) || /\bNL\b/.test(d.deliverable_label ?? ""));
-  const all = ((data ?? []) as unknown as Row[]).filter((d) => (d.campaign_id || !d.notion_page_id) && !(["sponsorship"].includes(d.deliverable_type) && inNewsletter(d)));
-  const open = all.filter((d) => fieldsOf(d.deliverable_type).some(([m]) => !d.metrics.some((x) => x.metric === m)));
-  const clients = [...new Map(open.map((d) => [d.clients?.slug ?? "", d.clients?.name ?? ""])).entries()].filter(([s]) => s).sort((a, b) => a[1].localeCompare(b[1]));
-  const groups = MANUAL.map((m) => ({ key: m.types[0], label: TYPE_LABEL[m.types[0]] === "Sponsorship" ? "Sponsorship and community" : m.types[0] === "sponsored_article" ? "Partner Content" : TYPE_LABEL[m.types[0]], types: m.types }));
+  const today = new Date().toISOString().slice(0, 10);
   const q = (sp.q ?? "").trim().toLowerCase();
-  const matches = (d: Row) => !q || [d.clients?.name, d.inventory_tag, d.deliverable_label, d.display_title, d.title, d.start_date, TYPE_LABEL[d.deliverable_type]].some((v) => (v ?? "").toLowerCase().includes(q));
-  const inClient = open.filter((d) => (!sp.client || d.clients?.slug === sp.client) && matches(d));
-  const rows = inClient.filter((d) => !sp.type || groups.find((g) => g.key === sp.type)?.types.includes(d.deliverable_type));
-  const href = (p: { client?: string; type?: string }) => { const qs = new URLSearchParams(Object.entries({ client: sp.client, type: sp.type, q: sp.q, ...p }).filter(([, v]) => v) as [string, string][]).toString(); return `/admin/enter${qs ? `?${qs}` : ""}`; };
-  const pill = (on: boolean) => `rounded-full border px-3 py-1 text-sm ${on ? "border-navy bg-navy text-white" : "border-line bg-white text-ink/70 hover:bg-mist"}`;
-  // One block per client, newest placement first, so a client's whole backlog is in one place.
-  const shown = rows.slice(0, 200);
-  const byClient = [...new Map(shown.map((d) => [d.clients?.slug ?? "", { slug: d.clients?.slug ?? "", name: d.clients?.name ?? "", rows: [] as Row[] }])).values()].sort((a, b) => a.name.localeCompare(b.name));
-  for (const d of shown) byClient.find((c) => c.slug === (d.clients?.slug ?? ""))!.rows.push(d);
-  const notion = (id: string | null) => (id ? `https://www.notion.so/${id.replace(/-/g, "")}` : null);
+  const { data: clientRows } = await supabase.from("clients").select("id, name, slug, is_active").order("name");
+  const clients = clientRows ?? [];
+  const current = clients.find((c) => c.slug === sp.client);
+  // Every placement on a campaign (what the client can see), read in pages because the API returns 1,000 rows at a time.
+  const all: Row[] = [];
+  for (let from = 0; from < 8000; from += 1000) {
+    let query = supabase.from("deliverables")
+      .select("id, client_id, campaign_id, notion_page_id, deliverable_type, deliverable_label, title, display_title, live_url, status, inventory_tag, start_date, metrics(metric, value, source, status)")
+      .order("start_date", { ascending: false }).range(from, from + 999);
+    if (current) query = query.eq("client_id", current.id);
+    const { data } = await query;
+    all.push(...((data ?? []) as unknown as Row[]));
+    if (!data || data.length < 1000) break;
+  }
+  const colsOf = (t: string) => CHANNELS.find((c) => c.types.includes(t))?.cols ?? [];
+  const onCampaign = all.filter((d) => (d.campaign_id || !d.notion_page_id) && colsOf(d.deliverable_type).length);
+  const ran = (d: Row) => !!d.start_date && d.start_date <= today;
+  const missing = (d: Row) => ran(d) && d.deliverable_type !== "marketing_email" && colsOf(d.deliverable_type).some(([m]) => !d.metrics.some((x) => x.metric === m));
+  const nameOf = new Map(clients.map((c) => [c.id, c.name]));
   const field = "rounded-lg border border-line bg-white px-3 py-2 text-sm";
+  const intro = (
+    <>
+      <h1 className="text-2xl font-semibold">Manual entry{current ? `: ${current.name}` : ""}</h1>
+      <p className="mt-1 max-w-3xl text-sm text-ink/60">Fill in or correct any placement: its numbers, the headline the client sees and its link. Laid out like the client page, one table per channel, with each row linked to Notion. A new or changed number waits in Approvals before the client sees it.</p>
+      <form action="/admin/enter" className="mt-4 flex flex-wrap items-center gap-2">
+        <input name="q" defaultValue={sp.q ?? ""} placeholder="Search: EC number, headline, date" aria-label="Search placements" className={`${field} w-72`} />
+        <select name="client" defaultValue={sp.client ?? ""} aria-label="Client" className={field}>
+          <option value="">All clients</option>
+          {clients.map((c) => <option key={c.slug} value={c.slug}>{c.name}</option>)}
+        </select>
+        <select name="show" defaultValue={sp.show ?? ""} aria-label="Which placements" className={field}>
+          <option value="">Everything</option>
+          <option value="missing">Needs numbers only</option>
+        </select>
+        <button className="rounded-lg bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark">Show</button>
+        {(sp.q || sp.client || sp.show) && <Link href="/admin/enter" className="text-sm text-navy hover:underline">Back to all clients</Link>}
+      </form>
+    </>
+  );
+
+  // Start page: one row per client, like the Clients list, with what is still missing.
+  if (!current && !q) {
+    const list = clients.map((c) => { const mine = onCampaign.filter((d) => d.client_id === c.id);
+      return { ...c, total: mine.length, need: mine.filter(missing).length, byChannel: CHANNELS.map((ch) => [ch.title, mine.filter((d) => ch.types.includes(d.deliverable_type) && missing(d)).length] as const).filter(([, n]) => n) }; })
+      .filter((c) => c.total > 0 && (sp.show !== "missing" || c.need > 0)).sort((a, b) => Number(b.is_active) - Number(a.is_active) || b.need - a.need);
+    return (
+      <>
+        {intro}
+        <div className="mt-6 overflow-x-auto rounded-xl border border-line bg-white">
+          <table className="w-full min-w-[640px] text-left text-sm">
+            <thead className="border-b border-line text-ink/60"><tr><th className="px-4 py-3 font-medium">Client</th><th className="px-4 py-3 font-medium">Placements</th><th className="px-4 py-3 font-medium">Need numbers</th><th className="px-4 py-3 font-medium">Where</th></tr></thead>
+            <tbody>
+              {list.map((c) => (
+                <tr key={c.slug} className="border-b border-line align-top last:border-0">
+                  <td className="px-4 py-3 font-medium"><Link href={`/admin/enter?client=${c.slug}`} className="text-navy hover:underline">{c.name}</Link>{!c.is_active && <span className="ml-2 text-xs font-normal text-ink/50">past</span>}</td>
+                  <td className="px-4 py-3 tabular-nums">{c.total}</td>
+                  <td className="px-4 py-3 tabular-nums">{c.need ? <Link href={`/admin/enter?client=${c.slug}&show=missing`} className="rounded bg-sun/60 px-1.5 py-0.5 hover:underline">{c.need}</Link> : <span className="text-ink/50">All in</span>}</td>
+                  <td className="px-4 py-3 text-ink/70">{c.byChannel.map(([t, n]) => `${t} ${n}`).join(" · ")}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </>
+    );
+  }
+
+  const matches = (d: Row) => !q || [d.inventory_tag, d.deliverable_label, d.display_title, d.title, d.start_date, TYPE_LABEL[d.deliverable_type], nameOf.get(d.client_id)].some((v) => (v ?? "").toLowerCase().includes(q));
+  const rows = onCampaign.filter((d) => matches(d) && (sp.show !== "missing" || missing(d)));
+  const shown = rows.slice(0, 400);
+  const groups = (current ? [current.id] : [...new Set(shown.map((d) => d.client_id))].sort((a, b) => (nameOf.get(a) ?? "").localeCompare(nameOf.get(b) ?? "")))
+    .map((cid) => ({ cid, name: nameOf.get(cid) ?? "", slug: clients.find((c) => c.id === cid)?.slug ?? "", rows: shown.filter((d) => d.client_id === cid) }));
+  const notion = (id: string | null) => (id ? `https://www.notion.so/${id.replace(/-/g, "")}` : null);
   return (
     <>
-      <h1 className="text-2xl font-semibold">Manual entry</h1>
-      <p className="mt-1 max-w-3xl text-sm text-ink/60">Placements that have run and still have a number missing, for the types no data pull covers: Partner Content and website ads (read from Bettermode), podcasts (Flightcast) and sponsorships. Each one links to its row in Notion. What you save waits in Approvals before the client sees it.</p>
-      <form action="/admin/enter" className="mt-4 flex flex-wrap items-center gap-2">
-        {sp.type && <input type="hidden" name="type" value={sp.type} />}
-        <input name="q" defaultValue={sp.q ?? ""} placeholder="Search: client, EC number, headline, date" aria-label="Search placements" className={`${field} w-80`} />
-        <select name="client" defaultValue={sp.client ?? ""} aria-label="Client" className={field}>
-          <option value="">All clients ({clients.length})</option>
-          {clients.map(([slug, name]) => <option key={slug} value={slug}>{name} ({open.filter((d) => d.clients?.slug === slug).length})</option>)}
-        </select>
-        <button className="rounded-lg bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark">Search</button>
-        {(sp.q || sp.client || sp.type) && <Link href="/admin/enter" className="text-sm text-navy hover:underline">Clear</Link>}
-      </form>
-      <div className="mt-3 flex flex-wrap gap-2">
-        <Link href={href({ type: undefined })} className={pill(!sp.type)}>All types ({inClient.length})</Link>
-        {groups.map((g) => { const n = inClient.filter((d) => g.types.includes(d.deliverable_type)).length;
-          return n ? <Link key={g.key} href={href({ type: g.key })} className={pill(sp.type === g.key)}>{g.label} ({n})</Link> : null; })}
-      </div>
-      {rows.length === 0 ? <div className="mt-6"><Empty>{q || sp.client || sp.type ? "Nothing matches that search." : "Nothing waiting for numbers."}</Empty></div> : byClient.map((c) => (
-        <section key={c.slug} className="mt-6">
-          <h2 className="flex flex-wrap items-baseline gap-x-3 text-lg font-semibold">
-            <Link href={`/admin/clients/${c.slug}`} className="hover:underline">{c.name}</Link>
-            <span className="text-sm font-normal text-ink/50">{c.rows.length} to fill in</span>
-          </h2>
-          <ul className="mt-2 divide-y divide-line rounded-xl border border-line bg-white">
-            {c.rows.map((d) => (
-              <li key={d.id} className="grid gap-3 px-4 py-4 lg:grid-cols-[minmax(0,20rem)_1fr]">
-                <div className="text-sm">
-                  <p className="font-medium">{d.deliverable_label || TYPE_LABEL[d.deliverable_type]} <span className="font-normal text-ink/50">· {d.start_date}</span></p>
-                  {(d.display_title || d.title) && <p className="text-ink/70">{d.display_title || d.title}</p>}
-                  <p className="mt-1 flex flex-wrap gap-x-3 text-ink/60">
-                    {notion(d.notion_page_id) ? <a href={notion(d.notion_page_id)!} target="_blank" rel="noreferrer" className="text-navy hover:underline">{d.inventory_tag ?? "Notion row"} in Notion</a> : <span>{d.inventory_tag ?? "From an old report, not in Notion"}</span>}
-                    {d.status && <span>{d.status}</span>}
-                    {d.live_url && <a href={d.live_url} target="_blank" rel="noreferrer" className="text-navy hover:underline">Open the post</a>}
-                  </p>
+      {intro}
+      {current && <p className="mt-3 text-sm"><Link href={`/admin/clients/${current.slug}`} className="text-navy hover:underline">Back-end view</Link> · <Link href={`/admin/clients/${current.slug}?view=client`} className="text-navy hover:underline">What the client sees</Link></p>}
+      {rows.length === 0 ? <div className="mt-6"><Empty>Nothing matches.</Empty></div> : groups.map((g) => (
+        <div key={g.cid}>
+          {!current && <h2 className="mt-8 text-xl font-semibold"><Link href={`/admin/enter?client=${g.slug}`} className="hover:underline">{g.name}</Link></h2>}
+          {CHANNELS.map((ch) => { const lines = g.rows.filter((d) => ch.types.includes(d.deliverable_type)); if (!lines.length) return null;
+            const need = lines.filter(missing).length;
+            return (
+              <section key={ch.id} className="mt-6">
+                <h3 className="flex items-baseline gap-3 text-base font-semibold">{ch.title}<span className="text-sm font-normal text-ink/50">{lines.length} {lines.length === 1 ? "placement" : "placements"}{need ? `, ${need} need numbers` : ""}</span></h3>
+                <div className="mt-2 overflow-x-auto rounded-xl border border-line bg-white">
+                  <table className="w-full min-w-[900px] text-left text-sm">
+                    <thead className="border-b border-line text-ink/60">
+                      <tr><th className="px-3 py-2 font-medium">Date</th><th className="px-3 py-2 font-medium">Placement</th><th className="px-3 py-2 font-medium">Headline</th>
+                        {ch.cols.map(([m, label]) => <th key={m} className="px-3 py-2 text-right font-medium">{label}</th>)}
+                        <th className="px-3 py-2 font-medium">Link</th><th className="px-3 py-2" /></tr>
+                    </thead>
+                    <tbody>
+                      {lines.map((d) => (
+                        <InventoryRow key={d.id} id={d.id} date={d.start_date} label={d.deliverable_label || TYPE_LABEL[d.deliverable_type]} tag={d.inventory_tag} notionUrl={notion(d.notion_page_id)}
+                          status={d.status} title={d.display_title} link={d.live_url} missing={missing(d)}
+                          fields={ch.cols.map(([metric]) => { const m = d.metrics.find((x) => x.metric === metric);
+                            return { metric, value: m ? Number(m.value) : null, note: m ? `${SOURCE[m.source] ?? m.source}${m.status === "approved" ? "" : `, ${m.status === "pending" ? "waiting" : m.status}`}` : null }; })} />
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-                <EnterNumbersRow id={d.id} needsLink={!d.live_url} needsTitle={!d.display_title}
-                  fields={fieldsOf(d.deliverable_type).map(([metric, label]) => ({ metric, label, value: d.metrics.find((x) => x.metric === metric)?.value ?? null }))} />
-              </li>
-            ))}
-          </ul>
-        </section>
+              </section>
+            ); })}
+        </div>
       ))}
-      {rows.length > 200 && <p className="mt-3 text-sm text-ink/60">Showing the 200 most recent of {rows.length}. Search or pick a client to narrow it down.</p>}
+      {rows.length > 400 && <p className="mt-3 text-sm text-ink/60">Showing the 400 most recent of {rows.length}. Pick a client or search to narrow it down.</p>}
     </>
   );
 }

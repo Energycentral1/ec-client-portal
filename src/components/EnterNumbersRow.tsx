@@ -3,29 +3,46 @@
 import { useActionState } from "react";
 import { saveNumbers, type EnterState } from "@/app/admin/enter/actions";
 
-const input = "mt-1 block w-24 rounded-lg border border-line bg-white px-2 py-2 text-sm tabular-nums";
+const box = "w-full rounded-md border border-transparent bg-transparent px-2 py-1.5 text-sm hover:border-line focus:border-navy focus:bg-white focus:outline-none";
 
-/** One placement in the "Enter numbers" list: a box per missing number, plus the link and name if those are missing too. */
-export function EnterNumbersRow({ id, fields, needsLink, needsTitle }: {
-  id: string; fields: { metric: string; label: string; value: number | null }[]; needsLink: boolean; needsTitle: boolean;
+export type Field = { metric: string; value: number | null; note: string | null };
+
+/** One placement as a table row, edited in place like a Notion row: every cell is a box, Save sends the row. */
+export function InventoryRow({ id, date, label, tag, notionUrl, status, title, link, fields, missing }: {
+  id: string; date: string | null; label: string; tag: string | null; notionUrl: string | null; status: string | null;
+  title: string | null; link: string | null; fields: Field[]; missing: boolean;
 }) {
   const [state, action, pending] = useActionState<EnterState, FormData>(saveNumbers, {});
+  const form = `f-${id}`;
   return (
-    <form action={action} className="flex flex-wrap items-end gap-3">
-      <input type="hidden" name="deliverable_id" value={id} />
+    <tr className="border-b border-line align-top last:border-0">
+      <td className="whitespace-nowrap px-3 py-2 tabular-nums text-ink/70">{date ?? "No date"}</td>
+      <td className="px-3 py-2">
+        <span className="font-medium">{label}</span>
+        <span className="block text-xs text-ink/60">
+          {notionUrl ? <a href={notionUrl} target="_blank" rel="noreferrer" className="text-navy hover:underline">{tag ?? "Notion row"}</a> : (tag ?? "Old report")}
+          {status ? ` · ${status}` : ""}{missing && <span className="ml-1 rounded bg-sun/60 px-1 text-ink">needs numbers</span>}
+        </span>
+      </td>
+      <td className="px-1 py-1"><input form={form} name="display_title" defaultValue={title ?? ""} placeholder="Headline the client sees" aria-label="Headline the client sees" autoComplete="off" className={box} /></td>
       {fields.map((f) => (
-        <label key={f.metric} className="block text-xs text-ink/60">{f.label}
-          {f.value != null
-            ? <span className="mt-1 block w-24 py-2 text-sm font-medium tabular-nums text-ink">{f.value.toLocaleString("en-US")}</span>
-            : <input name={f.metric} inputMode="numeric" autoComplete="off" className={input} />}
-        </label>
+        <td key={f.metric} className="px-1 py-1">
+          <input form={form} name={f.metric} defaultValue={f.value ?? ""} inputMode="numeric" autoComplete="off" aria-label={f.metric.replace(/_/g, " ")}
+            className={`${box} w-24 text-right tabular-nums ${f.value == null ? "border-line bg-white" : ""}`} />
+          {f.note && <span className="block px-2 text-right text-[11px] text-ink/50">{f.note}</span>}
+        </td>
       ))}
-      {needsTitle && <label className="block text-xs text-ink/60">Headline the client sees
-        <input name="display_title" autoComplete="off" className={`${input} w-56`} /></label>}
-      {needsLink && <label className="block text-xs text-ink/60">Link to it
-        <input name="live_url" type="url" placeholder="https://" autoComplete="off" className={`${input} w-56`} /></label>}
-      <button type="submit" disabled={pending} className="rounded-lg bg-navy px-3 py-2 text-sm font-medium text-white hover:bg-navy-dark disabled:opacity-50">{pending ? "Saving…" : "Save"}</button>
-      <p role="status" className={`basis-full text-xs ${state.error ? "text-red-700" : "text-emerald-700"}`}>{state.error ?? state.message ?? ""}</p>
-    </form>
+      <td className="px-1 py-1">
+        <input form={form} name="live_url" type="url" defaultValue={link ?? ""} placeholder="https://" aria-label="Link" autoComplete="off" className={`${box} min-w-40`} />
+        {link && <a href={link} target="_blank" rel="noreferrer" className="block px-2 text-[11px] text-navy hover:underline">Open</a>}
+      </td>
+      <td className="px-3 py-2">
+        <form id={form} action={action}>
+          <input type="hidden" name="deliverable_id" value={id} />
+          <button type="submit" disabled={pending} className="rounded-md bg-navy px-3 py-1.5 text-sm font-medium text-white hover:bg-navy-dark disabled:opacity-50">{pending ? "Saving…" : "Save"}</button>
+        </form>
+        <p role="status" className={`mt-1 max-w-40 text-[11px] ${state.error ? "text-red-700" : "text-emerald-700"}`}>{state.error ?? state.message ?? ""}</p>
+      </td>
+    </tr>
   );
 }

@@ -17,7 +17,7 @@ type Line = { key: string; ids: string[]; type: string; date: string | null; due
 
 /** Channels in the order a client reads them. `cols` are raw numbers; `rates` are worked out from them at display time,
  *  so they stay right when a number is corrected and never need their own data pull. */
-const CHANNELS: { id: string; title: string; types: string[]; cols: [string, string][]; rates: [string, string, string][] }[] = [
+export const CHANNELS: { id: string; title: string; types: string[]; cols: [string, string][]; rates: [string, string, string][] }[] = [
   { id: "newsletter", title: "Newsletter ads", types: ["newsletter_ad"], cols: [["impressions", "Impressions"], ["clicks", "Clicks"]], rates: [["CTR", "clicks", "impressions"]] },
   { id: "email", title: "Email", types: ["email_blast", "marketing_email"], cols: [["sent", "Sent"], ["opens", "Opens"], ["clicks", "Clicks"]],
     rates: [["Open rate", "opens", "sent"], ["Click rate", "clicks", "sent"]] },
