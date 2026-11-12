@@ -35,7 +35,7 @@ export function ClientList({ rows }: { rows: ClientRow[] }) {
                 <td className="px-4 py-3"><Link href={`/admin/clients/${c.slug}`} className="font-medium text-navy hover:underline">{c.name}</Link>{!c.live && <span className="ml-2 text-xs text-ink/50">past</span>}</td>
                 <td className="px-4 py-3 tabular-nums">{c.placements}</td>
                 <td className="px-4 py-3">{c.need ? <Link href={`/admin/enter?client=${c.slug}&show=missing`} className={pill}>{c.need}</Link> : <span className="text-ink/40">Complete</span>}</td>
-                <td className="px-4 py-3">{c.approve ? <Link href="/admin/approvals" className={pill}>{c.approve}</Link> : <span className="text-ink/40">None</span>}</td>
+                <td className="px-4 py-3">{c.approve ? <Link href={`/admin/approvals?client=${c.slug}`} className={pill}>{c.approve}</Link> : <span className="text-ink/40">None</span>}</td>
                 <td className="px-4 py-3">{c.logins ? <Link href={`/admin/logins?client=${c.slug}`} className="tabular-nums text-navy hover:underline">{c.logins}</Link> : <Link href={`/admin/logins?client=${c.slug}`} className="text-ink/50 hover:text-navy hover:underline">Add</Link>}</td>
                 <td className="px-4 py-3">{c.report ? <a href={c.report} target="_blank" rel="noreferrer" className="text-navy hover:underline">Open</a> : <span className="text-ink/40">None</span>}</td>
               </tr>
