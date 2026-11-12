@@ -12,7 +12,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <Shell email={profile.email}
       nav={[{ href: "/admin", label: "Clients" }, { href: "/admin/enter", label: "Manual entry" }, { href: "/admin/approvals", label: "Approvals", badge: count ?? 0 }]}
-      menu={[{ href: "/admin/logins", label: "Logins" }, { href: "/admin/sync", label: "Data pulls" }]}>
+      menu={[{ href: "/admin/leads", label: "Add leads" }, { href: "/admin/logins", label: "Logins" }, { href: "/admin/sync", label: "Data pulls" }]}>
       {children}
     </Shell>
   );
