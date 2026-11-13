@@ -61,7 +61,7 @@ export default async function Approvals({ searchParams }: { searchParams: Promis
             </thead>
             <tbody>
               {rows.map((r) => { const d = r.deliverables; const link = d ? openLink(d) : null; return (
-                <tr key={r.id} className="border-b border-line align-top last:border-0">
+                <tr key={r.id} className="border-b border-line align-top transition-opacity last:border-0 data-[done]:bg-mist/70 data-[done]:[&>td:not(:last-child)]:opacity-40">
                   <td className="px-4 py-3 font-medium">{r.clients ? <Link href={`/admin/clients/${r.clients.slug}`} className="hover:underline">{r.clients.name}</Link> : "—"}</td>
                   <td className="px-4 py-3">
                     <span className="font-medium">{d?.deliverable_label || TYPE_LABEL[d?.deliverable_type ?? ""] || "—"}</span> · {d?.start_date ?? "no date"}
