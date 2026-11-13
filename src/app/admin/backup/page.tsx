@@ -35,7 +35,7 @@ export default async function Backups() {
       <section className={`${card} mt-4`}>
         <h2 className="text-lg font-semibold">Where things live</h2>
         <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ink/80">
-          <li><strong>Supabase</strong> (project &ldquo;EC Client Portals&rdquo;): clients, placements, results, leads, logins, creative approvals and the creative files. Its own daily backups need the Pro plan.</li>
+          <li><strong>Supabase</strong> (project &ldquo;EC Client Portals&rdquo;): clients, placements, results, leads, logins, creative approvals and the creative files. Supabase backs the database up every day and keeps 7 days, restorable from its Backups screen (Pro plan, on since Nov 13 2026). Those backups do not include the creative files.</li>
           <li><strong>GitHub</strong>: the portal&apos;s code and the results read from the old Customer Reports, one file per client.</li>
           <li><strong>Notion</strong>: what was sold and scheduled. The portal copies it in every morning and never writes back.</li>
           <li><strong>Google Drive</strong>: the original Customer Reports and lead lists, untouched.</li>
