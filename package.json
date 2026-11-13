@@ -11,12 +11,15 @@
     "import:legacy": "tsx scripts/import-legacy.ts",
     "pull:beehiiv": "tsx scripts/pull-beehiiv.ts",
     "pull:zoom": "tsx scripts/pull-zoom.ts",
-    "pull:tally": "tsx scripts/pull-tally.ts"
+    "pull:tally": "tsx scripts/pull-tally.ts",
+    "backup": "tsx scripts/backup.ts"
   },
   "dependencies": {
     "@notionhq/client": "^5.31.1",
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.119.0",
+    "exceljs": "^4.4.0",
+    "google-auth-library": "^11.3.4",
     "next": "16.4.6",
     "react": "19.3.0",
     "react-dom": "19.3.0"

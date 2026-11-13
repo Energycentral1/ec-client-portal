@@ -1,0 +1,40 @@
+name: Weekly backup to Google Drive
+
+# Every table as a dated Excel workbook plus a complete data file, saved to a Drive folder Energy Central owns.
+# Needs two secrets that are not set until the Drive connection is made: GOOGLE_SERVICE_ACCOUNT_JSON and BACKUP_DRIVE_FOLDER_ID.
+# Until then the scheduled run is skipped; "dry_run" builds the files and reports their size without uploading.
+on:
+  schedule:
+    - cron: "23 8 * * 0"   # Sundays, 3:23am ET
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Dry run (build the files, upload nothing)
+        type: boolean
+        default: false
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      HAS_DRIVE: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON != '' && secrets.BACKUP_DRIVE_FOLDER_ID != '' }}
+    steps:
+      - if: env.HAS_DRIVE != 'true' && inputs.dry_run != true
+        run: echo "The Drive connection is not set up yet (GOOGLE_SERVICE_ACCOUNT_JSON, BACKUP_DRIVE_FOLDER_ID). Nothing was backed up."
+      - if: env.HAS_DRIVE == 'true' || inputs.dry_run == true
+        uses: actions/checkout@v4
+      - if: env.HAS_DRIVE == 'true' || inputs.dry_run == true
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - if: env.HAS_DRIVE == 'true' || inputs.dry_run == true
+        run: npm ci
+      - if: env.HAS_DRIVE == 'true' || inputs.dry_run == true
+        run: npm run backup -- ${{ inputs.dry_run && '--dry' || '' }}
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://kzaiplniicuuxhprrxxc.supabase.co
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          BACKUP_DRIVE_FOLDER_ID: ${{ secrets.BACKUP_DRIVE_FOLDER_ID }}

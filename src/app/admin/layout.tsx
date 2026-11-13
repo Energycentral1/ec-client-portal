@@ -14,7 +14,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <Shell email={profile.email}
       nav={[{ href: "/admin", label: "Home" }, { href: "/admin/clients", label: "Clients" }, { href: "/admin/approvals", label: "Results", badge: count ?? 0 }, { href: "/admin/creative", label: "Creative", badge: changes ?? 0 }]}
-      menu={[{ href: "/admin/leads", label: "Add leads" }, { href: "/admin/logins", label: "Logins" }, { href: "/admin/sync", label: "Data pulls" }]}>
+      menu={[{ href: "/admin/leads", label: "Add leads" }, { href: "/admin/logins", label: "Logins" }, { href: "/admin/sync", label: "Data pulls" }, { href: "/admin/backup", label: "Backups" }]}>
       {children}
     </Shell>
   );
