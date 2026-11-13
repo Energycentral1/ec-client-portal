@@ -1,0 +1,157 @@
+{
+ "client_slug": "itron",
+ "source_url": "https://docs.google.com/spreadsheets/d/13hU-BWToM1kZH9rwMyoDZWdAyqK55zFDaXTaRjBswCc/edit",
+ "extracted_on": "2026-11-12",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 5, email 3, events 2, website 6. Left out, no clean number or date (2): Podcasts & Interviews / 2025-08-05 00:00:00; Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read. LocusView was merged into Itron (Chloe, Nov 13 2026): the 2025 rows from the archived Locusview report (https://drive.google.com/file/d/1GQWLi8ENI3Kn4IRL3Onl_prYwoGQrdo4/view) were checked against this sheet: every row is already in it, so nothing was added (the acquisition post is kept at the newer view count).",
+ "rows": [
+  {
+   "tab": "website",
+   "date": "2026-05-28",
+   "metrics": {
+    "impressions": 81770,
+    "clicks": 42
+   },
+   "end_date": "2026-06-07"
+  },
+  {
+   "tab": "website",
+   "date": "2026-05-10",
+   "metrics": {
+    "impressions": 50110,
+    "clicks": 31
+   },
+   "end_date": "2026-05-16"
+  },
+  {
+   "tab": "website",
+   "date": "2026-03-29",
+   "metrics": {
+    "impressions": 56230,
+    "clicks": 28
+   },
+   "end_date": "2026-04-04"
+  },
+  {
+   "tab": "website",
+   "date": "2026-03-22",
+   "metrics": {
+    "impressions": 54850,
+    "clicks": 47
+   },
+   "end_date": "2026-03-28"
+  },
+  {
+   "tab": "website",
+   "date": "2026-03-15",
+   "metrics": {
+    "impressions": 56840,
+    "clicks": 19
+   },
+   "end_date": "2026-03-21"
+  },
+  {
+   "tab": "website",
+   "date": "2026-01-18",
+   "metrics": {
+    "impressions": 56200,
+    "clicks": 39
+   },
+   "end_date": "2026-01-24"
+  },
+  {
+   "tab": "events",
+   "date": "2026-03-25",
+   "title": "The Digital Thread: Unifying Intelligence and Execution for a Resilient, 21st-Century Grid",
+   "metrics": {
+    "registrants": 250,
+    "attendees": 77
+   }
+  },
+  {
+   "tab": "events",
+   "date": "2025-04-28",
+   "title": "The 21st Century Grid is Here: Do you have 21st Century Construction Management? [an Energy Central PowerSession\u2122]",
+   "metrics": {
+    "registrants": 204,
+    "attendees": 35
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2026-02-17",
+   "metrics": {
+    "sent": 114971,
+    "opens": 33806,
+    "clicks": 5336
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2025-11-20",
+   "metrics": {
+    "sent": 117882,
+    "opens": 42504,
+    "clicks": 8432
+   }
+  },
+  {
+   "tab": "email",
+   "date": "2022-04-20",
+   "metrics": {
+    "sent": 19740,
+    "opens": 4494,
+    "clicks": 71
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2026-08-27",
+   "metrics": {
+    "views": 211,
+    "likes": 1
+   },
+   "title": "Industry Paper | The Digital Thread: Unifying Intelligence and Execution for Operational Resilience",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/industry-paper-the-digital-thread-unifying-intelligence-and-execution-xfENGg6SW8u6kRs"
+  },
+  {
+   "tab": "content",
+   "date": "2026-02-11",
+   "metrics": {
+    "views": 239,
+    "likes": 3
+   },
+   "title": "Why Crew Callouts Must Evolve",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/why-crew-callouts-must-evolve-b1ZZzQXLpoCGPLP"
+  },
+  {
+   "tab": "content",
+   "date": "2025-11-17",
+   "metrics": {
+    "views": 170,
+    "likes": 3
+   },
+   "title": "Locusview to be Acquired by Itron, Accelerating Digital Construction Management for Utilities",
+   "live_url": "https://www.energycentral.com/energy-biz/post/locusview-to-be-acquired-by-itron-accelerating-digital-construction-nMNTDD0lBd0el5L"
+  },
+  {
+   "tab": "content",
+   "date": "2025-09-26",
+   "metrics": {
+    "views": 126,
+    "likes": 2
+   },
+   "title": "Locusview Celebrates 1 Million Work Orders and 200 Million feet of Linear Assets Processed",
+   "live_url": "https://www.energycentral.com/energy-biz/post/locusview-celebrates-1-million-work-orders-and-200-million-feet-of-linear-HYweeiKJbeQQiHW"
+  },
+  {
+   "tab": "content",
+   "date": "2025-07-31",
+   "metrics": {
+    "views": 114,
+    "likes": 2
+   },
+   "title": "White Paper | The 21st Century Grid is Here: Do you have 21st Century Construction Management?",
+   "live_url": "https://www.energycentral.com/energy-biz/post/white-paper-the-21st-century-grid-is-here-do-you-have-21st-century-ytoCRqSSI3M6ZGK"
+  }
+ ]
+}

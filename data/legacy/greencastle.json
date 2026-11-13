@@ -1,0 +1,334 @@
+{
+ "client_slug": "greencastle",
+ "source_url": "https://drive.google.com/file/d/1ONqQiMS8Dw7bzqrPncC7CZ7xnSCcJvL9/view",
+ "extracted_on": "2026-11-13",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 6, email 1, newsletter 14, podcast 1, sponsorship 8, website 7. Left out, no clean number or date (2): Sponsorship Recognition / 2025-04-01 00:00:00; Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "rows": [
+  {
+   "tab": "website",
+   "date": "2025-08-31",
+   "metrics": {
+    "impressions": 72510,
+    "clicks": 38
+   },
+   "end_date": "2025-09-06"
+  },
+  {
+   "tab": "website",
+   "date": "2025-06-29",
+   "metrics": {
+    "impressions": 66950,
+    "clicks": 66
+   },
+   "end_date": "2025-07-05"
+  },
+  {
+   "tab": "website",
+   "date": "2025-06-15",
+   "metrics": {
+    "impressions": 89730,
+    "clicks": 8
+   },
+   "end_date": "2025-06-21"
+  },
+  {
+   "tab": "website",
+   "date": "2025-04-20",
+   "metrics": {
+    "impressions": 9594,
+    "clicks": 3
+   },
+   "end_date": "2025-04-26"
+  },
+  {
+   "tab": "website",
+   "date": "2025-03-16",
+   "metrics": {
+    "impressions": 9280,
+    "clicks": 10
+   },
+   "end_date": "2025-03-22"
+  },
+  {
+   "tab": "website",
+   "date": "2025-02-16",
+   "metrics": {
+    "impressions": 6491,
+    "clicks": 4
+   },
+   "end_date": "2025-02-22"
+  },
+  {
+   "tab": "website",
+   "date": "2025-02-16",
+   "metrics": {
+    "impressions": 4615,
+    "clicks": 1
+   },
+   "end_date": "2025-02-22"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-11-01",
+   "metrics": {
+    "impressions": 10015
+   },
+   "end_date": "2025-11-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-10-01",
+   "metrics": {
+    "impressions": 15387
+   },
+   "end_date": "2025-10-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-09-01",
+   "metrics": {
+    "impressions": 19089
+   },
+   "end_date": "2025-09-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-08-01",
+   "metrics": {
+    "impressions": 26318
+   },
+   "end_date": "2025-08-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-07-01",
+   "metrics": {
+    "impressions": 19067
+   },
+   "end_date": "2025-07-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-06-01",
+   "metrics": {
+    "impressions": 31335
+   },
+   "end_date": "2025-06-30"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-05-01",
+   "metrics": {
+    "impressions": 11405
+   },
+   "end_date": "2025-05-31"
+  },
+  {
+   "tab": "sponsorship",
+   "date": "2025-02-01",
+   "metrics": {
+    "impressions": 12517
+   },
+   "end_date": "2025-02-28"
+  },
+  {
+   "tab": "podcast",
+   "date": "2026-05-22",
+   "metrics": {
+    "plays": 868,
+    "short_form_views": 1036,
+    "impressions": 30777,
+    "clicks": 17
+   },
+   "title": "Leadership lessons from transforming a 100-year-old utility",
+   "live_url": "https://www.energycentral.com/podcasts/post/leadership-lessons-from-transforming-a-100-year-old-utility-6QyocPVWQbU5j8Y"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-06-11",
+   "metrics": {
+    "impressions": 29658,
+    "clicks": 165
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-05-14",
+   "metrics": {
+    "impressions": 28274,
+    "clicks": 124
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-04-30",
+   "metrics": {
+    "impressions": 26957,
+    "clicks": 51
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-03-26",
+   "metrics": {
+    "impressions": 28748,
+    "clicks": 47
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-11-17",
+   "metrics": {
+    "impressions": 30925,
+    "clicks": 53
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-10-20",
+   "metrics": {
+    "impressions": 25613,
+    "clicks": 46
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-10-13",
+   "metrics": {
+    "impressions": 25778,
+    "clicks": 52
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-22",
+   "metrics": {
+    "impressions": 36823,
+    "clicks": 61
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-08-31",
+   "metrics": {
+    "impressions": 2133,
+    "clicks": 1
+   },
+   "end_date": "2025-09-06"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-06-29",
+   "metrics": {
+    "impressions": 174140,
+    "clicks": 615
+   },
+   "end_date": "2025-07-05"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-06-15",
+   "metrics": {
+    "impressions": 8684,
+    "clicks": 29
+   },
+   "end_date": "2025-06-21"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-04-20",
+   "metrics": {
+    "impressions": 51226,
+    "clicks": 348
+   },
+   "end_date": "2025-04-26"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-03-16",
+   "metrics": {
+    "impressions": 31442,
+    "clicks": 79
+   },
+   "end_date": "2025-03-22"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-02-16",
+   "metrics": {
+    "impressions": 33683,
+    "clicks": 2294
+   },
+   "end_date": "2025-02-22"
+  },
+  {
+   "tab": "email",
+   "date": "2026-06-16",
+   "metrics": {
+    "sent": 112123,
+    "opens": 45615,
+    "clicks": 9534
+   }
+  },
+  {
+   "tab": "content",
+   "date": "2025-12-11",
+   "metrics": {
+    "views": 465,
+    "likes": 1
+   },
+   "title": "Overcoming Change Fatigue in the Workplace",
+   "live_url": "https://www.energycentral.com/energy-biz/post/overcoming-change-fatigue-in-the-workplace-vIyMNYEFXY6Hv1I"
+  },
+  {
+   "tab": "content",
+   "date": "2025-11-21",
+   "metrics": {
+    "views": 430,
+    "likes": 1
+   },
+   "title": "Effective Communication Strategies for Organizational Change",
+   "live_url": "https://www.energycentral.com/energy-biz/post/effective-communication-strategies-for-organizational-change-zY97I9H2opiB7FL"
+  },
+  {
+   "tab": "content",
+   "date": "2025-10-02",
+   "metrics": {
+    "views": 315,
+    "likes": 4
+   },
+   "title": "Bridging the IT/Business Divide in Utility Transformation",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/bridging-the-it-business-divide-in-utility-transformation-rnVGiozJP2bBUf4"
+  },
+  {
+   "tab": "content",
+   "date": "2025-08-28",
+   "metrics": {
+    "views": 312,
+    "likes": 1
+   },
+   "title": "5 Ways Utility IT Leaders Can Regain Control of Complex IT Projects",
+   "live_url": "https://www.energycentral.com/energy-biz/post/5-ways-utility-it-leaders-can-regain-control-of-complex-it-projects-69iSU5reNdhEqvh"
+  },
+  {
+   "tab": "content",
+   "date": "2025-07-30",
+   "metrics": {
+    "views": 295,
+    "likes": 1
+   },
+   "title": "Getting Out of Hand-Written KPI Hell",
+   "live_url": "https://www.energycentral.com/energy-biz/post/getting-out-of-hand-written-kpi-hell-w6AwuHUkKja5RGF"
+  },
+  {
+   "tab": "content",
+   "date": "2025-07-02",
+   "metrics": {
+    "views": 416,
+    "likes": 2
+   },
+   "title": "Unlocking the Power of Data: How Greencastle\u2019s Data & Analytics Services Enable AI- Driven Predictive Maintenance",
+   "live_url": "https://www.energycentral.com/intelligent-utility/post/unlocking-the-power-of-data-how-greencastle-s-data-analytics-services-StIHoDOAXYiCMeB"
+  }
+ ]
+}
