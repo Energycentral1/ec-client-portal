@@ -56,7 +56,7 @@ export default async function Creative({ searchParams }: { searchParams: Promise
         <section className="mt-4">
           <h2 className="sr-only">2. The creative for {current.name}</h2>
           <ProofForm clientId={current.id} placements={placements} />
-          {placements.length === 0 && <p className="mt-2 text-sm text-ink/60">{current.name} has no open inventory in Notion, so this creative can&apos;t be tied to a placement. You can still send it.</p>}
+          {placements.length === 0 && <p className="mt-2 text-sm text-ink/60">{current.name} has no open inventory in Notion, so this creative can&apos;t be tied to an inventory item. You can still send it.</p>}
         </section>
       )}
 

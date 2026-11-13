@@ -33,22 +33,26 @@ async function notifyClient(supabase: Awaited<ReturnType<typeof createClient>>, 
 export async function addProof(_prev: ProofFormState, fd: FormData): Promise<ProofFormState> {
   const profile = await getProfile();
   if (profile?.role !== "admin") return { error: "Only the Energy Central team can add creative." };
-  const clientId = text(fd, "client_id"); const name = text(fd, "name");
-  const link = text(fd, "link_url"); const click = text(fd, "click_url"); const copy = text(fd, "copy_text");
+  const clientId = text(fd, "client_id");
+  const link = text(fd, "link_url"); const click = text(fd, "click_url");
   const deliverableId = text(fd, "deliverable_id");
   const file = fd.get("file") as File | null;
   const hasFile = !!file && file.size > 0;
-  if (!clientId || !name) return { error: "Give it a name." };
+  if (!clientId) return { error: "Choose a client first." };
   if (link && !isHttps(link)) return { error: "The link needs to start with https://" };
   if (click && !isHttps(click)) return { error: "The click-through URL needs to start with https://" };
-  if (!hasFile && !link && !copy) return { error: "Add a file, a link or the ad copy." };
+  if (!hasFile && !link) return { error: "Add the creative: an image or PDF, or a link to it." };
   if (hasFile && file!.size > MAX_BYTES) return { error: "That file is over 4 MB. Paste a link to it instead." };
 
   const supabase = await createClient();
   let due = text(fd, "due_date");
-  if (!due && deliverableId) {
-    const { data: d } = await supabase.from("deliverables").select("start_date").eq("id", deliverableId).single();
-    if (d?.start_date) due = new Date(Date.parse(d.start_date + "T00:00:00Z") - 3 * 864e5).toISOString().slice(0, 10);
+  // The creative is named after the inventory item it is for (Chloe, Nov 13 2026: "what does name mean?"), so nobody types one.
+  let name = hasFile ? file!.name.replace(/\.[a-z0-9]+$/i, "").replace(/[_-]+/g, " ").trim() || "Creative" : "Creative";
+  if (deliverableId) {
+    const { data: d } = await supabase.from("deliverables").select("start_date, deliverable_label, display_title").eq("id", deliverableId).single();
+    if (d?.start_date && !due) due = new Date(Date.parse(d.start_date + "T00:00:00Z") - 3 * 864e5).toISOString().slice(0, 10);
+    const what = d?.deliverable_label || d?.display_title;
+    if (what) name = d?.start_date ? `${what}, ${new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(d.start_date + "T00:00:00Z"))}` : what;
   }
   let path: string | null = null;
   if (hasFile) {
@@ -56,8 +60,9 @@ export async function addProof(_prev: ProofFormState, fd: FormData): Promise<Pro
     const { error } = await supabase.storage.from("proofs").upload(path, file!, { contentType: file!.type || undefined });
     if (error) return { error: `Upload failed: ${error.message}` };
   }
-  const { error } = await supabase.from("proofs").insert({ client_id: clientId, deliverable_id: deliverableId, name, copy_text: copy, click_url: click,
-    note: text(fd, "note"), file_path: path, link_url: link, due_date: due, cta_text: text(fd, "cta_text"), format: text(fd, "format") });
+  // The creative is uploaded exactly as it will appear, so the client is shown it as is: no mock-up around it (format "plain").
+  const { error } = await supabase.from("proofs").insert({ client_id: clientId, deliverable_id: deliverableId, name, click_url: click,
+    note: text(fd, "note"), file_path: path, link_url: link, due_date: due, format: "plain" });
   if (error) {
     if (path) await supabase.storage.from("proofs").remove([path]);
     return { error: error.message };
