@@ -1,11 +1,13 @@
-name: Weekly backup to Google Drive
+name: Backup to Google Drive
 
-# Every table as a dated Excel workbook plus a complete data file, saved to a Drive folder Energy Central owns.
+# Every table as a dated Excel workbook plus a complete data file, saved to a Drive folder Energy Central owns ("Weekly database
+# copies"), and every file uploaded to the portal copied to a second folder beside it ("Uploaded files", a subfolder per client).
 # Needs two secrets that are not set until the Drive connection is made: GOOGLE_SERVICE_ACCOUNT_JSON and BACKUP_DRIVE_FOLDER_ID.
 # Until then the scheduled run is skipped; "dry_run" builds the files and reports their size without uploading.
 on:
   schedule:
-    - cron: "23 8 * * 0"   # Sundays, 3:23am ET
+    - cron: "23 8 * * 0"   # Sundays, 3:23am ET: the whole database, plus any new uploaded files
+    - cron: "53 8 * * 1-6"  # every other day, 3:53am ET: new uploaded files only
   workflow_dispatch:
     inputs:
       dry_run:
@@ -32,7 +34,7 @@ jobs:
       - if: env.HAS_DRIVE == 'true' || inputs.dry_run == true
         run: npm ci
       - if: env.HAS_DRIVE == 'true' || inputs.dry_run == true
-        run: npm run backup -- ${{ inputs.dry_run && '--dry' || '' }}
+        run: npm run backup -- ${{ inputs.dry_run && '--dry' || '' }} ${{ github.event.schedule == '53 8 * * 1-6' && '--files-only' || '' }}
         env:
           NEXT_PUBLIC_SUPABASE_URL: https://kzaiplniicuuxhprrxxc.supabase.co
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}

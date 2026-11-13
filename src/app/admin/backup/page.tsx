@@ -23,13 +23,16 @@ export default async function Backups() {
           <p className="mt-3 text-sm text-ink/60">For one client, open their page and use &ldquo;Download everything&rdquo;.</p>
         </section>
         <section className={card}>
-          <h2 className="text-lg font-semibold">Weekly copy to Google Drive</h2>
+          <h2 className="text-lg font-semibold">Copies in Google Drive</h2>
           {run ? (
             <p className="mt-1 text-sm text-ink/70">Last run {WHEN.format(new Date(run.finished_at ?? run.started_at))}: <strong className={run.status === "success" ? "text-emerald-700" : "text-[#a13a12]"}>{run.status === "success" ? `saved, ${run.records_written.toLocaleString("en-US")} rows` : "did not finish"}</strong>.{run.error ? ` ${run.error}` : ""}</p>
           ) : (
-            <p className="mt-1 text-sm text-ink/70"><strong className="text-[#a13a12]">Not running yet.</strong> It is built and scheduled for Sundays, but it needs a Drive folder to write to and a key that lets it write there. Until then, use the download button.</p>
+            <p className="mt-1 text-sm text-ink/70"><strong className="text-[#a13a12]">Not running yet.</strong> It is built and scheduled, but it needs a Drive folder to write to and a key that lets it write there. Until then, use the download button.</p>
           )}
-          <p className="mt-3 text-sm text-ink/60">Each run saves a dated Excel file and a complete data file to the backup folder. Older copies are kept, never overwritten.</p>
+          <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-ink/60">
+            <li><strong className="text-ink/80">Weekly database copies</strong>: every Sunday, a dated Excel file and a complete data file. Older copies are kept, never overwritten.</li>
+            <li><strong className="text-ink/80">Uploaded files</strong>: every night, anything the team has uploaded to the portal (creative), in a folder per client. A file stays there even if it is later deleted in the portal.</li>
+          </ul>
         </section>
       </div>
       <section className={`${card} mt-4`}>
