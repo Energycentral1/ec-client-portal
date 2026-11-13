@@ -11,7 +11,8 @@ export type ClientRow = { id: string; name: string; slug: string; live: boolean;
 export function ClientList({ rows }: { rows: ClientRow[] }) {
   const anyMine = rows.some((c) => c.mine);
   const [q, setQ] = useState("");
-  const [only, setOnly] = useState<"all" | "live" | "todo" | "mine">(anyMine ? "mine" : "live");
+  // Open on "Mine" only for someone who owns a live account; one old deal with your name on it should not hide everyone else's.
+  const [only, setOnly] = useState<"all" | "live" | "todo" | "mine">(rows.some((c) => c.mine && c.live) ? "mine" : "live");
   const shown = rows.filter((c) => {
     const s = q.trim().toLowerCase();
     if (s) return [c.name, ...c.ams, ...c.sellers].some((v) => v.toLowerCase().includes(s));

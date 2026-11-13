@@ -36,7 +36,7 @@ export default async function AdminHome() {
       days: oldest ? Math.max(0, Math.floor((now - Date.parse(oldest)) / 864e5)) : 0,
       what: [...kinds].sort((a, b) => b[1].size - a[1].size).map(([t, s]) => plural(s.size, (TYPE_LABEL[t] ?? "placement").toLowerCase())).join(", ") };
   }).filter((q) => q.client).sort((a, b) => Number(b.client!.mine) - Number(a.client!.mine) || b.days - a.days || b.n - a.n);
-  const anyMine = rows.some((r) => r.mine);
+  const anyMine = rows.some((r) => r.mine && r.live);
 
   // Creative still open: only the latest version for a placement counts.
   const seen = new Set<string>();
