@@ -35,8 +35,10 @@ def whole(n): return int(round(n))
 
 KIND = [("newsletter", "newsletter"), ("website", "website"), ("sponsorship", "sponsorship"), ("email", "email"), ("event", "events"),
         ("podcast", "podcast"), ("gated", "gated"), ("content report", "content"), ("content", "content")]
-HEAD = {"newsletter": "START DATE", "website": "START DATE", "sponsorship": "START DATE", "email": "DATE", "events": "EVENT NAME",
-        "podcast": "INTERVIEW DATE", "content": "DATE POSTED", "gated": "DATE OF POST"}
+# The first header cell of each tab's table. Some reports say "RUN DATES" for ads and plain "DATE" for podcasts (Oracle, Champion
+# Fiberglass, G&W Electric were missed on the first pass because of this), so each kind takes a few spellings.
+HEAD = {"newsletter": ("START DATE", "RUN DATE"), "website": ("START DATE", "RUN DATE"), "sponsorship": ("START DATE", "RUN DATE"), "email": ("DATE",),
+        "events": ("EVENT NAME",), "podcast": ("INTERVIEW DATE", "DATE"), "content": ("DATE POSTED",), "gated": ("DATE OF POST",)}
 
 def read(path):
     wb = openpyxl.load_workbook(path, data_only=True)
@@ -48,7 +50,9 @@ def read(path):
         if not kind: continue
         grid = [[c for c in r] for r in ws.iter_rows()]
         hi = next((i for i, r in enumerate(grid) if any(text(c.value).upper().startswith(HEAD[kind]) for c in r[:3])), None)
-        if hi is None: continue            # a "Content" cover tab, or a tab with no table
+        if hi is None:                     # a "Content" cover tab, or a tab with no table; say so if it holds dated rows
+            if any(isinstance(r[0].value, datetime.datetime) for r in grid if r): left.append(f"{ws.title} / whole tab: header not recognised")
+            continue
         heads = [text(c.value).upper() for c in grid[hi]]
         col = lambda *names: next((i for i, h in enumerate(heads) if any(n in h for n in names)), None)
         for r in grid[hi + 1:]:

@@ -1,8 +1,8 @@
 {
  "client_slug": "oracle",
  "source_url": "https://drive.google.com/file/d/1Ii8IQgszkPGL09xCFn2KKQ-lF0ZR88qa/view",
- "extracted_on": "2026-11-12",
- "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 5, website 4. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "extracted_on": "2026-11-13",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 5, newsletter 21, website 4. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
  "rows": [
   {
    "tab": "website",
@@ -39,6 +39,174 @@
     "clicks": 45
    },
    "end_date": "2025-09-13"
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-04-14",
+   "metrics": {
+    "impressions": 25321,
+    "clicks": 27
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-04-07",
+   "metrics": {
+    "impressions": 25403,
+    "clicks": 26
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-03-31",
+   "metrics": {
+    "impressions": 28983,
+    "clicks": 20
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-03-24",
+   "metrics": {
+    "impressions": 28623,
+    "clicks": 36
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-03-17",
+   "metrics": {
+    "impressions": 28969,
+    "clicks": 47
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-03-10",
+   "metrics": {
+    "impressions": 36575,
+    "clicks": 53
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-03-03",
+   "metrics": {
+    "impressions": 32241,
+    "clicks": 159
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-02-24",
+   "metrics": {
+    "impressions": 31178,
+    "clicks": 48
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-02-17",
+   "metrics": {
+    "impressions": 31385,
+    "clicks": 35
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-02-10",
+   "metrics": {
+    "impressions": 29986,
+    "clicks": 64
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-02-03",
+   "metrics": {
+    "impressions": 22257,
+    "clicks": 60
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-01-27",
+   "metrics": {
+    "impressions": 23415,
+    "clicks": 52
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-01-20",
+   "metrics": {
+    "impressions": 26895,
+    "clicks": 55
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-01-13",
+   "metrics": {
+    "impressions": 33512,
+    "clicks": 62
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2026-01-06",
+   "metrics": {
+    "impressions": 31082,
+    "clicks": 69
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-10-07",
+   "metrics": {
+    "impressions": 27750,
+    "clicks": 85
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-30",
+   "metrics": {
+    "impressions": 29218,
+    "clicks": 170
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-23",
+   "metrics": {
+    "impressions": 36468,
+    "clicks": 91
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-16",
+   "metrics": {
+    "impressions": 34583,
+    "clicks": 101
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-11",
+   "metrics": {
+    "impressions": 2082,
+    "clicks": 15
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-09",
+   "metrics": {
+    "impressions": 38391,
+    "clicks": 139
+   }
   },
   {
    "tab": "content",

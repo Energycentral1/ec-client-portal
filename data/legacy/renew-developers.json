@@ -1,9 +1,21 @@
 {
  "client_slug": "renew-developers",
  "source_url": "https://drive.google.com/file/d/1kirgJh3oC742l2oxN_xYLygsobv3m5go/view",
- "extracted_on": "2026-11-12",
- "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 1, email 1, events 1, newsletter 8. Left out, no clean number or date (4): Content / 2025-09-04 00:00:00; Content / 2025-09-04 00:00:00; Content / 2025-09-04 00:00:00; Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "extracted_on": "2026-11-13",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 1, email 1, events 1, newsletter 8, podcast 1. Left out, no clean number or date (4): Content / 2025-09-04 00:00:00; Content / 2025-09-04 00:00:00; Content / 2025-09-04 00:00:00; Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
  "rows": [
+  {
+   "tab": "podcast",
+   "date": "2025-11-07",
+   "metrics": {
+    "plays": 804,
+    "short_form_views": 624,
+    "impressions": 43753,
+    "clicks": 6
+   },
+   "title": "The future of compute is distributed\u2014 and energy-driven",
+   "live_url": "https://www.energycentral.com/podcasts/post/the-future-of-compute-is-distributed---and-energy-driven-uG3ZFGgQ8gig7YI"
+  },
   {
    "tab": "newsletter",
    "date": "2025-09-25",

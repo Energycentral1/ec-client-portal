@@ -1,9 +1,57 @@
 {
  "client_slug": "g-and-w-electric",
  "source_url": "https://drive.google.com/file/d/1w5BSrRdkiW3w0-e4VbzmW8X6TstBp6vb/view",
- "extracted_on": "2026-11-12",
- "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. email 1. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
+ "extracted_on": "2026-11-13",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. email 1, newsletter 6. Left out, no clean number or date (1): Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read.",
  "rows": [
+  {
+   "tab": "newsletter",
+   "date": "2025-09-11",
+   "metrics": {
+    "impressions": 2095,
+    "clicks": 1
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-08",
+   "metrics": {
+    "impressions": 38688,
+    "clicks": 5
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-09-03",
+   "metrics": {
+    "impressions": 1204,
+    "clicks": 1
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-08-28",
+   "metrics": {
+    "impressions": 33933,
+    "clicks": 12
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-08-20",
+   "metrics": {
+    "impressions": 1671,
+    "clicks": 1
+   }
+  },
+  {
+   "tab": "newsletter",
+   "date": "2025-08-14",
+   "metrics": {
+    "impressions": 37279,
+    "clicks": 179
+   }
+  },
   {
    "tab": "email",
    "date": "2025-08-12",

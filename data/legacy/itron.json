@@ -2,7 +2,7 @@
  "client_slug": "itron",
  "source_url": "https://docs.google.com/spreadsheets/d/13hU-BWToM1kZH9rwMyoDZWdAyqK55zFDaXTaRjBswCc/edit",
  "extracted_on": "2026-11-12",
- "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 5, email 3, events 2, website 6. Left out, no clean number or date (2): Podcasts & Interviews / 2025-08-05 00:00:00; Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read. LocusView was merged into Itron (Chloe, Nov 13 2026): the 2025 rows from the archived Locusview report (https://drive.google.com/file/d/1GQWLi8ENI3Kn4IRL3Onl_prYwoGQrdo4/view) were checked against this sheet: every row is already in it, so nothing was added (the acquisition post is kept at the newer view count). The PowerSession the sheet dates Apr 28 2025 is Notion EC-278 (Apr 24 2025); its date here is set to the Notion date so it lands on that placement.",
+ "notes": "Read from the workbook by scripts/read-legacy-xlsx.py. content 5, email 3, events 2, website 6. Left out, no clean number or date (2): Podcasts & Interviews / 2025-08-05 00:00:00; Events / Thank you for choosing Energy Central!. The sheet's 'likes and comments' is one figure, stored as likes. Lead links were not read. LocusView was merged into Itron (Chloe, Nov 13 2026): the 2025 rows from the archived Locusview report (https://drive.google.com/file/d/1GQWLi8ENI3Kn4IRL3Onl_prYwoGQrdo4/view) were checked against this sheet: every row is already in it, so nothing was added (the acquisition post is kept at the newer view count). The PowerSession the sheet dates Apr 28 2025 is Notion EC-278 (Apr 24 2025); its date here is set to the Notion date so it lands on that placement. The Mar 2026 podcast row comes from the archived Locusview report.",
  "rows": [
   {
    "tab": "website",
@@ -152,6 +152,18 @@
    },
    "title": "White Paper | The 21st Century Grid is Here: Do you have 21st Century Construction Management?",
    "live_url": "https://www.energycentral.com/energy-biz/post/white-paper-the-21st-century-grid-is-here-do-you-have-21st-century-ytoCRqSSI3M6ZGK"
+  },
+  {
+   "tab": "podcast",
+   "date": "2026-03-06",
+   "metrics": {
+    "plays": 389,
+    "short_form_views": 140,
+    "impressions": 41867,
+    "clicks": 30
+   },
+   "title": "The digital tools that are reshaping grid construction",
+   "live_url": "https://www.energycentral.com/podcasts/post/the-digital-tools-that-are-reshaping-grid-construction-Hv0DDK0JHx2PNlK"
   }
  ]
 }
