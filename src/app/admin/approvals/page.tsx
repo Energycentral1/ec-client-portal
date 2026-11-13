@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { Empty, TYPE_LABEL } from "@/components/Shell";
 import { ApprovalCells } from "@/components/ApprovalRow";
+import { EditLink } from "@/components/EditLink";
 
 type Row = { id: string; metric: string; value: number; source: string; status: string; flag_reason: string | null;
   clients: { name: string; slug: string } | null;
@@ -31,7 +32,7 @@ export default async function Approvals({ searchParams }: { searchParams: Promis
   return (
     <>
       <h1 className="text-3xl font-semibold">Approvals</h1>
-      <p className="mt-1 max-w-3xl text-sm text-ink/60">Clients only see a number after it is approved here. Flagged numbers look unusual and need a second look. Open the placement to check it, use Edit to correct a number, then approve.</p>
+      <p className="mt-1 max-w-3xl text-sm text-ink/60">Clients only see a number after it is approved here. Flagged numbers look unusual and need a second look. Open the placement to check it. Anything with a pencil can be changed: Edit number corrects the number before you approve it, and Edit title, link and other numbers opens the whole placement.</p>
       <form action="/admin/approvals" className="mt-4 flex flex-wrap items-center gap-2">
         <select name="client" defaultValue={sp.client ?? ""} aria-label="Client" className="rounded-lg border border-line bg-white px-3 py-2 text-sm">
           <option value="">All clients</option>
@@ -58,8 +59,8 @@ export default async function Approvals({ searchParams }: { searchParams: Promis
                       {link ? <a href={link} target="_blank" rel="noreferrer" className={a}>{d?.deliverable_type === "newsletter_ad" ? "Open the issue" : "Open it"}</a> : <span className="text-ink/40">No link saved</span>}
                       {d?.short_link_id && <a href={`https://app.short.io/users/dashboard/1327932/links/${d.short_link_id}/statistics`} target="_blank" rel="noreferrer" className={a} title={d.short_link ?? undefined}>Click stats</a>}
                       {d?.notion_page_id && <a href={`https://www.notion.so/${d.notion_page_id.replace(/-/g, "")}`} target="_blank" rel="noreferrer" className={a}>{d.inventory_tag ?? "Notion"}</a>}
-                      {r.clients && <Link href={`/admin/enter?client=${r.clients.slug}&q=${encodeURIComponent(d?.inventory_tag ?? d?.start_date ?? "")}`} className={a}>Edit placement</Link>}
                     </span>
+                    {r.clients && <EditLink href={`/admin/enter?client=${r.clients.slug}&q=${encodeURIComponent(d?.inventory_tag ?? d?.start_date ?? "")}`} className="mt-1.5 !px-2 !py-1 !text-xs">Edit title, link and other numbers</EditLink>}
                   </td>
                   <ApprovalCells id={r.id} value={Number(r.value)} metric={r.metric.replace(/_/g, " ")} source={SOURCE[r.source] ?? r.source} flag={r.status === "flagged" ? r.flag_reason ?? "Flagged" : null} />
                 </tr>

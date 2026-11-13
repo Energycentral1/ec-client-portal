@@ -104,7 +104,7 @@ export default async function ManualEntry({ searchParams }: { searchParams: Prom
           {CHANNELS.map((ch) => { const lines = g.rows.filter((d) => ch.types.includes(d.deliverable_type)); if (!lines.length) return null;
             const need = lines.filter(missing).length;
             return (
-              <section key={ch.id} className="mt-6">
+              <section key={ch.id} id={ch.id} className="mt-6 scroll-mt-16">
                 <h3 className="flex items-baseline gap-3 text-base font-semibold">{ch.title}<span className="text-sm font-normal text-ink/50">{lines.length} {lines.length === 1 ? "placement" : "placements"}{need ? `, ${need} missing results` : ""}</span></h3>
                 <div className="mt-2 overflow-x-auto rounded-xl border border-line bg-white">
                   <table className="w-full min-w-[900px] text-left text-sm">

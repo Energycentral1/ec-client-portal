@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { reviewMetric } from "@/app/admin/approvals/actions";
+import { Pencil, editClass } from "@/components/EditLink";
 
 /** The number and decision cells of one Approvals row. "Edit" turns the number into a box; Approve then saves the corrected
  *  number and approves it in one step. */
@@ -14,7 +15,8 @@ export function ApprovalCells({ id, value, metric, source, flag }: { id: string;
           <input form={form} name="value" defaultValue={value} inputMode="numeric" autoFocus aria-label={`Corrected ${metric}`}
             className="w-28 rounded-lg border border-sky px-2 py-1.5 text-right tabular-nums outline-none focus:ring-2 focus:ring-sky/30" />
         ) : <span className="font-medium tabular-nums">{Number(value).toLocaleString("en-US")}</span>} {metric}
-        <span className="block text-xs text-ink/50">from {source} · <button type="button" onClick={() => setEditing((v) => !v)} className="text-navy underline">{editing ? "Cancel" : "Edit"}</button></span>
+        <span className="block text-xs text-ink/50">from {source}</span>
+        <button type="button" onClick={() => setEditing((v) => !v)} aria-pressed={editing} className={`${editClass} mt-1.5 !px-2 !py-1 !text-xs`}>{editing ? "Cancel edit" : <><Pencil />Edit number</>}</button>
       </td>
       <td className="px-4 py-3">{flag ? <span className="rounded bg-sun/60 px-1.5 py-0.5">{flag}</span> : <span className="text-ink/50">New</span>}</td>
       <td className="px-4 py-3">

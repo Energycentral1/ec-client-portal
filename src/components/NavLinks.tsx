@@ -3,11 +3,11 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
 /** Top navigation with the current section marked. Anything scoped to one client (its page, its Manual entry, its Logins)
- *  counts as "Clients", so the top bar stays put while you move between a client's tabs. */
+ *  counts as "Home" (where the client list is), so the top bar stays put while you move between a client's tabs. */
 export function NavLinks({ nav }: { nav: { href: string; label: string; badge?: number }[] }) {
   const path = usePathname();
   const client = useSearchParams().get("client");
-  const inClient = path.startsWith("/admin/clients/") || !!client;
+  const inClient = path.startsWith("/admin/clients/") || (!!client && !path.startsWith("/admin/creative"));
   const active = (href: string) => (inClient ? href === "/admin" : href === "/admin" ? path === "/admin" : path.startsWith(href));
   return (
     <nav className="flex flex-wrap gap-x-1 gap-y-1 text-sm">

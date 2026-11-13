@@ -17,7 +17,7 @@ export default async function AdminClient({ params, searchParams }: { params: Pr
         meta={<>{client.is_active ? "Live" : "Past"} · {logins.length ? `${logins.length} client login${logins.length === 1 ? "" : "s"}` : "No client logins yet"}
           {client.customer_report_sheet_url && <> · <a className="text-navy hover:underline" href={client.customer_report_sheet_url} target="_blank" rel="noreferrer">Old report</a></>}</>} />
       <div className="mt-6">
-        <ClientView clientId={client.id} clientName={client.name} showAll preview={preview} approvedOnly={sp.approved === "1"} period={sp.period ?? null}
+        <ClientView clientId={client.id} clientName={client.name} showAll preview={preview} approvedOnly={sp.approved === "1"} period={sp.period ?? null} editHref={`/admin/enter?client=${slug}`}
           basePath={`/admin/clients/${slug}?${preview ? "view=client&" : ""}${preview && sp.approved === "1" ? "approved=1&" : ""}`} />
       </div>
     </>

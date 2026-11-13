@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { EditLink } from "@/components/EditLink";
 
 export type ClientTab = "team" | "client" | "entry" | "logins";
 
@@ -19,7 +20,10 @@ export function ClientTabs({ slug, name, active, meta, period }: { slug: string;
         <svg aria-hidden width="16" height="16" viewBox="0 0 16 16"><path d="M9.5 3.5L5 8l4.5 4.5M5.5 8H13" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
         All clients
       </Link>
-      <h1 className="mt-1 text-3xl font-semibold">{name}</h1>
+      <div className="mt-1 flex flex-wrap items-center justify-between gap-3">
+        <h1 className="text-3xl font-semibold">{name}</h1>
+        {(active === "team" || active === "client") && <EditLink href={`/admin/enter?client=${slug}`}>Edit numbers, titles and links</EditLink>}
+      </div>
       {meta && <p className="mt-1 text-sm text-ink/60">{meta}</p>}
       <nav aria-label={`${name} views`} className="mt-5 flex flex-wrap gap-x-6 border-b border-line text-sm">
         {tabs.map((t) => (

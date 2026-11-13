@@ -3,6 +3,7 @@ import { Empty, fmt, TYPE_LABEL } from "@/components/Shell";
 import { LeadsTable, type LeadRow } from "@/components/LeadsTable";
 import { ProofCard, PROOF_STATUS, type Proof } from "@/components/Proofs";
 import { ProofForm } from "@/components/ProofForm";
+import { EditLink } from "@/components/EditLink";
 import { CountUp } from "@/components/CountUp";
 import { companyTypeOf, seniorityOf } from "@/lib/leadProfile";
 
@@ -95,8 +96,10 @@ function Timeline({ lanes, today }: { lanes: { title: string; color: string; lin
 
 /** Campaign results for one client. Used by the client portal and by admins previewing a client.
  *  showAll=true (admin) includes numbers that aren't approved yet; clients never receive those rows from the database. */
-export async function ClientView({ clientId, clientName, showAll, preview = false, approvedOnly = false, period = null, basePath }: {
+export async function ClientView({ clientId, clientName, showAll, preview = false, approvedOnly = false, period = null, basePath, editHref }: {
   clientId: string; clientName: string; showAll: boolean; preview?: boolean; approvedOnly?: boolean;
+  /** Team only: where this client's numbers are edited (Manual entry). Each channel gets a labelled Edit button to it. */
+  editHref?: string;
   /** A year ("2026"), "all", or null for the year in progress. */
   period?: string | null;
   /** Where the period picker links to, ending in "?" or "&" so "period=..." can be appended. */
@@ -451,7 +454,10 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
         const showLeads = ch.id === "events" && ls.some((l) => leadsFor(l) > 0);
         return (
           <section key={ch.id} id={ch.id} className="mt-10 scroll-mt-16">
-            <h2 className="font-display text-2xl">{ch.title}</h2>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <h2 className="font-display text-2xl">{ch.title}</h2>
+              {showAll && editHref && <EditLink href={`${editHref}#${ch.id}`} className="!px-2 !py-1 !text-xs">Edit {ch.title.toLowerCase()}</EditLink>}
+            </div>
             {withNumbers.length > 0 && (
               <p className="mt-1 text-sm text-ink/70">
                 {cols.map(([k, label]) => <span key={k} className="mr-5 whitespace-nowrap"><span className="text-base font-semibold tabular-nums text-ink">{fmt(sum(withNumbers, k))}</span> {label.toLowerCase()}</span>)}
