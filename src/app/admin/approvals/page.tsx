@@ -3,6 +3,8 @@ import { createClient } from "@/lib/supabase/server";
 import { Empty, TYPE_LABEL } from "@/components/Shell";
 import { ApprovalCells } from "@/components/ApprovalRow";
 import { EditLink } from "@/components/EditLink";
+import { ResultsTabs } from "@/components/ResultsTabs";
+import { approveAll } from "@/app/admin/approvals/actions";
 
 type Row = { id: string; metric: string; value: number; source: string; status: string; flag_reason: string | null;
   clients: { name: string; slug: string } | null;
@@ -22,6 +24,8 @@ export default async function Approvals({ searchParams }: { searchParams: Promis
   if (current) query = query.eq("client_id", current.id);
   const { data } = await query;
   const rows = (data ?? []) as unknown as Row[];
+  const { count: total } = await supabase.from("metrics").select("id", { count: "exact", head: true }).in("status", ["pending", "flagged"]);
+  const clean = rows.filter((r) => r.status === "pending").length;
   // Newsletter ads open the issue they ran in.
   const dates = [...new Set(rows.filter((r) => r.deliverables?.deliverable_type === "newsletter_ad" && r.deliverables.start_date).map((r) => r.deliverables!.start_date!))];
   const { data: issues } = dates.length ? await supabase.from("newsletter_issues").select("publication, issue_date, web_url").in("issue_date", dates) : { data: [] };
@@ -31,8 +35,8 @@ export default async function Approvals({ searchParams }: { searchParams: Promis
   const a = "text-navy underline decoration-navy/30 underline-offset-2 hover:decoration-navy";
   return (
     <>
-      <h1 className="text-3xl font-semibold">Approvals</h1>
-      <p className="mt-1 max-w-3xl text-sm text-ink/60">Clients only see a number after it is approved here. Flagged numbers look unusual and need a second look. Open the placement to check it. Anything with a pencil can be changed: Edit number corrects the number before you approve it, and Edit title, link and other numbers opens the whole placement.</p>
+      <ResultsTabs active="approve" waiting={total ?? rows.length} />
+      <p className="mt-4 max-w-3xl text-sm text-ink/60">Clients only see a result after it is approved here. Flagged results look unusual and need a second look. Open the placement to check it. Anything with a pencil can be changed: Edit number corrects the number before you approve it, and Edit title, link and other results opens the whole placement.</p>
       <form action="/admin/approvals" className="mt-4 flex flex-wrap items-center gap-2">
         <select name="client" defaultValue={sp.client ?? ""} aria-label="Client" className="rounded-lg border border-line bg-white px-3 py-2 text-sm">
           <option value="">All clients</option>
@@ -41,7 +45,14 @@ export default async function Approvals({ searchParams }: { searchParams: Promis
         <button className="rounded-lg bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark">Show</button>
         <span className="text-sm text-ink/60">{rows.length === 300 ? "Showing the first 300" : `${rows.length} waiting`}{current ? ` for ${current.name}` : ""}</span>
       </form>
-      {rows.length === 0 ? <div className="mt-6"><Empty>Nothing waiting for review.</Empty></div> : (
+      {current && clean > 0 && (
+        <form action={approveAll} className="mt-3 flex flex-wrap items-center gap-3 rounded-xl border border-line bg-white px-4 py-3 text-sm">
+          <input type="hidden" name="client" value={current.slug} />
+          <button className="rounded-lg bg-navy px-4 py-2 font-medium text-white hover:bg-navy-dark">Approve all {clean} for {current.name}</button>
+          <span className="text-ink/60">{clean < rows.length ? `The ${rows.length - clean} flagged as unusual stay here for a closer look.` : "Use this once you have looked them over."}</span>
+        </form>
+      )}
+      {rows.length === 0 ? <div className="mt-6"><Empty>{current ? `Nothing is waiting for ${current.name}.` : "Nothing is waiting for approval."}</Empty></div> : (
         <div className="mt-4 overflow-x-auto rounded-xl border border-line bg-white">
           <table className="w-full min-w-[860px] text-left text-sm">
             <thead className="border-b border-line text-ink/60">
@@ -60,7 +71,7 @@ export default async function Approvals({ searchParams }: { searchParams: Promis
                       {d?.short_link_id && <a href={`https://app.short.io/users/dashboard/1327932/links/${d.short_link_id}/statistics`} target="_blank" rel="noreferrer" className={a} title={d.short_link ?? undefined}>Click stats</a>}
                       {d?.notion_page_id && <a href={`https://www.notion.so/${d.notion_page_id.replace(/-/g, "")}`} target="_blank" rel="noreferrer" className={a}>{d.inventory_tag ?? "Notion"}</a>}
                     </span>
-                    {r.clients && <EditLink href={`/admin/enter?client=${r.clients.slug}&q=${encodeURIComponent(d?.inventory_tag ?? d?.start_date ?? "")}`} className="mt-1.5 !px-2 !py-1 !text-xs">Edit title, link and other numbers</EditLink>}
+                    {r.clients && <EditLink href={`/admin/enter?client=${r.clients.slug}&q=${encodeURIComponent(d?.inventory_tag ?? d?.start_date ?? "")}`} className="mt-1.5 !px-2 !py-1 !text-xs">Edit title, link and other results</EditLink>}
                   </td>
                   <ApprovalCells id={r.id} value={Number(r.value)} metric={r.metric.replace(/_/g, " ")} source={SOURCE[r.source] ?? r.source} flag={r.status === "flagged" ? r.flag_reason ?? "Flagged" : null} />
                 </tr>

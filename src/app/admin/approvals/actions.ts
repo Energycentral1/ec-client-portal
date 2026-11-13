@@ -16,5 +16,17 @@ export async function reviewMetric(formData: FormData) {
   const supabase = await createClient();
   const { error } = await supabase.from("metrics").update(patch).eq("id", String(formData.get("id")));
   if (error) throw new Error(error.message);
-  revalidatePath("/admin/approvals");
+  revalidatePath("/admin", "layout");
+}
+
+/** Approve every result waiting for one client in one go. Results flagged as unusual are left for a person to look at. */
+export async function approveAll(formData: FormData) {
+  const profile = await getProfile();
+  if (profile?.role !== "admin") throw new Error("Admins only");
+  const supabase = await createClient();
+  const { data: client } = await supabase.from("clients").select("id").eq("slug", String(formData.get("client"))).maybeSingle();
+  if (!client) throw new Error("No such client");
+  const { error } = await supabase.from("metrics").update({ status: "approved", approved_by: profile.id, approved_at: new Date().toISOString() }).eq("client_id", client.id).eq("status", "pending");
+  if (error) throw new Error(error.message);
+  revalidatePath("/admin", "layout");
 }

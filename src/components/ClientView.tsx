@@ -360,14 +360,14 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
       )}
       {showAll && preview && (
         <p className="mt-3 rounded-lg border border-line bg-white px-3 py-2 text-sm text-ink/80">
-          {approvedOnly ? <>Showing approved numbers only: this is what the client sees today.</>
-            : waitingCount > 0 ? <>This is how the page will look once everything is approved. <strong>{waitingCount.toLocaleString("en-US")} {waitingCount === 1 ? "number is" : "numbers are"} still waiting</strong>, and the client can&rsquo;t see those yet.</>
+          {approvedOnly ? <>Showing approved results only: this is what the client sees today.</>
+            : waitingCount > 0 ? <>This is how the page will look once everything is approved. <strong>{waitingCount.toLocaleString("en-US")} {waitingCount === 1 ? "result is" : "results are"} still waiting</strong>, and the client can&rsquo;t see those yet.</>
             : <>Everything here is approved: this is what the client sees.</>}
-          {" "}{waitingCount > 0 && <a href={approvedOnly ? basePath.replace(/approved=1&?/, "") : `${basePath}approved=1`} className="text-navy underline">{approvedOnly ? "Show with waiting numbers" : "Show approved only"}</a>}
-          {waitingCount > 0 && <> · <a href="/admin/approvals" className="text-navy underline">Go to Approvals</a></>}
+          {" "}{waitingCount > 0 && <a href={approvedOnly ? basePath.replace(/approved=1&?/, "") : `${basePath}approved=1`} className="text-navy underline">{approvedOnly ? "Show with waiting results" : "Show approved only"}</a>}
+          {waitingCount > 0 && <> · <a href="/admin/approvals" className="text-navy underline">Go to Results</a></>}
         </p>
       )}
-      {showAll && !preview && <p className="mt-3 text-xs text-ink/60">This team view includes numbers still waiting for approval. Clients see approved numbers only.</p>}
+      {showAll && !preview && <p className="mt-3 text-xs text-ink/60">This team view includes results still waiting for approval. Clients see approved results only.</p>}
 
 
       {upcoming.length > 0 && (
@@ -392,7 +392,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
         <div className="mt-10 rounded-3xl bg-navy px-5 py-6 text-white sm:px-8">
           <p className="text-sm text-white/70">Team only</p>
           {lanes.length > 0 && <Timeline lanes={lanes} today={today} />}
-          {ran > withResults && <p className="mt-4 text-sm text-white/70">{ran - withResults} placements that ran have no numbers yet.</p>}
+          {ran > withResults && <p className="mt-4 text-sm text-white/70">{ran - withResults} placements that ran have no results yet.</p>}
         </div>
       )}
 
@@ -494,7 +494,7 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
                         </>
                       ) : (
                         <td colSpan={cols.length + rates.length} className="px-4 py-3 text-right text-ink/50">
-                          {l.due && l.due >= today ? `Results expected ${fmtDate(l.due)}` : admin ? "No numbers yet" : "Results to come"}</td>
+                          {l.due && l.due >= today ? `Results expected ${fmtDate(l.due)}` : admin ? "No results yet" : "Results to come"}</td>
                       )}
                       {showLeads && <td className="px-4 py-3 text-right tabular-nums">{leadsFor(l) > 0 ? <a href="#leads" className="text-navy underline decoration-navy/30 underline-offset-2 hover:decoration-navy">{fmt(leadsFor(l))}</a> : "—"}</td>}
                     </tr>

@@ -7,8 +7,12 @@ import { usePathname, useSearchParams } from "next/navigation";
 export function NavLinks({ nav }: { nav: { href: string; label: string; badge?: number }[] }) {
   const path = usePathname();
   const client = useSearchParams().get("client");
-  const inClient = path.startsWith("/admin/clients/") || (!!client && !path.startsWith("/admin/creative"));
-  const active = (href: string) => (inClient ? href === "/admin" : href === "/admin" ? path === "/admin" : path.startsWith(href));
+  // A client's own page, results editor and logins all count as Clients.
+  const inClient = path.startsWith("/admin/clients/") || (!!client && (path.startsWith("/admin/enter") || path.startsWith("/admin/logins")));
+  const active = (href: string) => inClient ? href === "/admin/clients"
+    : href === "/admin" ? path === "/admin"
+    : href === "/admin/approvals" ? path.startsWith("/admin/approvals") || path.startsWith("/admin/enter")
+    : path.startsWith(href);
   return (
     <nav className="flex flex-wrap gap-x-1 gap-y-1 text-sm">
       {nav.map((n) => (
