@@ -63,7 +63,10 @@ def read(path):
             where = f"{ws.title} / {first[:40]}"
             out = None
             if kind in ("newsletter", "website", "sponsorship"):
-                d, e = date(vals[0]), date(vals[1]) if len(vals) > 1 else None
+                # The second column is an end date only when its header says so ("RUN DATES | LOCATION" tabs have none), and
+                # an "end" before the start is a typo in the sheet, not a flight.
+                d = date(vals[0]); e = date(vals[1]) if len(vals) > 1 and len(heads) > 1 and "END" in heads[1] else None
+                if d and e and e < d: e = None
                 nums = [num(v) for v in vals[2:8]]; nums = [n for n in nums if n is not None]
                 if d and nums:
                     m = {"impressions": whole(nums[0])}
