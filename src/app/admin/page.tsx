@@ -76,7 +76,7 @@ export default async function AdminHome() {
       </p>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-5">
-        <section aria-labelledby="h-approve" className={`${card} lg:col-span-3`}>
+        <section aria-labelledby="h-approve" className={`${card} self-start lg:col-span-3`}>
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line px-5 py-4">
             <h2 id="h-approve" className="text-lg font-semibold">New numbers to approve</h2>
             {numbers > 0 && <Link href="/admin/approvals" className="rounded-lg bg-navy px-3.5 py-2 text-sm font-medium text-white hover:bg-navy-dark">Review all {numbers.toLocaleString("en-US")}</Link>}
@@ -90,7 +90,7 @@ export default async function AdminHome() {
                     <Link href={`/admin/clients/${q.client!.slug}`} className="font-medium hover:underline">{q.client!.name}</Link>
                     <span className="block text-sm text-ink/60">{q.what}{q.flagged > 0 && <span className="ml-2 rounded bg-ember/15 px-1.5 py-0.5 text-xs font-medium text-[#a13a12]">{q.flagged} flagged as unusual</span>}</span>
                   </span>
-                  {q.newest && <span className="text-sm text-ink/50">in {day(q.newest)}</span>}
+                  {q.newest && <span className="text-sm text-ink/50">added {day(q.newest)}</span>}
                   <Link href={`/admin/approvals?client=${q.client!.slug}`} className="rounded-lg border border-line px-3 py-1.5 text-sm font-medium text-navy hover:border-navy">Review</Link>
                 </li>
               ))}
@@ -98,7 +98,7 @@ export default async function AdminHome() {
           )}
         </section>
 
-        <section aria-labelledby="h-creative" className={`${card} lg:col-span-2`}>
+        <section aria-labelledby="h-creative" className={`${card} self-start lg:col-span-2`}>
           <div className="border-b border-line px-5 py-4">
             <h2 id="h-creative" className="text-lg font-semibold">Creative approvals</h2>
             <p className="mt-1 text-sm text-ink/60">Send a client the ad as it will run. They approve it or ask for changes on their page.</p>
