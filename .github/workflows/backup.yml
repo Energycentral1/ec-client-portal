@@ -2,7 +2,8 @@ name: Backup to Google Drive
 
 # Every table as a dated Excel workbook plus a complete data file, saved to a Drive folder Energy Central owns ("Weekly database
 # copies"), and every file uploaded to the portal copied to a second folder beside it ("Uploaded files", a subfolder per client).
-# Needs two secrets that are not set until the Drive connection is made: GOOGLE_SERVICE_ACCOUNT_JSON and BACKUP_DRIVE_FOLDER_ID.
+# Needs one secret that is not set until the Drive connection is made: GOOGLE_SERVICE_ACCOUNT_JSON (the key of a Google service
+# account that has been added to the backup folder as Content manager).
 # Until then the scheduled run is skipped; "dry_run" builds the files and reports their size without uploading.
 on:
   schedule:
@@ -20,10 +21,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      HAS_DRIVE: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON != '' && secrets.BACKUP_DRIVE_FOLDER_ID != '' }}
+      HAS_DRIVE: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON != '' }}
     steps:
       - if: env.HAS_DRIVE != 'true' && inputs.dry_run != true
-        run: echo "The Drive connection is not set up yet (GOOGLE_SERVICE_ACCOUNT_JSON, BACKUP_DRIVE_FOLDER_ID). Nothing was backed up."
+        run: echo "The Drive connection is not set up yet (GOOGLE_SERVICE_ACCOUNT_JSON). Nothing was backed up."
       - if: env.HAS_DRIVE == 'true' || inputs.dry_run == true
         uses: actions/checkout@v4
       - if: env.HAS_DRIVE == 'true' || inputs.dry_run == true
@@ -39,4 +40,4 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: https://kzaiplniicuuxhprrxxc.supabase.co
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
-          BACKUP_DRIVE_FOLDER_ID: ${{ secrets.BACKUP_DRIVE_FOLDER_ID }}
+          BACKUP_DRIVE_FOLDER_ID: 1uy9tW0xkGcjcmTDpQLtgVQ4_D9LNCOEP   # "EC Client Portal backups" in the Energy Central shared drive
