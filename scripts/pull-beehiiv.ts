@@ -103,6 +103,7 @@ const brandMatches = (p: Post, client: string) => {
 const isDailyIssue = (p: Post) => tagsOf(p).includes("daily newsletter")
   || (!tagsOf(p).length && new Date(p.publish_date * 1000).getUTCHours() >= 10 && new Date(p.publish_date * 1000).getUTCHours() <= 13 && !/promo|paid|webinar|powersession|trivia/i.test(p.title));
 
+const DID_NOT_RUN = /cancel|rolled over|expired/i;
 type Row = { client_id: string; deliverable_id: string; metric: string; value: number; window_start: string; window_end: string; source: string; status: string; flag_reason: string | null; type: string };
 
 async function main() {
@@ -144,14 +145,15 @@ async function main() {
     const dels: any[] = [];
     for (let i = 0; i < ids.length; i += 50) {
       const { data, error: e2 } = await db.from("deliverables")
-        .select("id, client_id, campaign_id, notion_page_id, deliverable_type, deliverable_label, inventory_tag, start_date, ec_brand, short_link, display_title, live_url, beehiiv_post_id, reported_with, metrics(metric, value, source, status)")
+        .select("id, client_id, campaign_id, notion_page_id, deliverable_type, deliverable_label, inventory_tag, start_date, status, ec_brand, short_link, display_title, live_url, beehiiv_post_id, reported_with, metrics(metric, value, source, status)")
         .in("client_id", ids.slice(i, i + 50)).in("deliverable_type", ["newsletter_ad", "email_blast"]).gte("start_date", since).order("start_date");
       if (e2) throw e2;
       dels.push(...(data ?? []));
     }
     // Placements whose numbers are carried by another row of an old report (reported_with) are left alone.
     const visible = dels.filter((d) => (d.campaign_id || !d.notion_page_id) && !d.reported_with);
-    const due = visible.filter((d) => d.start_date <= addDays(today, d.deliverable_type === "newsletter_ad" ? -14 : -7));
+    // A placement Notion marks Cancelled, Rolled Over or Expired did not run on that date: no numbers for it (Nov 13 2026).
+    const due = visible.filter((d) => !DID_NOT_RUN.test(d.status ?? "") && d.start_date <= addDays(today, d.deliverable_type === "newsletter_ad" ? -14 : -7));
     console.log(`Placements due: ${due.length} (${due.filter((d) => d.deliverable_type === "newsletter_ad").length} newsletter ads, ${due.filter((d) => d.deliverable_type === "email_blast").length} paid emails).`);
 
     const rows: Row[] = [];
@@ -241,12 +243,12 @@ async function main() {
     const webDels: any[] = [];
     for (let i = 0; i < ids.length; i += 50) {
       const { data, error: e2 } = await db.from("deliverables")
-        .select("id, client_id, campaign_id, notion_page_id, deliverable_type, deliverable_label, inventory_tag, start_date, end_date, short_link, reported_with, metrics(metric, value, source, status)")
+        .select("id, client_id, campaign_id, notion_page_id, deliverable_type, deliverable_label, inventory_tag, start_date, end_date, status, short_link, reported_with, metrics(metric, value, source, status)")
         .in("client_id", ids.slice(i, i + 50)).eq("deliverable_type", "website_ad").gte("start_date", since).order("start_date");
       if (e2) throw e2;
       webDels.push(...(data ?? []));
     }
-    const webDue = webDels.filter((d) => (d.campaign_id || !d.notion_page_id) && !d.reported_with && (d.end_date ?? d.start_date) <= addDays(today, -14) && !has(d, "clicks"));
+    const webDue = webDels.filter((d) => !DID_NOT_RUN.test(d.status ?? "") && (d.campaign_id || !d.notion_page_id) && !d.reported_with && (d.end_date ?? d.start_date) <= addDays(today, -14) && !has(d, "clicks"));
     console.log(`Website ads due for clicks: ${webDue.length}.`);
     if (webDue.length) {
       const domains = (await sio("https://api.short.io/api/domains")) as any[];
