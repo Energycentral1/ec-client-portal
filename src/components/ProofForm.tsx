@@ -24,7 +24,7 @@ export function ProofForm({ clientId, placements }: { clientId: string; placemen
           </select></label>
         <label className="block">The creative <span className="text-ink/50">(image or PDF, up to 4 MB)</span>
           <input name="file" type="file" accept="image/png,image/jpeg,image/gif,image/webp,application/pdf" className={field} /></label>
-        <label className="block">Or a link to it <span className="text-ink/50">(Figma, Drive, Canva)</span>
+        <label className="block">Or a link to it
           <input name="link_url" type="url" placeholder="https://" className={field} /></label>
         <label className="block">Where it clicks to <span className="text-ink/50">(optional)</span>
           <input name="click_url" type="url" placeholder="https://" className={field} /></label>
