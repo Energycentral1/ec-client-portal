@@ -5,7 +5,7 @@ import { addProof, type ProofFormState } from "@/app/proofs/actions";
 
 const field = "mt-1 w-full rounded-lg border border-line bg-white px-3 py-2 text-sm";
 
-/** Team only: send the creative a client needs to sign off, tied to the Notion inventory item it is for. The creative goes in
+/** Team only: send the creative a client needs to sign off, tied to the placement it is for (picked from Notion inventory). The creative goes in
  *  exactly as it will appear (Chloe, Nov 13 2026): no name to type, no copy fields, no preview layout to choose. */
 export function ProofForm({ clientId, placements }: { clientId: string; placements: { id: string; label: string }[] }) {
   const [state, action, pending] = useActionState<ProofFormState, FormData>(addProof, {});
@@ -17,9 +17,9 @@ export function ProofForm({ clientId, placements }: { clientId: string; placemen
       <p className="mt-1 text-ink/60">Upload the creative exactly as it will run. The client sees it at the top of their page until they approve it or ask for changes.</p>
       <input type="hidden" name="client_id" value={clientId} />
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
-        <label className="block sm:col-span-2">Inventory item <span className="text-ink/50">(what it is for, from Notion)</span>
+        <label className="block sm:col-span-2">Placement <span className="text-ink/50">(from Notion inventory)</span>
           <select name="deliverable_id" className={field} defaultValue="">
-            <option value="">Not tied to an inventory item</option>
+            <option value="">Not tied to a placement</option>
             {placements.map((p) => <option key={p.id} value={p.id}>{p.label}</option>)}
           </select></label>
         <label className="block">The creative <span className="text-ink/50">(image or PDF, up to 4 MB)</span>

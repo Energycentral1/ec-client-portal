@@ -46,7 +46,7 @@ export async function addProof(_prev: ProofFormState, fd: FormData): Promise<Pro
 
   const supabase = await createClient();
   let due = text(fd, "due_date");
-  // The creative is named after the inventory item it is for (Chloe, Nov 13 2026: "what does name mean?"), so nobody types one.
+  // The creative is named after the placement it is for (Chloe, Nov 13 2026: "what does name mean?"), so nobody types one.
   let name = hasFile ? file!.name.replace(/\.[a-z0-9]+$/i, "").replace(/[_-]+/g, " ").trim() || "Creative" : "Creative";
   if (deliverableId) {
     const { data: d } = await supabase.from("deliverables").select("start_date, deliverable_label, display_title").eq("id", deliverableId).single();
