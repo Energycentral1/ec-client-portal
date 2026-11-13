@@ -7,8 +7,9 @@ export type LeadRow = {
   id: string; first_name: string | null; last_name: string | null; email: string; phone: string | null;
   job_title: string | null; company: string | null; company_size: string | null;
   city: string | null; state: string | null; country: string | null;
-  /** How the person came in, in client words: "Attended live", "Registered", "Watched on demand"... */
-  how: string;
+  /** How the person came in, in client words: "Attended live", "Registered", "Watched on demand"... More than one when the
+   *  same person came in twice for the same session (registered on Zoom, then signed up for the recording). */
+  hows: string[];
   /** Kind of organization and seniority, guessed from the company name and job title (see lib/leadProfile). */
   companyType: string; seniority: string;
   event: string; eventDate: string | null; date: string | null; consent: boolean | null;
@@ -19,7 +20,7 @@ const CSV_COLS: [string, (l: LeadRow) => string][] = [
   ["First name", (l) => l.first_name ?? ""], ["Last name", (l) => l.last_name ?? ""], ["Email", (l) => l.email],
   ["Phone", (l) => l.phone ?? ""], ["Job title", (l) => l.job_title ?? ""], ["Company", (l) => l.company ?? ""],
   ["Company type", (l) => l.companyType], ["Seniority", (l) => l.seniority], ["Company size", (l) => l.company_size ?? ""], ["City", (l) => l.city ?? ""], ["State", (l) => l.state ?? ""],
-  ["Country", (l) => l.country ?? ""], ["How they came in", (l) => l.how], ["Source", (l) => l.event],
+  ["Country", (l) => l.country ?? ""], ["How they came in", (l) => l.hows.join(" + ")], ["Source", (l) => l.event],
   ["Date", (l) => when(l) ?? ""], ["Source date", (l) => l.eventDate ?? ""],
   ["Consent to contact", (l) => (l.consent == null ? "" : l.consent ? "Yes" : "No")],
 ];
@@ -41,7 +42,7 @@ export function LeadsTable({ leads, fileName }: { leads: LeadRow[]; fileName: st
 
   const hows = useMemo(() => {
     const m = new Map<string, number>();
-    for (const l of leads) m.set(l.how, (m.get(l.how) ?? 0) + 1);
+    for (const l of leads) for (const h of l.hows) m.set(h, (m.get(h) ?? 0) + 1);
     return [...m.entries()].sort((a, b) => b[1] - a[1]);
   }, [leads]);
   const events = useMemo(() => [...new Set(leads.map((l) => l.event))], [leads]);
@@ -50,7 +51,7 @@ export function LeadsTable({ leads, fileName }: { leads: LeadRow[]; fileName: st
   const companies = useMemo(() => [...tally(leads, (l) => l.company?.trim() || "")].filter(([c]) => c).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])), [leads]);
   const rows = useMemo(() => {
     const s = q.trim().toLowerCase();
-    return leads.filter((l) => (how === "All" || l.how === how) && (event === "All" || l.event === event)
+    return leads.filter((l) => (how === "All" || l.hows.includes(how)) && (event === "All" || l.event === event)
       && (type === "All" || l.companyType === type) && (level === "All" || l.seniority === level) && (company === "All" || l.company?.trim() === company)
       && (!s || [l.first_name, l.last_name, l.email, l.company, l.job_title].some((v) => v?.toLowerCase().includes(s))))
       .sort((a, b) => (when(b) ?? "").localeCompare(when(a) ?? ""));
@@ -105,7 +106,7 @@ export function LeadsTable({ leads, fileName }: { leads: LeadRow[]; fileName: st
           Download {rows.length.toLocaleString("en-US")} as CSV
         </button>
       </div>
-      <p className="mt-2 text-xs text-ink/60">Organization type and seniority are worked out from the company name and job title people gave, so a few will be off.</p>
+      <p className="mt-2 text-xs text-ink/60">Organization type and seniority are worked out from the company name and job title people gave, so a few will be off.{leads.some((l) => l.hows.length > 1) && " Someone who came in two ways for the same session, such as registering and then watching on demand, is listed once with both."}</p>
 
       <div className="mt-3 overflow-x-auto rounded-2xl border border-line bg-white">
         <table className="w-full min-w-[860px] text-left text-sm">
@@ -121,8 +122,9 @@ export function LeadsTable({ leads, fileName }: { leads: LeadRow[]; fileName: st
                 <td className="px-4 py-3">{l.job_title || "—"}<span className="block text-ink/60">{l.company}
                   {l.companyType === UTILITY && <span className="ml-2 rounded bg-sun px-1.5 py-0.5 text-xs font-medium text-ink">Utility</span>}</span></td>
                 <td className="px-4 py-3 text-ink/80">{[l.city, l.state, l.country].filter(Boolean).join(", ") || "—"}</td>
-                <td className="whitespace-nowrap px-4 py-3">
-                  <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${l.how === "Attended live" ? "bg-sun/70" : l.how === "Watched on demand" ? "bg-sky/15 text-navy-dark" : "bg-mist text-ink/70"}`}>{l.how}</span></td>
+                <td className="px-4 py-3">
+                  <span className="flex flex-wrap gap-1">{l.hows.map((h) => (
+                    <span key={h} className={`whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-medium ${h === "Attended live" ? "bg-sun/70" : h === "Watched on demand" ? "bg-sky/15 text-navy-dark" : "bg-mist text-ink/70"}`}>{h}</span>))}</span></td>
                 <td className="max-w-[260px] px-4 py-3 text-ink/80">{l.event}</td>
               </tr>
             ))}

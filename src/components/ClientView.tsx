@@ -221,16 +221,29 @@ export async function ClientView({ clientId, clientName, showAll, preview = fals
   const ranLines = all.filter((l) => l.date && l.date <= today && !l.ids.every((id) => dead.has(id)));
   const ran = ranLines.length; const withResults = ranLines.filter(has).length;
   const lineOf = new Map<string, Line>(all.flatMap((l) => l.ids.map((id) => [id, l] as [string, Line])));
-  const leadsFor = (l: Line) => leadRows.filter((x) => x.deliverable_id && l.ids.includes(x.deliverable_id)).length;
+  const leadsFor = (l: Line) => new Set(leadRows.filter((x) => x.deliverable_id && l.ids.includes(x.deliverable_id)).map((x) => x.email.trim().toLowerCase())).size;
   const inPeriod = new Set(rows.map((d) => d.id));
   const periodLeads = year ? leadRows.filter((l) => l.deliverable_id && inPeriod.has(l.deliverable_id)) : leadRows;
-  const leads: LeadRow[] = periodLeads.map((l) => {
+  // Someone who registered on Zoom and later filled in the on-demand form for the same session is one lead, shown once with
+  // both ways they came in (Chloe, Nov 13 2026: "keep them once but make it clear they downloaded both").
+  const HOW_ORDER = ["Attended live", "Registered", "Watched on demand", "Downloaded content", "Answered survey", "Other"];
+  const merged = new Map<string, LeadRow>();
+  for (const l of periodLeads) {
     const line = l.deliverable_id ? lineOf.get(l.deliverable_id) : undefined;
-    return { id: l.id, first_name: l.first_name, last_name: l.last_name, email: l.email, phone: l.phone, job_title: l.job_title, company: l.company,
-      company_size: l.company_size, city: l.city, state: l.state, country: l.country, how: howLabel(l), companyType: companyTypeOf(l.company), seniority: seniorityOf(l.job_title),
+    const row: LeadRow = { id: l.id, first_name: l.first_name, last_name: l.last_name, email: l.email, phone: l.phone, job_title: l.job_title, company: l.company,
+      company_size: l.company_size, city: l.city, state: l.state, country: l.country, hows: [howLabel(l)], companyType: companyTypeOf(l.company), seniority: seniorityOf(l.job_title),
       event: line ? line.label.replace(new RegExp(`^${clientName} Presents:\\s*`, "i"), "") : "Energy Central", eventDate: line?.date ?? null,
       date: l.submitted_at ? l.submitted_at.slice(0, 10) : null, consent: l.consent };
-  });
+    const key = `${line ? line.ids[0] : l.deliverable_id ?? "none"}|${l.email.trim().toLowerCase()}`;
+    const seen = merged.get(key);
+    if (!seen) { merged.set(key, row); continue; }
+    for (const k of ["first_name", "last_name", "phone", "job_title", "company", "company_size", "city", "state", "country"] as const) seen[k] = seen[k] || row[k];
+    seen.hows = HOW_ORDER.filter((h) => seen.hows.includes(h) || row.hows.includes(h));
+    seen.date = [seen.date, row.date].filter(Boolean).sort()[0] ?? null;
+    seen.consent = seen.consent || row.consent ? true : seen.consent ?? row.consent;
+    seen.companyType = companyTypeOf(seen.company); seen.seniority = seniorityOf(seen.job_title);
+  }
+  const leads: LeadRow[] = [...merged.values()];
 
   const LANE_COLORS = ["#ffe02d", "#ffffff", "#fd713b", "#9cc4fb", "#9cc4fb", "#9cc4fb", "#9cc4fb"];
   const lanes = CHANNELS.map((ch, i) => ({ title: ch.title, color: LANE_COLORS[i], lines: [...delivered, ...upcoming].filter((l) => l.date && ch.types.includes(l.type)) })).filter((l) => l.lines.length > 0);
